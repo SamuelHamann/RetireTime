@@ -9,7 +9,8 @@
 
   <ItemGroup>
     <Folder Include="Client\" />
-    <Folder Include="Services\" />
+    <Folder Include="Client\Pages\" />
+    <Folder Include="Client\Shared\" />
   </ItemGroup>
 
 </Project>
