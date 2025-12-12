@@ -1,0 +1,19 @@
+@page "/beginner-guide/introduction"
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+
+<h3>Introduction</h3>
+
+<p class="align-baseline">This beginner's guide will help you fill out all the informations regarding your assets, debts, income, pensions, etc.
+    To insure that you get the most accurate results possible, please take your time to fill out all the sections as accurately as possible.
+</p>
+<button type="button" class="align-baseline" @onclick="NavigateToAssets">
+    Get started!
+</button>
+
+@code {
+    private void NavigateToAssets()
+    {
+        Navigation.NavigateTo("/beginner-guide");
+    }
+}

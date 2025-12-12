@@ -1,0 +1,94 @@
+@page "/beginner-guide"
+@page "/beginner-guide/{Section}"
+@using RetireFront.Components.Pages.BeginnerGuide.Components
+@inject NavigationManager Navigation
+@rendermode InteractiveServer
+
+<h3>MainPage</h3>
+
+<div class="beginner-guide-layout">
+    <nav class="container mb-4" aria-label="Progress">
+        <ol class="breadcrumb bg-light p-3 rounded">
+            <li class="breadcrumb-item @GetActiveClass("assets")">
+                <button type="button" class="btn btn-link p-0 border-0 text-decoration-none" @onclick="@(() => SetCurrentSection("assets"))">
+                    Assets
+                </button>
+            </li>
+            <li class="breadcrumb-item @GetActiveClass("debts")">
+                <button type="button" class="btn btn-link p-0 border-0 text-decoration-none" @onclick="@(() => SetCurrentSection("debts"))">
+                    Debts
+                </button>
+            </li>
+            <li class="breadcrumb-item @GetActiveClass("income")">
+                <button type="button" class="btn btn-link p-0 border-0 text-decoration-none" @onclick="@(() => SetCurrentSection("income"))">
+                    Income
+                </button>
+            </li>
+            <li class="breadcrumb-item @GetActiveClass("recurring-payments")">
+                <button type="button" class="btn btn-link p-0 border-0 text-decoration-none" @onclick="@(() => SetCurrentSection("recurring-payments"))">
+                    Recurring Payments
+                </button>
+            </li>
+        </ol>
+    </nav>
+
+    <main class="container">
+        @if (_currentSection == "assets")
+        {
+            <Assets />
+        }
+        else if (_currentSection == "debts")
+        {
+            <p>Debts section coming soon...</p>
+        }
+        else if (_currentSection == "income")
+        {
+            <p>Income section coming soon...</p>
+        }
+        else if (_currentSection == "recurring-payments")
+        {
+            <p>Recurring Payments section coming soon...</p>
+        }
+    </main>
+
+    <footer class="bg-light text-center p-3 mt-4">
+        <small>&copy; 2024 Blazor Beginner's Guide. All rights reserved.</small>
+    </footer>
+</div>
+
+@code {
+    [Parameter]
+    public string? Section { get; set; }
+    
+    private string _currentSection = "assets";
+
+    protected override void OnInitialized()
+    {
+        _currentSection = Section ?? "assets";
+        Navigation.LocationChanged += HandleLocationChanged;
+    }
+
+    private void HandleLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        var uri = new Uri(e.Location);
+        var segments = uri.AbsolutePath.Split('/');
+        _currentSection = segments.Length > 2 ? segments[2] : "assets";
+        StateHasChanged();
+    }
+
+    private void SetCurrentSection(string section)
+    {
+        _currentSection = section;
+        Navigation.NavigateTo($"/beginner-guide/{section}");
+    }
+
+    private string GetActiveClass(string section)
+    {
+        return _currentSection == section ? "active" : string.Empty;
+    }
+
+    public void Dispose()
+    {
+        Navigation.LocationChanged -= HandleLocationChanged;
+    }
+}
