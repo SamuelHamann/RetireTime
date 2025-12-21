@@ -1,6 +1,6 @@
+using MediatR;
+using RetirementTime.Application.Features.Users.DTOs;
+
 namespace RetirementTime.Application.Features.Users.GetUsers;
 
-public class GetUsersQuery
-{
-    
-}
+public record GetUsersQuery : IRequest<List<GetUserDTO>>;
