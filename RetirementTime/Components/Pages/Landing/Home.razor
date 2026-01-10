@@ -1,0 +1,108 @@
+﻿@page "/"
+@layout HomeLayout
+@inject NavigationManager Navigation
+@rendermode InteractiveServer
+
+<div class="landing-container">
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <h2>RetireTime</h2>
+            </div>
+            <div class="nav-links">
+                <a href="/beginner-guide/introduction" class="nav-link">PLANNING TOOLS</a>
+                <a href="#resources" class="nav-link">RESOURCES</a>
+                <a href="#about" class="nav-link">ABOUT</a>
+                <a href="#contact" class="nav-link">CONTACT</a>
+                <button class="cta-button" @onclick="@(() => Navigation.NavigateTo("/signup"))">START PLANNING</button>
+                <button class="login-button" @onclick="@(() => Navigation.NavigateTo("/login"))">LOGIN</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="hero-section">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    Unlock Your Financial Future With Simple Retirement Planning
+                </h1>
+                <p class="hero-subtitle">
+                    Easy-to-understand tools and guidance for your retirement journey
+                </p>
+                <button class="hero-cta-button" @onclick="@(() => Navigation.NavigateTo("/signup"))">START PLANNING</button>
+            </div>
+            <div class="hero-visual">
+                <div class="dashboard-preview">
+                    <!-- Retirement Dashboard Preview -->
+                    <div class="dashboard-card main-card">
+                        <div class="card-header">
+                            <span class="status-indicator">ON TRACK ✓</span>
+                        </div>
+                        <div class="retirement-rocket">
+                            <div class="rocket-icon">🚀</div>
+                        </div>
+                        <div class="progress-info">
+                            <div class="years-left">12 Years to Retirement</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card savings-card">
+                        <div class="chart-area">
+                            <div class="savings-chart"></div>
+                        </div>
+                        <div class="savings-info">$485,000 Projected</div>
+                    </div>
+                    
+                    <div class="dashboard-card goals-card">
+                        <div class="goal-items">
+                            <div class="goal-item">🏠 Mortgage Paid</div>
+                            <div class="goal-item">✈️ Travel Fund</div>
+                            <div class="goal-item">💰 Emergency Fund</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Credentials Footer -->
+    <footer class="credentials-section">
+        <div class="credentials-content">
+            <div class="credential-item">
+                <div class="credential-icon">📊</div>
+                <div class="credential-text">
+                    <div class="credential-title">Comprehensive Planning</div>
+                    <div class="credential-subtitle">Retirement Calculator & Tools</div>
+                </div>
+            </div>
+            
+            <div class="credential-item">
+                <div class="credential-icon">🎯</div>
+                <div class="credential-text">
+                    <div class="credential-title">Goal-Based Approach</div>
+                    <div class="credential-subtitle">Personalized Strategies</div>
+                </div>
+            </div>
+            
+            <div class="credential-item">
+                <div class="credential-icon">📈</div>
+                <div class="credential-text">
+                    <div class="credential-title">Investment Growth</div>
+                    <div class="credential-subtitle">Compound Interest Calculator</div>
+                </div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-number">$1M+</div>
+                <div class="stat-label">Average Retirement Goal</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-number">30+</div>
+                <div class="stat-label">Years of Planning Experience</div>
+            </div>
+        </div>
+    </footer>
+</div>
