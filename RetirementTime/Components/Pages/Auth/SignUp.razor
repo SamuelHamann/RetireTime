@@ -1,9 +1,9 @@
 @page "/signup"
 @using System.ComponentModel.DataAnnotations
 @using MediatR
-@using Microsoft.EntityFrameworkCore
 @using RetirementTime.Application.Features.Locations.GetCountries
 @using RetirementTime.Application.Features.Subdivisions.GetSubdivisions
+@using RetirementTime.Application.Features.Users.CreateUser
 @using RetirementTime.Domain.Entities.Location
 @layout HomeLayout
 @inject NavigationManager Navigation
@@ -17,6 +17,13 @@
             <h1>Create Your Account</h1>
             <p>Start planning your retirement today</p>
         </div>
+
+        @if (!string.IsNullOrEmpty(_errorMessage))
+        {
+            <div class="alert alert-error">
+                @_errorMessage
+            </div>
+        }
 
         <EditForm Model="@_signupModel" OnValidSubmit="@HandleSignUp" class="signup-form">
             <DataAnnotationsValidator />
@@ -39,6 +46,10 @@
                 <label for="email">Email Address</label>
                 <InputText id="email" type="email" @bind-Value="_signupModel.Email" class="form-input" />
                 <ValidationMessage For="@(() => _signupModel.Email)" />
+                @if (!string.IsNullOrEmpty(_emailErrorMessage))
+                {
+                    <span class="validation-message">@_emailErrorMessage</span>
+                }
             </div>
 
             <div class="form-group">
@@ -92,6 +103,8 @@
     private List<Country> _countries = new();
     private List<Subdivision> _subdivisions = new();
     private readonly SignUpModel _signupModel = new();
+    private string _errorMessage = string.Empty;
+    private string _emailErrorMessage = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
@@ -104,14 +117,42 @@
             if(_subdivisions.Any())
                 _signupModel.State = _subdivisions.First().Id;
         }
-
     }
-
 
     private async Task HandleSignUp()
     {
-        // TODO: Implement signup logic
-        await Task.CompletedTask;
+        // Clear any previous error messages
+        _errorMessage = string.Empty;
+        _emailErrorMessage = string.Empty;
+        
+        var command = new CreateUserCommand
+        {
+            Email = _signupModel.Email,
+            Password = _signupModel.Password,
+            FirstName = _signupModel.FirstName,
+            LastName = _signupModel.LastName,
+            CountryId = _signupModel.Country,
+            SubdivisionId = _signupModel.State
+        };
+
+        var result = await Mediator.Send(command);
+
+        if (result.Success)
+        {
+            Navigation.NavigateTo("/login");
+        }
+        else
+        {
+            // Check if error is email-related
+            if (result.ErrorMessage?.Contains("email", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                _emailErrorMessage = result.ErrorMessage;
+            }
+            else
+            {
+                _errorMessage = result.ErrorMessage ?? "An error occurred during signup. Please try again.";
+            }
+        }
     }
 
     private async Task HandleCountryChanged()
@@ -152,8 +193,5 @@
 
         [Required(ErrorMessage = "State is required")]
         public int State { get; set; }
-
-        [Required(ErrorMessage = "City is required")]
-        public string City { get; set; } = string.Empty;
     }
 }

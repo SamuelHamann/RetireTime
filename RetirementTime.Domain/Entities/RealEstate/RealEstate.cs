@@ -12,6 +12,7 @@ public class RealEstate
     public required double YearlyTaxesPercent { get; set; }
     public required double YearlyAppreciation { get; set; }
     public double YearlyHoaCosts { get; set; }
-
+    public required DateTime CreatedAt { get; set; }
+    public required DateTime UpdatedAt { get; set; }
     
 }

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RetirementTime.Domain.Entities.Location;
 using RetirementTime.Domain.Interfaces;
+using RetirementTime.Domain.Interfaces.Repositories;
 
 namespace RetirementTime.Infrastructure.Repositories;
 

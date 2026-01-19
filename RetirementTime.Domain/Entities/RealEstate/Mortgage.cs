@@ -11,7 +11,9 @@ public class Mortgage
     public double ClosingCosts { get; set; }
     public double AdditionalCosts { get; set; }
     public double AdditionalMonthlyCosts { get; set; }
-
+    public required DateTime CreatedAt { get; set; }
+    public required DateTime UpdatedAt { get; set; }
     
+    public int RealEstateId { get; set; }
     public required RealEstate RealEstate { get; set; }
 }

@@ -1,6 +1,8 @@
 ﻿@page "/"
 @layout HomeLayout
+@using RetirementTime.Services
 @inject NavigationManager Navigation
+@inject AuthService AuthService
 @rendermode InteractiveServer
 
 <div class="landing-container">
@@ -16,7 +18,7 @@
                 <a href="#about" class="nav-link">ABOUT</a>
                 <a href="#contact" class="nav-link">CONTACT</a>
                 <button class="cta-button" @onclick="@(() => Navigation.NavigateTo("/signup"))">START PLANNING</button>
-                <button class="login-button" @onclick="@(() => Navigation.NavigateTo("/login"))">LOGIN</button>
+                <button class="login-button" @onclick="HandleLoginClick">LOGIN</button>
             </div>
         </div>
     </nav>
@@ -106,3 +108,22 @@
         </div>
     </footer>
 </div>
+
+@code {
+    private async Task HandleLoginClick()
+    {
+        AuthService.Initialize();
+        var isAuthenticated = await AuthService.IsAuthenticated();
+        
+        if (isAuthenticated)
+        {
+            // Already logged in, go to beginner page
+            Navigation.NavigateTo("/beginner-guide/introduction");
+        }
+        else
+        {
+            // Not logged in, go to login page
+            Navigation.NavigateTo("/login");
+        }
+    }
+}

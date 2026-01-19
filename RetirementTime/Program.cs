@@ -1,6 +1,7 @@
 using RetireFront.Components;
 using RetirementTime.Application;
 using RetirementTime.Infrastructure;
+using RetirementTime.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddScoped<AuthService>();
 
 
 var app = builder.Build();

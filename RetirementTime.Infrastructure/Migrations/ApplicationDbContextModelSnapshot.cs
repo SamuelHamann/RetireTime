@@ -179,6 +179,201 @@ namespace RetirementTime.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("RetirementTime.Domain.Entities.RealEstate.BuyOrRent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ComparisonTimeframeInYears")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<int>("MortgageId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<double>("PercentDifferenceReinvested")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("PercentDifferenceReinvestedGrowthRate")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("RentId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MortgageId");
+
+                    b.HasIndex("RentId");
+
+                    b.ToTable("buy_or_rent", (string)null);
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.RealEstate.Mortgage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("AdditionalCosts")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("AdditionalMonthlyCosts")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("ClosingCosts")
+                        .HasColumnType("double precision");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<double>("DownPayment")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("InterestRate")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("MonthlyMortgageInsuranceCosts")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<int>("RealEstateId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TermInYears")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RealEstateId");
+
+                    b.ToTable("mortgage", (string)null);
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.RealEstate.RealEstate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<double>("MonthlyElectricityCosts")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("MonthlyInsuranceCosts")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<double>("PercentYearlyExpenses")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<double>("YearlyAppreciation")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("YearlyHoaCosts")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("YearlyTaxesPercent")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("real_estate", (string)null);
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.RealEstate.Rent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<double>("MonthlyElectricityCosts")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("MonthlyInsuranceCosts")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("MonthlyRent")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<double>("YearlyRentIncrease")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("rent", (string)null);
+                });
+
             modelBuilder.Entity("RetirementTime.Domain.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -195,6 +390,44 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("role", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "User"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Admin"
+                        });
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.Session", b =>
+                {
+                    b.Property<Guid>("SessionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("ValidUntil")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC' + INTERVAL '30 minutes'");
+
+                    b.HasKey("SessionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("session", (string)null);
                 });
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.User", b =>
@@ -269,6 +502,47 @@ namespace RetirementTime.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.RealEstate.BuyOrRent", b =>
+                {
+                    b.HasOne("RetirementTime.Domain.Entities.RealEstate.Mortgage", "Mortgage")
+                        .WithMany()
+                        .HasForeignKey("MortgageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RetirementTime.Domain.Entities.RealEstate.Rent", "Rent")
+                        .WithMany()
+                        .HasForeignKey("RentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Mortgage");
+
+                    b.Navigation("Rent");
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.RealEstate.Mortgage", b =>
+                {
+                    b.HasOne("RetirementTime.Domain.Entities.RealEstate.RealEstate", "RealEstate")
+                        .WithMany()
+                        .HasForeignKey("RealEstateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RealEstate");
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.Session", b =>
+                {
+                    b.HasOne("RetirementTime.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.User", b =>

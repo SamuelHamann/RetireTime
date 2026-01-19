@@ -1,6 +1,6 @@
 using RetirementTime.Domain.Entities.Location;
 
-namespace RetirementTime.Domain.Interfaces;
+namespace RetirementTime.Domain.Interfaces.Repositories;
 
 public interface ICountryRepository
 {

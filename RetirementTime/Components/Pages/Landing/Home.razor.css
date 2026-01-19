@@ -87,6 +87,29 @@
     transform: translateY(-2px);
 }
 
+.user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.user-icon:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+.user-svg {
+    width: 24px;
+    height: 24px;
+    color: #2563eb;
+}
+
 /* Hero Section Styles */
 .hero-section {
     max-width: 1200px;

@@ -33,6 +33,19 @@
     font-size: 1rem;
 }
 
+.alert {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.alert-error {
+    background-color: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+}
+
 .signup-form {
     display: flex;
     flex-direction: column;

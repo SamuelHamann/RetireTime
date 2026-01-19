@@ -2,30 +2,30 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using RetirementTime.Domain.Interfaces;
+using RetirementTime.Domain.Interfaces.Repositories;
 using RetirementTime.Infrastructure.Repositories;
 
 namespace RetirementTime.Infrastructure;
 
 public static class DependencyInjection
 {
-    extension(IServiceCollection services)
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        public IServiceCollection AddInfrastructureServices(IConfiguration configuration)
-        {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ApplicationDbContext>(options => 
-                options.UseNpgsql(connectionString));
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        services.AddDbContext<ApplicationDbContext>(options => 
+            options.UseNpgsql(connectionString));
 
-            services.AddRepositories();
+        services.AddRepositories();
         
-            return services;
-        }
+        return services;
+    }
 
-        private IServiceCollection AddRepositories()
-        {
-            services.AddScoped<ICountryRepository, CountryRepository>();
-            services.AddScoped<ISubdivisionRepository, SubdivisionRepository>();
-            return services;
-        }
+    private static IServiceCollection AddRepositories(this IServiceCollection services)
+    {
+        services.AddScoped<ICountryRepository, CountryRepository>();
+        services.AddScoped<ISubdivisionRepository, SubdivisionRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ISessionRepository, SessionRepository>();
+        return services;
     }
 }

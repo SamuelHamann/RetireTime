@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RetirementTime.Domain.Entities;
 using RetirementTime.Domain.Entities.Location;
+using RetirementTime.Domain.Entities.RealEstate;
 
 namespace RetirementTime.Infrastructure;
 
@@ -53,6 +54,138 @@ public class ApplicationDbContext : DbContext
                 .HasMaxLength(50);
         });
         
+        modelBuilder.Entity<RealEstate>(entity =>
+        {
+            entity.ToTable("real_estate");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.Type)
+                .IsRequired()
+                .HasMaxLength(50);
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.Price)
+                .IsRequired();
+            entity.Property(e => e.MonthlyElectricityCosts)
+                .IsRequired();
+            entity.Property(e => e.MonthlyInsuranceCosts)
+                .IsRequired();
+            entity.Property(e => e.PercentYearlyExpenses)
+                .IsRequired();
+            entity.Property(e => e.YearlyTaxesPercent)
+                .IsRequired();
+            entity.Property(e => e.YearlyAppreciation)
+                .IsRequired();
+            entity.Property(e => e.YearlyHoaCosts);
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+        });
+        
+        modelBuilder.Entity<Mortgage>(entity =>
+        {
+            entity.ToTable("mortgage");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.InterestRate)
+                .IsRequired();
+            entity.Property(e => e.TermInYears)
+                .IsRequired();
+            entity.Property(e => e.DownPayment)
+                .IsRequired();
+            entity.Property(e => e.MonthlyMortgageInsuranceCosts);
+            entity.Property(e => e.ClosingCosts);
+            entity.Property(e => e.AdditionalCosts);
+            entity.Property(e => e.AdditionalMonthlyCosts);
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            
+            entity.HasOne(e => e.RealEstate)
+                .WithMany()
+                .HasForeignKey(e => e.RealEstateId);
+        });
+        
+        modelBuilder.Entity<Rent>(entity =>
+        {
+            entity.ToTable("rent");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.MonthlyRent)
+                .IsRequired();
+            entity.Property(e => e.YearlyRentIncrease)
+                .IsRequired();
+            entity.Property(e => e.MonthlyElectricityCosts);
+            entity.Property(e => e.MonthlyInsuranceCosts);
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+        });
+        
+        modelBuilder.Entity<BuyOrRent>(entity =>
+        {
+            entity.ToTable("buy_or_rent");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.PercentDifferenceReinvested)
+                .IsRequired();
+            entity.Property(e => e.PercentDifferenceReinvestedGrowthRate)
+                .IsRequired();
+            entity.Property(e => e.ComparisonTimeframeInYears)
+                .IsRequired();
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            
+            entity.HasOne(e => e.Rent)
+                .WithMany()
+                .HasForeignKey(e => e.RentId);
+            entity.HasOne(e => e.Mortgage)
+                .WithMany()
+                .HasForeignKey(e => e.MortgageId);
+        });
+        
+        modelBuilder.Entity<Session>(entity =>
+        {
+            entity.ToTable("session");
+            entity.HasKey(e => e.SessionId);
+            
+            entity.Property(e => e.UserId)
+                .IsRequired();
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.ValidUntil)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC' + INTERVAL '30 minutes'");
+            
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId);
+        });
+        
         modelBuilder.Entity<User>(entity =>
         {
             entity.ToTable("user");
@@ -89,8 +222,19 @@ public class ApplicationDbContext : DbContext
                 .HasForeignKey(e => e.SpouseId);
         });
         
+        
+        
+        SeedRoleData(modelBuilder);
         SeedLocationData(modelBuilder);
 
+    }
+
+    private static void SeedRoleData(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Role>().HasData(
+            new Role { Id = 1, Name = "User" },
+            new Role { Id = 2, Name = "Admin" }
+        );
     }
 
     private static void SeedLocationData(ModelBuilder modelBuilder)
@@ -126,4 +270,9 @@ public class ApplicationDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<Subdivision> Subdivisions { get; set; }
+    public DbSet<RealEstate> RealEstates { get; set; }
+    public DbSet<Mortgage> Mortgages { get; set; }
+    public DbSet<Rent> Rents { get; set; }
+    public DbSet<BuyOrRent> BuyOrRents { get; set; }
+    public DbSet<Session> Sessions { get; set; }
 }

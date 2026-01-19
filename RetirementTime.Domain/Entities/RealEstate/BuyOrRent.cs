@@ -7,7 +7,12 @@ public class BuyOrRent
     public required double PercentDifferenceReinvested { get; set; }
     public required double PercentDifferenceReinvestedGrowthRate { get; set; }
     public required int ComparisonTimeframeInYears { get; set; }
+    public required DateTime CreatedAt { get; set; }
+    public required DateTime UpdatedAt { get; set; }
     
+    public int RentId { get; set; }
+    public int MortgageId { get; set; }
     public required Rent Rent { get; set; }
-    public required RealEstate RealEstate { get; set; }
+    public required Mortgage Mortgage { get; set; }
+    
 }

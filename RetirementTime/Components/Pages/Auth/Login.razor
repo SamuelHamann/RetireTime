@@ -1,6 +1,13 @@
 @page "/login"
 @using System.ComponentModel.DataAnnotations
+@using MediatR
+@using RetirementTime.Application.Features.Users.Login
+@using RetirementTime.Services
 @layout HomeLayout
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+@inject IMediator Mediator
+@inject AuthService AuthService
 
 <div class="login-container">
     <div class="login-card">
@@ -8,6 +15,13 @@
             <h1>Welcome Back</h1>
             <p>Login to continue your retirement planning</p>
         </div>
+
+        @if (!string.IsNullOrEmpty(_errorMessage))
+        {
+            <div class="alert alert-error">
+                @_errorMessage
+            </div>
+        }
 
         <EditForm Model="@loginModel" OnValidSubmit="@HandleLogin" class="login-form">
             <DataAnnotationsValidator />
@@ -56,14 +70,33 @@
 </div>
 
 @code {
-    [Inject] private NavigationManager Navigation { get; set; } = default!;
-
     private LoginModel loginModel = new();
+    private string _errorMessage = string.Empty;
 
     private async Task HandleLogin()
     {
-        // TODO: Implement login logic
-        await Task.CompletedTask;
+        _errorMessage = string.Empty;
+
+        var command = new LoginCommand
+        {
+            Email = loginModel.Email,
+            Password = loginModel.Password
+        };
+
+        var result = await Mediator.Send(command);
+
+        if (result.Success && result.SessionToken != null)
+        {
+            // Store session token in cookie
+            await AuthService.SetSessionToken(result.SessionToken);
+            
+            // Redirect to beginner guide page
+            Navigation.NavigateTo("/beginner-guide/introduction", true);
+        }
+        else
+        {
+            _errorMessage = result.ErrorMessage ?? "An error occurred during login. Please try again.";
+        }
     }
 
     private async Task HandleGoogleLogin()

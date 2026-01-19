@@ -1,14 +1,40 @@
 using MediatR;
+using Microsoft.Extensions.Logging;
 using RetirementTime.Domain.Entities.Location;
-using RetirementTime.Domain.Interfaces;
+using RetirementTime.Domain.Interfaces.Repositories;
 
 namespace RetirementTime.Application.Features.Subdivisions.GetSubdivisions;
 
-public class GetSubdivisionsHandler(ISubdivisionRepository subdivisionRepository) 
+public partial class GetSubdivisionsHandler(
+    ISubdivisionRepository subdivisionRepository,
+    ILogger<GetSubdivisionsHandler> logger) 
     : IRequestHandler<GetSubdivisionsQuery, List<Subdivision>>
 {
     public async Task<List<Subdivision>> Handle(GetSubdivisionsQuery request, CancellationToken cancellationToken)
     {
-        return await subdivisionRepository.GetSubdivisionsByCountryId(request.CountryId);
+        LogStartingGetSubdivisionsHandlerForCountryId(logger, request.CountryId);
+
+        try
+        {
+            var subdivisions = await subdivisionRepository.GetSubdivisionsByCountryId(request.CountryId);
+            
+            LogSuccessfullyRetrievedSubdivisionsForCountryId(logger, subdivisions.Count, request.CountryId);
+            
+            return subdivisions;
+        }
+        catch (Exception ex)
+        {
+            LogErrorOccurredWhileRetrievingSubdivisionsForCountryId(logger, ex.Message, request.CountryId);
+            return new List<Subdivision>();
+        }
     }
+
+    [LoggerMessage(LogLevel.Information, "Starting GetSubdivisions handler for CountryId: {CountryId}")]
+    static partial void LogStartingGetSubdivisionsHandlerForCountryId(ILogger<GetSubdivisionsHandler> logger, int CountryId);
+
+    [LoggerMessage(LogLevel.Information, "Successfully retrieved {Count} subdivisions for CountryId: {CountryId}")]
+    static partial void LogSuccessfullyRetrievedSubdivisionsForCountryId(ILogger<GetSubdivisionsHandler> logger, int Count, int CountryId);
+
+    [LoggerMessage(LogLevel.Error, "Error occurred while retrieving subdivisions for CountryId: {CountryId} | Exception: {Exception}")]
+    static partial void LogErrorOccurredWhileRetrievingSubdivisionsForCountryId(ILogger<GetSubdivisionsHandler> logger, string Exception, int CountryId);
 }
