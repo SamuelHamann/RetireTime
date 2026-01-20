@@ -83,19 +83,19 @@ public partial class LoginHandler(
         }
     }
 
-    [LoggerMessage(LogLevel.Information, "Starting Login handler for email: {Email}")]
-    static partial void LogStartingLoginHandler(ILogger<LoginHandler> logger, string Email);
+    [LoggerMessage(LogLevel.Information, "Starting Login handler for email: {email}")]
+    static partial void LogStartingLoginHandler(ILogger<LoginHandler> logger, string email);
 
-    [LoggerMessage(LogLevel.Warning, "Login failed - invalid credentials for email: {Email}")]
-    static partial void LogLoginFailedInvalidCredentials(ILogger<LoginHandler> logger, string Email);
+    [LoggerMessage(LogLevel.Warning, "Login failed - invalid credentials for email: {email}")]
+    static partial void LogLoginFailedInvalidCredentials(ILogger<LoginHandler> logger, string email);
 
-    [LoggerMessage(LogLevel.Warning, "Login failed - user inactive for email: {Email}")]
-    static partial void LogLoginFailedUserInactive(ILogger<LoginHandler> logger, string Email);
+    [LoggerMessage(LogLevel.Warning, "Login failed - user inactive for email: {email}")]
+    static partial void LogLoginFailedUserInactive(ILogger<LoginHandler> logger, string email);
 
-    [LoggerMessage(LogLevel.Information, "Successfully logged in user {UserId} with session {SessionId}")]
-    static partial void LogLoginSuccessful(ILogger<LoginHandler> logger, long UserId, string SessionId);
+    [LoggerMessage(LogLevel.Information, "Successfully logged in user {userId} with session {sessionId}")]
+    static partial void LogLoginSuccessful(ILogger<LoginHandler> logger, long userId, string sessionId);
 
-    [LoggerMessage(LogLevel.Error, "Error occurred during login for email: {Email} | Exception: {Exception}")]
-    static partial void LogErrorOccurredDuringLogin(ILogger<LoginHandler> logger, string Exception, string Email);
+    [LoggerMessage(LogLevel.Error, "Error occurred during login for email: {email} | Exception: {exception}")]
+    static partial void LogErrorOccurredDuringLogin(ILogger<LoginHandler> logger, string exception, string email);
 }
 

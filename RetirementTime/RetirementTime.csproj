@@ -6,7 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <RootNamespace>RetireFront</RootNamespace>
+        <RootNamespace>RetirementTime</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

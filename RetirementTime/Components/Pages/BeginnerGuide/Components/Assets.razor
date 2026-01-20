@@ -1,5 +1,44 @@
-<h3>Assets</h3>
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Resources.SharedResources> Localizer
+@rendermode InteractiveServer
+
+<div class="assets-container">
+    <!-- Sub-breadcrumb with dots -->
+    <nav class="sub-breadcrumb" aria-label="Asset steps">
+        <ol class="dot-navigation">
+            @for (int i = 0; i < 5; i++)
+            {
+                var stepIndex = i;
+                <li class="dot-item @GetDotActiveClass(stepIndex)">
+                    <button type="button" 
+                            class="dot-button" 
+                            @onclick="@(() => SetCurrentStep(stepIndex))"
+                            aria-label="Step @(stepIndex + 1)">
+                    </button>
+                </li>
+            }
+        </ol>
+    </nav>
+    
+    <h3>@Localizer["MainPage_Assets_Title"]</h3>
+    
+    <!-- Content based on current step -->
+    <div class="step-content mt-4">
+        <p>@Localizer["MainPage_Assets_StepOf", (_currentStep + 1)]</p>
+        <!-- Placeholder content for each step -->
+    </div>
+</div>
 
 @code {
-    
+    private int _currentStep;
+
+    private void SetCurrentStep(int step)
+    {
+        _currentStep = step;
+    }
+
+    private string GetDotActiveClass(int step)
+    {
+        return step == _currentStep ? "active" : "";
+    }
 }

@@ -1,14 +1,14 @@
 @page "/beginner-guide/introduction"
 @inherits RetirementTime.Components.AuthenticatedComponentBase
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Resources.SharedResources> Localizer
 @rendermode InteractiveServer
 
-<h3>Introduction</h3>
+<h3>@Localizer["Introduction_Title"]</h3>
 
-<p class="align-baseline">This beginner's guide will help you fill out all the informations regarding your assets, debts, income, pensions, etc.
-    To insure that you get the most accurate results possible, please take your time to fill out all the sections as accurately as possible.
-</p>
+<p class="align-baseline">@Localizer["Introduction_Description"]</p>
 <button type="button" class="align-baseline" @onclick="NavigateToAssets">
-    Get started!
+    @Localizer["Introduction_GetStarted"]
 </button>
 
 @code {

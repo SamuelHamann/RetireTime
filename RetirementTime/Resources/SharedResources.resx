@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <!-- Home Page -->
+  <data name="Home_PlanningTools" xml:space="preserve">
+    <value>PLANNING TOOLS</value>
+  </data>
+  <data name="Home_Resources" xml:space="preserve">
+    <value>RESOURCES</value>
+  </data>
+  <data name="Home_About" xml:space="preserve">
+    <value>ABOUT</value>
+  </data>
+  <data name="Home_Contact" xml:space="preserve">
+    <value>CONTACT</value>
+  </data>
+  <data name="Home_StartPlanning" xml:space="preserve">
+    <value>START PLANNING</value>
+  </data>
+  <data name="Home_Login" xml:space="preserve">
+    <value>LOGIN</value>
+  </data>
+  <data name="Home_HeroTitle" xml:space="preserve">
+    <value>Unlock Your Financial Future With Simple Retirement Planning</value>
+  </data>
+  <data name="Home_HeroSubtitle" xml:space="preserve">
+    <value>Easy-to-understand tools and guidance for your retirement journey</value>
+  </data>
+  <data name="Home_StatusOnTrack" xml:space="preserve">
+    <value>ON TRACK ✓</value>
+  </data>
+  <data name="Home_YearsToRetirement" xml:space="preserve">
+    <value>12 Years to Retirement</value>
+  </data>
+  <data name="Home_SavingsProjected" xml:space="preserve">
+    <value>$485,000 Projected</value>
+  </data>
+  <data name="Home_MortgagePaid" xml:space="preserve">
+    <value>🏠 Mortgage Paid</value>
+  </data>
+  <data name="Home_TravelFund" xml:space="preserve">
+    <value>✈️ Travel Fund</value>
+  </data>
+  <data name="Home_EmergencyFund" xml:space="preserve">
+    <value>💰 Emergency Fund</value>
+  </data>
+  <data name="Home_ComprehensivePlanningTitle" xml:space="preserve">
+    <value>Comprehensive Planning</value>
+  </data>
+  <data name="Home_ComprehensivePlanningSubtitle" xml:space="preserve">
+    <value>Retirement Calculator &amp; Tools</value>
+  </data>
+  <data name="Home_GoalBasedTitle" xml:space="preserve">
+    <value>Goal-Based Approach</value>
+  </data>
+  <data name="Home_GoalBasedSubtitle" xml:space="preserve">
+    <value>Personalized Strategies</value>
+  </data>
+  <data name="Home_InvestmentGrowthTitle" xml:space="preserve">
+    <value>Investment Growth</value>
+  </data>
+  <data name="Home_InvestmentGrowthSubtitle" xml:space="preserve">
+    <value>Compound Interest Calculator</value>
+  </data>
+  <data name="Home_AverageGoalNumber" xml:space="preserve">
+    <value>$1M+</value>
+  </data>
+  <data name="Home_AverageGoalLabel" xml:space="preserve">
+    <value>Average Retirement Goal</value>
+  </data>
+  <data name="Home_ExperienceNumber" xml:space="preserve">
+    <value>30+</value>
+  </data>
+  <data name="Home_ExperienceLabel" xml:space="preserve">
+    <value>Years of Planning Experience</value>
+  </data>
+  
+  <!-- Login Page -->
+  <data name="Login_WelcomeBack" xml:space="preserve">
+    <value>Welcome Back</value>
+  </data>
+  <data name="Login_Subtitle" xml:space="preserve">
+    <value>Login to continue your retirement planning</value>
+  </data>
+  <data name="Login_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Login_RememberMe" xml:space="preserve">
+    <value>Remember me</value>
+  </data>
+  <data name="Login_ForgotPassword" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="Login_LoginButton" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Login_OrContinueWith" xml:space="preserve">
+    <value>Or continue with</value>
+  </data>
+  <data name="Login_GoogleSignIn" xml:space="preserve">
+    <value>Sign in with Google</value>
+  </data>
+  <data name="Login_NoAccount" xml:space="preserve">
+    <value>Don't have an account?</value>
+  </data>
+  <data name="Login_SignUpLink" xml:space="preserve">
+    <value>Sign up</value>
+  </data>
+  
+  <!-- SignUp Page -->
+  <data name="SignUp_CreateAccount" xml:space="preserve">
+    <value>Create Your Account</value>
+  </data>
+  <data name="SignUp_Subtitle" xml:space="preserve">
+    <value>Start your retirement planning journey today</value>
+  </data>
+  <data name="SignUp_FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="SignUp_LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="SignUp_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="SignUp_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="SignUp_ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="SignUp_Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="SignUp_SelectCountry" xml:space="preserve">
+    <value>Select a country</value>
+  </data>
+  <data name="SignUp_State" xml:space="preserve">
+    <value>State/Province</value>
+  </data>
+  <data name="SignUp_SelectState" xml:space="preserve">
+    <value>Select a state/province</value>
+  </data>
+  <data name="SignUp_CreateAccountButton" xml:space="preserve">
+    <value>Create Account</value>
+  </data>
+  <data name="SignUp_HaveAccount" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="SignUp_LoginLink" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  
+  <!-- Beginner Guide - Introduction -->
+  <data name="Introduction_Title" xml:space="preserve">
+    <value>Introduction</value>
+  </data>
+  <data name="Introduction_Description" xml:space="preserve">
+    <value>This beginner's guide will help you fill out all the informations regarding your assets, debts, income, pensions, etc. To insure that you get the most accurate results possible, please take your time to fill out all the sections as accurately as possible.</value>
+  </data>
+  <data name="Introduction_GetStarted" xml:space="preserve">
+    <value>Get started!</value>
+  </data>
+  
+  <!-- Beginner Guide - Main Page -->
+  <data name="MainPage_Title" xml:space="preserve">
+    <value>MainPage</value>
+  </data>
+  <data name="MainPage_Assets" xml:space="preserve">
+    <value>Assets</value>
+  </data>
+  <data name="MainPage_Debts" xml:space="preserve">
+    <value>Debts</value>
+  </data>
+  <data name="MainPage_Income" xml:space="preserve">
+    <value>Income</value>
+  </data>
+  <data name="MainPage_RecurringPayments" xml:space="preserve">
+    <value>Recurring Payments</value>
+  </data>
+  <data name="MainPage_DebtsComingSoon" xml:space="preserve">
+    <value>Debts section coming soon...</value>
+  </data>
+  <data name="MainPage_IncomeComingSoon" xml:space="preserve">
+    <value>Income section coming soon...</value>
+  </data>
+  <data name="MainPage_RecurringPaymentsComingSoon" xml:space="preserve">
+    <value>Recurring Payments section coming soon...</value>
+  </data>
+  <data name="MainPage_Copyright" xml:space="preserve">
+    <value>© 2024 Blazor Beginner's Guide. All rights reserved.</value>
+  </data>
+  
+  <!-- Assets Component -->
+  <data name="MainPage_Assets_Title" xml:space="preserve">
+    <value>Assets</value>
+  </data>
+  <data name="MainPage_Assets_StepOf" xml:space="preserve">
+    <value>Step {0} of 5</value>
+  </data>
+</root>
+

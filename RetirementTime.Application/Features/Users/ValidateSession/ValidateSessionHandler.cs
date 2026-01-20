@@ -50,13 +50,13 @@ public partial class ValidateSessionHandler(
     [LoggerMessage(LogLevel.Information, "Starting ValidateSession handler")]
     static partial void LogStartingValidateSessionHandler(ILogger<ValidateSessionHandler> logger);
 
-    [LoggerMessage(LogLevel.Information, "Session validation successful for UserId: {UserId}")]
-    static partial void LogSessionValidationSuccessful(ILogger<ValidateSessionHandler> logger, long UserId);
+    [LoggerMessage(LogLevel.Information, "Session validation successful for UserId: {userId}")]
+    static partial void LogSessionValidationSuccessful(ILogger<ValidateSessionHandler> logger, long userId);
 
     [LoggerMessage(LogLevel.Warning, "Session validation failed - invalid or expired session")]
     static partial void LogSessionValidationFailed(ILogger<ValidateSessionHandler> logger);
 
-    [LoggerMessage(LogLevel.Error, "Error occurred during session validation | Exception: {Exception}")]
-    static partial void LogErrorOccurredDuringSessionValidation(ILogger<ValidateSessionHandler> logger, string Exception);
+    [LoggerMessage(LogLevel.Error, "Error occurred during session validation | Exception: {exception}")]
+    static partial void LogErrorOccurredDuringSessionValidation(ILogger<ValidateSessionHandler> logger, string exception);
 }
 

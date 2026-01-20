@@ -40,11 +40,13 @@ public partial class CreateUserHandler(
                 CountryId = request.CountryId,
                 SubdivisionId = request.SubdivisionId,
                 RoleId = 1, // Default role ID (should be seeded as "User" role)
+                LanguageCode = "en", // Default language is English
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 Role = null!, // Will be loaded by EF Core
-                Country = null! // Will be loaded by EF Core
+                Country = null!, // Will be loaded by EF Core
+                Language = null! // Will be loaded by EF Core
             };
 
             // Save the user

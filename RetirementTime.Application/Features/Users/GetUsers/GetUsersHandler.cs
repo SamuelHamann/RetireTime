@@ -26,6 +26,6 @@ public partial class GetUsersHandler(ILogger<GetUsersHandler> logger)
     [LoggerMessage(LogLevel.Information, "Starting GetUsers handler")]
     static partial void LogStartingGetUsersHandler(ILogger<GetUsersHandler> logger);
 
-    [LoggerMessage(LogLevel.Error, "Error occurred while retrieving users | Exception: {Exception}")]
-    static partial void LogErrorOccurredWhileRetrievingUsers(ILogger<GetUsersHandler> logger, string Exception);
+    [LoggerMessage(LogLevel.Error, "Error occurred while retrieving users | Exception: {exception}")]
+    static partial void LogErrorOccurredWhileRetrievingUsers(ILogger<GetUsersHandler> logger, string exception);
 }

@@ -17,8 +17,11 @@ public class User
     public int CountryId { get; set; }
     public int? SubdivisionId { get; set; }
     public long? SpouseId { get; set; }
+    public required string LanguageCode { get; set; }
+    
     public virtual required Role Role { get; set; }
     public virtual required Country Country { get; set; }
     public virtual Subdivision? Subdivision { get; set; }
     public virtual User? Spouse { get; set; }
+    public virtual required Language Language { get; set; }
 }

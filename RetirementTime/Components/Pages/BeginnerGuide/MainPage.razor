@@ -1,32 +1,34 @@
 @page "/beginner-guide"
 @page "/beginner-guide/{Section}"
 @inherits RetirementTime.Components.AuthenticatedComponentBase
-@using RetireFront.Components.Pages.BeginnerGuide.Components
+@using RetirementTime.Components.Pages.BeginnerGuide.Components
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Resources.SharedResources> Localizer
 @rendermode InteractiveServer
 
-<h3>MainPage</h3>
+<h3>@Localizer["MainPage_Title"]</h3>
 
 <div class="beginner-guide-layout">
     <nav class="container mb-4" aria-label="Progress">
         <ol class="breadcrumb bg-light p-3 rounded">
             <li class="breadcrumb-item @GetActiveClass("assets")">
                 <button type="button" class="btn btn-link p-0 border-0 text-decoration-none" @onclick="@(() => SetCurrentSection("assets"))">
-                    Assets
+                    @Localizer["MainPage_Assets"]
                 </button>
             </li>
             <li class="breadcrumb-item @GetActiveClass("debts")">
                 <button type="button" class="btn btn-link p-0 border-0 text-decoration-none" @onclick="@(() => SetCurrentSection("debts"))">
-                    Debts
+                    @Localizer["MainPage_Debts"]
                 </button>
             </li>
             <li class="breadcrumb-item @GetActiveClass("income")">
                 <button type="button" class="btn btn-link p-0 border-0 text-decoration-none" @onclick="@(() => SetCurrentSection("income"))">
-                    Income
+                    @Localizer["MainPage_Income"]
                 </button>
             </li>
             <li class="breadcrumb-item @GetActiveClass("recurring-payments")">
                 <button type="button" class="btn btn-link p-0 border-0 text-decoration-none" @onclick="@(() => SetCurrentSection("recurring-payments"))">
-                    Recurring Payments
+                    @Localizer["MainPage_RecurringPayments"]
                 </button>
             </li>
         </ol>
@@ -39,20 +41,20 @@
         }
         else if (_currentSection == "debts")
         {
-            <p>Debts section coming soon...</p>
+            <p>@Localizer["MainPage_DebtsComingSoon"]</p>
         }
         else if (_currentSection == "income")
         {
-            <p>Income section coming soon...</p>
+            <p>@Localizer["MainPage_IncomeComingSoon"]</p>
         }
         else if (_currentSection == "recurring-payments")
         {
-            <p>Recurring Payments section coming soon...</p>
+            <p>@Localizer["MainPage_RecurringPaymentsComingSoon"]</p>
         }
     </main>
 
     <footer class="bg-light text-center p-3 mt-4">
-        <small>&copy; 2024 Blazor Beginner's Guide. All rights reserved.</small>
+        <small>@Localizer["MainPage_Copyright"]</small>
     </footer>
 </div>
 

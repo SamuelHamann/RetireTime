@@ -29,12 +29,12 @@ public partial class GetSubdivisionsHandler(
         }
     }
 
-    [LoggerMessage(LogLevel.Information, "Starting GetSubdivisions handler for CountryId: {CountryId}")]
-    static partial void LogStartingGetSubdivisionsHandlerForCountryId(ILogger<GetSubdivisionsHandler> logger, int CountryId);
+    [LoggerMessage(LogLevel.Information, "Starting GetSubdivisions handler for CountryId: {countryId}")]
+    static partial void LogStartingGetSubdivisionsHandlerForCountryId(ILogger<GetSubdivisionsHandler> logger, int countryId);
 
-    [LoggerMessage(LogLevel.Information, "Successfully retrieved {Count} subdivisions for CountryId: {CountryId}")]
-    static partial void LogSuccessfullyRetrievedSubdivisionsForCountryId(ILogger<GetSubdivisionsHandler> logger, int Count, int CountryId);
+    [LoggerMessage(LogLevel.Information, "Successfully retrieved {count} subdivisions for CountryId: {countryId}")]
+    static partial void LogSuccessfullyRetrievedSubdivisionsForCountryId(ILogger<GetSubdivisionsHandler> logger, int count, int countryId);
 
-    [LoggerMessage(LogLevel.Error, "Error occurred while retrieving subdivisions for CountryId: {CountryId} | Exception: {Exception}")]
-    static partial void LogErrorOccurredWhileRetrievingSubdivisionsForCountryId(ILogger<GetSubdivisionsHandler> logger, string Exception, int CountryId);
+    [LoggerMessage(LogLevel.Error, "Error occurred while retrieving subdivisions for CountryId: {countryId} | Exception: {exception}")]
+    static partial void LogErrorOccurredWhileRetrievingSubdivisionsForCountryId(ILogger<GetSubdivisionsHandler> logger, string exception, int countryId);
 }

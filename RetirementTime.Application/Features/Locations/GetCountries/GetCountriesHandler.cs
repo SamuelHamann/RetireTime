@@ -32,9 +32,9 @@ public partial class GetCountriesHandler(
     [LoggerMessage(LogLevel.Information, "Starting GetCountries handler")]
     static partial void LogStartingGetCountriesHandler(ILogger<GetCountriesHandler> logger);
 
-    [LoggerMessage(LogLevel.Information, "Successfully retrieved {Count} countries")]
-    static partial void LogSuccessfullyRetrievedCountries(ILogger<GetCountriesHandler> logger, int Count);
+    [LoggerMessage(LogLevel.Information, "Successfully retrieved {count} countries")]
+    static partial void LogSuccessfullyRetrievedCountries(ILogger<GetCountriesHandler> logger, int count);
 
-    [LoggerMessage(LogLevel.Error, "Error occurred while retrieving countries | Exception: {Exception}")]
-    static partial void LogErrorOccurredWhileRetrievingCountries(ILogger<GetCountriesHandler> logger, string Exception);
+    [LoggerMessage(LogLevel.Error, "Error occurred while retrieving countries | Exception: {exception}")]
+    static partial void LogErrorOccurredWhileRetrievingCountries(ILogger<GetCountriesHandler> logger, string exception);
 }

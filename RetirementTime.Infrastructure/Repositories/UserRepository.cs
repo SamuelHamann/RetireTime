@@ -18,5 +18,11 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
         return await context.Users
             .FirstOrDefaultAsync(u => u.Email == email);
     }
+
+    public async Task<User?> GetUserById(long userId)
+    {
+        return await context.Users
+            .FirstOrDefaultAsync(u => u.Id == userId);
+    }
 }
 

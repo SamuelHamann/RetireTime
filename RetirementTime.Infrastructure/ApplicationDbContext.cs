@@ -201,6 +201,10 @@ public class ApplicationDbContext : DbContext
                 .IsRequired();
             entity.Property(e => e.IsActive)
                 .IsRequired();
+            entity.Property(e => e.LanguageCode)
+                .IsRequired()
+                .HasMaxLength(10)
+                .HasDefaultValue("en");
             entity.Property(e => e.CreatedAt)
                 .IsRequired()
                 .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
@@ -220,12 +224,29 @@ public class ApplicationDbContext : DbContext
             entity.HasOne(e => e.Spouse)
                 .WithMany()
                 .HasForeignKey(e => e.SpouseId);
+            entity.HasOne(e => e.Language)
+                .WithMany()
+                .HasForeignKey(e => e.LanguageCode);
+        });
+        
+        modelBuilder.Entity<Language>(entity =>
+        {
+            entity.ToTable("language");
+            entity.HasKey(e => e.LanguageCode);
+            
+            entity.Property(e => e.LanguageCode)
+                .IsRequired()
+                .HasMaxLength(10);
+            entity.Property(e => e.LanguageName)
+                .IsRequired()
+                .HasMaxLength(50);
         });
         
         
         
         SeedRoleData(modelBuilder);
         SeedLocationData(modelBuilder);
+        SeedLanguageData(modelBuilder);
 
     }
 
@@ -266,6 +287,14 @@ public class ApplicationDbContext : DbContext
         ];
     }
     
+    private static void SeedLanguageData(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Language>().HasData(
+            new Language { LanguageCode = "en", LanguageName = "English" },
+            new Language { LanguageCode = "fr", LanguageName = "French" }
+        );
+    }
+    
     public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Country> Countries { get; set; }
@@ -275,4 +304,5 @@ public class ApplicationDbContext : DbContext
     public DbSet<Rent> Rents { get; set; }
     public DbSet<BuyOrRent> BuyOrRents { get; set; }
     public DbSet<Session> Sessions { get; set; }
+    public DbSet<Language> Languages { get; set; }
 }

@@ -1,5 +1,4 @@
 using MediatR;
-using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 
 namespace RetirementTime.Services;
@@ -113,23 +112,23 @@ public partial class AuthService
     [LoggerMessage(LogLevel.Warning, "No session token found in cookie")]
     static partial void LogNoSessionTokenFound(ILogger<AuthService> logger);
 
-    [LoggerMessage(LogLevel.Information, "Authentication successful for UserId: {UserId}")]
-    static partial void LogAuthenticationSuccessful(ILogger<AuthService> logger, long UserId);
+    [LoggerMessage(LogLevel.Information, "Authentication successful for UserId: {userId}")]
+    static partial void LogAuthenticationSuccessful(ILogger<AuthService> logger, long userId);
 
     [LoggerMessage(LogLevel.Warning, "Authentication failed - invalid or expired session")]
     static partial void LogAuthenticationFailed(ILogger<AuthService> logger);
 
-    [LoggerMessage(LogLevel.Error, "Error during authentication check | Exception: {Exception}")]
-    static partial void LogAuthenticationError(ILogger<AuthService> logger, string Exception);
+    [LoggerMessage(LogLevel.Error, "Error during authentication check | Exception: {exception}")]
+    static partial void LogAuthenticationError(ILogger<AuthService> logger, string exception);
 
-    [LoggerMessage(LogLevel.Information, "Setting session token: {SessionToken}")]
-    static partial void LogSettingSessionToken(ILogger<AuthService> logger, string SessionToken);
+    [LoggerMessage(LogLevel.Information, "Setting session token: {sessionToken}")]
+    static partial void LogSettingSessionToken(ILogger<AuthService> logger, string sessionToken);
 
-    [LoggerMessage(LogLevel.Information, "Session token retrieved from cookie: {SessionToken}")]
-    static partial void LogSessionTokenRetrieved(ILogger<AuthService> logger, string SessionToken);
+    [LoggerMessage(LogLevel.Information, "Session token retrieved from cookie: {sessionToken}")]
+    static partial void LogSessionTokenRetrieved(ILogger<AuthService> logger, string sessionToken);
 
-    [LoggerMessage(LogLevel.Error, "Error retrieving session token from cookie | Exception: {Exception}")]
-    static partial void LogErrorRetrievingSessionToken(ILogger<AuthService> logger, string Exception);
+    [LoggerMessage(LogLevel.Error, "Error retrieving session token from cookie | Exception: {exception}")]
+    static partial void LogErrorRetrievingSessionToken(ILogger<AuthService> logger, string exception);
 
     [LoggerMessage(LogLevel.Information, "Clearing session cookie")]
     static partial void LogClearingSession(ILogger<AuthService> logger);
