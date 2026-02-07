@@ -19,6 +19,7 @@ main {
     height: 3.5rem;
     display: flex;
     align-items: center;
+    gap: 1rem;
 }
 
     .top-row ::deep a, .top-row ::deep .btn-link {
@@ -34,6 +35,26 @@ main {
     .top-row ::deep a:first-child {
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    .top-row .user-greeting {
+        color: #333;
+        font-weight: 500;
+        margin-right: 0.5rem;
+    }
+
+    .top-row .logout-link {
+        color: #d9534f;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.25rem 0.75rem;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+    }
+
+    .top-row .logout-link:hover {
+        background-color: #f5f5f5;
+        color: #c9302c;
     }
 
 @media (max-width: 640.98px) {

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    
+    <!-- Home Page -->
+    <data name="Home_PlanningTools" xml:space="preserve">
+        <value>PLANNING TOOLS</value>
+    </data>
+    <data name="Home_About" xml:space="preserve">
+        <value>ABOUT</value>
+    </data>
+    <data name="Home_Contact" xml:space="preserve">
+        <value>CONTACT</value>
+    </data>
+    <data name="Home_StartPlanning" xml:space="preserve">
+        <value>START PLANNING</value>
+    </data>
+    <data name="Home_Login" xml:space="preserve">
+        <value>LOGIN</value>
+    </data>
+    <data name="Home_HeroTitle" xml:space="preserve">
+        <value>Unlock Your Financial Future With Simple Retirement Planning</value>
+    </data>
+    <data name="Home_HeroSubtitle" xml:space="preserve">
+        <value>Easy-to-understand tools and guidance for your retirement journey</value>
+    </data>
+    <data name="Home_StatusOnTrack" xml:space="preserve">
+        <value>ON TRACK ✓</value>
+    </data>
+    <data name="Home_YearsToRetirement" xml:space="preserve">
+        <value>12 Years to Retirement</value>
+    </data>
+    <data name="Home_SavingsProjected" xml:space="preserve">
+        <value>$485,000 Projected</value>
+    </data>
+    <data name="Home_MortgagePaid" xml:space="preserve">
+        <value>🏠 Mortgage Paid</value>
+    </data>
+    <data name="Home_TravelFund" xml:space="preserve">
+        <value>✈️ Travel Fund</value>
+    </data>
+    <data name="Home_EmergencyFund" xml:space="preserve">
+        <value>💰 Emergency Fund</value>
+    </data>
+    <data name="Home_ComprehensivePlanningTitle" xml:space="preserve">
+        <value>Comprehensive Planning</value>
+    </data>
+    <data name="Home_ComprehensivePlanningSubtitle" xml:space="preserve">
+        <value>Retirement Calculator &amp; Tools</value>
+    </data>
+    <data name="Home_GoalBasedTitle" xml:space="preserve">
+        <value>Goal-Based Approach</value>
+    </data>
+    <data name="Home_GoalBasedSubtitle" xml:space="preserve">
+        <value>Personalized Strategies</value>
+    </data>
+    <data name="Home_InvestmentGrowthTitle" xml:space="preserve">
+        <value>Investment Growth</value>
+    </data>
+    <data name="Home_InvestmentGrowthSubtitle" xml:space="preserve">
+        <value>Compound Interest Calculator</value>
+    </data>
+    <data name="Home_AverageGoalNumber" xml:space="preserve">
+        <value>$1M+</value>
+    </data>
+    <data name="Home_AverageGoalLabel" xml:space="preserve">
+        <value>Average Retirement Goal</value>
+    </data>
+    <data name="Home_ExperienceNumber" xml:space="preserve">
+        <value>30+</value>
+    </data>
+    <data name="Home_ExperienceLabel" xml:space="preserve">
+        <value>Years of Planning Experience</value>
+    </data>
+    <data name="Home_Resources" xml:space="preserve">
+        <value>RESOURCES</value>
+    </data>
+</root>

@@ -285,6 +285,97 @@ protected override async Task OnInitializedAsync()
 - Use interfaces for all cross-layer dependencies
 - Keep business logic in Domain services, not in repositories
 
+### Model Classes for UI Components
+- **Location**: `/RetirementTime/Models/`
+- **Structure**: Mirror the component folder structure
+- **Pattern**: If a component is at `Components/Pages/BeginnerGuide/Components/Assets.razor`, its model should be at `Models/BeginnerGuide/Assets/`
+- **Purpose**: UI-specific data models (not domain entities)
+- **Example**:
+  - Component: `RetirementTime/Components/Pages/BeginnerGuide/Components/Assets.razor`
+  - Model: `RetirementTime/Models/BeginnerGuide/Assets/PropertyData.cs`
+- **Guidelines**:
+  - Create separate model files instead of nested classes in components
+  - Use fully qualified type names (e.g., `System.DateTime`) or add using statements
+  - Models are specific to UI needs and may differ from domain entities
+  - Use for form data binding, view models, and component-specific data structures
+
+### Form Models with Validation
+- **CRITICAL**: When creating any form (login, signup, data entry, etc.), ALWAYS create a dedicated model class in the Models folder
+- **Location Pattern**: 
+  - Page: `Components/Pages/Auth/Login.razor`
+  - Model: `Models/Auth/LoginModel.cs`
+- **Required Components**:
+  1. Model class in separate file (never nested in component)
+  2. Data annotation validation attributes on all properties
+  3. Mirror the component folder structure
+  
+**Validation Attributes to Use**:
+- `[Required(ErrorMessage = "...")]` - For required fields
+- `[EmailAddress(ErrorMessage = "...")]` - For email fields
+- `[MinLength(n, ErrorMessage = "...")]` - For minimum length
+- `[MaxLength(n, ErrorMessage = "...")]` - For maximum length
+- `[Range(min, max, ErrorMessage = "...")]` - For numeric ranges
+- `[RegularExpression(pattern, ErrorMessage = "...")]` - For custom patterns
+- `[Compare("PropertyName", ErrorMessage = "...")]` - For password confirmation
+- `[StringLength(max, MinimumLength = min, ErrorMessage = "...")]` - For string length
+- `[Phone(ErrorMessage = "...")]` - For phone numbers
+- `[Url(ErrorMessage = "...")]` - For URLs
+
+**Example Form Model Structure**:
+```csharp
+using System.ComponentModel.DataAnnotations;
+
+namespace RetirementTime.Models.Auth;
+
+public class LoginModel
+{
+    [Required(ErrorMessage = "Email is required")]
+    [EmailAddress(ErrorMessage = "Invalid email address")]
+    public string Email { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "Password is required")]
+    [MinLength(8, ErrorMessage = "Password must be at least 8 characters")]
+    public string Password { get; set; } = string.Empty;
+
+    public bool RememberMe { get; set; }
+}
+```
+
+**Usage in Blazor Component**:
+```razor
+@using RetirementTime.Models.Auth
+
+<EditForm Model="@loginModel" OnValidSubmit="@HandleSubmit">
+    <DataAnnotationsValidator />
+    
+    <div class="form-group">
+        <label for="email">Email</label>
+        <InputText id="email" @bind-Value="loginModel.Email" />
+        <ValidationMessage For="@(() => loginModel.Email)" />
+    </div>
+    
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    private LoginModel loginModel = new();
+    
+    private async Task HandleSubmit()
+    {
+        // Form is validated, process submission
+    }
+}
+```
+
+**Best Practices**:
+- ✅ Always create models in separate files (not nested classes)
+- ✅ Use descriptive, user-friendly error messages
+- ✅ Initialize string properties to `string.Empty` to avoid null reference warnings
+- ✅ Use `<DataAnnotationsValidator />` in EditForm
+- ✅ Display validation messages with `<ValidationMessage For="..." />`
+- ✅ Localize error messages when possible
+- ✅ Keep validation logic in model, not in component code
+
 ### Error Handling
 - Define custom exceptions in `RetirementTime.Application/Exceptions/`
 - Handle exceptions at the appropriate layer
@@ -301,7 +392,211 @@ protected override async Task OnInitializedAsync()
 - Step-by-step retirement planning process
 - Empower users to make informed decisions without professional help
 
+## Localization and Resource Files
+
+### Resource File Organization
+- **Location**: `/RetirementTime/Resources/`
+- **Structure**: Organize resource files by feature/page area
+- **Supported Languages**: English (Canadian - en-CA), French (Canadian - fr-CA)
+- **Resource Types**:
+  - `.resx` - Default/neutral culture (serves as English Canadian)
+  - `.fr-CA.resx` - French Canadian translations
+  - `.Designer.cs` - Auto-generated strongly-typed resource accessor classes
+
+**IMPORTANT**: Do NOT create `.en-CA.resx` files. The default `.resx` file automatically serves as both the neutral culture and English Canadian culture.
+
+### Resource File Naming Convention
+- **Pattern**: `{FeatureArea}Resources.{culture}.resx`
+- **Examples**:
+  - `LandingResources.resx` (default - serves as English Canadian)
+  - `LandingResources.fr-CA.resx` (French Canadian)
+  - `AuthResources.resx`
+  - `BeginnerGuideResources.resx`
+  - `CommonResources.resx`
+
+**Note**: Only create culture-specific files (like `.fr-CA.resx`) for non-English languages. The default `.resx` file serves as the English Canadian version.
+
+### Resource File Structure
+```
+/Resources/
+  /Landing/
+    LandingResources.resx
+    LandingResources.fr.resx
+    LandingResources.Designer.cs
+  /Auth/
+    AuthResources.resx
+    AuthResources.fr.resx
+    AuthResources.Designer.cs
+  /BeginnerGuide/
+    BeginnerGuideResources.resx
+    BeginnerGuideResources.fr.resx
+    BeginnerGuideResources.Designer.cs
+  /Common/
+    CommonResources.resx
+    CommonResources.fr.resx
+    CommonResources.Designer.cs
+```
+
+### Creating New Resource Files
+
+**IMPORTANT**: When creating new resource files, follow these steps:
+
+1. **Create the resource files** in the appropriate folder under `/RetirementTime/Resources/`
+   - Create `.resx` (default - serves as English Canadian)
+   - Create `.fr-CA.resx` (French Canadian)
+   - **DO NOT** create `.en-CA.resx` - it's not needed and causes conflicts
+
+2. **Configure in .csproj file** - Add entries for each resource file:
+
+```xml
+<ItemGroup>
+  <!-- Main resource file with PUBLIC generator -->
+  <EmbeddedResource Update="Resources\{FeatureArea}\{Name}Resources.resx">
+    <Generator>PublicResXFileCodeGenerator</Generator>
+    <LastGenOutput>{Name}Resources.Designer.cs</LastGenOutput>
+  </EmbeddedResource>
+  
+  <!-- French Canadian translation with PUBLIC generator -->
+  <EmbeddedResource Update="Resources\{FeatureArea}\{Name}Resources.fr-CA.resx">
+    <Generator>PublicResXFileCodeGenerator</Generator>
+    <LastGenOutput>{Name}Resources.fr-CA.Designer.cs</LastGenOutput>
+  </EmbeddedResource>
+</ItemGroup>
+
+<ItemGroup>
+  <!-- Designer file compilation entries -->
+  <Compile Update="Resources\{FeatureArea}\{Name}Resources.Designer.cs">
+    <DesignTime>True</DesignTime>
+    <AutoGen>True</AutoGen>
+    <DependentUpon>{Name}Resources.resx</DependentUpon>
+  </Compile>
+  
+  <Compile Update="Resources\{FeatureArea}\{Name}Resources.fr-CA.Designer.cs">
+    <DesignTime>True</DesignTime>
+    <AutoGen>True</AutoGen>
+    <DependentUpon>{Name}Resources.fr-CA.resx</DependentUpon>
+  </Compile>
+</ItemGroup>
+```
+
+3. **CRITICAL**: Use `PublicResXFileCodeGenerator` instead of `ResXFileCodeGenerator`
+   - This ensures the generated Designer class is `public` instead of `internal`
+   - Required for `IStringLocalizer<T>` to access the resources
+   - Without this, localization will not work properly
+
+4. **Generate Designer files**: Build the project or use Visual Studio/Rider to auto-generate Designer.cs files
+
+5. **Verify Designer class visibility**: Ensure the generated Designer class is marked as `public`:
+```csharp
+[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+[System.Diagnostics.DebuggerNonUserCodeAttribute()]
+[System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+public class {Name}Resources {  // Must be public, not internal
+    // ...
+}
+```
+
+### Resource Key Naming Convention
+- **Pattern**: `{PageArea}_{Element}`
+- **Examples**:
+  - `Home_Login` (Home page, Login button)
+  - `Home_HeroTitle` (Home page, Hero title)
+  - `SignUp_Email` (SignUp page, Email label)
+  - `Login_WelcomeBack` (Login page, Welcome message)
+
+### Using Resources in Blazor Components
+
+**Step 1**: Add necessary using statements:
+```csharp
+@using RetirementTime.Resources.{FeatureArea}
+@using System.Globalization
+```
+
+**Step 2**: Inject the localizer:
+```csharp
+@inject IStringLocalizer<{FeatureArea}Resources> Localizer
+```
+
+**Step 3**: Use in markup:
+```html
+<h1>@Localizer["Home_HeroTitle"]</h1>
+<button>@Localizer["Home_Login"]</button>
+```
+
+**Complete Example**:
+```csharp
+@page "/"
+@using RetirementTime.Resources.Landing
+@inject IStringLocalizer<LandingResources> Localizer
+
+<h1>@Localizer["Home_HeroTitle"]</h1>
+<p>@Localizer["Home_HeroSubtitle"]</p>
+<button>@Localizer["Home_StartPlanning"]</button>
+```
+
+### Localization Best Practices
+
+**CRITICAL RULE: ALL user-facing text MUST be localized. Never hardcode English or French text directly in components.**
+
+1. **One Resource File Per Page/Feature Area**
+   - Landing page → `LandingResources`
+   - Authentication pages → `AuthResources`
+   - Beginner guide → `BeginnerGuideResources`
+   - Common/shared elements → `CommonResources`
+   - **IMPORTANT**: When creating a new page or major feature, ALWAYS create a dedicated resource file for it
+   - **IMPORTANT**: When creating new resource files, ALWAYS use `PublicResXFileCodeGenerator` in the .csproj file (see "Creating New Resource Files" section above)
+
+2. **Resource File Scope**
+   - Create a new resource file for each major page or feature
+   - Use `CommonResources` for truly shared elements (error messages, buttons, etc.)
+   - Don't mix unrelated page content in one resource file
+   - **Every label, button, heading, message, and placeholder must have a resource key**
+
+3. **Maintain Consistency**
+   - Keep the same keys across all language files
+   - Default `.resx` contains English values and serves as both neutral and English Canadian culture
+   - French Canadian translations (`.fr-CA.resx`) should match keys exactly
+   - **Never create `.en-CA.resx` files** - they cause resource lookup conflicts
+
+4. **Translation Quality**
+   - Use proper French translations with correct accents and grammar
+   - Consider cultural differences (e.g., date formats, currency)
+   - Test with both cultures to ensure UI layout accommodates text length
+
+5. **Designer Class Accessibility**
+   - **ALWAYS** use `PublicResXFileCodeGenerator` in .csproj
+   - Verify Designer classes are public after generation
+   - If resources don't load, check Designer class accessibility first
+
+6. **Implementation Checklist**
+   When creating or modifying components:
+   - ✅ Create a new resource file for new pages/features (don't reuse existing ones)
+   - ✅ Configure new resource files with `PublicResXFileCodeGenerator` in .csproj
+   - ✅ Add all text to appropriate .resx file
+   - ✅ Add matching French translation to .fr-CA.resx
+   - ✅ Use `@Localizer["ResourceKey"]` in component
+   - ✅ Never hardcode text strings in the UI
+   - ✅ Include button labels, form labels, headings, messages, placeholders
+   - ✅ Test in both English and French
+
+### Troubleshooting Localization Issues
+
+**Problem**: Resources showing as `[ResourceKey]` instead of actual text
+- **Solution**: Verify Designer class is `public`, not `internal`
+- Check .csproj uses `PublicResXFileCodeGenerator`
+- Rebuild project to regenerate Designer files
+
+**Problem**: Culture not changing
+- **Solution**: Ensure culture is set in middleware/Program.cs
+- Check culture cookie/session management
+- Verify resource files exist for the target culture
+
+**Problem**: Missing translations
+- **Solution**: Ensure all resource keys exist in all language files
+- Check for typos in resource keys
+- Verify .resx files are marked as EmbeddedResource
+
 ---
 
-**Last Updated**: January 17, 2026
+**Last Updated**: January 24, 2026
 

@@ -1,5 +1,12 @@
-@using Microsoft.Extensions.Localization
-@inject IStringLocalizer<Resources.SharedResources> Localizer
+@using RetirementTime.Resources.BeginnerGuide
+@using RetirementTime.Components.Shared
+@using RetirementTime.Application.Features.BeginnerGuide.Assets.UpsertMainResidence
+@using RetirementTime.Application.Features.BeginnerGuide.Assets.GetMainResidence
+@using RetirementTime.Models.BeginnerGuide.Assets
+@using RetirementTime.Services
+@using MediatR
+@inject IStringLocalizer<BeginnerGuideResources> Localizer
+@inject AuthService AuthService
 @rendermode InteractiveServer
 
 <div class="assets-container">
@@ -25,12 +32,228 @@
     <!-- Content based on current step -->
     <div class="step-content mt-4">
         <p>@Localizer["MainPage_Assets_StepOf", (_currentStep + 1)]</p>
-        <!-- Placeholder content for each step -->
+        
+        @if (_isLoading)
+        {
+            <div class="text-center py-4">
+                <p>Loading...</p>
+            </div>
+        }
+        else if (_currentStep == 0)
+        {
+            <!-- Step 1: Main Residence -->
+            <div class="question-section">
+                <h4 class="question-title">@Localizer["Assets_Step1_Question"]</h4>
+                
+                @if (!string.IsNullOrEmpty(_errorMessage))
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @_errorMessage
+                    </div>
+                }
+                
+                <YesNoToggle @bind-Value="_ownsMainResidence" 
+                            YesLabel="@Localizer["Assets_Step1_Yes"]" 
+                            NoLabel="@Localizer["Assets_Step1_No"]" />
+                
+                @if (_ownsMainResidence)
+                {
+                    <div class="property-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="purchasePrice" class="form-label">@Localizer["Assets_Step1_PurchasePrice"]</label>
+                                <div class="input-with-icon">
+                                    <span class="input-icon">$</span>
+                                    <input type="number" 
+                                           id="purchasePrice" 
+                                           class="form-input" 
+                                           @bind="_propertyData.PurchasePrice"
+                                           min="0"
+                                           required />
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="monthlyMortgage" class="form-label">@Localizer["Assets_Step1_MonthlyMortgage"]</label>
+                                <div class="input-with-icon">
+                                    <span class="input-icon">$</span>
+                                    <input type="number" 
+                                           id="monthlyMortgage" 
+                                           class="form-input" 
+                                           @bind="_propertyData.MonthlyMortgagePayments"
+                                           min="0"
+                                           required />
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="mortgageLeft" class="form-label">@Localizer["Assets_Step1_MortgageLeft"]</label>
+                                <div class="input-with-icon">
+                                    <span class="input-icon">$</span>
+                                    <input type="number" 
+                                           id="mortgageLeft" 
+                                           class="form-input" 
+                                           @bind="_propertyData.MortgageLeft"
+                                           min="0"
+                                           required />
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="yearlyInsurance" class="form-label">@Localizer["Assets_Step1_YearlyInsurance"]</label>
+                                <div class="input-with-icon">
+                                    <span class="input-icon">$</span>
+                                    <input type="number" 
+                                           id="yearlyInsurance" 
+                                           class="form-input" 
+                                           @bind="_propertyData.YearlyInsurance"
+                                           min="0"
+                                           required />
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="electricityCosts" class="form-label">
+                                    @Localizer["Assets_Step1_ElectricityCosts"]
+                                    <span class="optional-label">@Localizer["Assets_Step1_Optional"]</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <span class="input-icon">$</span>
+                                    <input type="number" 
+                                           id="electricityCosts" 
+                                           class="form-input" 
+                                           @bind="_propertyData.MonthlyElectricityCosts"
+                                           min="0" />
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="mortgageDuration" class="form-label">@Localizer["Assets_Step1_MortgageDuration"]</label>
+                                <input type="number" 
+                                       id="mortgageDuration" 
+                                       class="form-input" 
+                                       @bind="_propertyData.MortgageDuration"
+                                       min="1"
+                                       required />
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="mortgageStartDate" class="form-label">@Localizer["Assets_Step1_MortgageStartDate"]</label>
+                                <input type="date" 
+                                       id="mortgageStartDate" 
+                                       class="form-input" 
+                                       @bind="_propertyData.MortgageStartDate"
+                                       max="@DateTime.Today.ToString("yyyy-MM-dd")"
+                                       required />
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="estimatedValue" class="form-label">
+                                    @Localizer["Assets_Step1_EstimatedValue"]
+                                    <span class="optional-label">@Localizer["Assets_Step1_Optional"]</span>
+                                </label>
+                                <div class="input-with-icon">
+                                    <span class="input-icon">$</span>
+                                    <input type="number" 
+                                           id="estimatedValue" 
+                                           class="form-input" 
+                                           @bind="_propertyData.EstimatedValue"
+                                           min="0" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn-save" @onclick="SavePropertyData" disabled="@_isSaving">
+                                @if (_isSaving)
+                                {
+                                    <span>Saving...</span>
+                                }
+                                else
+                                {
+                                    @Localizer["Assets_Step1_SaveContinue"]
+                                }
+                            </button>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <!-- Next button when No is selected -->
+                    <div class="form-actions" style="margin-top: 2rem;">
+                        <button type="button" class="btn-next" @onclick="GoToNextStep">
+                            @Localizer["Assets_Step1_Next"]
+                        </button>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <!-- Placeholder content for other steps -->
+            <p class="placeholder-text">@Localizer["Assets_StepComingSoon", (_currentStep + 1)]</p>
+        }
     </div>
 </div>
 
 @code {
+    [Inject] private IMediator Mediator { get; set; } = default!;
+    [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
+
     private int _currentStep;
+    private bool _ownsMainResidence;
+    private PropertyData _propertyData = new();
+    private bool _isSaving;
+    private bool _isLoading = true;
+    private string? _errorMessage;
+    private long _userId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadExistingData();
+        _isLoading = false;
+    }
+
+    private async Task LoadExistingData()
+    {
+        try
+        {
+            var authenticatedUser = await AuthService.GetAuthenticatedUserAsync(AuthenticationState);
+            if (authenticatedUser == null)
+            {
+                return;
+            }
+
+            _userId = authenticatedUser.UserId;
+
+            // Fetch existing main residence data
+            var query = new GetMainResidenceQuery { UserId = _userId };
+            var result = await Mediator.Send(query);
+
+            if (result.MainResidence != null)
+            {
+                // Populate the form with existing data
+                _ownsMainResidence = result.MainResidence.HasMainResidence;
+
+                if (result.MainResidence.HasMainResidence)
+                {
+                    _propertyData.PurchasePrice = result.MainResidence.PurchasePrice ?? 0;
+                    _propertyData.MonthlyMortgagePayments = result.MainResidence.MonthlyMortgagePayments ?? 0;
+                    _propertyData.MortgageLeft = result.MainResidence.MortgageLeft ?? 0;
+                    _propertyData.YearlyInsurance = result.MainResidence.YearlyInsurance ?? 0;
+                    _propertyData.MonthlyElectricityCosts = result.MainResidence.MonthlyElectricityCosts;
+                    _propertyData.MortgageDuration = result.MainResidence.MortgageDuration ?? 0;
+                    _propertyData.MortgageStartDate = result.MainResidence.MortgageStartDate;
+                    _propertyData.EstimatedValue = result.MainResidence.EstimatedValue;
+                }
+            }
+        }
+        catch (Exception)
+        {
+            // Silently fail and start with empty form
+            // Error is logged in the handler
+        }
+    }
 
     private void SetCurrentStep(int step)
     {
@@ -40,5 +263,76 @@
     private string GetDotActiveClass(int step)
     {
         return step == _currentStep ? "active" : "";
+    }
+
+    private async Task SavePropertyData()
+    {
+        _errorMessage = null;
+
+        // Validate required fields if user owns main residence
+        if (_ownsMainResidence)
+        {
+            if (_propertyData.PurchasePrice <= 0 || _propertyData.MonthlyMortgagePayments <= 0 ||
+                _propertyData.MortgageLeft <= 0 || _propertyData.YearlyInsurance <= 0 ||
+                _propertyData.MortgageDuration <= 0 || !_propertyData.MortgageStartDate.HasValue)
+            {
+                _errorMessage = "Please fill in all required fields.";
+                return;
+            }
+        }
+
+        _isSaving = true;
+
+        try
+        {
+            var authenticatedUser = await AuthService.GetAuthenticatedUserAsync(AuthenticationState);
+            if (authenticatedUser == null)
+            {
+                _errorMessage = "Session expired. Please log in again.";
+                _isSaving = false;
+                return;
+            }
+
+            // Create the command
+            var command = new UpsertMainResidenceCommand
+            {
+                UserId = authenticatedUser.UserId,
+                HasMainResidence = _ownsMainResidence,
+                PurchasePrice = _ownsMainResidence ? _propertyData.PurchasePrice : null,
+                MonthlyMortgagePayments = _ownsMainResidence ? _propertyData.MonthlyMortgagePayments : null,
+                MortgageLeft = _ownsMainResidence ? _propertyData.MortgageLeft : null,
+                YearlyInsurance = _ownsMainResidence ? _propertyData.YearlyInsurance : null,
+                MonthlyElectricityCosts = _ownsMainResidence ? _propertyData.MonthlyElectricityCosts : null,
+                MortgageDuration = _ownsMainResidence ? _propertyData.MortgageDuration : null,
+                MortgageStartDate = _ownsMainResidence ? _propertyData.MortgageStartDate : null,
+                EstimatedValue = _ownsMainResidence ? _propertyData.EstimatedValue : null
+            };
+
+            var result = await Mediator.Send(command);
+
+            if (result.Success)
+            {
+                // Move to next step on success
+                SetCurrentStep(_currentStep + 1);
+            }
+            else
+            {
+                _errorMessage = result.ErrorMessage;
+            }
+        }
+        catch (Exception)
+        {
+            _errorMessage = "An unexpected error occurred. Please try again.";
+        }
+        finally
+        {
+            _isSaving = false;
+        }
+    }
+
+    private async Task GoToNextStep()
+    {
+        // Save with HasMainResidence = false
+        await SavePropertyData();
     }
 }

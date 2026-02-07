@@ -11,7 +11,9 @@ public record LoginCommand : IRequest<LoginResult>
 
 public record LoginResult : BaseResult
 {
-    public string? SessionToken { get; init; }
     public long? UserId { get; init; }
+    public string? FirstName { get; init; }
+    public int? RoleId { get; init; }
+    public string? RoleName { get; init; }
 }
 

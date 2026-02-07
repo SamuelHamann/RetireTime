@@ -1,10 +1,8 @@
 ﻿@page "/"
 @layout HomeLayout
-@using RetirementTime.Services
-@using Microsoft.Extensions.Localization
-@inject NavigationManager Navigation
-@inject AuthService AuthService
-@inject IStringLocalizer<Resources.SharedResources> Localizer
+@using RetirementTime.Resources.Landing
+@using System.Globalization
+@inject IStringLocalizer<LandingResources> Localizer
 @rendermode InteractiveServer
 
 <div class="landing-container">
@@ -19,6 +17,9 @@
                 <a href="#resources" class="nav-link">@Localizer["Home_Resources"]</a>
                 <a href="#about" class="nav-link">@Localizer["Home_About"]</a>
                 <a href="#contact" class="nav-link">@Localizer["Home_Contact"]</a>
+                <button class="language-toggle" @onclick="ToggleLanguage" title="Switch Language / Changer de langue">
+                    @_currentLanguageDisplay
+                </button>
                 <button class="cta-button" @onclick="@(() => Navigation.NavigateTo("/signup"))">@Localizer["Home_StartPlanning"]</button>
                 <button class="login-button" @onclick="HandleLoginClick">@Localizer["Home_Login"]</button>
             </div>
@@ -111,21 +112,3 @@
     </footer>
 </div>
 
-@code {
-    private async Task HandleLoginClick()
-    {
-        AuthService.Initialize();
-        var isAuthenticated = await AuthService.IsAuthenticated();
-        
-        if (isAuthenticated)
-        {
-            // Already logged in, go to beginner page
-            Navigation.NavigateTo("/beginner-guide/introduction");
-        }
-        else
-        {
-            // Not logged in, go to login page
-            Navigation.NavigateTo("/login");
-        }
-    }
-}

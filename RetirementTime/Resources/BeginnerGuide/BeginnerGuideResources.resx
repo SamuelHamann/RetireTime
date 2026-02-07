@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    
+    <!-- Beginner Guide - Introduction -->
+    <data name="Introduction_Title" xml:space="preserve">
+        <value>Introduction</value>
+    </data>
+    <data name="Introduction_Description" xml:space="preserve">
+        <value>This beginner's guide will help you fill out all the informations regarding your assets, debts, income, pensions, etc. To insure that you get the most accurate results possible, please take your time to fill out all the sections as accurately as possible.</value>
+    </data>
+    <data name="Introduction_GetStarted" xml:space="preserve">
+        <value>Get started!</value>
+    </data>
+    
+    <!-- Beginner Guide - Main Page -->
+    <data name="MainPage_Title" xml:space="preserve">
+        <value>MainPage</value>
+    </data>
+    <data name="MainPage_Assets" xml:space="preserve">
+        <value>Assets</value>
+    </data>
+    <data name="MainPage_Debts" xml:space="preserve">
+        <value>Debts</value>
+    </data>
+    <data name="MainPage_Income" xml:space="preserve">
+        <value>Income</value>
+    </data>
+    <data name="MainPage_RecurringPayments" xml:space="preserve">
+        <value>Recurring Payments</value>
+    </data>
+    <data name="MainPage_DebtsComingSoon" xml:space="preserve">
+        <value>Debts section coming soon...</value>
+    </data>
+    <data name="MainPage_IncomeComingSoon" xml:space="preserve">
+        <value>Income section coming soon...</value>
+    </data>
+    <data name="MainPage_RecurringPaymentsComingSoon" xml:space="preserve">
+        <value>Recurring Payments section coming soon...</value>
+    </data>
+    <data name="MainPage_Copyright" xml:space="preserve">
+        <value>© 2024 Blazor Beginner's Guide. All rights reserved.</value>
+    </data>
+    
+    <!-- Assets Component -->
+    <data name="MainPage_Assets_Title" xml:space="preserve">
+        <value>Assets</value>
+    </data>
+    <data name="MainPage_Assets_StepOf" xml:space="preserve">
+        <value>Step {0} of 5</value>
+    </data>
+    
+    <!-- Assets Step 1 - Main Residence -->
+    <data name="Assets_Step1_Question" xml:space="preserve">
+        <value>Do you own a property that is considered your main residence?</value>
+    </data>
+    <data name="Assets_Step1_Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="Assets_Step1_No" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="Assets_Step1_PurchasePrice" xml:space="preserve">
+        <value>What was the purchase price?</value>
+    </data>
+    <data name="Assets_Step1_MonthlyMortgage" xml:space="preserve">
+        <value>What are your monthly mortgage payments?</value>
+    </data>
+    <data name="Assets_Step1_MortgageLeft" xml:space="preserve">
+        <value>How much mortgage is left?</value>
+    </data>
+    <data name="Assets_Step1_YearlyInsurance" xml:space="preserve">
+        <value>What is your yearly insurance cost?</value>
+    </data>
+    <data name="Assets_Step1_ElectricityCosts" xml:space="preserve">
+        <value>What is your average monthly electricity payment?</value>
+    </data>
+    <data name="Assets_Step1_Optional" xml:space="preserve">
+        <value>(Optional)</value>
+    </data>
+    <data name="Assets_Step1_MortgageDuration" xml:space="preserve">
+        <value>What is the mortgage duration in years?</value>
+    </data>
+    <data name="Assets_Step1_MortgageStartDate" xml:space="preserve">
+        <value>When did your mortgage start?</value>
+    </data>
+    <data name="Assets_Step1_EstimatedValue" xml:space="preserve">
+        <value>What is the estimated current value?</value>
+    </data>
+    <data name="Assets_Step1_SaveContinue" xml:space="preserve">
+        <value>Save &amp; Continue</value>
+    </data>
+    <data name="Assets_Step1_Next" xml:space="preserve">
+        <value>Next</value>
+    </data>
+    <data name="Assets_StepComingSoon" xml:space="preserve">
+        <value>Step {0} content coming soon...</value>
+    </data>
+</root>

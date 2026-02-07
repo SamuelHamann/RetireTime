@@ -1,135 +1,63 @@
-using MediatR;
-using Microsoft.JSInterop;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Authorization;
+using RetirementTime.Models.Auth;
 
 namespace RetirementTime.Services;
 
-public partial class AuthService
+public class AuthService
 {
-    private readonly IJSRuntime _jsRuntime;
-    private readonly IMediator _mediator;
-    private readonly ILogger<AuthService> _logger;
-    private const string SessionCookieName = "RetireTime_Session";
-    private bool _isInitialized;
-
-    public AuthService(IJSRuntime jsRuntime, IMediator mediator, ILogger<AuthService> logger)
+    /// <summary>
+    /// Validates the authentication state and returns the authenticated user information.
+    /// Returns null if the user is not authenticated or if required claims are missing.
+    /// </summary>
+    public async Task<AuthenticatedUser?> GetAuthenticatedUserAsync(Task<AuthenticationState>? authenticationState)
     {
-        _jsRuntime = jsRuntime;
-        _mediator = mediator;
-        _logger = logger;
-    }
-
-    public void Initialize()
-    {
-        _isInitialized = true;
-    }
-
-    public async Task<bool> IsAuthenticated()
-    {
-        LogCheckingAuthentication(_logger);
-        
-        try
+        if (authenticationState == null)
         {
-            var sessionToken = await GetSessionToken();
-            if (string.IsNullOrEmpty(sessionToken))
-            {
-                LogNoSessionTokenFound(_logger);
-                return false;
-            }
-
-            // Validate session with the application layer
-            var query = new Application.Features.Users.ValidateSession.ValidateSessionQuery
-            {
-                SessionToken = sessionToken
-            };
-
-            var result = await _mediator.Send(query);
-            
-            if (result.IsValid)
-            {
-                LogAuthenticationSuccessful(_logger, result.UserId ?? 0);
-            }
-            else
-            {
-                LogAuthenticationFailed(_logger);
-            }
-            
-            return result.IsValid;
-        }
-        catch (Exception ex)
-        {
-            LogAuthenticationError(_logger, ex.Message);
-            return false;
-        }
-    }
-
-    public async Task SetSessionToken(string sessionToken)
-    {
-        LogSettingSessionToken(_logger, sessionToken);
-        await _jsRuntime.InvokeVoidAsync("RetireTimeCookies.setCookie", 
-            SessionCookieName, sessionToken, 1800);
-    }
-
-    private async Task<string?> GetSessionToken()
-    {
-        if (!_isInitialized)
-        {
-            LogJsInteropNotAvailable(_logger);
             return null;
         }
 
-        try
+        var authState = await authenticationState;
+        var user = authState.User;
+
+        if (user?.Identity?.IsAuthenticated != true)
         {
-            var cookie = await _jsRuntime.InvokeAsync<string?>("RetireTimeCookies.getCookie", 
-                SessionCookieName);
-            
-            if (!string.IsNullOrEmpty(cookie))
-            {
-                LogSessionTokenRetrieved(_logger, cookie);
-            }
-            
-            return cookie;
-        }
-        catch (Exception ex)
-        {
-            LogErrorRetrievingSessionToken(_logger, ex.Message);
             return null;
         }
+
+        // Extract user ID
+        var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+        if (userIdClaim == null || !long.TryParse(userIdClaim.Value, out long userId))
+        {
+            return null;
+        }
+
+        // Extract first name
+        var firstNameClaim = user.FindFirst(ClaimTypes.GivenName);
+        var firstName = firstNameClaim?.Value ?? string.Empty;
+
+        // Extract email
+        var emailClaim = user.FindFirst(ClaimTypes.Email);
+        var email = emailClaim?.Value ?? string.Empty;
+
+        // Extract role information
+        var roleClaim = user.FindFirst(ClaimTypes.Role);
+        var roleName = roleClaim?.Value ?? "User";
+
+        var roleIdClaim = user.FindFirst("RoleId");
+        var roleId = roleIdClaim != null && int.TryParse(roleIdClaim.Value, out int parsedRoleId) 
+            ? parsedRoleId 
+            : 1;
+
+        return new AuthenticatedUser
+        {
+            UserId = userId,
+            FirstName = firstName,
+            Email = email,
+            RoleId = roleId,
+            RoleName = roleName
+        };
     }
-
-    public async Task ClearSession()
-    {
-        LogClearingSession(_logger);
-        await _jsRuntime.InvokeVoidAsync("RetireTimeCookies.deleteCookie", 
-            SessionCookieName);
-    }
-
-    [LoggerMessage(LogLevel.Information, "Checking authentication status")]
-    static partial void LogCheckingAuthentication(ILogger<AuthService> logger);
-
-    [LoggerMessage(LogLevel.Debug, "JavaScript interop not available (prerendering)")]
-    static partial void LogJsInteropNotAvailable(ILogger<AuthService> logger);
-
-    [LoggerMessage(LogLevel.Warning, "No session token found in cookie")]
-    static partial void LogNoSessionTokenFound(ILogger<AuthService> logger);
-
-    [LoggerMessage(LogLevel.Information, "Authentication successful for UserId: {userId}")]
-    static partial void LogAuthenticationSuccessful(ILogger<AuthService> logger, long userId);
-
-    [LoggerMessage(LogLevel.Warning, "Authentication failed - invalid or expired session")]
-    static partial void LogAuthenticationFailed(ILogger<AuthService> logger);
-
-    [LoggerMessage(LogLevel.Error, "Error during authentication check | Exception: {exception}")]
-    static partial void LogAuthenticationError(ILogger<AuthService> logger, string exception);
-
-    [LoggerMessage(LogLevel.Information, "Setting session token: {sessionToken}")]
-    static partial void LogSettingSessionToken(ILogger<AuthService> logger, string sessionToken);
-
-    [LoggerMessage(LogLevel.Information, "Session token retrieved from cookie: {sessionToken}")]
-    static partial void LogSessionTokenRetrieved(ILogger<AuthService> logger, string sessionToken);
-
-    [LoggerMessage(LogLevel.Error, "Error retrieving session token from cookie | Exception: {exception}")]
-    static partial void LogErrorRetrievingSessionToken(ILogger<AuthService> logger, string exception);
-
-    [LoggerMessage(LogLevel.Information, "Clearing session cookie")]
-    static partial void LogClearingSession(ILogger<AuthService> logger);
 }
+

@@ -16,10 +16,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Models\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\RetirementTime.Infrastructure\RetirementTime.Infrastructure.csproj" />
     </ItemGroup>
 
@@ -29,6 +25,84 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\Auth\AuthResources.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>AuthResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Auth\AuthResources.fr-CA.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>AuthResources.fr-CA.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\BeginnerGuide\BeginnerGuideResources.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>BeginnerGuideResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\BeginnerGuide\BeginnerGuideResources.fr-CA.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>BeginnerGuideResources.fr-CA.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Landing\LandingResources.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>LandingResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Landing\LandingResources.fr-CA.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>LandingResources.fr-CA.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Common\CommonResources.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>CommonResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Common\CommonResources.fr-CA.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>CommonResources.fr-CA.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Resources\Auth\AuthResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AuthResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Auth\AuthResources.fr-CA.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AuthResources.fr-CA.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\BeginnerGuide\BeginnerGuideResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>BeginnerGuideResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\BeginnerGuide\BeginnerGuideResources.fr-CA.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>BeginnerGuideResources.fr-CA.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Landing\LandingResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>LandingResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Landing\LandingResources.fr-CA.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>LandingResources.fr-CA.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Common\CommonResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>CommonResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Common\CommonResources.fr-CA.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>CommonResources.fr-CA.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

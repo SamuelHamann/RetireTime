@@ -1,15 +1,6 @@
 @page "/login"
-@using System.ComponentModel.DataAnnotations
-@using MediatR
-@using RetirementTime.Application.Features.Users.Login
-@using RetirementTime.Services
-@using Microsoft.Extensions.Localization
 @layout HomeLayout
 @rendermode InteractiveServer
-@inject NavigationManager Navigation
-@inject IMediator Mediator
-@inject AuthService AuthService
-@inject IStringLocalizer<Resources.SharedResources> Localizer
 
 <div class="login-container">
     <div class="login-card">
@@ -25,24 +16,24 @@
             </div>
         }
 
-        <EditForm Model="@loginModel" OnValidSubmit="@HandleLogin" class="login-form">
+        <EditForm Model="@LoginModel" OnValidSubmit="@HandleLogin" class="login-form">
             <DataAnnotationsValidator />
 
             <div class="form-group">
                 <label for="email">@Localizer["Login_Email"]</label>
-                <InputText id="email" type="email" @bind-Value="loginModel.Email" class="form-input" placeholder="john.doe@example.com" />
-                <ValidationMessage For="@(() => loginModel.Email)" />
+                <InputText id="email" type="email" @bind-Value="LoginModel.Email" class="form-input" placeholder="john.doe@example.com" />
+                <ValidationMessage For="@(() => LoginModel.Email)" />
             </div>
 
             <div class="form-group">
                 <label for="password">@Localizer["Login_Password"]</label>
-                <InputText id="password" type="password" @bind-Value="loginModel.Password" class="form-input" placeholder="••••••••" />
-                <ValidationMessage For="@(() => loginModel.Password)" />
+                <InputText id="password" type="password" @bind-Value="LoginModel.Password" class="form-input" placeholder="••••••••" />
+                <ValidationMessage For="@(() => LoginModel.Password)" />
             </div>
 
             <div class="form-options">
                 <label class="checkbox-label">
-                    <InputCheckbox @bind-Value="loginModel.RememberMe" />
+                    <InputCheckbox @bind-Value="LoginModel.RememberMe" />
                     <span>@Localizer["Login_RememberMe"]</span>
                 </label>
                 <a href="/forgot-password" class="forgot-link">@Localizer["Login_ForgotPassword"]</a>
@@ -70,53 +61,4 @@
         </div>
     </div>
 </div>
-
-@code {
-    private LoginModel loginModel = new();
-    private string _errorMessage = string.Empty;
-
-    private async Task HandleLogin()
-    {
-        _errorMessage = string.Empty;
-
-        var command = new LoginCommand
-        {
-            Email = loginModel.Email,
-            Password = loginModel.Password
-        };
-
-        var result = await Mediator.Send(command);
-
-        if (result.Success && result.SessionToken != null)
-        {
-            // Store session token in cookie
-            await AuthService.SetSessionToken(result.SessionToken);
-            
-            // Redirect to beginner guide page
-            Navigation.NavigateTo("/beginner-guide/introduction", true);
-        }
-        else
-        {
-            _errorMessage = result.ErrorMessage ?? "An error occurred during login. Please try again.";
-        }
-    }
-
-    private async Task HandleGoogleLogin()
-    {
-        // TODO: Implement Google OAuth login
-        await Task.CompletedTask;
-    }
-
-    public class LoginModel
-    {
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Invalid email address")]
-        public string Email { get; set; } = string.Empty;
-
-        [Required(ErrorMessage = "Password is required")]
-        public string Password { get; set; } = string.Empty;
-
-        public bool RememberMe { get; set; }
-    }
-}
 

@@ -1,0 +1,50 @@
+/* Reusable Yes/No Toggle Button Styles */
+.yes-no-toggle {
+    display: inline-flex;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 1rem 0;
+}
+
+.toggle-option {
+    flex: 1;
+    padding: 0.75rem 2rem;
+    border: none;
+    background: #f3f4f6;
+    color: #4b5563;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.toggle-option:hover {
+    background: #e5e7eb;
+}
+
+.toggle-option:first-child {
+    border-right: 1px solid #d1d5db;
+}
+
+.toggle-option.selected {
+    color: white;
+    transform: scale(1.05);
+    z-index: 1;
+}
+
+.toggle-option.selected-yes {
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+}
+
+.toggle-option.selected-no {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    box-shadow: 0 4px 6px rgba(239, 68, 68, 0.3);
+}
+
+.toggle-option:active {
+    transform: scale(0.98);
+}
+

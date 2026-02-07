@@ -1,7 +1,9 @@
 @page "/beginner-guide/introduction"
-@inherits RetirementTime.Components.AuthenticatedComponentBase
-@using Microsoft.Extensions.Localization
-@inject IStringLocalizer<Resources.SharedResources> Localizer
+@attribute [Authorize]
+@using RetirementTime.Resources.BeginnerGuide
+@using Microsoft.AspNetCore.Authorization
+@inject IStringLocalizer<BeginnerGuideResources> Localizer
+@inject NavigationManager Navigation
 @rendermode InteractiveServer
 
 <h3>@Localizer["Introduction_Title"]</h3>

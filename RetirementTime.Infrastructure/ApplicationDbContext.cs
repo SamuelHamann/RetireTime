@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RetirementTime.Domain.Entities;
+using RetirementTime.Domain.Entities.BeginnerGuide.Assets;
 using RetirementTime.Domain.Entities.Location;
 using RetirementTime.Domain.Entities.RealEstate;
 
@@ -167,24 +168,6 @@ public class ApplicationDbContext : DbContext
                 .HasForeignKey(e => e.MortgageId);
         });
         
-        modelBuilder.Entity<Session>(entity =>
-        {
-            entity.ToTable("session");
-            entity.HasKey(e => e.SessionId);
-            
-            entity.Property(e => e.UserId)
-                .IsRequired();
-            entity.Property(e => e.CreatedAt)
-                .IsRequired()
-                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-            entity.Property(e => e.ValidUntil)
-                .IsRequired()
-                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC' + INTERVAL '30 minutes'");
-            
-            entity.HasOne(e => e.User)
-                .WithMany()
-                .HasForeignKey(e => e.UserId);
-        });
         
         modelBuilder.Entity<User>(entity =>
         {
@@ -240,6 +223,54 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.LanguageName)
                 .IsRequired()
                 .HasMaxLength(50);
+        });
+        
+        modelBuilder.Entity<MainResidence>(entity =>
+        {
+            entity.ToTable("asset_main_residence");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.HasMainResidence)
+                .IsRequired();
+            
+            entity.Property(e => e.PurchasePrice)
+                .HasPrecision(18, 2);
+            
+            entity.Property(e => e.MonthlyMortgagePayments)
+                .HasPrecision(18, 2);
+            
+            entity.Property(e => e.MortgageLeft)
+                .HasPrecision(18, 2);
+            
+            entity.Property(e => e.YearlyInsurance)
+                .HasPrecision(18, 2);
+            
+            entity.Property(e => e.MonthlyElectricityCosts)
+                .HasPrecision(18, 2);
+            
+            entity.Property(e => e.MortgageDuration);
+            
+            entity.Property(e => e.MortgageStartDate)
+                .HasColumnType("timestamp with time zone");
+            
+            entity.Property(e => e.EstimatedValue)
+                .HasPrecision(18, 2);
+            
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            entity.HasIndex(e => e.UserId)
+                .IsUnique();
         });
         
         
@@ -303,6 +334,6 @@ public class ApplicationDbContext : DbContext
     public DbSet<Mortgage> Mortgages { get; set; }
     public DbSet<Rent> Rents { get; set; }
     public DbSet<BuyOrRent> BuyOrRents { get; set; }
-    public DbSet<Session> Sessions { get; set; }
     public DbSet<Language> Languages { get; set; }
+    public DbSet<MainResidence> MainResidences { get; set; }
 }

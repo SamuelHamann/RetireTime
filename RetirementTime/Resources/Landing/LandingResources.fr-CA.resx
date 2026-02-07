@@ -1,0 +1,88 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    
+    <!-- Home Page -->
+    <data name="Home_PlanningTools" xml:space="preserve">
+        <value>OUTILS DE PLANIFICATION</value>
+    </data>
+    <data name="Home_About" xml:space="preserve">
+        <value>À PROPOS</value>
+    </data>
+    <data name="Home_Contact" xml:space="preserve">
+        <value>CONTACT</value>
+    </data>
+    <data name="Home_StartPlanning" xml:space="preserve">
+        <value>COMMENCER LA PLANIFICATION</value>
+    </data>
+    <data name="Home_Login" xml:space="preserve">
+        <value>CONNEXION</value>
+    </data>
+    <data name="Home_HeroTitle" xml:space="preserve">
+        <value>Débloquez Votre Avenir Financier Avec Une Planification De Retraite Simple</value>
+    </data>
+    <data name="Home_HeroSubtitle" xml:space="preserve">
+        <value>Outils faciles à comprendre et conseils pour votre parcours de retraite</value>
+    </data>
+    <data name="Home_StatusOnTrack" xml:space="preserve">
+        <value>SUR LA BONNE VOIE ✓</value>
+    </data>
+    <data name="Home_YearsToRetirement" xml:space="preserve">
+        <value>12 Ans Avant La Retraite</value>
+    </data>
+    <data name="Home_SavingsProjected" xml:space="preserve">
+        <value>485 000 $ Projetés</value>
+    </data>
+    <data name="Home_MortgagePaid" xml:space="preserve">
+        <value>🏠 Hypothèque Payée</value>
+    </data>
+    <data name="Home_TravelFund" xml:space="preserve">
+        <value>✈️ Fonds De Voyage</value>
+    </data>
+    <data name="Home_EmergencyFund" xml:space="preserve">
+        <value>💰 Fonds D'Urgence</value>
+    </data>
+    <data name="Home_ComprehensivePlanningTitle" xml:space="preserve">
+        <value>Planification Complète</value>
+    </data>
+    <data name="Home_ComprehensivePlanningSubtitle" xml:space="preserve">
+        <value>Calculateur Et Outils De Retraite</value>
+    </data>
+    <data name="Home_GoalBasedTitle" xml:space="preserve">
+        <value>Approche Axée Sur Les Objectifs</value>
+    </data>
+    <data name="Home_GoalBasedSubtitle" xml:space="preserve">
+        <value>Stratégies Personnalisées</value>
+    </data>
+    <data name="Home_InvestmentGrowthTitle" xml:space="preserve">
+        <value>Croissance Des Investissements</value>
+    </data>
+    <data name="Home_InvestmentGrowthSubtitle" xml:space="preserve">
+        <value>Calculateur D'Intérêts Composés</value>
+    </data>
+    <data name="Home_AverageGoalNumber" xml:space="preserve">
+        <value>1 M$ +</value>
+    </data>
+    <data name="Home_AverageGoalLabel" xml:space="preserve">
+        <value>Objectif De Retraite Moyen</value>
+    </data>
+    <data name="Home_ExperienceNumber" xml:space="preserve">
+        <value>30+</value>
+    </data>
+    <data name="Home_ExperienceLabel" xml:space="preserve">
+        <value>Années D'Expérience En Planification</value>
+    </data>
+    <data name="Home_Resources" xml:space="preserve">
+        <value>RESSOURCES</value>
+    </data>
+</root>
