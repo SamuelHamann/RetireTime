@@ -25,6 +25,11 @@ The solution follows Clean Architecture principles and is divided into four dist
   - Handling user input and displaying results
 - **Dependencies**: Application layer
 - **Location**: `/RetirementTime/`
+- **Shared Components**: `/RetirementTime/Components/Shared/`
+  - **IMPORTANT**: Always check the Shared folder for reusable components before creating new ones
+  - Available shared components:
+    - `YesNoToggle` - Reusable Yes/No toggle buttons with customizable labels
+  - Usage: `<YesNoToggle @bind-Value="@_myBoolValue" YesLabel="@Localizer["Yes"]" NoLabel="@Localizer["No"]" />`
 
 ### 2. RetirementTime.Application (Application Layer)
 - **Purpose**: Application business logic and use cases
@@ -193,6 +198,37 @@ public partial class ExampleHandler(
   - `Success` (bool): Indicates if the operation succeeded
   - `ErrorMessage` (string?): User-friendly error message when `Success = false`
 - Extend `BaseResult` with operation-specific properties (e.g., `UserId`, `Data`)
+
+## Component Development Best Practices
+
+### CRITICAL: Always Check for Reusable Components First
+Before creating any new UI component, **ALWAYS** check the `/RetirementTime/Components/Shared/` folder for existing reusable components.
+
+**Available Shared Components:**
+- `YesNoToggle` - Reusable Yes/No toggle buttons with customizable labels
+  - Parameters: `Value` (bool), `YesLabel` (string), `NoLabel` (string)
+  - Usage: `<YesNoToggle @bind-Value="@_myBoolValue" YesLabel="@Localizer["Yes"]" NoLabel="@Localizer["No"]" />`
+  
+**Component Development Checklist:**
+1. ✅ Check `/Components/Shared/` for existing components
+2. ✅ If a similar component exists, use it instead of creating a new one
+3. ✅ If creating a new reusable component, place it in `/Components/Shared/`
+4. ✅ Separate code into `.razor`, `.razor.cs`, and `.razor.css` files
+5. ✅ Use localized strings from resource files (no hardcoded text)
+6. ✅ Follow naming conventions for components and parameters
+
+### Component File Structure
+- **Markup**: `ComponentName.razor` - Contains only HTML/Razor markup
+- **Logic**: `ComponentName.razor.cs` - Contains C# logic, parameters, and methods
+- **Styles**: `ComponentName.razor.css` - Contains component-specific CSS (scoped)
+
+**Example:**
+```
+/Components/Pages/BeginnerGuide/Assets/
+  Step3OtherAssets.razor
+  Step3OtherAssets.razor.cs
+  Step3OtherAssets.razor.css
+```
 
 ## Domain Entities
 

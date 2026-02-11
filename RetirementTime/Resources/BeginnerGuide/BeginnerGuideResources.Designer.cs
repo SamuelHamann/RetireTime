@@ -213,6 +213,264 @@ namespace RetirementTime.Resources.BeginnerGuide {
             }
         }
         
+        public static string Assets_Step2_Question {
+            get {
+                return ResourceManager.GetString("Assets_Step2_Question", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_Description {
+            get {
+                return ResourceManager.GetString("Assets_Step2_Description", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_Yes {
+            get {
+                return ResourceManager.GetString("Assets_Step2_Yes", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_No {
+            get {
+                return ResourceManager.GetString("Assets_Step2_No", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_AccountTitle {
+            get {
+                return ResourceManager.GetString("Assets_Step2_AccountTitle", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_Remove {
+            get {
+                return ResourceManager.GetString("Assets_Step2_Remove", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_AccountName {
+            get {
+                return ResourceManager.GetString("Assets_Step2_AccountName", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_AccountNamePlaceholder {
+            get {
+                return ResourceManager.GetString("Assets_Step2_AccountNamePlaceholder", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_AccountTypeQuestion {
+            get {
+                return ResourceManager.GetString("Assets_Step2_AccountTypeQuestion", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_SelectAccountType {
+            get {
+                return ResourceManager.GetString("Assets_Step2_SelectAccountType", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_InputTypeQuestion {
+            get {
+                return ResourceManager.GetString("Assets_Step2_InputTypeQuestion", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_BulkAmountOption {
+            get {
+                return ResourceManager.GetString("Assets_Step2_BulkAmountOption", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_IndividualStocksOption {
+            get {
+                return ResourceManager.GetString("Assets_Step2_IndividualStocksOption", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_TotalAmount {
+            get {
+                return ResourceManager.GetString("Assets_Step2_TotalAmount", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_Stocks {
+            get {
+                return ResourceManager.GetString("Assets_Step2_Stocks", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_TickerPlaceholder {
+            get {
+                return ResourceManager.GetString("Assets_Step2_TickerPlaceholder", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_AmountPlaceholder {
+            get {
+                return ResourceManager.GetString("Assets_Step2_AmountPlaceholder", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_AddStock {
+            get {
+                return ResourceManager.GetString("Assets_Step2_AddStock", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_AddAccount {
+            get {
+                return ResourceManager.GetString("Assets_Step2_AddAccount", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_SaveContinue {
+            get {
+                return ResourceManager.GetString("Assets_Step2_SaveContinue", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_Next {
+            get {
+                return ResourceManager.GetString("Assets_Step2_Next", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step2_Saving {
+            get {
+                return ResourceManager.GetString("Assets_Step2_Saving", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_Title {
+            get {
+                return ResourceManager.GetString("Assets_Step3_Title", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_Description {
+            get {
+                return ResourceManager.GetString("Assets_Step3_Description", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_Loading {
+            get {
+                return ResourceManager.GetString("Assets_Step3_Loading", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_LoadingMessage {
+            get {
+                return ResourceManager.GetString("Assets_Step3_LoadingMessage", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_Question {
+            get {
+                return ResourceManager.GetString("Assets_Step3_Question", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_Yes {
+            get {
+                return ResourceManager.GetString("Assets_Step3_Yes", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_No {
+            get {
+                return ResourceManager.GetString("Assets_Step3_No", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_NoAssetsAdded {
+            get {
+                return ResourceManager.GetString("Assets_Step3_NoAssetsAdded", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_AssetTitle {
+            get {
+                return ResourceManager.GetString("Assets_Step3_AssetTitle", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_Remove {
+            get {
+                return ResourceManager.GetString("Assets_Step3_Remove", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_AssetName {
+            get {
+                return ResourceManager.GetString("Assets_Step3_AssetName", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_AssetNamePlaceholder {
+            get {
+                return ResourceManager.GetString("Assets_Step3_AssetNamePlaceholder", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_AssetType {
+            get {
+                return ResourceManager.GetString("Assets_Step3_AssetType", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_SelectType {
+            get {
+                return ResourceManager.GetString("Assets_Step3_SelectType", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_CurrentValue {
+            get {
+                return ResourceManager.GetString("Assets_Step3_CurrentValue", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_PurchasePrice {
+            get {
+                return ResourceManager.GetString("Assets_Step3_PurchasePrice", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_PurchasePriceHelp {
+            get {
+                return ResourceManager.GetString("Assets_Step3_PurchasePriceHelp", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_AddAsset {
+            get {
+                return ResourceManager.GetString("Assets_Step3_AddAsset", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_PreviousStep {
+            get {
+                return ResourceManager.GetString("Assets_Step3_PreviousStep", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_SaveContinue {
+            get {
+                return ResourceManager.GetString("Assets_Step3_SaveContinue", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step3_Required {
+            get {
+                return ResourceManager.GetString("Assets_Step3_Required", resourceCulture);
+            }
+        }
+        
         public static string Assets_StepComingSoon {
             get {
                 return ResourceManager.GetString("Assets_StepComingSoon", resourceCulture);

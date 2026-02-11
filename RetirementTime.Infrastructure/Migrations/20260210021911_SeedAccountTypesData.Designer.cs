@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RetirementTime.Infrastructure;
@@ -11,9 +12,11 @@ using RetirementTime.Infrastructure;
 namespace RetirementTime.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260210021911_SeedAccountTypesData")]
+    partial class SeedAccountTypesData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -178,102 +181,13 @@ namespace RetirementTime.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.AssetType", b =>
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.InvestmentAccount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("asset_type", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Gold, silver, platinum, and other precious metals",
-                            Name = "Precious Metals"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Cars, motorcycles, boats, RVs, etc.",
-                            Name = "Vehicles"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Fine jewelry, watches, and collectible pieces",
-                            Name = "Jewelry"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Physical cash holdings",
-                            Name = "Cash"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Bitcoin, Ethereum, and other digital currencies",
-                            Name = "Cryptocurrency"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Description = "Paintings, sculptures, rare collectibles",
-                            Name = "Art & Collectibles"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Description = "Antique furniture, vintage items",
-                            Name = "Antiques"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Description = "Collectible wines and rare spirits",
-                            Name = "Wine & Spirits"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Description = "Professional or recreational equipment",
-                            Name = "Equipment & Tools"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Description = "Other valuable assets not listed above",
-                            Name = "Other"
-                        });
-                });
-
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideAssetsInvestmentAccount", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AccountName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
 
                     b.Property<int>("AccountTypeId")
                         .HasColumnType("integer");
@@ -303,13 +217,10 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("investment_account", null, t =>
-                        {
-                            t.HasCheckConstraint("CK_InvestmentAccount_BulkAmount_XOR_Stocks", "(\"IsBulkAmount\" = true AND \"BulkAmount\" IS NOT NULL) OR (\"IsBulkAmount\" = false AND \"BulkAmount\" IS NULL)");
-                        });
+                    b.ToTable("investment_account", (string)null);
                 });
 
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideAssetsStockData", b =>
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.InvestmentStock", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -395,52 +306,6 @@ namespace RetirementTime.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("asset_main_residence", (string)null);
-                });
-
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.OtherAsset", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AssetTypeId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-
-                    b.Property<decimal>("CurrentValue")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("numeric(18,2)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<decimal?>("PurchasePrice")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("numeric(18,2)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AssetTypeId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("other_asset", (string)null);
                 });
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.Language", b =>
@@ -942,7 +807,7 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Navigation("Subdivision");
                 });
 
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideAssetsInvestmentAccount", b =>
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.InvestmentAccount", b =>
                 {
                     b.HasOne("RetirementTime.Domain.Entities.BeginnerGuide.Assets.AccountType", "AccountType")
                         .WithMany()
@@ -961,9 +826,9 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideAssetsStockData", b =>
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.InvestmentStock", b =>
                 {
-                    b.HasOne("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideAssetsInvestmentAccount", "InvestmentAccount")
+                    b.HasOne("RetirementTime.Domain.Entities.BeginnerGuide.Assets.InvestmentAccount", "InvestmentAccount")
                         .WithMany("Stocks")
                         .HasForeignKey("InvestmentAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -979,25 +844,6 @@ namespace RetirementTime.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.OtherAsset", b =>
-                {
-                    b.HasOne("RetirementTime.Domain.Entities.BeginnerGuide.Assets.AssetType", "AssetType")
-                        .WithMany()
-                        .HasForeignKey("AssetTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RetirementTime.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AssetType");
 
                     b.Navigation("User");
                 });
@@ -1082,7 +928,7 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Navigation("Subdivision");
                 });
 
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideAssetsInvestmentAccount", b =>
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.InvestmentAccount", b =>
                 {
                     b.Navigation("Stocks");
                 });

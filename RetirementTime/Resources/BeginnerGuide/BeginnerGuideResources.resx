@@ -110,6 +110,140 @@
     <data name="Assets_Step1_Next" xml:space="preserve">
         <value>Next</value>
     </data>
+    
+    <!-- Assets - Step 2: Investment Accounts -->
+    <data name="Assets_Step2_Question" xml:space="preserve">
+        <value>Do you have any investment accounts?</value>
+    </data>
+    <data name="Assets_Step2_Description" xml:space="preserve">
+        <value>This includes registered accounts like TFSA, RRSP, FHSA, RESP, as well as non-registered brokerage accounts.</value>
+    </data>
+    <data name="Assets_Step2_Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="Assets_Step2_No" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="Assets_Step2_AccountTitle" xml:space="preserve">
+        <value>Account #{0}</value>
+    </data>
+    <data name="Assets_Step2_Remove" xml:space="preserve">
+        <value>Remove</value>
+    </data>
+    <data name="Assets_Step2_AccountName" xml:space="preserve">
+        <value>Account Name</value>
+    </data>
+    <data name="Assets_Step2_AccountNamePlaceholder" xml:space="preserve">
+        <value>e.g., My TFSA, Retirement Account</value>
+    </data>
+    <data name="Assets_Step2_AccountTypeQuestion" xml:space="preserve">
+        <value>What type of account is this?</value>
+    </data>
+    <data name="Assets_Step2_SelectAccountType" xml:space="preserve">
+        <value>Select account type...</value>
+    </data>
+    <data name="Assets_Step2_InputTypeQuestion" xml:space="preserve">
+        <value>How would you like to enter the account value?</value>
+    </data>
+    <data name="Assets_Step2_BulkAmountOption" xml:space="preserve">
+        <value>I want to enter the total value of the account</value>
+    </data>
+    <data name="Assets_Step2_IndividualStocksOption" xml:space="preserve">
+        <value>I want to enter each individual holding of the account</value>
+    </data>
+    <data name="Assets_Step2_TotalAmount" xml:space="preserve">
+        <value>Total Value</value>
+    </data>
+    <data name="Assets_Step2_Stocks" xml:space="preserve">
+        <value>Holdings</value>
+    </data>
+    <data name="Assets_Step2_TickerPlaceholder" xml:space="preserve">
+        <value>Ticker (e.g., AAPL)</value>
+    </data>
+    <data name="Assets_Step2_AmountPlaceholder" xml:space="preserve">
+        <value>Amount</value>
+    </data>
+    <data name="Assets_Step2_AddStock" xml:space="preserve">
+        <value>Add Holding</value>
+    </data>
+    <data name="Assets_Step2_AddAccount" xml:space="preserve">
+        <value>Add Another Account</value>
+    </data>
+    <data name="Assets_Step2_SaveContinue" xml:space="preserve">
+        <value>Save &amp; Continue</value>
+    </data>
+    <data name="Assets_Step2_Next" xml:space="preserve">
+        <value>Next</value>
+    </data>
+    <data name="Assets_Step2_Saving" xml:space="preserve">
+        <value>Saving...</value>
+    </data>
+    
+    <!-- Assets - Step 3: Other Assets -->
+    <data name="Assets_Step3_Title" xml:space="preserve">
+        <value>Step 3: Other Assets</value>
+    </data>
+    <data name="Assets_Step3_Description" xml:space="preserve">
+        <value>Do you have any other valuable assets such as precious metals, vehicles, jewelry, or cryptocurrency?</value>
+    </data>
+    <data name="Assets_Step3_Loading" xml:space="preserve">
+        <value>Loading...</value>
+    </data>
+    <data name="Assets_Step3_LoadingMessage" xml:space="preserve">
+        <value>Loading your assets...</value>
+    </data>
+    <data name="Assets_Step3_Question" xml:space="preserve">
+        <value>Do you have other assets?</value>
+    </data>
+    <data name="Assets_Step3_Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="Assets_Step3_No" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="Assets_Step3_NoAssetsAdded" xml:space="preserve">
+        <value>No assets added yet. Click "Add Asset" to get started.</value>
+    </data>
+    <data name="Assets_Step3_AssetTitle" xml:space="preserve">
+        <value>Asset #{0}</value>
+    </data>
+    <data name="Assets_Step3_Remove" xml:space="preserve">
+        <value>Remove</value>
+    </data>
+    <data name="Assets_Step3_AssetName" xml:space="preserve">
+        <value>Asset Name</value>
+    </data>
+    <data name="Assets_Step3_AssetNamePlaceholder" xml:space="preserve">
+        <value>e.g., Gold Coins, 2020 Tesla Model 3</value>
+    </data>
+    <data name="Assets_Step3_AssetType" xml:space="preserve">
+        <value>Asset Type</value>
+    </data>
+    <data name="Assets_Step3_SelectType" xml:space="preserve">
+        <value>-- Select Type --</value>
+    </data>
+    <data name="Assets_Step3_CurrentValue" xml:space="preserve">
+        <value>Current Value</value>
+    </data>
+    <data name="Assets_Step3_PurchasePrice" xml:space="preserve">
+        <value>Purchase Price (Optional)</value>
+    </data>
+    <data name="Assets_Step3_PurchasePriceHelp" xml:space="preserve">
+        <value>What you originally paid for this asset</value>
+    </data>
+    <data name="Assets_Step3_AddAsset" xml:space="preserve">
+        <value>Add Asset</value>
+    </data>
+    <data name="Assets_Step3_PreviousStep" xml:space="preserve">
+        <value>Previous Step</value>
+    </data>
+    <data name="Assets_Step3_SaveContinue" xml:space="preserve">
+        <value>Save &amp; Continue</value>
+    </data>
+    <data name="Assets_Step3_Required" xml:space="preserve">
+        <value>*</value>
+    </data>
+    
     <data name="Assets_StepComingSoon" xml:space="preserve">
         <value>Step {0} content coming soon...</value>
     </data>

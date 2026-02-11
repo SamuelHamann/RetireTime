@@ -46,11 +46,18 @@
         }
         else if (_currentStep == 1)
         {
-            <Step2 />
+            <Step2InvestmentAccounts 
+                @bind-HasInvestmentAccounts="_hasInvestmentAccounts"
+                Model="_investmentModel"
+                AccountTypes="_accountTypes"
+                OnSaveClicked="EventCallback.Factory.Create(this, GoToNextStep)" />
         }
         else if (_currentStep == 2)
         {
-            <Step3 />
+            <Step3OtherAssets 
+                UserId="_userId"
+                OnPrevious="EventCallback.Factory.Create(this, GoToPreviousStep)"
+                OnNext="EventCallback.Factory.Create(this, GoToNextStep)" />
         }
         else if (_currentStep == 3)
         {

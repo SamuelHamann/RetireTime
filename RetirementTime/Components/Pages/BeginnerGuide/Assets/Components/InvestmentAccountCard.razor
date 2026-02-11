@@ -1,0 +1,118 @@
+@using RetirementTime.Resources.BeginnerGuide
+@using RetirementTime.Models.BeginnerGuide.Assets
+@inject IStringLocalizer<BeginnerGuideResources> Localizer
+
+<div class="account-card">
+    <div class="account-header">
+        <h5>@Localizer["Assets_Step2_AccountTitle", (Index + 1)]</h5>
+        @if (ShowRemoveButton)
+        {
+            <button type="button" class="btn-remove" @onclick="OnRemove">
+                @Localizer["Assets_Step2_Remove"]
+            </button>
+        }
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">@Localizer["Assets_Step2_AccountName"]</label>
+        <InputText class="form-input"
+                   @bind-Value="Account.AccountName"
+                   placeholder="@Localizer["Assets_Step2_AccountNamePlaceholder"]" />
+        <ValidationMessage For="@(() => Account.AccountName)" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">@Localizer["Assets_Step2_AccountTypeQuestion"]</label>
+        <InputSelect class="form-input" @bind-Value="Account.AccountTypeId">
+            <option value="0">@Localizer["Assets_Step2_SelectAccountType"]</option>
+            @foreach (var type in AccountTypes)
+            {
+                <option value="@type.Id" @key="type.Id">@type.Name</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => Account.AccountTypeId)" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">@Localizer["Assets_Step2_InputTypeQuestion"]</label>
+        <div class="toggle-container">
+            <button type="button"
+                    class="toggle-option @(Account.IsBulkAmount ? "selected" : "")"
+                    @onclick="() => OnBulkAmountChange.InvokeAsync(true)">
+                @Localizer["Assets_Step2_BulkAmountOption"]
+            </button>
+            <button type="button"
+                    class="toggle-option @(!Account.IsBulkAmount ? "selected" : "")"
+                    @onclick="() => OnBulkAmountChange.InvokeAsync(false)">
+                @Localizer["Assets_Step2_IndividualStocksOption"]
+            </button>
+        </div>
+    </div>
+
+    @if (Account.IsBulkAmount)
+    {
+        <div class="form-group">
+            <label class="form-label">@Localizer["Assets_Step2_TotalAmount"]</label>
+            <div class="input-with-icon">
+                <span class="input-icon">$</span>
+                <InputNumber class="form-input"
+                             @bind-Value="Account.BulkAmount"
+                             step="0.01" />
+            </div>
+            <ValidationMessage For="@(() => Account.BulkAmount)" />
+        </div>
+    }
+    else
+    {
+        <div class="stocks-section">
+            <label class="form-label">@Localizer["Assets_Step2_Stocks"]</label>
+
+            @for (int j = 0; j < Account.Stocks.Count; j++)
+            {
+                var stockIndex = j;
+                var stock = Account.Stocks[stockIndex];
+
+                <div class="stock-row" @key="stock">
+                    <div class="form-group stock-ticker">
+                        <InputText class="form-input"
+                                   @bind-Value="stock.TickerSymbol"
+                                   placeholder="@Localizer["Assets_Step2_TickerPlaceholder"]" />
+                        <ValidationMessage For="@(() => stock.TickerSymbol)" />
+                    </div>
+                    <div class="form-group stock-amount">
+                        <div class="input-with-icon">
+                            <span class="input-icon">$</span>
+                            <InputNumber class="form-input"
+                                         @bind-Value="stock.Amount"
+                                         step="0.01"
+                                         placeholder="@Localizer["Assets_Step2_AmountPlaceholder"]" />
+                        </div>
+                        <ValidationMessage For="@(() => stock.Amount)" />
+                    </div>
+                    @if (Account.Stocks.Count > 1)
+                    {
+                        <button type="button" class="btn-remove-stock" @onclick="() => OnRemoveStock.InvokeAsync(stockIndex)">
+                            ×
+                        </button>
+                    }
+                </div>
+            }
+
+            <button type="button" class="btn-add-stock" @onclick="() => OnAddStock.InvokeAsync()">
+                + @Localizer["Assets_Step2_AddStock"]
+            </button>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public InvestmentAccountData Account { get; set; } = default!;
+    [Parameter] public int Index { get; set; }
+    [Parameter] public bool ShowRemoveButton { get; set; }
+    [Parameter] public List<Domain.Entities.BeginnerGuide.Assets.AccountType> AccountTypes { get; set; } = new();
+    [Parameter] public EventCallback OnRemove { get; set; }
+    [Parameter] public EventCallback<bool> OnBulkAmountChange { get; set; }
+    [Parameter] public EventCallback OnAddStock { get; set; }
+    [Parameter] public EventCallback<int> OnRemoveStock { get; set; }
+}
+

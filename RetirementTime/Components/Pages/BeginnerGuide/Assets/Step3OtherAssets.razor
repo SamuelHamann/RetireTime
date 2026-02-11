@@ -1,0 +1,143 @@
+@using RetirementTime.Models.BeginnerGuide.OtherAssets
+@using RetirementTime.Application.Features.BeginnerGuide.Assets.GetAssetTypes
+@using RetirementTime.Application.Features.BeginnerGuide.Assets.GetOtherAssets
+@using RetirementTime.Application.Features.BeginnerGuide.Assets.UpsertOtherAssets
+@using RetirementTime.Resources.BeginnerGuide
+@using RetirementTime.Components.Shared
+@inject IStringLocalizer<BeginnerGuideResources> Localizer
+
+<div class="other-assets-step">
+    <h3>@Localizer["Assets_Step3_Title"]</h3>
+    <p class="mb-4">@Localizer["Assets_Step3_Description"]</p>
+
+    @if (_isLoading)
+    {
+        <div class="loading-container text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">@Localizer["Assets_Step3_Loading"]</span>
+            </div>
+            <p class="mt-3 text-muted">@Localizer["Assets_Step3_LoadingMessage"]</p>
+        </div>
+    }
+    else
+    {
+        <EditForm Model="@_formModel" OnValidSubmit="@HandleSubmit">
+            <DataAnnotationsValidator />
+            
+            <!-- Yes/No Toggle -->
+            <div class="form-group mb-4">
+                <label class="form-label fw-bold">@Localizer["Assets_Step3_Question"]</label>
+                <YesNoToggle @bind-Value="_formModel.HasOtherAssets" 
+                             YesLabel="@Localizer["Assets_Step3_Yes"]" 
+                             NoLabel="@Localizer["Assets_Step3_No"]" />
+            </div>
+
+        @if (_formModel.HasOtherAssets)
+        {
+            <!-- Assets List -->
+            <div class="assets-list mb-4">
+                @if (_formModel.Assets.Count == 0)
+                {
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i> @Localizer["Assets_Step3_NoAssetsAdded"]
+                    </div>
+                }
+                else
+                {
+                    @for (int i = 0; i < _formModel.Assets.Count; i++)
+                    {
+                        var index = i;
+                        var asset = _formModel.Assets[index];
+                        
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <h5 class="card-title mb-0">@Localizer["Assets_Step3_AssetTitle", (index + 1)]</h5>
+                                    <button type="button" class="btn btn-sm btn-danger" @onclick="() => RemoveAsset(index)">
+                                        <i class="bi bi-trash"></i> @Localizer["Assets_Step3_Remove"]
+                                    </button>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">@Localizer["Assets_Step3_AssetName"] <span class="text-danger">@Localizer["Assets_Step3_Required"]</span></label>
+                                        <InputText class="form-control" @bind-Value="asset.Name" placeholder="@Localizer["Assets_Step3_AssetNamePlaceholder"]" />
+                                        <ValidationMessage For="@(() => asset.Name)" />
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">@Localizer["Assets_Step3_AssetType"] <span class="text-danger">@Localizer["Assets_Step3_Required"]</span></label>
+                                        <InputSelect class="form-select" @bind-Value="asset.AssetTypeId">
+                                            <option value="0">@Localizer["Assets_Step3_SelectType"]</option>
+                                            @foreach (var type in _assetTypes)
+                                            {
+                                                <option value="@type.Id">@type.Name</option>
+                                            }
+                                        </InputSelect>
+                                        <ValidationMessage For="@(() => asset.AssetTypeId)" />
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">@Localizer["Assets_Step3_CurrentValue"] <span class="text-danger">@Localizer["Assets_Step3_Required"]</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <InputNumber class="form-control" @bind-Value="asset.CurrentValue" placeholder="0.00" />
+                                        </div>
+                                        <ValidationMessage For="@(() => asset.CurrentValue)" />
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">@Localizer["Assets_Step3_PurchasePrice"]</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <InputNumber class="form-control" @bind-Value="asset.PurchasePrice" placeholder="0.00" />
+                                        </div>
+                                        <ValidationMessage For="@(() => asset.PurchasePrice)" />
+                                        <small class="form-text text-muted">@Localizer["Assets_Step3_PurchasePriceHelp"]</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+                <button type="button" class="btn btn-outline-primary" @onclick="AddAsset">
+                    <i class="bi bi-plus-circle"></i> @Localizer["Assets_Step3_AddAsset"]
+                </button>
+            </div>
+        }
+
+        <!-- Error Message -->
+        @if (!string.IsNullOrEmpty(_errorMessage))
+        {
+            <div class="alert alert-danger" role="alert">
+                <i class="bi bi-exclamation-triangle"></i> @_errorMessage
+            </div>
+        }
+
+        <!-- Success Message -->
+        @if (!string.IsNullOrEmpty(_successMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                <i class="bi bi-check-circle"></i> @_successMessage
+            </div>
+        }
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-between mt-4">
+            <button type="button" class="btn btn-secondary" @onclick="GoBack">
+                <i class="bi bi-arrow-left"></i> @Localizer["Assets_Step3_PreviousStep"]
+            </button>
+            <button type="submit" class="btn btn-primary" disabled="@_isSubmitting">
+                @if (_isSubmitting)
+                {
+                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                }
+                @Localizer["Assets_Step3_SaveContinue"] <i class="bi bi-arrow-right"></i>
+            </button>
+        </div>
+    </EditForm>
+    }
+</div>
+
+

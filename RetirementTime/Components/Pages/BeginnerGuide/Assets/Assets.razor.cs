@@ -1,9 +1,14 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using RetirementTime.Application.Features.BeginnerGuide.Assets.GetMainResidence;
+using RetirementTime.Application.Features.BeginnerGuide.Assets.GetInvestmentAccounts;
+using RetirementTime.Application.Features.Locations.GetAccountTypes;
+using RetirementTime.Domain.Entities.BeginnerGuide.Assets;
 using RetirementTime.Models.BeginnerGuide.Assets;
 using RetirementTime.Services;
 
@@ -20,6 +25,11 @@ public partial class Assets
     private PropertyData _propertyData = new();
     private bool _isLoading = true;
     private long _userId;
+    
+    // Step 2: Investment Accounts
+    private bool _hasInvestmentAccounts;
+    private Step2InvestmentModel _investmentModel = new();
+    private List<AccountType> _accountTypes = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -60,6 +70,47 @@ public partial class Assets
                     _propertyData.EstimatedValue = result.MainResidence.EstimatedValue;
                 }
             }
+            
+            // Load account types
+            var accountTypesQuery = new GetAccountTypesQuery { CountryId = 1 }; // TODO: Get from user's country
+            var accountTypesResult = await Mediator.Send(accountTypesQuery);
+            _accountTypes = accountTypesResult.AccountTypes.Select(a => new AccountType
+            {
+                Id = a.Id,
+                Name = a.Name,
+                CountryId = a.CountryId,
+                Country = null!,
+                SubdivisionId = null,
+                Subdivision = null
+            }).ToList();
+            
+            // Load existing investment accounts
+            var investmentAccountsQuery = new GetInvestmentAccountsQuery { UserId = _userId };
+            var investmentAccountsResult = await Mediator.Send(investmentAccountsQuery);
+
+            if (investmentAccountsResult.Accounts.Any())
+            {
+                _hasInvestmentAccounts = true;
+                _investmentModel.Accounts = investmentAccountsResult.Accounts.Select(a => new InvestmentAccountData
+                {
+                    Id = a.Id,
+                    AccountName = a.AccountName,
+                    AccountTypeId = a.AccountTypeId,
+                    IsBulkAmount = a.IsBulkAmount,
+                    BulkAmount = a.BulkAmount,
+                    Stocks = a.Stocks.Select(s => new StockData
+                    {
+                        Id = s.Id,
+                        TickerSymbol = s.TickerSymbol,
+                        Amount = s.Amount
+                    }).ToList()
+                }).ToList();
+            }
+            else
+            {
+                // No existing accounts, ensure toggle is set to No
+                _hasInvestmentAccounts = false;
+            }
         }
         catch (Exception)
         {
@@ -82,6 +133,15 @@ public partial class Assets
     {
         // Move to next step after successful save
         SetCurrentStep(_currentStep + 1);
+    }
+
+    private void GoToPreviousStep()
+    {
+        // Move to previous step
+        if (_currentStep > 0)
+        {
+            SetCurrentStep(_currentStep - 1);
+        }
     }
 }
 

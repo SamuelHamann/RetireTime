@@ -26,6 +26,11 @@ public static class DependencyInjection
         services.AddScoped<ISubdivisionRepository, SubdivisionRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IMainResidenceRepository, MainResidenceRepository>();
+        services.AddScoped<IAccountTypeRepository, AccountTypeRepository>();
+        services.AddScoped<IBeginnerGuideAssetsInvestmentAccountRepository, BeginnerGuideAssetsInvestmentAccountRepository>();
+        services.AddScoped<IBeginnerGuideAssetsStockDataRepository, BeginnerGuideAssetsStockDataRepository>();
+        services.AddScoped<IOtherAssetRepository, OtherAssetRepository>();
+        services.AddScoped<IAssetTypeRepository, AssetTypeRepository>();
         return services;
     }
 }

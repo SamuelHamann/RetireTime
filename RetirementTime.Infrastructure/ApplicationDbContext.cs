@@ -273,11 +273,142 @@ public class ApplicationDbContext : DbContext
                 .IsUnique();
         });
         
+        modelBuilder.Entity<AccountType>(entity =>
+        {
+            entity.ToTable("account_type");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+            entity.Property(e => e.CountryId)
+                .IsRequired();
+            entity.Property(e => e.SubdivisionId);
+            
+            entity.HasOne(e => e.Country)
+                .WithMany()
+                .HasForeignKey(e => e.CountryId);
+            
+            entity.HasOne(e => e.Subdivision)
+                .WithMany()
+                .HasForeignKey(e => e.SubdivisionId);
+        });
+        
+        modelBuilder.Entity<BeginnerGuideAssetsInvestmentAccount>(entity =>
+        {
+            entity.ToTable("investment_account", t =>
+            {
+                // Check constraint: ensure bulk amount XOR stocks (not both)
+                // If IsBulkAmount is true, BulkAmount must not be null
+                // If IsBulkAmount is false, BulkAmount must be null
+                t.HasCheckConstraint(
+                    "CK_InvestmentAccount_BulkAmount_XOR_Stocks",
+                    "(\"IsBulkAmount\" = true AND \"BulkAmount\" IS NOT NULL) OR (\"IsBulkAmount\" = false AND \"BulkAmount\" IS NULL)");
+            });
+            
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.UserId)
+                .IsRequired();
+            entity.Property(e => e.AccountName)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.AccountTypeId)
+                .IsRequired();
+            entity.Property(e => e.IsBulkAmount)
+                .IsRequired();
+            entity.Property(e => e.BulkAmount);
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId);
+            
+            entity.HasOne(e => e.AccountType)
+                .WithMany()
+                .HasForeignKey(e => e.AccountTypeId);
+            
+            entity.HasMany(e => e.Stocks)
+                .WithOne(s => s.InvestmentAccount)
+                .HasForeignKey(s => s.InvestmentAccountId);
+        });
+        
+        modelBuilder.Entity<BeginnerGuideAssetsStockData>(entity =>
+        {
+            entity.ToTable("investment_stock");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.InvestmentAccountId)
+                .IsRequired();
+            entity.Property(e => e.TickerSymbol)
+                .IsRequired()
+                .HasMaxLength(20);
+            entity.Property(e => e.Amount)
+                .IsRequired();
+            
+            entity.HasOne(e => e.InvestmentAccount)
+                .WithMany(a => a.Stocks)
+                .HasForeignKey(e => e.InvestmentAccountId);
+        });
+        
+        modelBuilder.Entity<AssetType>(entity =>
+        {
+            entity.ToTable("asset_type");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+            entity.Property(e => e.Description)
+                .HasMaxLength(500);
+        });
+        
+        modelBuilder.Entity<OtherAsset>(entity =>
+        {
+            entity.ToTable("other_asset");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.UserId)
+                .IsRequired();
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.AssetTypeId)
+                .IsRequired();
+            entity.Property(e => e.CurrentValue)
+                .IsRequired()
+                .HasPrecision(18, 2);
+            entity.Property(e => e.PurchasePrice)
+                .HasPrecision(18, 2);
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            entity.HasOne(e => e.AssetType)
+                .WithMany()
+                .HasForeignKey(e => e.AssetTypeId);
+        });
+        
         
         
         SeedRoleData(modelBuilder);
         SeedLocationData(modelBuilder);
         SeedLanguageData(modelBuilder);
+        SeedAccountTypeData(modelBuilder);
+        SeedAssetTypeData(modelBuilder);
 
     }
 
@@ -326,6 +457,52 @@ public class ApplicationDbContext : DbContext
         );
     }
     
+    private static void SeedAccountTypeData(ModelBuilder modelBuilder)
+    {
+        // Canadian account types
+        modelBuilder.Entity<AccountType>().HasData(
+            new AccountType { Id = 1, Name = "TFSA (Tax-Free Savings Account)", CountryId = 1, SubdivisionId = null },
+            new AccountType { Id = 2, Name = "RRSP (Registered Retirement Savings Plan)", CountryId = 1, SubdivisionId = null },
+            new AccountType { Id = 3, Name = "FHSA (First Home Savings Account)", CountryId = 1, SubdivisionId = null },
+            new AccountType { Id = 4, Name = "RESP (Registered Education Savings Plan)", CountryId = 1, SubdivisionId = null },
+            new AccountType { Id = 5, Name = "RRIF (Registered Retirement Income Fund)", CountryId = 1, SubdivisionId = null },
+            new AccountType { Id = 6, Name = "LIRA (Locked-In Retirement Account)", CountryId = 1, SubdivisionId = null },
+            new AccountType { Id = 7, Name = "Non-Registered Investment Account", CountryId = 1, SubdivisionId = null },
+            new AccountType { Id = 8, Name = "Cash Account", CountryId = 1, SubdivisionId = null },
+            new AccountType { Id = 9, Name = "Margin Account", CountryId = 1, SubdivisionId = null },
+            
+            // US account types
+            new AccountType { Id = 10, Name = "401(k)", CountryId = 2, SubdivisionId = null },
+            new AccountType { Id = 11, Name = "Traditional IRA", CountryId = 2, SubdivisionId = null },
+            new AccountType { Id = 12, Name = "Roth IRA", CountryId = 2, SubdivisionId = null },
+            new AccountType { Id = 13, Name = "SEP IRA", CountryId = 2, SubdivisionId = null },
+            new AccountType { Id = 14, Name = "SIMPLE IRA", CountryId = 2, SubdivisionId = null },
+            new AccountType { Id = 15, Name = "403(b)", CountryId = 2, SubdivisionId = null },
+            new AccountType { Id = 16, Name = "457 Plan", CountryId = 2, SubdivisionId = null },
+            new AccountType { Id = 17, Name = "Thrift Savings Plan (TSP)", CountryId = 2, SubdivisionId = null },
+            new AccountType { Id = 18, Name = "529 Education Savings Plan", CountryId = 2, SubdivisionId = null },
+            new AccountType { Id = 19, Name = "HSA (Health Savings Account)", CountryId = 2, SubdivisionId = null },
+            new AccountType { Id = 20, Name = "Brokerage Account (Taxable)", CountryId = 2, SubdivisionId = null },
+            new AccountType { Id = 21, Name = "Cash Management Account", CountryId = 2, SubdivisionId = null }
+        );
+    }
+    
+    private static void SeedAssetTypeData(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<AssetType>().HasData(
+            new AssetType { Id = 1, Name = "Precious Metals", Description = "Gold, silver, platinum, and other precious metals" },
+            new AssetType { Id = 2, Name = "Vehicles", Description = "Cars, motorcycles, boats, RVs, etc." },
+            new AssetType { Id = 3, Name = "Jewelry", Description = "Fine jewelry, watches, and collectible pieces" },
+            new AssetType { Id = 4, Name = "Cash", Description = "Physical cash holdings" },
+            new AssetType { Id = 5, Name = "Cryptocurrency", Description = "Bitcoin, Ethereum, and other digital currencies" },
+            new AssetType { Id = 6, Name = "Art & Collectibles", Description = "Paintings, sculptures, rare collectibles" },
+            new AssetType { Id = 7, Name = "Antiques", Description = "Antique furniture, vintage items" },
+            new AssetType { Id = 8, Name = "Wine & Spirits", Description = "Collectible wines and rare spirits" },
+            new AssetType { Id = 9, Name = "Equipment & Tools", Description = "Professional or recreational equipment" },
+            new AssetType { Id = 10, Name = "Other", Description = "Other valuable assets not listed above" }
+        );
+    }
+    
     public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Country> Countries { get; set; }
@@ -336,4 +513,9 @@ public class ApplicationDbContext : DbContext
     public DbSet<BuyOrRent> BuyOrRents { get; set; }
     public DbSet<Language> Languages { get; set; }
     public DbSet<MainResidence> MainResidences { get; set; }
+    public DbSet<AccountType> AccountTypes { get; set; }
+    public DbSet<BeginnerGuideAssetsInvestmentAccount> InvestmentAccounts { get; set; }
+    public DbSet<BeginnerGuideAssetsStockData> InvestmentStocks { get; set; }
+    public DbSet<AssetType> AssetTypes { get; set; }
+    public DbSet<OtherAsset> OtherAssets { get; set; }
 }

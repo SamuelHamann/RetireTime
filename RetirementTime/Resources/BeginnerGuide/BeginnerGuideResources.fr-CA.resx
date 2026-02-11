@@ -103,6 +103,139 @@
     <data name="Assets_Step1_Next" xml:space="preserve">
         <value>Suivant</value>
     </data>
+    <!-- Assets - Step 2: Investment Accounts -->
+    <data name="Assets_Step2_Question" xml:space="preserve">
+        <value>Avez-vous des comptes de placement?</value>
+    </data>
+    <data name="Assets_Step2_Description" xml:space="preserve">
+        <value>Cela inclut les comptes enregistrés comme le CELI, le REER, le CELIAPP, le REEE, ainsi que les comptes de courtage non enregistrés.</value>
+    </data>
+    <data name="Assets_Step2_Yes" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="Assets_Step2_No" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="Assets_Step2_AccountTitle" xml:space="preserve">
+        <value>Compte #{0}</value>
+    </data>
+    <data name="Assets_Step2_Remove" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
+    <data name="Assets_Step2_AccountName" xml:space="preserve">
+        <value>Nom du compte</value>
+    </data>
+    <data name="Assets_Step2_AccountNamePlaceholder" xml:space="preserve">
+        <value>ex: Mon CELI, Compte de retraite</value>
+    </data>
+    <data name="Assets_Step2_AccountTypeQuestion" xml:space="preserve">
+        <value>Quel type de compte est-ce?</value>
+    </data>
+    <data name="Assets_Step2_SelectAccountType" xml:space="preserve">
+        <value>Sélectionner le type de compte...</value>
+    </data>
+    <data name="Assets_Step2_InputTypeQuestion" xml:space="preserve">
+        <value>Comment souhaitez-vous entrer la valeur du compte?</value>
+    </data>
+    <data name="Assets_Step2_BulkAmountOption" xml:space="preserve">
+        <value>Je veux entrer la valeur totale du compte</value>
+    </data>
+    <data name="Assets_Step2_IndividualStocksOption" xml:space="preserve">
+        <value>Je veux entrer chaque titre individuel du compte</value>
+    </data>
+    <data name="Assets_Step2_TotalAmount" xml:space="preserve">
+        <value>Valeur totale</value>
+    </data>
+    <data name="Assets_Step2_Stocks" xml:space="preserve">
+        <value>Titres</value>
+    </data>
+    <data name="Assets_Step2_TickerPlaceholder" xml:space="preserve">
+        <value>Symbole (ex: AAPL)</value>
+    </data>
+    <data name="Assets_Step2_AmountPlaceholder" xml:space="preserve">
+        <value>Montant</value>
+    </data>
+    <data name="Assets_Step2_AddStock" xml:space="preserve">
+        <value>Ajouter un titre</value>
+    </data>
+    <data name="Assets_Step2_AddAccount" xml:space="preserve">
+        <value>Ajouter un autre compte</value>
+    </data>
+    <data name="Assets_Step2_SaveContinue" xml:space="preserve">
+        <value>Enregistrer et continuer</value>
+    </data>
+    <data name="Assets_Step2_Next" xml:space="preserve">
+        <value>Suivant</value>
+    </data>
+    <data name="Assets_Step2_Saving" xml:space="preserve">
+        <value>Enregistrement...</value>
+    </data>
+    
+    <!-- Assets - Step 3: Other Assets -->
+    <data name="Assets_Step3_Title" xml:space="preserve">
+        <value>Étape 3 : Autres actifs</value>
+    </data>
+    <data name="Assets_Step3_Description" xml:space="preserve">
+        <value>Avez-vous d'autres actifs de valeur tels que des métaux précieux, des véhicules, des bijoux ou de la cryptomonnaie?</value>
+    </data>
+    <data name="Assets_Step3_Loading" xml:space="preserve">
+        <value>Chargement...</value>
+    </data>
+    <data name="Assets_Step3_LoadingMessage" xml:space="preserve">
+        <value>Chargement de vos actifs...</value>
+    </data>
+    <data name="Assets_Step3_Question" xml:space="preserve">
+        <value>Avez-vous d'autres actifs?</value>
+    </data>
+    <data name="Assets_Step3_Yes" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="Assets_Step3_No" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="Assets_Step3_NoAssetsAdded" xml:space="preserve">
+        <value>Aucun actif ajouté pour le moment. Cliquez sur "Ajouter un actif" pour commencer.</value>
+    </data>
+    <data name="Assets_Step3_AssetTitle" xml:space="preserve">
+        <value>Actif #{0}</value>
+    </data>
+    <data name="Assets_Step3_Remove" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
+    <data name="Assets_Step3_AssetName" xml:space="preserve">
+        <value>Nom de l'actif</value>
+    </data>
+    <data name="Assets_Step3_AssetNamePlaceholder" xml:space="preserve">
+        <value>ex: Pièces d'or, Tesla Model 3 2020</value>
+    </data>
+    <data name="Assets_Step3_AssetType" xml:space="preserve">
+        <value>Type d'actif</value>
+    </data>
+    <data name="Assets_Step3_SelectType" xml:space="preserve">
+        <value>-- Sélectionner le type --</value>
+    </data>
+    <data name="Assets_Step3_CurrentValue" xml:space="preserve">
+        <value>Valeur actuelle</value>
+    </data>
+    <data name="Assets_Step3_PurchasePrice" xml:space="preserve">
+        <value>Prix d'achat (Optionnel)</value>
+    </data>
+    <data name="Assets_Step3_PurchasePriceHelp" xml:space="preserve">
+        <value>Le montant que vous avez payé à l'origine pour cet actif</value>
+    </data>
+    <data name="Assets_Step3_AddAsset" xml:space="preserve">
+        <value>Ajouter un actif</value>
+    </data>
+    <data name="Assets_Step3_PreviousStep" xml:space="preserve">
+        <value>Étape précédente</value>
+    </data>
+    <data name="Assets_Step3_SaveContinue" xml:space="preserve">
+        <value>Enregistrer et continuer</value>
+    </data>
+    <data name="Assets_Step3_Required" xml:space="preserve">
+        <value>*</value>
+    </data>
+    
     <data name="Assets_StepComingSoon" xml:space="preserve">
         <value>Contenu de l'étape {0} à venir...</value>
     </data>
