@@ -18,6 +18,7 @@ public partial class Assets
 {
     [Inject] private IMediator Mediator { get; set; } = default!;
     [Inject] private AuthService AuthService { get; set; } = default!;
+    [Inject] private NavigationManager Navigation { get; set; } = default!;
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     private int _currentStep;
@@ -30,6 +31,9 @@ public partial class Assets
     private bool _hasInvestmentAccounts;
     private Step2InvestmentModel _investmentModel = new();
     private List<AccountType> _accountTypes = new();
+    
+    // Note: Step 3 (OtherAssets) and Step 4 (InvestmentProperties) load their own data
+    // asynchronously in their respective OnInitializedAsync methods
 
     protected override async Task OnInitializedAsync()
     {
@@ -131,7 +135,14 @@ public partial class Assets
 
     private void GoToNextStep()
     {
-        // Move to next step after successful save
+        // If we're at the last step (Step 4, index 3), navigate to the next section
+        if (_currentStep == 3)
+        {
+            Navigation.NavigateTo("/beginner-guide/debts");
+            return;
+        }
+        
+        // Otherwise, move to next step
         SetCurrentStep(_currentStep + 1);
     }
 

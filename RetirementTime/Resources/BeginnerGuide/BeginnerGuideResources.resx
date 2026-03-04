@@ -244,7 +244,161 @@
         <value>*</value>
     </data>
     
+    <!-- Step 4: Investment Properties -->
+    <data name="Assets_Step4_Title" xml:space="preserve">
+        <value>Investment Properties</value>
+    </data>
+    <data name="Assets_Step4_Description" xml:space="preserve">
+        <value>Tell us about any rental properties or investment properties you own. This includes other properties you own for yourself (Eg: Lakehouse, cottage, land).</value>
+    </data>
+    <data name="Assets_Step4_Loading" xml:space="preserve">
+        <value>Loading...</value>
+    </data>
+    <data name="Assets_Step4_LoadingMessage" xml:space="preserve">
+        <value>Please wait while we load your investment properties...</value>
+    </data>
+    <data name="Assets_Step4_Question" xml:space="preserve">
+        <value>Do you own any investment properties?</value>
+    </data>
+    <data name="Assets_Step4_Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="Assets_Step4_No" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="Assets_Step4_NoPropertiesAdded" xml:space="preserve">
+        <value>No investment properties added yet. Click "Add Property" to get started.</value>
+    </data>
+    <data name="Assets_Step4_PropertyTitle" xml:space="preserve">
+        <value>Investment Property #{0}</value>
+    </data>
+    <data name="Assets_Step4_Remove" xml:space="preserve">
+        <value>Remove</value>
+    </data>
+    <data name="Assets_Step4_PropertyName" xml:space="preserve">
+        <value>Property Name</value>
+    </data>
+    <data name="Assets_Step4_PropertyNamePlaceholder" xml:space="preserve">
+        <value>e.g., Rental Condo Downtown</value>
+    </data>
+    <data name="Assets_Step4_PurchasePrice" xml:space="preserve">
+        <value>Purchase Price</value>
+    </data>
+    <data name="Assets_Step4_MonthlyMortgagePayments" xml:space="preserve">
+        <value>Monthly Mortgage Payment</value>
+    </data>
+    <data name="Assets_Step4_MortgageLeft" xml:space="preserve">
+        <value>Mortgage Balance Remaining</value>
+    </data>
+    <data name="Assets_Step4_YearlyInsurance" xml:space="preserve">
+        <value>Yearly Insurance</value>
+    </data>
+    <data name="Assets_Step4_MonthlyElectricityCosts" xml:space="preserve">
+        <value>Monthly Electricity Costs</value>
+    </data>
+    <data name="Assets_Step4_MortgageDuration" xml:space="preserve">
+        <value>Mortgage Duration (years)</value>
+    </data>
+    <data name="Assets_Step4_MortgageStartDate" xml:space="preserve">
+        <value>Mortgage Start Date</value>
+    </data>
+    <data name="Assets_Step4_EstimatedValue" xml:space="preserve">
+        <value>Estimated Current Value</value>
+    </data>
+    <data name="Assets_Step4_MonthlyCost" xml:space="preserve">
+        <value>Monthly Costs (maintenance, taxes, etc.)</value>
+    </data>
+    <data name="Assets_Step4_MonthlyRevenue" xml:space="preserve">
+        <value>Monthly Rental Revenue</value>
+    </data>
+    <data name="Assets_Step4_AddProperty" xml:space="preserve">
+        <value>Add Investment Property</value>
+    </data>
+    <data name="Assets_Step4_PreviousStep" xml:space="preserve">
+        <value>Previous Step</value>
+    </data>
+    <data name="Assets_Step4_SaveContinue" xml:space="preserve">
+        <value>Save &amp; Continue</value>
+    </data>
+    <data name="Assets_Step4_Required" xml:space="preserve">
+        <value>*</value>
+    </data>
+    <data name="Assets_Step4_Optional" xml:space="preserve">
+        <value>(Optional)</value>
+    </data>
+    
     <data name="Assets_StepComingSoon" xml:space="preserve">
         <value>Step {0} content coming soon...</value>
+    </data>
+    
+    <!-- Beginner Guide - Debts - Step 1 -->
+    <data name="Debts_Step1_Title" xml:space="preserve">
+        <value>Debts</value>
+    </data>
+    <data name="Debts_Step1_Description" xml:space="preserve">
+        <value>Tell us about any debts you currently have, excluding mortgages.</value>
+    </data>
+    <data name="Debts_Step1_Loading" xml:space="preserve">
+        <value>Loading...</value>
+    </data>
+    <data name="Debts_Step1_LoadingMessage" xml:space="preserve">
+        <value>Please wait while we load your debts...</value>
+    </data>
+    <data name="Debts_Step1_Question" xml:space="preserve">
+        <value>Do you currently have any debts (excluding mortgages)?</value>
+    </data>
+    <data name="Debts_Step1_Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="Debts_Step1_No" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="Debts_Step1_NoDebtsAdded" xml:space="preserve">
+        <value>No debts added yet. Click "Add Debt" to get started.</value>
+    </data>
+    <data name="Debts_Step1_DebtTitle" xml:space="preserve">
+        <value>Debt #{0}</value>
+    </data>
+    <data name="Debts_Step1_Remove" xml:space="preserve">
+        <value>Remove</value>
+    </data>
+    <data name="Debts_Step1_DebtType" xml:space="preserve">
+        <value>Type of Debt</value>
+    </data>
+    <data name="Debts_Step1_Type_CreditCard" xml:space="preserve">
+        <value>Credit Card</value>
+    </data>
+    <data name="Debts_Step1_Type_Car" xml:space="preserve">
+        <value>Car Loan</value>
+    </data>
+    <data name="Debts_Step1_Type_PersonalLoan" xml:space="preserve">
+        <value>Personal Loan</value>
+    </data>
+    <data name="Debts_Step1_Type_LineOfCredit" xml:space="preserve">
+        <value>Line of Credit</value>
+    </data>
+    <data name="Debts_Step1_Type_Other" xml:space="preserve">
+        <value>Other</value>
+    </data>
+    <data name="Debts_Step1_Amount" xml:space="preserve">
+        <value>Debt Amount</value>
+    </data>
+    <data name="Debts_Step1_MonthlyPayment" xml:space="preserve">
+        <value>Monthly Payment</value>
+    </data>
+    <data name="Debts_Step1_InterestRate" xml:space="preserve">
+        <value>Interest Rate</value>
+    </data>
+    <data name="Debts_Step1_AddDebt" xml:space="preserve">
+        <value>Add Debt</value>
+    </data>
+    <data name="Debts_Step1_PreviousStep" xml:space="preserve">
+        <value>Previous Step</value>
+    </data>
+    <data name="Debts_Step1_SaveContinue" xml:space="preserve">
+        <value>Save &amp; Continue</value>
+    </data>
+    <data name="Debts_Step1_Required" xml:space="preserve">
+        <value>*</value>
     </data>
 </root>

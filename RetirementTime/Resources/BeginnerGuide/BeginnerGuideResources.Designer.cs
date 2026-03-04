@@ -471,9 +471,309 @@ namespace RetirementTime.Resources.BeginnerGuide {
             }
         }
         
+        public static string Assets_Step4_Title {
+            get {
+                return ResourceManager.GetString("Assets_Step4_Title", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_Description {
+            get {
+                return ResourceManager.GetString("Assets_Step4_Description", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_Loading {
+            get {
+                return ResourceManager.GetString("Assets_Step4_Loading", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_LoadingMessage {
+            get {
+                return ResourceManager.GetString("Assets_Step4_LoadingMessage", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_Question {
+            get {
+                return ResourceManager.GetString("Assets_Step4_Question", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_Yes {
+            get {
+                return ResourceManager.GetString("Assets_Step4_Yes", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_No {
+            get {
+                return ResourceManager.GetString("Assets_Step4_No", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_NoPropertiesAdded {
+            get {
+                return ResourceManager.GetString("Assets_Step4_NoPropertiesAdded", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_PropertyTitle {
+            get {
+                return ResourceManager.GetString("Assets_Step4_PropertyTitle", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_Remove {
+            get {
+                return ResourceManager.GetString("Assets_Step4_Remove", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_PropertyName {
+            get {
+                return ResourceManager.GetString("Assets_Step4_PropertyName", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_PropertyNamePlaceholder {
+            get {
+                return ResourceManager.GetString("Assets_Step4_PropertyNamePlaceholder", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_PurchasePrice {
+            get {
+                return ResourceManager.GetString("Assets_Step4_PurchasePrice", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_MonthlyMortgagePayments {
+            get {
+                return ResourceManager.GetString("Assets_Step4_MonthlyMortgagePayments", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_MortgageLeft {
+            get {
+                return ResourceManager.GetString("Assets_Step4_MortgageLeft", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_YearlyInsurance {
+            get {
+                return ResourceManager.GetString("Assets_Step4_YearlyInsurance", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_MonthlyElectricityCosts {
+            get {
+                return ResourceManager.GetString("Assets_Step4_MonthlyElectricityCosts", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_MortgageDuration {
+            get {
+                return ResourceManager.GetString("Assets_Step4_MortgageDuration", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_MortgageStartDate {
+            get {
+                return ResourceManager.GetString("Assets_Step4_MortgageStartDate", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_EstimatedValue {
+            get {
+                return ResourceManager.GetString("Assets_Step4_EstimatedValue", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_MonthlyCost {
+            get {
+                return ResourceManager.GetString("Assets_Step4_MonthlyCost", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_MonthlyRevenue {
+            get {
+                return ResourceManager.GetString("Assets_Step4_MonthlyRevenue", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_AddProperty {
+            get {
+                return ResourceManager.GetString("Assets_Step4_AddProperty", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_PreviousStep {
+            get {
+                return ResourceManager.GetString("Assets_Step4_PreviousStep", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_SaveContinue {
+            get {
+                return ResourceManager.GetString("Assets_Step4_SaveContinue", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_Required {
+            get {
+                return ResourceManager.GetString("Assets_Step4_Required", resourceCulture);
+            }
+        }
+        
+        public static string Assets_Step4_Optional {
+            get {
+                return ResourceManager.GetString("Assets_Step4_Optional", resourceCulture);
+            }
+        }
+        
         public static string Assets_StepComingSoon {
             get {
                 return ResourceManager.GetString("Assets_StepComingSoon", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_Title {
+            get {
+                return ResourceManager.GetString("Debts_Step1_Title", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_Description {
+            get {
+                return ResourceManager.GetString("Debts_Step1_Description", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_Loading {
+            get {
+                return ResourceManager.GetString("Debts_Step1_Loading", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_LoadingMessage {
+            get {
+                return ResourceManager.GetString("Debts_Step1_LoadingMessage", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_Question {
+            get {
+                return ResourceManager.GetString("Debts_Step1_Question", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_Yes {
+            get {
+                return ResourceManager.GetString("Debts_Step1_Yes", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_No {
+            get {
+                return ResourceManager.GetString("Debts_Step1_No", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_NoDebtsAdded {
+            get {
+                return ResourceManager.GetString("Debts_Step1_NoDebtsAdded", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_DebtTitle {
+            get {
+                return ResourceManager.GetString("Debts_Step1_DebtTitle", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_Remove {
+            get {
+                return ResourceManager.GetString("Debts_Step1_Remove", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_DebtType {
+            get {
+                return ResourceManager.GetString("Debts_Step1_DebtType", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_Type_CreditCard {
+            get {
+                return ResourceManager.GetString("Debts_Step1_Type_CreditCard", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_Type_Car {
+            get {
+                return ResourceManager.GetString("Debts_Step1_Type_Car", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_Type_PersonalLoan {
+            get {
+                return ResourceManager.GetString("Debts_Step1_Type_PersonalLoan", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_Type_LineOfCredit {
+            get {
+                return ResourceManager.GetString("Debts_Step1_Type_LineOfCredit", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_Type_Other {
+            get {
+                return ResourceManager.GetString("Debts_Step1_Type_Other", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_Amount {
+            get {
+                return ResourceManager.GetString("Debts_Step1_Amount", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_MonthlyPayment {
+            get {
+                return ResourceManager.GetString("Debts_Step1_MonthlyPayment", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_InterestRate {
+            get {
+                return ResourceManager.GetString("Debts_Step1_InterestRate", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_AddDebt {
+            get {
+                return ResourceManager.GetString("Debts_Step1_AddDebt", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_PreviousStep {
+            get {
+                return ResourceManager.GetString("Debts_Step1_PreviousStep", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_SaveContinue {
+            get {
+                return ResourceManager.GetString("Debts_Step1_SaveContinue", resourceCulture);
+            }
+        }
+        
+        public static string Debts_Step1_Required {
+            get {
+                return ResourceManager.GetString("Debts_Step1_Required", resourceCulture);
             }
         }
     }

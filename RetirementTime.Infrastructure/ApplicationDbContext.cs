@@ -402,6 +402,56 @@ public class ApplicationDbContext : DbContext
                 .HasForeignKey(e => e.AssetTypeId);
         });
         
+        modelBuilder.Entity<InvestmentProperty>(entity =>
+        {
+            entity.ToTable("investment_property");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.UserId)
+                .IsRequired();
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.PurchasePrice)
+                .IsRequired()
+                .HasPrecision(18, 2);
+            entity.Property(e => e.MonthlyMortgagePayments)
+                .IsRequired()
+                .HasPrecision(18, 2);
+            entity.Property(e => e.MortgageLeft)
+                .IsRequired()
+                .HasPrecision(18, 2);
+            entity.Property(e => e.YearlyInsurance)
+                .IsRequired()
+                .HasPrecision(18, 2);
+            entity.Property(e => e.MonthlyElectricityCosts)
+                .HasPrecision(18, 2);
+            entity.Property(e => e.MortgageDuration)
+                .IsRequired();
+            entity.Property(e => e.MortgageStartDate)
+                .IsRequired()
+                .HasColumnType("timestamp with time zone");
+            entity.Property(e => e.EstimatedValue)
+                .HasPrecision(18, 2);
+            entity.Property(e => e.MonthlyCost)
+                .IsRequired()
+                .HasPrecision(18, 2);
+            entity.Property(e => e.MonthlyRevenue)
+                .IsRequired()
+                .HasPrecision(18, 2);
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+        
         
         
         SeedRoleData(modelBuilder);
@@ -518,4 +568,5 @@ public class ApplicationDbContext : DbContext
     public DbSet<BeginnerGuideAssetsStockData> InvestmentStocks { get; set; }
     public DbSet<AssetType> AssetTypes { get; set; }
     public DbSet<OtherAsset> OtherAssets { get; set; }
+    public DbSet<InvestmentProperty> InvestmentProperties { get; set; }
 }

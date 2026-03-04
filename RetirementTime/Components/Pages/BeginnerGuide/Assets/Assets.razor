@@ -11,7 +11,7 @@
     <!-- Sub-breadcrumb with dots -->
     <nav class="sub-breadcrumb" aria-label="Asset steps">
         <ol class="dot-navigation">
-            @for (int i = 0; i < 5; i++)
+            @for (int i = 0; i < 4; i++)
             {
                 var stepIndex = i;
                 <li class="dot-item @GetDotActiveClass(stepIndex)">
@@ -61,16 +61,10 @@
         }
         else if (_currentStep == 3)
         {
-            <Step4 />
-        }
-        else if (_currentStep == 4)
-        {
-            <Step5 />
-        }
-        else
-        {
-            <!-- Fallback -->
-            <p class="placeholder-text">@Localizer["Assets_StepComingSoon", (_currentStep + 1)]</p>
+            <Step4InvestmentProperties 
+                UserId="_userId"
+                OnPrevious="EventCallback.Factory.Create(this, GoToPreviousStep)"
+                OnNext="EventCallback.Factory.Create(this, GoToNextStep)" />
         }
     </div>
 </div>

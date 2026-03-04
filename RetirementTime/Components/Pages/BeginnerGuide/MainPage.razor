@@ -2,6 +2,7 @@
 @page "/beginner-guide/{Section}"
 @attribute [Authorize]
 @using RetirementTime.Components.Pages.BeginnerGuide.Assets
+@using RetirementTime.Components.Pages.BeginnerGuide.Debts
 @using RetirementTime.Resources.BeginnerGuide
 @using Microsoft.AspNetCore.Authorization
 @inject IStringLocalizer<BeginnerGuideResources> Localizer
@@ -43,7 +44,7 @@
         }
         else if (_currentSection == "debts")
         {
-            <p>@Localizer["MainPage_DebtsComingSoon"]</p>
+            <DebtsSection />
         }
         else if (_currentSection == "income")
         {
