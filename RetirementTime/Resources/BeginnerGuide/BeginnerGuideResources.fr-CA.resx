@@ -393,4 +393,91 @@
     <data name="Debts_Step1_Required" xml:space="preserve">
         <value>*</value>
     </data>
+
+    <!-- Common -->
+    <data name="Common_Loading" xml:space="preserve">
+        <value>Chargement...</value>
+    </data>
+    <data name="Common_LoadingMessage" xml:space="preserve">
+        <value>Chargement de vos données, veuillez patienter...</value>
+    </data>
+
+    <!-- Income - Step 1: Employment -->
+    <data name="Income_Step1_Title" xml:space="preserve">
+        <value>Revenu d'emploi</value>
+    </data>
+    <data name="Income_Step1_Description" xml:space="preserve">
+        <value>Commençons par votre revenu d'emploi.</value>
+    </data>
+    <data name="Income_Step1_SelfEmploymentNote" xml:space="preserve">
+        <value>Note : Le travail autonome sera couvert à l'étape suivante.</value>
+    </data>
+    <data name="Income_Step1_Question" xml:space="preserve">
+        <value>Êtes-vous actuellement employé (comme salarié)?</value>
+    </data>
+    <data name="Income_Step1_Yes" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="Income_Step1_No" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="Income_Step1_NoEmploymentsAdded" xml:space="preserve">
+        <value>Aucun emploi ajouté pour l'instant. Cliquez sur « Ajouter un emploi » pour commencer.</value>
+    </data>
+    <data name="Income_Step1_EmploymentTitle" xml:space="preserve">
+        <value>Emploi #{0}</value>
+    </data>
+    <data name="Income_Step1_Remove" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
+    <data name="Income_Step1_Required" xml:space="preserve">
+        <value>*</value>
+    </data>
+    <data name="Income_Step1_EmployerName" xml:space="preserve">
+        <value>Quel est le nom de votre employeur?</value>
+    </data>
+    <data name="Income_Step1_EmployerNamePlaceholder" xml:space="preserve">
+        <value>ex. Acme Corp</value>
+    </data>
+    <data name="Income_Step1_AnnualSalary" xml:space="preserve">
+        <value>Quel est votre salaire annuel actuel?</value>
+    </data>
+    <data name="Income_Step1_AverageWageIncrease" xml:space="preserve">
+        <value>Quelle augmentation salariale annuelle moyenne prévoyez-vous?</value>
+    </data>
+    <data name="Income_Step1_AverageWageIncreaseHint" xml:space="preserve">
+        <value>La valeur par défaut est de 2 % (taux d'inflation). Ajustez selon vos attentes.</value>
+    </data>
+    <data name="Income_Step1_AdditionalCompensations" xml:space="preserve">
+        <value>Compensations supplémentaires</value>
+    </data>
+    <data name="Income_Step1_NoAdditionalCompensations" xml:space="preserve">
+        <value>Aucune compensation supplémentaire. Cliquez ci-dessous pour en ajouter une (ex. : boni, commission, allocation auto).</value>
+    </data>
+    <data name="Income_Step1_CompensationName" xml:space="preserve">
+        <value>De quel type de compensation s'agit-il?</value>
+    </data>
+    <data name="Income_Step1_CompensationNamePlaceholder" xml:space="preserve">
+        <value>ex. Boni annuel</value>
+    </data>
+    <data name="Income_Step1_CompensationAmount" xml:space="preserve">
+        <value>Quel est le montant annuel?</value>
+    </data>
+    <data name="Income_Step1_AddCompensation" xml:space="preserve">
+        <value>Ajouter une compensation</value>
+    </data>
+    <data name="Income_Step1_AddEmployment" xml:space="preserve">
+        <value>Ajouter un emploi</value>
+    </data>
+    <data name="Income_Step1_PreviousStep" xml:space="preserve">
+        <value>Étape précédente</value>
+    </data>
+    <data name="Income_Step1_SaveContinue" xml:space="preserve">
+        <value>Sauvegarder &amp; Continuer</value>
+    </data>
+
+    <!-- Income - Step 2: Self Employment -->
+    <data name="Income_Step2_ComingSoon" xml:space="preserve">
+        <value>Revenu de travail autonome à venir...</value>
+    </data>
 </root>

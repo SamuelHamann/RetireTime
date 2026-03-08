@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RetirementTime.Domain.Entities;
 using RetirementTime.Domain.Entities.BeginnerGuide.Assets;
+using RetirementTime.Domain.Entities.BeginnerGuide.Debt;
 using RetirementTime.Domain.Entities.Location;
 using RetirementTime.Domain.Entities.RealEstate;
 
@@ -451,9 +452,42 @@ public class ApplicationDbContext : DbContext
                 .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
-        
-        
-        
+
+        modelBuilder.Entity<BeginnerGuideDebt>(entity =>
+        {
+            entity.ToTable("beginner_guide_debt");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.UserId)
+                .IsRequired();
+            entity.Property(e => e.Type)
+                .IsRequired()
+                .HasConversion<string>()
+                .HasMaxLength(50);
+            entity.Property(e => e.Amount)
+                .IsRequired()
+                .HasPrecision(18, 2);
+            entity.Property(e => e.MonthlyPayment)
+                .IsRequired()
+                .HasPrecision(18, 2);
+            entity.Property(e => e.InterestRate)
+                .IsRequired()
+                .HasPrecision(5, 2);
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+
+
         SeedRoleData(modelBuilder);
         SeedLocationData(modelBuilder);
         SeedLanguageData(modelBuilder);
@@ -569,4 +603,5 @@ public class ApplicationDbContext : DbContext
     public DbSet<AssetType> AssetTypes { get; set; }
     public DbSet<OtherAsset> OtherAssets { get; set; }
     public DbSet<InvestmentProperty> InvestmentProperties { get; set; }
+    public DbSet<BeginnerGuideDebt> BeginnerGuideDebts { get; set; }
 }

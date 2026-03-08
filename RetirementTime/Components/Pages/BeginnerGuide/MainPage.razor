@@ -3,6 +3,7 @@
 @attribute [Authorize]
 @using RetirementTime.Components.Pages.BeginnerGuide.Assets
 @using RetirementTime.Components.Pages.BeginnerGuide.Debts
+@using RetirementTime.Components.Pages.BeginnerGuide.Income
 @using RetirementTime.Resources.BeginnerGuide
 @using Microsoft.AspNetCore.Authorization
 @inject IStringLocalizer<BeginnerGuideResources> Localizer
@@ -48,7 +49,7 @@
         }
         else if (_currentSection == "income")
         {
-            <p>@Localizer["MainPage_IncomeComingSoon"]</p>
+            <IncomeSection />
         }
         else if (_currentSection == "recurring-payments")
         {

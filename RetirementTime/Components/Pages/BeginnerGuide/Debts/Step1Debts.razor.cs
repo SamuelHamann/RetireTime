@@ -1,12 +1,15 @@
-using System;
-using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Components;
+using RetirementTime.Application.Features.BeginnerGuide.Debts.GetDebts;
+using RetirementTime.Application.Features.BeginnerGuide.Debts.UpsertDebts;
 using RetirementTime.Models.BeginnerGuide.Debts;
 
 namespace RetirementTime.Components.Pages.BeginnerGuide.Debts;
 
 public partial class Step1Debts
 {
+    [Inject] private IMediator Mediator { get; set; } = default!;
+
     [Parameter]
     public EventCallback OnPrevious { get; set; }
 
@@ -33,14 +36,19 @@ public partial class Step1Debts
 
         try
         {
-            // TODO: Load existing debts via Mediator when backend is ready
-            // var existingDebts = await Mediator.Send(new GetDebtsQuery { UserId = UserId });
-            // if (existingDebts.Count > 0)
-            // {
-            //     _formModel.HasDebts = true;
-            //     _formModel.Debts = existingDebts.Select(d => new DebtItemModel { ... }).ToList();
-            // }
-            await Task.CompletedTask;
+            var existingDebts = await Mediator.Send(new GetDebtsQuery { UserId = UserId });
+            if (existingDebts.Count > 0)
+            {
+                _formModel.HasDebts = true;
+                _formModel.Debts = existingDebts.Select(d => new DebtItemModel
+                {
+                    Id = d.Id,
+                    Type = d.Type,
+                    Amount = d.Amount,
+                    MonthlyPayment = d.MonthlyPayment,
+                    InterestRate = d.InterestRate
+                }).ToList();
+            }
         }
         catch (Exception)
         {
@@ -74,21 +82,27 @@ public partial class Step1Debts
 
         try
         {
-            // TODO: Send command via Mediator when backend is ready
-            // var command = new UpsertDebtsCommand
-            // {
-            //     UserId = UserId,
-            //     HasDebts = _formModel.HasDebts,
-            //     Debts = _formModel.Debts.Select(d => new DebtInputDto { ... }).ToList()
-            // };
-            // var result = await Mediator.Send(command);
-            // if (!result.Success)
-            // {
-            //     _errorMessage = result.ErrorMessage ?? "Failed to save debts.";
-            //     return;
-            // }
+            var command = new UpsertDebtsCommand
+            {
+                UserId = UserId,
+                HasDebts = _formModel.HasDebts,
+                Debts = _formModel.Debts.Select(d => new DebtInputDto
+                {
+                    Id = d.Id,
+                    Type = d.Type,
+                    Amount = d.Amount,
+                    MonthlyPayment = d.MonthlyPayment,
+                    InterestRate = d.InterestRate
+                }).ToList()
+            };
 
-            await Task.CompletedTask;
+            var result = await Mediator.Send(command);
+            if (!result.Success)
+            {
+                _errorMessage = result.ErrorMessage ?? "Failed to save debts.";
+                return;
+            }
+
             await OnNext.InvokeAsync();
         }
         catch (Exception)

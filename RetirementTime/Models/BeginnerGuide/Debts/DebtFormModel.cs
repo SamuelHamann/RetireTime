@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using RetirementTime.Domain.Entities.BeginnerGuide.Debt;
 
 namespace RetirementTime.Models.BeginnerGuide.Debts;
 
@@ -29,12 +30,4 @@ public class DebtItemModel
     public decimal InterestRate { get; set; }
 }
 
-public enum DebtType
-{
-    CreditCard,
-    Car,
-    PersonalLoan,
-    LineOfCredit,
-    Other
-}
 

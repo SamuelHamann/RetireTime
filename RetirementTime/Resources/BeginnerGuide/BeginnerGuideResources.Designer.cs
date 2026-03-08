@@ -776,5 +776,167 @@ namespace RetirementTime.Resources.BeginnerGuide {
                 return ResourceManager.GetString("Debts_Step1_Required", resourceCulture);
             }
         }
+        
+        public static string Common_Loading {
+            get {
+                return ResourceManager.GetString("Common_Loading", resourceCulture);
+            }
+        }
+        
+        public static string Common_LoadingMessage {
+            get {
+                return ResourceManager.GetString("Common_LoadingMessage", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_Title {
+            get {
+                return ResourceManager.GetString("Income_Step1_Title", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_Description {
+            get {
+                return ResourceManager.GetString("Income_Step1_Description", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_SelfEmploymentNote {
+            get {
+                return ResourceManager.GetString("Income_Step1_SelfEmploymentNote", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_Question {
+            get {
+                return ResourceManager.GetString("Income_Step1_Question", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_Yes {
+            get {
+                return ResourceManager.GetString("Income_Step1_Yes", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_No {
+            get {
+                return ResourceManager.GetString("Income_Step1_No", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_NoEmploymentsAdded {
+            get {
+                return ResourceManager.GetString("Income_Step1_NoEmploymentsAdded", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_EmploymentTitle {
+            get {
+                return ResourceManager.GetString("Income_Step1_EmploymentTitle", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_Remove {
+            get {
+                return ResourceManager.GetString("Income_Step1_Remove", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_Required {
+            get {
+                return ResourceManager.GetString("Income_Step1_Required", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_EmployerName {
+            get {
+                return ResourceManager.GetString("Income_Step1_EmployerName", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_EmployerNamePlaceholder {
+            get {
+                return ResourceManager.GetString("Income_Step1_EmployerNamePlaceholder", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_AnnualSalary {
+            get {
+                return ResourceManager.GetString("Income_Step1_AnnualSalary", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_AverageWageIncrease {
+            get {
+                return ResourceManager.GetString("Income_Step1_AverageWageIncrease", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_AverageWageIncreaseHint {
+            get {
+                return ResourceManager.GetString("Income_Step1_AverageWageIncreaseHint", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_AdditionalCompensations {
+            get {
+                return ResourceManager.GetString("Income_Step1_AdditionalCompensations", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_NoAdditionalCompensations {
+            get {
+                return ResourceManager.GetString("Income_Step1_NoAdditionalCompensations", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_CompensationName {
+            get {
+                return ResourceManager.GetString("Income_Step1_CompensationName", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_CompensationNamePlaceholder {
+            get {
+                return ResourceManager.GetString("Income_Step1_CompensationNamePlaceholder", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_CompensationAmount {
+            get {
+                return ResourceManager.GetString("Income_Step1_CompensationAmount", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_AddCompensation {
+            get {
+                return ResourceManager.GetString("Income_Step1_AddCompensation", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_AddEmployment {
+            get {
+                return ResourceManager.GetString("Income_Step1_AddEmployment", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_PreviousStep {
+            get {
+                return ResourceManager.GetString("Income_Step1_PreviousStep", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step1_SaveContinue {
+            get {
+                return ResourceManager.GetString("Income_Step1_SaveContinue", resourceCulture);
+            }
+        }
+        
+        public static string Income_Step2_ComingSoon {
+            get {
+                return ResourceManager.GetString("Income_Step2_ComingSoon", resourceCulture);
+            }
+        }
     }
 }

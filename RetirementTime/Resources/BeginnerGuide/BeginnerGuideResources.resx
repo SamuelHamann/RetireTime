@@ -401,4 +401,91 @@
     <data name="Debts_Step1_Required" xml:space="preserve">
         <value>*</value>
     </data>
+
+    <!-- Common -->
+    <data name="Common_Loading" xml:space="preserve">
+        <value>Loading...</value>
+    </data>
+    <data name="Common_LoadingMessage" xml:space="preserve">
+        <value>Loading your data, please wait...</value>
+    </data>
+
+    <!-- Income - Step 1: Employment -->
+    <data name="Income_Step1_Title" xml:space="preserve">
+        <value>Employment Income</value>
+    </data>
+    <data name="Income_Step1_Description" xml:space="preserve">
+        <value>Let's start with your employment income.</value>
+    </data>
+    <data name="Income_Step1_SelfEmploymentNote" xml:space="preserve">
+        <value>Note: Self-employment income will be covered in the next step.</value>
+    </data>
+    <data name="Income_Step1_Question" xml:space="preserve">
+        <value>Are you currently employed (as an employee)?</value>
+    </data>
+    <data name="Income_Step1_Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="Income_Step1_No" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="Income_Step1_NoEmploymentsAdded" xml:space="preserve">
+        <value>No employments added yet. Click "Add Employment" to get started.</value>
+    </data>
+    <data name="Income_Step1_EmploymentTitle" xml:space="preserve">
+        <value>Employment #{0}</value>
+    </data>
+    <data name="Income_Step1_Remove" xml:space="preserve">
+        <value>Remove</value>
+    </data>
+    <data name="Income_Step1_Required" xml:space="preserve">
+        <value>*</value>
+    </data>
+    <data name="Income_Step1_EmployerName" xml:space="preserve">
+        <value>What is your employer's name?</value>
+    </data>
+    <data name="Income_Step1_EmployerNamePlaceholder" xml:space="preserve">
+        <value>e.g. Acme Corp</value>
+    </data>
+    <data name="Income_Step1_AnnualSalary" xml:space="preserve">
+        <value>What is your current annual salary?</value>
+    </data>
+    <data name="Income_Step1_AverageWageIncrease" xml:space="preserve">
+        <value>What average annual wage increase do you expect?</value>
+    </data>
+    <data name="Income_Step1_AverageWageIncreaseHint" xml:space="preserve">
+        <value>Default is 2% (inflation rate). Adjust based on your expectations.</value>
+    </data>
+    <data name="Income_Step1_AdditionalCompensations" xml:space="preserve">
+        <value>Additional Compensations</value>
+    </data>
+    <data name="Income_Step1_NoAdditionalCompensations" xml:space="preserve">
+        <value>No additional compensations. Click below to add one (e.g. bonus, commission, car allowance).</value>
+    </data>
+    <data name="Income_Step1_CompensationName" xml:space="preserve">
+        <value>What type of compensation is this?</value>
+    </data>
+    <data name="Income_Step1_CompensationNamePlaceholder" xml:space="preserve">
+        <value>e.g. Annual bonus</value>
+    </data>
+    <data name="Income_Step1_CompensationAmount" xml:space="preserve">
+        <value>What is the annual amount?</value>
+    </data>
+    <data name="Income_Step1_AddCompensation" xml:space="preserve">
+        <value>Add Compensation</value>
+    </data>
+    <data name="Income_Step1_AddEmployment" xml:space="preserve">
+        <value>Add Employment</value>
+    </data>
+    <data name="Income_Step1_PreviousStep" xml:space="preserve">
+        <value>Previous Step</value>
+    </data>
+    <data name="Income_Step1_SaveContinue" xml:space="preserve">
+        <value>Save &amp; Continue</value>
+    </data>
+
+    <!-- Income - Step 2: Self Employment -->
+    <data name="Income_Step2_ComingSoon" xml:space="preserve">
+        <value>Self-employment income coming soon...</value>
+    </data>
 </root>
