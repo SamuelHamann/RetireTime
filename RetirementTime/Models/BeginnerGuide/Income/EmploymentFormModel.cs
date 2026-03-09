@@ -39,5 +39,9 @@ public class AdditionalCompensationItemModel
     [Required(ErrorMessage = "Compensation amount is required")]
     [Range(0.01, double.MaxValue, ErrorMessage = "Compensation amount must be greater than 0")]
     public decimal Amount { get; set; }
+
+    [Required(ErrorMessage = "Frequency is required")]
+    [Range(1, int.MaxValue, ErrorMessage = "Please select a frequency")]
+    public int FrequencyId { get; set; } = 7; // Default to Annually
 }
 

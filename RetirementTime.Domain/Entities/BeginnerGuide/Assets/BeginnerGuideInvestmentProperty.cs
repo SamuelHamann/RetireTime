@@ -1,6 +1,6 @@
 namespace RetirementTime.Domain.Entities.BeginnerGuide.Assets;
 
-public class InvestmentProperty
+public class BeginnerGuideInvestmentProperty
 {
     public long Id { get; set; }
     public long UserId { get; set; }

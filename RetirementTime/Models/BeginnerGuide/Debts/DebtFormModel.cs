@@ -15,7 +15,7 @@ public class DebtItemModel
     public long? Id { get; set; }
 
     [Required(ErrorMessage = "Debt type is required")]
-    public DebtType Type { get; set; }
+    public BeginnerGuideDebtType Type { get; set; }
 
     [Required(ErrorMessage = "Debt amount is required")]
     [Range(0.01, double.MaxValue, ErrorMessage = "Debt amount must be greater than 0")]

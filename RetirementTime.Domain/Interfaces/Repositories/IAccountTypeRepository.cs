@@ -4,8 +4,8 @@ namespace RetirementTime.Domain.Interfaces.Repositories;
 
 public interface IAccountTypeRepository
 {
-    Task<List<AccountType>> GetAllAsync();
-    Task<List<AccountType>> GetByCountryIdAsync(int countryId);
-    Task<AccountType?> GetByIdAsync(int id);
+    Task<List<BeginnerGuideAccountType>> GetAllAsync();
+    Task<List<BeginnerGuideAccountType>> GetByCountryIdAsync(int countryId);
+    Task<BeginnerGuideAccountType?> GetByIdAsync(int id);
 }
 

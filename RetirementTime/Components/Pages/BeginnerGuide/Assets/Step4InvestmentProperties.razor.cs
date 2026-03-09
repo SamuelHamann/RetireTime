@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Components;
 using RetirementTime.Application.Features.BeginnerGuide.Assets.GetInvestmentProperties;
 using RetirementTime.Application.Features.BeginnerGuide.Assets.UpsertInvestmentProperties;
-using RetirementTime.Models.BeginnerGuide.InvestmentProperties;
+using RetirementTime.Models.BeginnerGuide.Assets;
 
 namespace RetirementTime.Components.Pages.BeginnerGuide.Assets;
 

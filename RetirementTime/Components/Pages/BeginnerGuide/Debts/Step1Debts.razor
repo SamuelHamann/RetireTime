@@ -60,11 +60,11 @@
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">@Localizer["Debts_Step1_DebtType"] <span class="text-danger">@Localizer["Debts_Step1_Required"]</span></label>
                                             <InputSelect class="form-select" @bind-Value="debt.Type">
-                                                <option value="@DebtType.CreditCard">@Localizer["Debts_Step1_Type_CreditCard"]</option>
-                                                <option value="@DebtType.Car">@Localizer["Debts_Step1_Type_Car"]</option>
-                                                <option value="@DebtType.PersonalLoan">@Localizer["Debts_Step1_Type_PersonalLoan"]</option>
-                                                <option value="@DebtType.LineOfCredit">@Localizer["Debts_Step1_Type_LineOfCredit"]</option>
-                                                <option value="@DebtType.Other">@Localizer["Debts_Step1_Type_Other"]</option>
+                                                <option value="@BeginnerGuideDebtType.CreditCard">@Localizer["Debts_Step1_Type_CreditCard"]</option>
+                                                <option value="@BeginnerGuideDebtType.Car">@Localizer["Debts_Step1_Type_Car"]</option>
+                                                <option value="@BeginnerGuideDebtType.PersonalLoan">@Localizer["Debts_Step1_Type_PersonalLoan"]</option>
+                                                <option value="@BeginnerGuideDebtType.LineOfCredit">@Localizer["Debts_Step1_Type_LineOfCredit"]</option>
+                                                <option value="@BeginnerGuideDebtType.Other">@Localizer["Debts_Step1_Type_Other"]</option>
                                             </InputSelect>
                                             <ValidationMessage For="@(() => debt.Type)" />
                                         </div>

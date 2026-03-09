@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using RetirementTime.Domain.Entities;
 using RetirementTime.Domain.Entities.BeginnerGuide.Assets;
 using RetirementTime.Domain.Entities.BeginnerGuide.Debt;
+using RetirementTime.Domain.Entities.BeginnerGuide.Income;
+using RetirementTime.Domain.Entities.Common;
 using RetirementTime.Domain.Entities.Location;
 using RetirementTime.Domain.Entities.RealEstate;
 
@@ -217,7 +219,7 @@ public class ApplicationDbContext : DbContext
         {
             entity.ToTable("language");
             entity.HasKey(e => e.LanguageCode);
-            
+
             entity.Property(e => e.LanguageCode)
                 .IsRequired()
                 .HasMaxLength(10);
@@ -225,10 +227,22 @@ public class ApplicationDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(50);
         });
-        
-        modelBuilder.Entity<MainResidence>(entity =>
+
+        modelBuilder.Entity<Frequency>(entity =>
         {
-            entity.ToTable("asset_main_residence");
+            entity.ToTable("common_frequencies");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(50);
+            entity.Property(e => e.FrequencyPerYear)
+                .IsRequired();
+        });
+        
+        modelBuilder.Entity<BeginnerGuideMainResidence>(entity =>
+        {
+            entity.ToTable("beginner_guide_assets_main_residence");
             entity.HasKey(e => e.Id);
             
             entity.Property(e => e.HasMainResidence)
@@ -274,9 +288,9 @@ public class ApplicationDbContext : DbContext
                 .IsUnique();
         });
         
-        modelBuilder.Entity<AccountType>(entity =>
+        modelBuilder.Entity<BeginnerGuideAccountType>(entity =>
         {
-            entity.ToTable("account_type");
+            entity.ToTable("beginner_guide_assets_account_types");
             entity.HasKey(e => e.Id);
             
             entity.Property(e => e.Name)
@@ -297,7 +311,7 @@ public class ApplicationDbContext : DbContext
         
         modelBuilder.Entity<BeginnerGuideAssetsInvestmentAccount>(entity =>
         {
-            entity.ToTable("investment_account", t =>
+            entity.ToTable("beginner_guide_assets_investment_accounts", t =>
             {
                 // Check constraint: ensure bulk amount XOR stocks (not both)
                 // If IsBulkAmount is true, BulkAmount must not be null
@@ -341,7 +355,7 @@ public class ApplicationDbContext : DbContext
         
         modelBuilder.Entity<BeginnerGuideAssetsStockData>(entity =>
         {
-            entity.ToTable("investment_stock");
+            entity.ToTable("beginner_guide_assets_stock_data");
             entity.HasKey(e => e.Id);
             
             entity.Property(e => e.InvestmentAccountId)
@@ -357,9 +371,9 @@ public class ApplicationDbContext : DbContext
                 .HasForeignKey(e => e.InvestmentAccountId);
         });
         
-        modelBuilder.Entity<AssetType>(entity =>
+        modelBuilder.Entity<BeginnerGuideAssetType>(entity =>
         {
-            entity.ToTable("asset_type");
+            entity.ToTable("beginner_guide_assets_asset_type");
             entity.HasKey(e => e.Id);
             
             entity.Property(e => e.Name)
@@ -369,9 +383,9 @@ public class ApplicationDbContext : DbContext
                 .HasMaxLength(500);
         });
         
-        modelBuilder.Entity<OtherAsset>(entity =>
+        modelBuilder.Entity<BeginnerGuideOtherAsset>(entity =>
         {
-            entity.ToTable("other_asset");
+            entity.ToTable("beginner_guide_assets_other_assets");
             entity.HasKey(e => e.Id);
             
             entity.Property(e => e.UserId)
@@ -403,9 +417,9 @@ public class ApplicationDbContext : DbContext
                 .HasForeignKey(e => e.AssetTypeId);
         });
         
-        modelBuilder.Entity<InvestmentProperty>(entity =>
+        modelBuilder.Entity<BeginnerGuideInvestmentProperty>(entity =>
         {
-            entity.ToTable("investment_property");
+            entity.ToTable("beginner_guide_assets_investment_properties");
             entity.HasKey(e => e.Id);
             
             entity.Property(e => e.UserId)
@@ -455,7 +469,7 @@ public class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<BeginnerGuideDebt>(entity =>
         {
-            entity.ToTable("beginner_guide_debt");
+            entity.ToTable("beginner_guide_debt_debts");
             entity.HasKey(e => e.Id);
 
             entity.Property(e => e.UserId)
@@ -486,6 +500,145 @@ public class ApplicationDbContext : DbContext
                 .OnDelete(DeleteBehavior.Cascade);
         });
 
+        modelBuilder.Entity<BeginnerGuideEmployment>(entity =>
+        {
+            entity.ToTable("beginner_guide_income_employments");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.UserId)
+                .IsRequired();
+            entity.Property(e => e.EmployerName)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.AnnualSalary)
+                .IsRequired()
+                .HasPrecision(18, 2);
+            entity.Property(e => e.AverageAnnualWageIncrease)
+                .IsRequired()
+                .HasPrecision(5, 2);
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne<User>()
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasMany(e => e.AdditionalCompensations)
+                .WithOne(c => c.Employment)
+                .HasForeignKey(c => c.EmploymentId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<BeginnerGuideAdditionalCompensation>(entity =>
+        {
+            entity.ToTable("beginner_guide_income_additional_compensations");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.EmploymentId)
+                .IsRequired();
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.Amount)
+                .IsRequired()
+                .HasPrecision(18, 2);
+            entity.Property(e => e.FrequencyId)
+                .IsRequired()
+                .HasDefaultValue(7); // Default to Annually
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.Employment)
+                .WithMany(emp => emp.AdditionalCompensations)
+                .HasForeignKey(e => e.EmploymentId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.Frequency)
+                .WithMany()
+                .HasForeignKey(e => e.FrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<BeginnerGuideSelfEmployment>(entity =>
+        {
+            entity.ToTable("beginner_guide_income_self_employments");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.UserId)
+                .IsRequired();
+            entity.Property(e => e.BusinessName)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.AnnualSalary)
+                .IsRequired()
+                .HasPrecision(18, 2);
+            entity.Property(e => e.AverageAnnualRevenueIncrease)
+                .IsRequired()
+                .HasPrecision(5, 2);
+            entity.Property(e => e.MonthlyDividends)
+                .IsRequired()
+                .HasPrecision(18, 2);
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne<User>()
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasMany(e => e.AdditionalCompensations)
+                .WithOne(c => c.SelfEmployment)
+                .HasForeignKey(c => c.SelfEmploymentId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<BeginnerGuideSelfEmploymentAdditionalCompensation>(entity =>
+        {
+            entity.ToTable("beginner_guide_income_self_employment_additional_compensations");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.SelfEmploymentId)
+                .IsRequired();
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.Amount)
+                .IsRequired()
+                .HasPrecision(18, 2);
+            entity.Property(e => e.FrequencyId)
+                .IsRequired()
+                .HasDefaultValue(7); // Default to Annually
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.SelfEmployment)
+                .WithMany(emp => emp.AdditionalCompensations)
+                .HasForeignKey(e => e.SelfEmploymentId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.Frequency)
+                .WithMany()
+                .HasForeignKey(e => e.FrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
 
 
         SeedRoleData(modelBuilder);
@@ -493,6 +646,7 @@ public class ApplicationDbContext : DbContext
         SeedLanguageData(modelBuilder);
         SeedAccountTypeData(modelBuilder);
         SeedAssetTypeData(modelBuilder);
+        SeedFrequencyData(modelBuilder);
 
     }
 
@@ -544,46 +698,59 @@ public class ApplicationDbContext : DbContext
     private static void SeedAccountTypeData(ModelBuilder modelBuilder)
     {
         // Canadian account types
-        modelBuilder.Entity<AccountType>().HasData(
-            new AccountType { Id = 1, Name = "TFSA (Tax-Free Savings Account)", CountryId = 1, SubdivisionId = null },
-            new AccountType { Id = 2, Name = "RRSP (Registered Retirement Savings Plan)", CountryId = 1, SubdivisionId = null },
-            new AccountType { Id = 3, Name = "FHSA (First Home Savings Account)", CountryId = 1, SubdivisionId = null },
-            new AccountType { Id = 4, Name = "RESP (Registered Education Savings Plan)", CountryId = 1, SubdivisionId = null },
-            new AccountType { Id = 5, Name = "RRIF (Registered Retirement Income Fund)", CountryId = 1, SubdivisionId = null },
-            new AccountType { Id = 6, Name = "LIRA (Locked-In Retirement Account)", CountryId = 1, SubdivisionId = null },
-            new AccountType { Id = 7, Name = "Non-Registered Investment Account", CountryId = 1, SubdivisionId = null },
-            new AccountType { Id = 8, Name = "Cash Account", CountryId = 1, SubdivisionId = null },
-            new AccountType { Id = 9, Name = "Margin Account", CountryId = 1, SubdivisionId = null },
+        modelBuilder.Entity<BeginnerGuideAccountType>().HasData(
+            new BeginnerGuideAccountType { Id = 1, Name = "TFSA (Tax-Free Savings Account)", CountryId = 1, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 2, Name = "RRSP (Registered Retirement Savings Plan)", CountryId = 1, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 3, Name = "FHSA (First Home Savings Account)", CountryId = 1, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 4, Name = "RESP (Registered Education Savings Plan)", CountryId = 1, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 5, Name = "RRIF (Registered Retirement Income Fund)", CountryId = 1, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 6, Name = "LIRA (Locked-In Retirement Account)", CountryId = 1, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 7, Name = "Non-Registered Investment Account", CountryId = 1, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 8, Name = "Cash Account", CountryId = 1, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 9, Name = "Margin Account", CountryId = 1, SubdivisionId = null },
             
             // US account types
-            new AccountType { Id = 10, Name = "401(k)", CountryId = 2, SubdivisionId = null },
-            new AccountType { Id = 11, Name = "Traditional IRA", CountryId = 2, SubdivisionId = null },
-            new AccountType { Id = 12, Name = "Roth IRA", CountryId = 2, SubdivisionId = null },
-            new AccountType { Id = 13, Name = "SEP IRA", CountryId = 2, SubdivisionId = null },
-            new AccountType { Id = 14, Name = "SIMPLE IRA", CountryId = 2, SubdivisionId = null },
-            new AccountType { Id = 15, Name = "403(b)", CountryId = 2, SubdivisionId = null },
-            new AccountType { Id = 16, Name = "457 Plan", CountryId = 2, SubdivisionId = null },
-            new AccountType { Id = 17, Name = "Thrift Savings Plan (TSP)", CountryId = 2, SubdivisionId = null },
-            new AccountType { Id = 18, Name = "529 Education Savings Plan", CountryId = 2, SubdivisionId = null },
-            new AccountType { Id = 19, Name = "HSA (Health Savings Account)", CountryId = 2, SubdivisionId = null },
-            new AccountType { Id = 20, Name = "Brokerage Account (Taxable)", CountryId = 2, SubdivisionId = null },
-            new AccountType { Id = 21, Name = "Cash Management Account", CountryId = 2, SubdivisionId = null }
+            new BeginnerGuideAccountType { Id = 10, Name = "401(k)", CountryId = 2, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 11, Name = "Traditional IRA", CountryId = 2, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 12, Name = "Roth IRA", CountryId = 2, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 13, Name = "SEP IRA", CountryId = 2, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 14, Name = "SIMPLE IRA", CountryId = 2, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 15, Name = "403(b)", CountryId = 2, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 16, Name = "457 Plan", CountryId = 2, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 17, Name = "Thrift Savings Plan (TSP)", CountryId = 2, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 18, Name = "529 Education Savings Plan", CountryId = 2, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 19, Name = "HSA (Health Savings Account)", CountryId = 2, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 20, Name = "Brokerage Account (Taxable)", CountryId = 2, SubdivisionId = null },
+            new BeginnerGuideAccountType { Id = 21, Name = "Cash Management Account", CountryId = 2, SubdivisionId = null }
         );
     }
     
     private static void SeedAssetTypeData(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<AssetType>().HasData(
-            new AssetType { Id = 1, Name = "Precious Metals", Description = "Gold, silver, platinum, and other precious metals" },
-            new AssetType { Id = 2, Name = "Vehicles", Description = "Cars, motorcycles, boats, RVs, etc." },
-            new AssetType { Id = 3, Name = "Jewelry", Description = "Fine jewelry, watches, and collectible pieces" },
-            new AssetType { Id = 4, Name = "Cash", Description = "Physical cash holdings" },
-            new AssetType { Id = 5, Name = "Cryptocurrency", Description = "Bitcoin, Ethereum, and other digital currencies" },
-            new AssetType { Id = 6, Name = "Art & Collectibles", Description = "Paintings, sculptures, rare collectibles" },
-            new AssetType { Id = 7, Name = "Antiques", Description = "Antique furniture, vintage items" },
-            new AssetType { Id = 8, Name = "Wine & Spirits", Description = "Collectible wines and rare spirits" },
-            new AssetType { Id = 9, Name = "Equipment & Tools", Description = "Professional or recreational equipment" },
-            new AssetType { Id = 10, Name = "Other", Description = "Other valuable assets not listed above" }
+        modelBuilder.Entity<BeginnerGuideAssetType>().HasData(
+            new BeginnerGuideAssetType { Id = 1, Name = "Precious Metals", Description = "Gold, silver, platinum, and other precious metals" },
+            new BeginnerGuideAssetType { Id = 2, Name = "Vehicles", Description = "Cars, motorcycles, boats, RVs, etc." },
+            new BeginnerGuideAssetType { Id = 3, Name = "Jewelry", Description = "Fine jewelry, watches, and collectible pieces" },
+            new BeginnerGuideAssetType { Id = 4, Name = "Cash", Description = "Physical cash holdings" },
+            new BeginnerGuideAssetType { Id = 5, Name = "Cryptocurrency", Description = "Bitcoin, Ethereum, and other digital currencies" },
+            new BeginnerGuideAssetType { Id = 6, Name = "Art & Collectibles", Description = "Paintings, sculptures, rare collectibles" },
+            new BeginnerGuideAssetType { Id = 7, Name = "Antiques", Description = "Antique furniture, vintage items" },
+            new BeginnerGuideAssetType { Id = 8, Name = "Wine & Spirits", Description = "Collectible wines and rare spirits" },
+            new BeginnerGuideAssetType { Id = 9, Name = "Equipment & Tools", Description = "Professional or recreational equipment" },
+            new BeginnerGuideAssetType { Id = 10, Name = "Other", Description = "Other valuable assets not listed above" }
+        );
+    }
+
+    private static void SeedFrequencyData(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Frequency>().HasData(
+            new Frequency { Id = 1, Name = "Weekly", FrequencyPerYear = 52 },
+            new Frequency { Id = 2, Name = "Bi-Weekly", FrequencyPerYear = 26 },
+            new Frequency { Id = 3, Name = "Monthly", FrequencyPerYear = 12 },
+            new Frequency { Id = 4, Name = "Bi-Monthly", FrequencyPerYear = 6 },
+            new Frequency { Id = 5, Name = "Quarterly", FrequencyPerYear = 4 },
+            new Frequency { Id = 6, Name = "Semi-Annually", FrequencyPerYear = 2 },
+            new Frequency { Id = 7, Name = "Annually", FrequencyPerYear = 1 }
         );
     }
     
@@ -596,12 +763,17 @@ public class ApplicationDbContext : DbContext
     public DbSet<Rent> Rents { get; set; }
     public DbSet<BuyOrRent> BuyOrRents { get; set; }
     public DbSet<Language> Languages { get; set; }
-    public DbSet<MainResidence> MainResidences { get; set; }
-    public DbSet<AccountType> AccountTypes { get; set; }
+    public DbSet<Frequency> Frequencies { get; set; }
+    public DbSet<BeginnerGuideMainResidence> MainResidences { get; set; }
+    public DbSet<BeginnerGuideAccountType> AccountTypes { get; set; }
     public DbSet<BeginnerGuideAssetsInvestmentAccount> InvestmentAccounts { get; set; }
     public DbSet<BeginnerGuideAssetsStockData> InvestmentStocks { get; set; }
-    public DbSet<AssetType> AssetTypes { get; set; }
-    public DbSet<OtherAsset> OtherAssets { get; set; }
-    public DbSet<InvestmentProperty> InvestmentProperties { get; set; }
+    public DbSet<BeginnerGuideAssetType> AssetTypes { get; set; }
+    public DbSet<BeginnerGuideOtherAsset> OtherAssets { get; set; }
+    public DbSet<BeginnerGuideInvestmentProperty> InvestmentProperties { get; set; }
     public DbSet<BeginnerGuideDebt> BeginnerGuideDebts { get; set; }
+    public DbSet<BeginnerGuideEmployment> Employments { get; set; }
+    public DbSet<BeginnerGuideAdditionalCompensation> AdditionalCompensations { get; set; }
+    public DbSet<BeginnerGuideSelfEmployment> SelfEmployments { get; set; }
+    public DbSet<BeginnerGuideSelfEmploymentAdditionalCompensation> SelfEmploymentAdditionalCompensations { get; set; }
 }

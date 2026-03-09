@@ -13,19 +13,19 @@ public class AccountTypeRepository : IAccountTypeRepository
         _context = context;
     }
 
-    public async Task<List<AccountType>> GetAllAsync()
+    public async Task<List<BeginnerGuideAccountType>> GetAllAsync()
     {
         return await _context.AccountTypes.ToListAsync();
     }
 
-    public async Task<List<AccountType>> GetByCountryIdAsync(int countryId)
+    public async Task<List<BeginnerGuideAccountType>> GetByCountryIdAsync(int countryId)
     {
         return await _context.AccountTypes
             .Where(a => a.CountryId == countryId)
             .ToListAsync();
     }
 
-    public async Task<AccountType?> GetByIdAsync(int id)
+    public async Task<BeginnerGuideAccountType?> GetByIdAsync(int id)
     {
         return await _context.AccountTypes.FindAsync(id);
     }

@@ -4,12 +4,12 @@ namespace RetirementTime.Domain.Interfaces.Repositories;
 
 public interface IOtherAssetRepository
 {
-    Task<List<OtherAsset>> GetByUserIdAsync(long userId);
-    Task<OtherAsset?> GetByIdAsync(int id);
-    Task<OtherAsset> AddAsync(OtherAsset asset);
-    Task<OtherAsset> UpdateAsync(OtherAsset asset);
+    Task<List<BeginnerGuideOtherAsset>> GetByUserIdAsync(long userId);
+    Task<BeginnerGuideOtherAsset?> GetByIdAsync(int id);
+    Task<BeginnerGuideOtherAsset> AddAsync(BeginnerGuideOtherAsset asset);
+    Task<BeginnerGuideOtherAsset> UpdateAsync(BeginnerGuideOtherAsset asset);
     Task DeleteAsync(int id);
     Task DeleteByUserIdAsync(long userId);
-    Task<(List<OtherAsset> SavedAssets, List<int> AssetIds)> UpsertAssetsAsync(long userId, List<OtherAsset> assets);
+    Task<(List<BeginnerGuideOtherAsset> SavedAssets, List<int> AssetIds)> UpsertAssetsAsync(long userId, List<BeginnerGuideOtherAsset> assets);
 }
 

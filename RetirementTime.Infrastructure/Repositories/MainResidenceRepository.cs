@@ -6,14 +6,14 @@ namespace RetirementTime.Infrastructure.Repositories;
 
 public class MainResidenceRepository(ApplicationDbContext context) : IMainResidenceRepository
 {
-    public async Task<MainResidence?> GetByUserIdAsync(long userId)
+    public async Task<BeginnerGuideMainResidence?> GetByUserIdAsync(long userId)
     {
         return await context.MainResidences
             .AsNoTracking()
             .FirstOrDefaultAsync(m => m.UserId == userId);
     }
 
-    public async Task<MainResidence> CreateAsync(MainResidence mainResidence)
+    public async Task<BeginnerGuideMainResidence> CreateAsync(BeginnerGuideMainResidence mainResidence)
     {
         mainResidence.CreatedAt = DateTime.UtcNow;
         mainResidence.UpdatedAt = DateTime.UtcNow;
@@ -24,7 +24,7 @@ public class MainResidenceRepository(ApplicationDbContext context) : IMainReside
         return mainResidence;
     }
 
-    public async Task<MainResidence> UpdateAsync(MainResidence mainResidence)
+    public async Task<BeginnerGuideMainResidence> UpdateAsync(BeginnerGuideMainResidence mainResidence)
     {
         mainResidence.UpdatedAt = DateTime.UtcNow;
         

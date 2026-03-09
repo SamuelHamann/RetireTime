@@ -1,6 +1,6 @@
 namespace RetirementTime.Domain.Entities.BeginnerGuide.Assets;
 
-public class AccountType
+public class BeginnerGuideAccountType
 {
     public int Id { get; set; }
     public required string Name { get; set; }

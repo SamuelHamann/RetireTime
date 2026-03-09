@@ -4,6 +4,7 @@
 @using RetirementTime.Components.Pages.BeginnerGuide.Assets
 @using RetirementTime.Components.Pages.BeginnerGuide.Debts
 @using RetirementTime.Components.Pages.BeginnerGuide.Income
+@using RetirementTime.Components.Pages.BeginnerGuide.Benefits
 @using RetirementTime.Resources.BeginnerGuide
 @using Microsoft.AspNetCore.Authorization
 @inject IStringLocalizer<BeginnerGuideResources> Localizer
@@ -30,9 +31,9 @@
                     @Localizer["MainPage_Income"]
                 </button>
             </li>
-            <li class="breadcrumb-item @GetActiveClass("recurring-payments")">
-                <button type="button" class="btn btn-link p-0 border-0 text-decoration-none" @onclick="@(() => SetCurrentSection("recurring-payments"))">
-                    @Localizer["MainPage_RecurringPayments"]
+            <li class="breadcrumb-item @GetActiveClass("benefits")">
+                <button type="button" class="btn btn-link p-0 border-0 text-decoration-none" @onclick="@(() => SetCurrentSection("benefits"))">
+                    @Localizer["MainPage_Benefits"]
                 </button>
             </li>
         </ol>
@@ -51,9 +52,9 @@
         {
             <IncomeSection />
         }
-        else if (_currentSection == "recurring-payments")
+        else if (_currentSection == "benefits")
         {
-            <p>@Localizer["MainPage_RecurringPaymentsComingSoon"]</p>
+			<BenefitsSection />
         }
     </main>
 

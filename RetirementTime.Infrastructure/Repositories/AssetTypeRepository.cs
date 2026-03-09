@@ -8,14 +8,14 @@ public class AssetTypeRepository(ApplicationDbContext context) : IAssetTypeRepos
 {
     private readonly ApplicationDbContext _context = context;
 
-    public async Task<List<AssetType>> GetAllAsync()
+    public async Task<List<BeginnerGuideAssetType>> GetAllAsync()
     {
         return await _context.AssetTypes
             .OrderBy(at => at.Name)
             .ToListAsync();
     }
 
-    public async Task<AssetType?> GetByIdAsync(int id)
+    public async Task<BeginnerGuideAssetType?> GetByIdAsync(int id)
     {
         return await _context.AssetTypes.FindAsync(id);
     }

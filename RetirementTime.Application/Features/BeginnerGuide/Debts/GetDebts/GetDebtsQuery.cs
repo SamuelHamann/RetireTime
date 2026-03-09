@@ -11,7 +11,7 @@ public class GetDebtsQuery : IRequest<List<DebtDto>>
 public class DebtDto
 {
     public long Id { get; set; }
-    public DebtType Type { get; set; }
+    public BeginnerGuideDebtType Type { get; set; }
     public decimal Amount { get; set; }
     public decimal MonthlyPayment { get; set; }
     public decimal InterestRate { get; set; }

@@ -52,7 +52,7 @@ public partial class UpsertMainResidenceHandler(
                 ? DateTime.SpecifyKind(request.MortgageStartDate.Value, DateTimeKind.Utc)
                 : null;
 
-            MainResidence mainResidence;
+            BeginnerGuideMainResidence mainResidence;
             
             if (existingMainResidence != null)
             {
@@ -73,7 +73,7 @@ public partial class UpsertMainResidenceHandler(
             else
             {
                 // Create new record
-                var newMainResidence = new MainResidence
+                var newMainResidence = new BeginnerGuideMainResidence
                 {
                     UserId = request.UserId,
                     HasMainResidence = request.HasMainResidence,

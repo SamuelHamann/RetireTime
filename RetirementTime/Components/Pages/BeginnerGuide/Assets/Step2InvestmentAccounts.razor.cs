@@ -22,7 +22,7 @@ public partial class Step2InvestmentAccounts
     [Parameter] public bool HasInvestmentAccounts { get; set; }
     [Parameter] public EventCallback<bool> HasInvestmentAccountsChanged { get; set; }
     [Parameter] public Step2InvestmentModel Model { get; set; } = new();
-    [Parameter] public List<AccountType> AccountTypes { get; set; } = new();
+    [Parameter] public List<BeginnerGuideAccountType> AccountTypes { get; set; } = new();
     [Parameter] public EventCallback OnSaveClicked { get; set; }
     
     private bool _isSaving;

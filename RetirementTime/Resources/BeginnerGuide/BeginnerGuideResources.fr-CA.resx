@@ -36,6 +36,9 @@
     <data name="MainPage_Income" xml:space="preserve">
         <value>Revenus</value>
     </data>
+    <data name="MainPage_Benefits" xml:space="preserve">
+        <value>Avantages</value>
+    </data>
     <data name="MainPage_RecurringPayments" xml:space="preserve">
         <value>Paiements Récurrents</value>
     </data>
@@ -476,8 +479,284 @@
         <value>Sauvegarder &amp; Continuer</value>
     </data>
 
+    <data name="Income_Step1_Frequency" xml:space="preserve">
+        <value>Fréquence</value>
+    </data>
+    <data name="Income_Step1_SelectFrequency" xml:space="preserve">
+        <value>-- Sélectionner la fréquence --</value>
+    </data>
+
     <!-- Income - Step 2: Self Employment -->
-    <data name="Income_Step2_ComingSoon" xml:space="preserve">
-        <value>Revenu de travail autonome à venir...</value>
+    <data name="Income_Step2_Title" xml:space="preserve">
+        <value>Revenu de travail autonome</value>
+    </data>
+    <data name="Income_Step2_Description" xml:space="preserve">
+        <value>Parlez-nous de votre revenu de travail autonome.</value>
+    </data>
+    <data name="Income_Step2_Note" xml:space="preserve">
+        <value>Cela inclut les revenus de la pige, du travail contractuel ou de la gestion de votre propre entreprise.</value>
+    </data>
+    <data name="Income_Step2_Question" xml:space="preserve">
+        <value>Êtes-vous travailleur autonome ou avez-vous une entreprise?</value>
+    </data>
+    <data name="Income_Step2_Yes" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="Income_Step2_No" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="Income_Step2_NoSelfEmploymentsAdded" xml:space="preserve">
+        <value>Aucun travail autonome ajouté pour l'instant. Cliquez sur « Ajouter un travail autonome » pour commencer.</value>
+    </data>
+    <data name="Income_Step2_SelfEmploymentTitle" xml:space="preserve">
+        <value>Travail autonome #{0}</value>
+    </data>
+    <data name="Income_Step2_Remove" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
+    <data name="Income_Step2_Required" xml:space="preserve">
+        <value>*</value>
+    </data>
+    <data name="Income_Step2_BusinessName" xml:space="preserve">
+        <value>Quel est le nom de votre entreprise?</value>
+    </data>
+    <data name="Income_Step2_BusinessNamePlaceholder" xml:space="preserve">
+        <value>ex. Consultation Smith</value>
+    </data>
+    <data name="Income_Step2_AnnualSalary" xml:space="preserve">
+        <value>Quel est votre salaire annuel de cette entreprise?</value>
+    </data>
+    <data name="Income_Step2_MonthlyDividends" xml:space="preserve">
+        <value>Quels sont vos dividendes mensuels?</value>
+    </data>
+    <data name="Income_Step2_MonthlyDividendsHint" xml:space="preserve">
+        <value>Si non applicable, entrez 0</value>
+    </data>
+    <data name="Income_Step2_AverageRevenueIncrease" xml:space="preserve">
+        <value>Quelle augmentation annuelle moyenne des revenus prévoyez-vous?</value>
+    </data>
+    <data name="Income_Step2_AverageRevenueIncreaseHint" xml:space="preserve">
+        <value>La valeur par défaut est de 2 % (taux d'inflation). Ajustez selon vos attentes.</value>
+    </data>
+    <data name="Income_Step2_AdditionalCompensations" xml:space="preserve">
+        <value>Compensations supplémentaires</value>
+    </data>
+    <data name="Income_Step2_NoAdditionalCompensations" xml:space="preserve">
+        <value>Aucune compensation supplémentaire. Cliquez ci-dessous pour en ajouter une (ex. : boni de performance, paiement contractuel).</value>
+    </data>
+    <data name="Income_Step2_CompensationName" xml:space="preserve">
+        <value>De quel type de compensation s'agit-il?</value>
+    </data>
+    <data name="Income_Step2_CompensationNamePlaceholder" xml:space="preserve">
+        <value>ex. Boni trimestriel</value>
+    </data>
+    <data name="Income_Step2_CompensationAmount" xml:space="preserve">
+        <value>Quel est le montant?</value>
+    </data>
+    <data name="Income_Step2_Frequency" xml:space="preserve">
+        <value>Fréquence</value>
+    </data>
+    <data name="Income_Step2_SelectFrequency" xml:space="preserve">
+        <value>-- Sélectionner la fréquence --</value>
+    </data>
+    <data name="Income_Step2_AddCompensation" xml:space="preserve">
+        <value>Ajouter une compensation</value>
+    </data>
+    <data name="Income_Step2_AddSelfEmployment" xml:space="preserve">
+        <value>Ajouter un travail autonome</value>
+    </data>
+    <data name="Income_Step2_PreviousStep" xml:space="preserve">
+        <value>Étape précédente</value>
+    </data>
+    <data name="Income_Step2_SaveContinue" xml:space="preserve">
+        <value>Sauvegarder &amp; Continuer</value>
+    </data>
+
+    <!-- Benefits Section -->
+    <data name="Benefits_Title" xml:space="preserve">
+        <value>Avantages et Pensions</value>
+    </data>
+    <data name="Benefits_Description" xml:space="preserve">
+        <value>Parlez-nous de vos pensions, prestations gouvernementales et autres revenus récurrents.</value>
+    </data>
+    <data name="Benefits_StepOf" xml:space="preserve">
+        <value>Étape {0} sur 3</value>
+    </data>
+
+    <!-- Benefits - Step 1: Pension -->
+    <data name="Benefits_Step1_Title" xml:space="preserve">
+        <value>Régimes de pension d'employeur</value>
+    </data>
+    <data name="Benefits_Step1_Description" xml:space="preserve">
+        <value>Parlez-nous de tout régime de pension parrainé par l'employeur que vous avez.</value>
+    </data>
+    <data name="Benefits_Step1_LoadingMessage" xml:space="preserve">
+        <value>Chargement de vos informations de pension...</value>
+    </data>
+    <data name="Benefits_Step1_Question" xml:space="preserve">
+        <value>Avez-vous des régimes de pension d'employeur?</value>
+    </data>
+    <data name="Benefits_Step1_Yes" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="Benefits_Step1_No" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="Benefits_Step1_NoPensionsAdded" xml:space="preserve">
+        <value>Aucune pension ajoutée pour l'instant. Cliquez sur « Ajouter une pension » pour commencer.</value>
+    </data>
+    <data name="Benefits_Step1_PensionTitle" xml:space="preserve">
+        <value>Pension #{0}</value>
+    </data>
+    <data name="Benefits_Step1_Remove" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
+    <data name="Benefits_Step1_EmployerName" xml:space="preserve">
+        <value>Nom de l'employeur</value>
+    </data>
+    <data name="Benefits_Step1_EmployerNamePlaceholder" xml:space="preserve">
+        <value>ex. Corporation Acme</value>
+    </data>
+    <data name="Benefits_Step1_PensionType" xml:space="preserve">
+        <value>Type de pension</value>
+    </data>
+    <data name="Benefits_Step1_SelectPensionType" xml:space="preserve">
+        <value>-- Sélectionner le type de pension --</value>
+    </data>
+    <data name="Benefits_Step1_MonthlyPensionAmount" xml:space="preserve">
+        <value>Montant de la pension mensuelle</value>
+    </data>
+    <data name="Benefits_Step1_ExpectedAnnualIncrease" xml:space="preserve">
+        <value>Augmentation annuelle prévue</value>
+    </data>
+    <data name="Benefits_Step1_ExpectedAnnualIncreaseHint" xml:space="preserve">
+        <value>La valeur par défaut est de 2 % (taux d'inflation). Ajustez selon vos attentes.</value>
+    </data>
+    <data name="Benefits_Step1_AddPension" xml:space="preserve">
+        <value>Ajouter une pension</value>
+    </data>
+    <data name="Benefits_Step1_PreviousStep" xml:space="preserve">
+        <value>Étape précédente</value>
+    </data>
+    <data name="Benefits_Step1_SaveContinue" xml:space="preserve">
+        <value>Sauvegarder &amp; Continuer</value>
+    </data>
+    <data name="Benefits_Step1_Next" xml:space="preserve">
+        <value>Suivant</value>
+    </data>
+    <data name="Benefits_Step1_Saving" xml:space="preserve">
+        <value>Enregistrement...</value>
+    </data>
+    <data name="Benefits_Step1_Required" xml:space="preserve">
+        <value>*</value>
+    </data>
+
+    <!-- Benefits - Step 2: Government Pension -->
+    <data name="Benefits_Step2_Title" xml:space="preserve">
+        <value>Pension gouvernementale (RPC/RRQ)</value>
+    </data>
+    <data name="Benefits_Step2_Description" xml:space="preserve">
+        <value>Parlez-nous de votre admissibilité à la pension gouvernementale.</value>
+    </data>
+    <data name="Benefits_Step2_LoadingMessage" xml:space="preserve">
+        <value>Chargement de vos informations de pension gouvernementale...</value>
+    </data>
+    <data name="Benefits_Step2_YearsWorked" xml:space="preserve">
+        <value>Combien d'années avez-vous travaillé au Canada?</value>
+    </data>
+    <data name="Benefits_Step2_YearsWorkedHint" xml:space="preserve">
+        <value>Cela nous aide à estimer votre admissibilité au RPC/RRQ et le montant de vos prestations.</value>
+    </data>
+    <data name="Benefits_Step2_SpecializedPensionQuestion" xml:space="preserve">
+        <value>Avez-vous droit à une pension spécialisée de la fonction publique?</value>
+    </data>
+    <data name="Benefits_Step2_SpecializedPensionExamples" xml:space="preserve">
+        <value>Exemples : Pension de retraite des Forces canadiennes, Pension de retraite de la GRC, Pension en vertu de la Loi sur les juges, etc.</value>
+    </data>
+    <data name="Benefits_Step2_SpecializedPensionName" xml:space="preserve">
+        <value>Nom de la pension</value>
+    </data>
+    <data name="Benefits_Step2_SpecializedPensionNamePlaceholder" xml:space="preserve">
+        <value>ex. Pension de retraite des Forces canadiennes</value>
+    </data>
+    <data name="Benefits_Step2_Yes" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="Benefits_Step2_No" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="Benefits_Step2_PreviousStep" xml:space="preserve">
+        <value>Étape précédente</value>
+    </data>
+    <data name="Benefits_Step2_SaveContinue" xml:space="preserve">
+        <value>Sauvegarder &amp; Continuer</value>
+    </data>
+    <data name="Benefits_Step2_Saving" xml:space="preserve">
+        <value>Enregistrement...</value>
+    </data>
+    <data name="Benefits_Step2_Required" xml:space="preserve">
+        <value>*</value>
+    </data>
+
+    <!-- Benefits - Step 3: Other Recurring Gains -->
+    <data name="Benefits_Step3_Title" xml:space="preserve">
+        <value>Autres revenus récurrents</value>
+    </data>
+    <data name="Benefits_Step3_Description" xml:space="preserve">
+        <value>Parlez-nous de tout autre revenu récurrent que vous recevez.</value>
+    </data>
+    <data name="Benefits_Step3_Examples" xml:space="preserve">
+        <value>Exemples : dividendes, redevances, revenus locatifs de propriétés non inscrites dans les actifs, etc.</value>
+    </data>
+    <data name="Benefits_Step3_LoadingMessage" xml:space="preserve">
+        <value>Chargement de vos informations de revenus récurrents...</value>
+    </data>
+    <data name="Benefits_Step3_Question" xml:space="preserve">
+        <value>Avez-vous d'autres revenus récurrents?</value>
+    </data>
+    <data name="Benefits_Step3_Yes" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="Benefits_Step3_No" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="Benefits_Step3_NoRecurringGainsAdded" xml:space="preserve">
+        <value>Aucun revenu récurrent ajouté pour l'instant. Cliquez sur « Ajouter un revenu récurrent » pour commencer.</value>
+    </data>
+    <data name="Benefits_Step3_RecurringGainTitle" xml:space="preserve">
+        <value>Revenu récurrent #{0}</value>
+    </data>
+    <data name="Benefits_Step3_Remove" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
+    <data name="Benefits_Step3_SourceName" xml:space="preserve">
+        <value>Nom de la source</value>
+    </data>
+    <data name="Benefits_Step3_SourceNamePlaceholder" xml:space="preserve">
+        <value>ex. Dividendes d'actions, Redevances de livres</value>
+    </data>
+    <data name="Benefits_Step3_Amount" xml:space="preserve">
+        <value>Montant</value>
+    </data>
+    <data name="Benefits_Step3_Frequency" xml:space="preserve">
+        <value>Fréquence</value>
+    </data>
+    <data name="Benefits_Step3_SelectFrequency" xml:space="preserve">
+        <value>-- Sélectionner la fréquence --</value>
+    </data>
+    <data name="Benefits_Step3_AddRecurringGain" xml:space="preserve">
+        <value>Ajouter un revenu récurrent</value>
+    </data>
+    <data name="Benefits_Step3_PreviousStep" xml:space="preserve">
+        <value>Étape précédente</value>
+    </data>
+    <data name="Benefits_Step3_Complete" xml:space="preserve">
+        <value>Terminer</value>
+    </data>
+    <data name="Benefits_Step3_Saving" xml:space="preserve">
+        <value>Enregistrement...</value>
+    </data>
+    <data name="Benefits_Step3_Required" xml:space="preserve">
+        <value>*</value>
     </data>
 </root>

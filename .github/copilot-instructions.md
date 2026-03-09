@@ -194,10 +194,33 @@ public partial class ExampleHandler(
 
 ### Result Objects
 - All command/query results should inherit from `BaseResult` (when applicable)
+- `BaseResult` is a **record type**, so all derived results must also be **record types**
 - `BaseResult` contains:
   - `Success` (bool): Indicates if the operation succeeded
   - `ErrorMessage` (string?): User-friendly error message when `Success = false`
 - Extend `BaseResult` with operation-specific properties (e.g., `UserId`, `Data`)
+- Use `init` accessors for properties in record types
+
+## Development Workflow
+
+### Feature Planning and Implementation
+**CRITICAL**: Before implementing any new feature (entities, repositories, handlers, etc.), ALWAYS:
+1. **Create a detailed plan** including:
+   - Database table names and structure
+   - File names and locations for all layers
+   - Data flow diagram
+   - Repository methods needed
+2. **Present the plan to the user for validation**
+3. **Wait for explicit approval** before proceeding with implementation
+4. This ensures alignment and prevents rework
+
+**Example Plan Structure**:
+- Tables: List all table names with column details
+- Domain Layer: Entity files and interfaces
+- Infrastructure Layer: Repository implementations, DbContext changes
+- Application Layer: Commands/Queries, Handlers, Results
+- Presentation Layer: Component changes
+- Ask specific questions about naming, patterns, and approaches
 
 ## Component Development Best Practices
 

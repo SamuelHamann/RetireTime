@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace RetirementTime.Models.BeginnerGuide.InvestmentProperties;
+namespace RetirementTime.Models.BeginnerGuide.Assets;
 
 public class InvestmentPropertyFormModel
 {
@@ -53,4 +53,3 @@ public class InvestmentPropertyItemModel
     [Range(0, double.MaxValue, ErrorMessage = "Monthly revenue cannot be negative")]
     public decimal MonthlyRevenue { get; set; }
 }
-

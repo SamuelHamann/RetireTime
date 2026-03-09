@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 using RetirementTime.Application.Features.BeginnerGuide.Assets.GetAssetTypes;
 using RetirementTime.Application.Features.BeginnerGuide.Assets.GetOtherAssets;
 using RetirementTime.Application.Features.BeginnerGuide.Assets.UpsertOtherAssets;
-using RetirementTime.Models.BeginnerGuide.OtherAssets;
+using RetirementTime.Models.BeginnerGuide.Assets;
 
 namespace RetirementTime.Components.Pages.BeginnerGuide.Assets;
 

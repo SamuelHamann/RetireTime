@@ -30,7 +30,7 @@ public partial class Assets
     // Step 2: Investment Accounts
     private bool _hasInvestmentAccounts;
     private Step2InvestmentModel _investmentModel = new();
-    private List<AccountType> _accountTypes = new();
+    private List<BeginnerGuideAccountType> _accountTypes = new();
     
     // Note: Step 3 (OtherAssets) and Step 4 (InvestmentProperties) load their own data
     // asynchronously in their respective OnInitializedAsync methods
@@ -78,7 +78,7 @@ public partial class Assets
             // Load account types
             var accountTypesQuery = new GetAccountTypesQuery { CountryId = 1 }; // TODO: Get from user's country
             var accountTypesResult = await Mediator.Send(accountTypesQuery);
-            _accountTypes = accountTypesResult.AccountTypes.Select(a => new AccountType
+            _accountTypes = accountTypesResult.AccountTypes.Select(a => new BeginnerGuideAccountType
             {
                 Id = a.Id,
                 Name = a.Name,

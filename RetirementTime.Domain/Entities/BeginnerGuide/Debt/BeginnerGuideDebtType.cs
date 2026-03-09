@@ -1,6 +1,6 @@
 namespace RetirementTime.Domain.Entities.BeginnerGuide.Debt;
 
-public enum DebtType
+public enum BeginnerGuideDebtType
 {
     CreditCard,
     Car,

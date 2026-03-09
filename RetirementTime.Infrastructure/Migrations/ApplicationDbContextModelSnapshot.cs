@@ -22,7 +22,7 @@ namespace RetirementTime.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.AccountType", b =>
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideAccountType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.HasIndex("SubdivisionId");
 
-                    b.ToTable("account_type", (string)null);
+                    b.ToTable("beginner_guide_assets_account_types", (string)null);
 
                     b.HasData(
                         new
@@ -178,7 +178,7 @@ namespace RetirementTime.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.AssetType", b =>
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideAssetType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -197,7 +197,7 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("asset_type", (string)null);
+                    b.ToTable("beginner_guide_assets_asset_type", (string)null);
 
                     b.HasData(
                         new
@@ -303,7 +303,7 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("investment_account", null, t =>
+                    b.ToTable("beginner_guide_assets_investment_accounts", null, t =>
                         {
                             t.HasCheckConstraint("CK_InvestmentAccount_BulkAmount_XOR_Stocks", "(\"IsBulkAmount\" = true AND \"BulkAmount\" IS NOT NULL) OR (\"IsBulkAmount\" = false AND \"BulkAmount\" IS NULL)");
                         });
@@ -332,10 +332,10 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.HasIndex("InvestmentAccountId");
 
-                    b.ToTable("investment_stock", (string)null);
+                    b.ToTable("beginner_guide_assets_stock_data", (string)null);
                 });
 
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.InvestmentProperty", b =>
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideInvestmentProperty", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -403,10 +403,10 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("investment_property", (string)null);
+                    b.ToTable("beginner_guide_assets_investment_properties", (string)null);
                 });
 
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.MainResidence", b =>
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideMainResidence", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -465,10 +465,10 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("asset_main_residence", (string)null);
+                    b.ToTable("beginner_guide_assets_main_residence", (string)null);
                 });
 
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.OtherAsset", b =>
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideOtherAsset", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -511,7 +511,7 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("other_asset", (string)null);
+                    b.ToTable("beginner_guide_assets_other_assets", (string)null);
                 });
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Debt.BeginnerGuideDebt", b =>
@@ -556,7 +556,247 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("beginner_guide_debt", (string)null);
+                    b.ToTable("beginner_guide_debt_debts", (string)null);
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Income.BeginnerGuideAdditionalCompensation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<long>("EmploymentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("FrequencyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(7);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmploymentId");
+
+                    b.HasIndex("FrequencyId");
+
+                    b.ToTable("beginner_guide_income_additional_compensations", (string)null);
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Income.BeginnerGuideEmployment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("AnnualSalary")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<decimal>("AverageAnnualWageIncrease")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<string>("EmployerName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("beginner_guide_income_employments", (string)null);
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Income.BeginnerGuideSelfEmployment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("AnnualSalary")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<decimal>("AverageAnnualRevenueIncrease")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
+
+                    b.Property<string>("BusinessName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<decimal>("MonthlyDividends")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("beginner_guide_income_self_employments", (string)null);
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Income.BeginnerGuideSelfEmploymentAdditionalCompensation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<int>("FrequencyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(7);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<long>("SelfEmploymentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FrequencyId");
+
+                    b.HasIndex("SelfEmploymentId")
+                        .HasDatabaseName("IX_beginner_guide_income_self_employment_additional_compensat~1");
+
+                    b.ToTable("beginner_guide_income_self_employment_additional_compensations", (string)null);
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.Common.Frequency", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("FrequencyPerYear")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("common_frequencies", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FrequencyPerYear = 52,
+                            Name = "Weekly"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FrequencyPerYear = 26,
+                            Name = "Bi-Weekly"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FrequencyPerYear = 12,
+                            Name = "Monthly"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FrequencyPerYear = 6,
+                            Name = "Bi-Monthly"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FrequencyPerYear = 4,
+                            Name = "Quarterly"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            FrequencyPerYear = 2,
+                            Name = "Semi-Annually"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            FrequencyPerYear = 1,
+                            Name = "Annually"
+                        });
                 });
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.Language", b =>
@@ -1041,7 +1281,7 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.ToTable("user", (string)null);
                 });
 
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.AccountType", b =>
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideAccountType", b =>
                 {
                     b.HasOne("RetirementTime.Domain.Entities.Location.Country", "Country")
                         .WithMany()
@@ -1060,7 +1300,7 @@ namespace RetirementTime.Infrastructure.Migrations
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideAssetsInvestmentAccount", b =>
                 {
-                    b.HasOne("RetirementTime.Domain.Entities.BeginnerGuide.Assets.AccountType", "AccountType")
+                    b.HasOne("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideAccountType", "AccountType")
                         .WithMany()
                         .HasForeignKey("AccountTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1088,7 +1328,7 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Navigation("InvestmentAccount");
                 });
 
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.InvestmentProperty", b =>
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideInvestmentProperty", b =>
                 {
                     b.HasOne("RetirementTime.Domain.Entities.User", "User")
                         .WithMany()
@@ -1099,7 +1339,7 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.MainResidence", b =>
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideMainResidence", b =>
                 {
                     b.HasOne("RetirementTime.Domain.Entities.User", "User")
                         .WithMany()
@@ -1110,9 +1350,9 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.OtherAsset", b =>
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideOtherAsset", b =>
                 {
-                    b.HasOne("RetirementTime.Domain.Entities.BeginnerGuide.Assets.AssetType", "AssetType")
+                    b.HasOne("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideAssetType", "AssetType")
                         .WithMany()
                         .HasForeignKey("AssetTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1138,6 +1378,63 @@ namespace RetirementTime.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Income.BeginnerGuideAdditionalCompensation", b =>
+                {
+                    b.HasOne("RetirementTime.Domain.Entities.BeginnerGuide.Income.BeginnerGuideEmployment", "Employment")
+                        .WithMany("AdditionalCompensations")
+                        .HasForeignKey("EmploymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RetirementTime.Domain.Entities.Common.Frequency", "Frequency")
+                        .WithMany()
+                        .HasForeignKey("FrequencyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Employment");
+
+                    b.Navigation("Frequency");
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Income.BeginnerGuideEmployment", b =>
+                {
+                    b.HasOne("RetirementTime.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Income.BeginnerGuideSelfEmployment", b =>
+                {
+                    b.HasOne("RetirementTime.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Income.BeginnerGuideSelfEmploymentAdditionalCompensation", b =>
+                {
+                    b.HasOne("RetirementTime.Domain.Entities.Common.Frequency", "Frequency")
+                        .WithMany()
+                        .HasForeignKey("FrequencyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("RetirementTime.Domain.Entities.BeginnerGuide.Income.BeginnerGuideSelfEmployment", "SelfEmployment")
+                        .WithMany("AdditionalCompensations")
+                        .HasForeignKey("SelfEmploymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_beginner_guide_income_self_employment_additional_compensat~1");
+
+                    b.Navigation("Frequency");
+
+                    b.Navigation("SelfEmployment");
                 });
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.Location.Subdivision", b =>
@@ -1223,6 +1520,16 @@ namespace RetirementTime.Infrastructure.Migrations
             modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Assets.BeginnerGuideAssetsInvestmentAccount", b =>
                 {
                     b.Navigation("Stocks");
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Income.BeginnerGuideEmployment", b =>
+                {
+                    b.Navigation("AdditionalCompensations");
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Income.BeginnerGuideSelfEmployment", b =>
+                {
+                    b.Navigation("AdditionalCompensations");
                 });
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.Location.Country", b =>

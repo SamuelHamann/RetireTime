@@ -39,7 +39,9 @@
         }
         else if (_currentStep == 1)
         {
-            <p class="text-muted">@Localizer["Income_Step2_ComingSoon"]</p>
+            <Step2SelfEmployment UserId="_userId"
+                             OnPrevious="EventCallback.Factory.Create(this, GoToPreviousSection)"
+                             OnNext="EventCallback.Factory.Create(this, GoToNextStep)" />
         }
     </div>
 </div>

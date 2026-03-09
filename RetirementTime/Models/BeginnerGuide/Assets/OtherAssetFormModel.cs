@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace RetirementTime.Models.BeginnerGuide.OtherAssets;
+namespace RetirementTime.Models.BeginnerGuide.Assets;
 
 public class OtherAssetFormModel
 {
@@ -27,4 +27,3 @@ public class OtherAssetItemModel
     [Range(0, double.MaxValue, ErrorMessage = "Purchase price cannot be negative")]
     public decimal? PurchasePrice { get; set; }
 }
-

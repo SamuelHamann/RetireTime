@@ -73,7 +73,7 @@ public partial class UpsertOtherAssetsHandler(
             }
             
             // Prepare all assets for bulk insert
-            var assets = request.Assets.Select(assetDto => new OtherAsset
+            var assets = request.Assets.Select(assetDto => new BeginnerGuideOtherAsset
             {
                 UserId = request.UserId,
                 Name = assetDto.Name,

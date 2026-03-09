@@ -25,6 +25,7 @@ public static class DependencyInjection
         services.AddScoped<ICountryRepository, CountryRepository>();
         services.AddScoped<ISubdivisionRepository, SubdivisionRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IFrequencyRepository, FrequencyRepository>();
         services.AddScoped<IMainResidenceRepository, MainResidenceRepository>();
         services.AddScoped<IAccountTypeRepository, AccountTypeRepository>();
         services.AddScoped<IBeginnerGuideAssetsInvestmentAccountRepository, BeginnerGuideAssetsInvestmentAccountRepository>();
@@ -33,6 +34,8 @@ public static class DependencyInjection
         services.AddScoped<IAssetTypeRepository, AssetTypeRepository>();
         services.AddScoped<IInvestmentPropertyRepository, InvestmentPropertyRepository>();
         services.AddScoped<IBeginnerGuideDebtRepository, BeginnerGuideDebtRepository>();
+        services.AddScoped<IEmploymentRepository, EmploymentRepository>();
+        services.AddScoped<ISelfEmploymentRepository, SelfEmploymentRepository>();
         return services;
     }
 }

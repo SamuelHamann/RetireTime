@@ -8,7 +8,7 @@ public class InvestmentPropertyRepository(ApplicationDbContext context) : IInves
 {
     private readonly ApplicationDbContext _context = context;
 
-    public async Task<List<InvestmentProperty>> GetByUserIdAsync(long userId)
+    public async Task<List<BeginnerGuideInvestmentProperty>> GetByUserIdAsync(long userId)
     {
         return await _context.InvestmentProperties
             .Where(p => p.UserId == userId)
@@ -16,13 +16,13 @@ public class InvestmentPropertyRepository(ApplicationDbContext context) : IInves
             .ToListAsync();
     }
 
-    public async Task<InvestmentProperty?> GetByIdAsync(long id)
+    public async Task<BeginnerGuideInvestmentProperty?> GetByIdAsync(long id)
     {
         return await _context.InvestmentProperties
             .FirstOrDefaultAsync(p => p.Id == id);
     }
 
-    public async Task<InvestmentProperty> AddAsync(InvestmentProperty property)
+    public async Task<BeginnerGuideInvestmentProperty> AddAsync(BeginnerGuideInvestmentProperty property)
     {
         property.CreatedAt = DateTime.UtcNow;
         property.UpdatedAt = DateTime.UtcNow;
@@ -33,7 +33,7 @@ public class InvestmentPropertyRepository(ApplicationDbContext context) : IInves
         return property;
     }
 
-    public async Task<InvestmentProperty> UpdateAsync(InvestmentProperty property)
+    public async Task<BeginnerGuideInvestmentProperty> UpdateAsync(BeginnerGuideInvestmentProperty property)
     {
         property.UpdatedAt = DateTime.UtcNow;
         
@@ -63,9 +63,9 @@ public class InvestmentPropertyRepository(ApplicationDbContext context) : IInves
         await _context.SaveChangesAsync();
     }
 
-    public async Task<List<InvestmentProperty>> UpsertPropertiesAsync(
+    public async Task<List<BeginnerGuideInvestmentProperty>> UpsertPropertiesAsync(
         long userId,
-        List<InvestmentProperty> properties)
+        List<BeginnerGuideInvestmentProperty> properties)
     {
         // Use a transaction to ensure atomicity
         await using var transaction = await _context.Database.BeginTransactionAsync();

@@ -1,6 +1,6 @@
 namespace RetirementTime.Domain.Entities.BeginnerGuide.Assets;
 
-public class OtherAsset
+public class BeginnerGuideOtherAsset
 {
     public int Id { get; set; }
     public long UserId { get; set; }
@@ -13,6 +13,6 @@ public class OtherAsset
     
     // Navigation properties
     public User? User { get; set; }
-    public required AssetType AssetType { get; set; }
+    public required BeginnerGuideAssetType AssetType { get; set; }
 }
 

@@ -10,6 +10,6 @@ public record GetMainResidenceQuery : IRequest<GetMainResidenceResult>
 
 public record GetMainResidenceResult
 {
-    public MainResidence? MainResidence { get; init; }
+    public BeginnerGuideMainResidence? MainResidence { get; init; }
 }
 

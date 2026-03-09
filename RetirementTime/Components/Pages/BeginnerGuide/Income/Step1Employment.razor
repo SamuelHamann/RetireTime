@@ -98,18 +98,29 @@
                                             var comp = employment.AdditionalCompensations[compIndex];
 
                                             <div class="row align-items-end mb-2 g-2">
-                                                <div class="col-md-5">
+                                                <div class="col-md-4">
                                                     <label class="form-label small">@Localizer["Income_Step1_CompensationName"] <span class="text-danger">@Localizer["Income_Step1_Required"]</span></label>
                                                     <InputText class="form-control form-control-sm" @bind-Value="comp.Name" placeholder="@Localizer["Income_Step1_CompensationNamePlaceholder"]" />
                                                     <ValidationMessage For="@(() => comp.Name)" />
                                                 </div>
-                                                <div class="col-md-5">
+                                                <div class="col-md-3">
                                                     <label class="form-label small">@Localizer["Income_Step1_CompensationAmount"] <span class="text-danger">@Localizer["Income_Step1_Required"]</span></label>
                                                     <div class="input-group input-group-sm">
                                                         <span class="input-group-text">$</span>
                                                         <InputNumber class="form-control" @bind-Value="comp.Amount" placeholder="0.00" />
                                                     </div>
                                                     <ValidationMessage For="@(() => comp.Amount)" />
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label class="form-label small">@Localizer["Income_Step1_Frequency"] <span class="text-danger">@Localizer["Income_Step1_Required"]</span></label>
+                                                    <InputSelect class="form-select form-select-sm" @bind-Value="comp.FrequencyId">
+                                                        <option value="0">@Localizer["Income_Step1_SelectFrequency"]</option>
+                                                        @foreach (var frequency in _frequencies)
+                                                        {
+                                                            <option value="@frequency.Id">@frequency.Name</option>
+                                                        }
+                                                    </InputSelect>
+                                                    <ValidationMessage For="@(() => comp.FrequencyId)" />
                                                 </div>
                                                 <div class="col-md-2">
                                                     <button type="button" class="btn btn-sm btn-outline-danger w-100"

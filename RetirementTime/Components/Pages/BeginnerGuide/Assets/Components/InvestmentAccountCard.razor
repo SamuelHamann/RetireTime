@@ -109,7 +109,7 @@
     [Parameter] public InvestmentAccountData Account { get; set; } = default!;
     [Parameter] public int Index { get; set; }
     [Parameter] public bool ShowRemoveButton { get; set; }
-    [Parameter] public List<Domain.Entities.BeginnerGuide.Assets.AccountType> AccountTypes { get; set; } = new();
+    [Parameter] public List<Domain.Entities.BeginnerGuide.Assets.BeginnerGuideAccountType> AccountTypes { get; set; } = new();
     [Parameter] public EventCallback OnRemove { get; set; }
     [Parameter] public EventCallback<bool> OnBulkAmountChange { get; set; }
     [Parameter] public EventCallback OnAddStock { get; set; }

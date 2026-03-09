@@ -10,6 +10,17 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Models\BeginnerGuide\InvestmentProperties\**" />
+      <Compile Remove="Models\BeginnerGuide\OtherAssets\**" />
+      <Content Remove="Models\BeginnerGuide\InvestmentProperties\**" />
+      <Content Remove="Models\BeginnerGuide\OtherAssets\**" />
+      <EmbeddedResource Remove="Models\BeginnerGuide\InvestmentProperties\**" />
+      <EmbeddedResource Remove="Models\BeginnerGuide\OtherAssets\**" />
+      <None Remove="Models\BeginnerGuide\InvestmentProperties\**" />
+      <None Remove="Models\BeginnerGuide\OtherAssets\**" />
+    </ItemGroup>
+
+    <ItemGroup>
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>

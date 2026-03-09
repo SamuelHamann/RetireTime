@@ -43,6 +43,9 @@
     <data name="MainPage_Income" xml:space="preserve">
         <value>Income</value>
     </data>
+    <data name="MainPage_Benefits" xml:space="preserve">
+        <value>Benefits</value>
+    </data>
     <data name="MainPage_RecurringPayments" xml:space="preserve">
         <value>Recurring Payments</value>
     </data>
@@ -484,8 +487,284 @@
         <value>Save &amp; Continue</value>
     </data>
 
+    <data name="Income_Step1_Frequency" xml:space="preserve">
+        <value>Frequency</value>
+    </data>
+    <data name="Income_Step1_SelectFrequency" xml:space="preserve">
+        <value>-- Select frequency --</value>
+    </data>
+
     <!-- Income - Step 2: Self Employment -->
-    <data name="Income_Step2_ComingSoon" xml:space="preserve">
-        <value>Self-employment income coming soon...</value>
+    <data name="Income_Step2_Title" xml:space="preserve">
+        <value>Self-Employment Income</value>
+    </data>
+    <data name="Income_Step2_Description" xml:space="preserve">
+        <value>Tell us about your self-employment income.</value>
+    </data>
+    <data name="Income_Step2_Note" xml:space="preserve">
+        <value>This includes income from freelancing, contract work, or running your own business.</value>
+    </data>
+    <data name="Income_Step2_Question" xml:space="preserve">
+        <value>Are you self-employed or do you have a business?</value>
+    </data>
+    <data name="Income_Step2_Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="Income_Step2_No" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="Income_Step2_NoSelfEmploymentsAdded" xml:space="preserve">
+        <value>No self-employment added yet. Click "Add Self-Employment" to get started.</value>
+    </data>
+    <data name="Income_Step2_SelfEmploymentTitle" xml:space="preserve">
+        <value>Self-Employment #{0}</value>
+    </data>
+    <data name="Income_Step2_Remove" xml:space="preserve">
+        <value>Remove</value>
+    </data>
+    <data name="Income_Step2_Required" xml:space="preserve">
+        <value>*</value>
+    </data>
+    <data name="Income_Step2_BusinessName" xml:space="preserve">
+        <value>What is your business name?</value>
+    </data>
+    <data name="Income_Step2_BusinessNamePlaceholder" xml:space="preserve">
+        <value>e.g. Smith Consulting</value>
+    </data>
+    <data name="Income_Step2_AnnualSalary" xml:space="preserve">
+        <value>What is your annual salary from this business?</value>
+    </data>
+    <data name="Income_Step2_MonthlyDividends" xml:space="preserve">
+        <value>What are your monthly dividends?</value>
+    </data>
+    <data name="Income_Step2_MonthlyDividendsHint" xml:space="preserve">
+        <value>If not applicable, enter 0</value>
+    </data>
+    <data name="Income_Step2_AverageRevenueIncrease" xml:space="preserve">
+        <value>What average annual revenue increase do you expect?</value>
+    </data>
+    <data name="Income_Step2_AverageRevenueIncreaseHint" xml:space="preserve">
+        <value>Default is 2% (inflation rate). Adjust based on your expectations.</value>
+    </data>
+    <data name="Income_Step2_AdditionalCompensations" xml:space="preserve">
+        <value>Additional Compensations</value>
+    </data>
+    <data name="Income_Step2_NoAdditionalCompensations" xml:space="preserve">
+        <value>No additional compensations. Click below to add one (e.g. performance bonus, contract payment).</value>
+    </data>
+    <data name="Income_Step2_CompensationName" xml:space="preserve">
+        <value>What type of compensation is this?</value>
+    </data>
+    <data name="Income_Step2_CompensationNamePlaceholder" xml:space="preserve">
+        <value>e.g. Quarterly bonus</value>
+    </data>
+    <data name="Income_Step2_CompensationAmount" xml:space="preserve">
+        <value>What is the amount?</value>
+    </data>
+    <data name="Income_Step2_Frequency" xml:space="preserve">
+        <value>Frequency</value>
+    </data>
+    <data name="Income_Step2_SelectFrequency" xml:space="preserve">
+        <value>-- Select frequency --</value>
+    </data>
+    <data name="Income_Step2_AddCompensation" xml:space="preserve">
+        <value>Add Compensation</value>
+    </data>
+    <data name="Income_Step2_AddSelfEmployment" xml:space="preserve">
+        <value>Add Self-Employment</value>
+    </data>
+    <data name="Income_Step2_PreviousStep" xml:space="preserve">
+        <value>Previous Step</value>
+    </data>
+    <data name="Income_Step2_SaveContinue" xml:space="preserve">
+        <value>Save &amp; Continue</value>
+    </data>
+
+    <!-- Benefits Section -->
+    <data name="Benefits_Title" xml:space="preserve">
+        <value>Benefits &amp; Pensions</value>
+    </data>
+    <data name="Benefits_Description" xml:space="preserve">
+        <value>Tell us about your pensions, government benefits, and other recurring income.</value>
+    </data>
+    <data name="Benefits_StepOf" xml:space="preserve">
+        <value>Step {0} of 3</value>
+    </data>
+
+    <!-- Benefits - Step 1: Pension -->
+    <data name="Benefits_Step1_Title" xml:space="preserve">
+        <value>Employer Pension Plans</value>
+    </data>
+    <data name="Benefits_Step1_Description" xml:space="preserve">
+        <value>Tell us about any employer-sponsored pension plans you have.</value>
+    </data>
+    <data name="Benefits_Step1_LoadingMessage" xml:space="preserve">
+        <value>Loading your pension information...</value>
+    </data>
+    <data name="Benefits_Step1_Question" xml:space="preserve">
+        <value>Do you have any employer pension plans?</value>
+    </data>
+    <data name="Benefits_Step1_Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="Benefits_Step1_No" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="Benefits_Step1_NoPensionsAdded" xml:space="preserve">
+        <value>No pensions added yet. Click "Add Pension" to get started.</value>
+    </data>
+    <data name="Benefits_Step1_PensionTitle" xml:space="preserve">
+        <value>Pension #{0}</value>
+    </data>
+    <data name="Benefits_Step1_Remove" xml:space="preserve">
+        <value>Remove</value>
+    </data>
+    <data name="Benefits_Step1_EmployerName" xml:space="preserve">
+        <value>Employer Name</value>
+    </data>
+    <data name="Benefits_Step1_EmployerNamePlaceholder" xml:space="preserve">
+        <value>e.g. Acme Corporation</value>
+    </data>
+    <data name="Benefits_Step1_PensionType" xml:space="preserve">
+        <value>Pension Type</value>
+    </data>
+    <data name="Benefits_Step1_SelectPensionType" xml:space="preserve">
+        <value>-- Select pension type --</value>
+    </data>
+    <data name="Benefits_Step1_MonthlyPensionAmount" xml:space="preserve">
+        <value>Monthly Pension Amount</value>
+    </data>
+    <data name="Benefits_Step1_ExpectedAnnualIncrease" xml:space="preserve">
+        <value>Expected Annual Increase</value>
+    </data>
+    <data name="Benefits_Step1_ExpectedAnnualIncreaseHint" xml:space="preserve">
+        <value>Default is 2% (inflation rate). Adjust based on your expectations.</value>
+    </data>
+    <data name="Benefits_Step1_AddPension" xml:space="preserve">
+        <value>Add Pension</value>
+    </data>
+    <data name="Benefits_Step1_PreviousStep" xml:space="preserve">
+        <value>Previous Step</value>
+    </data>
+    <data name="Benefits_Step1_SaveContinue" xml:space="preserve">
+        <value>Save &amp; Continue</value>
+    </data>
+    <data name="Benefits_Step1_Next" xml:space="preserve">
+        <value>Next</value>
+    </data>
+    <data name="Benefits_Step1_Saving" xml:space="preserve">
+        <value>Saving...</value>
+    </data>
+    <data name="Benefits_Step1_Required" xml:space="preserve">
+        <value>*</value>
+    </data>
+
+    <!-- Benefits - Step 2: Government Pension -->
+    <data name="Benefits_Step2_Title" xml:space="preserve">
+        <value>Government Pension (CPP/QPP)</value>
+    </data>
+    <data name="Benefits_Step2_Description" xml:space="preserve">
+        <value>Tell us about your government pension eligibility.</value>
+    </data>
+    <data name="Benefits_Step2_LoadingMessage" xml:space="preserve">
+        <value>Loading your government pension information...</value>
+    </data>
+    <data name="Benefits_Step2_YearsWorked" xml:space="preserve">
+        <value>How many years have you worked in Canada?</value>
+    </data>
+    <data name="Benefits_Step2_YearsWorkedHint" xml:space="preserve">
+        <value>This helps us estimate your CPP/QPP eligibility and benefit amount.</value>
+    </data>
+    <data name="Benefits_Step2_SpecializedPensionQuestion" xml:space="preserve">
+        <value>Are you entitled to a specialized public sector pension?</value>
+    </data>
+    <data name="Benefits_Step2_SpecializedPensionExamples" xml:space="preserve">
+        <value>Examples: Canadian Forces Superannuation, RCMP Superannuation, Judges Act Pension, etc.</value>
+    </data>
+    <data name="Benefits_Step2_SpecializedPensionName" xml:space="preserve">
+        <value>Pension Name</value>
+    </data>
+    <data name="Benefits_Step2_SpecializedPensionNamePlaceholder" xml:space="preserve">
+        <value>e.g. Canadian Forces Superannuation</value>
+    </data>
+    <data name="Benefits_Step2_Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="Benefits_Step2_No" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="Benefits_Step2_PreviousStep" xml:space="preserve">
+        <value>Previous Step</value>
+    </data>
+    <data name="Benefits_Step2_SaveContinue" xml:space="preserve">
+        <value>Save &amp; Continue</value>
+    </data>
+    <data name="Benefits_Step2_Saving" xml:space="preserve">
+        <value>Saving...</value>
+    </data>
+    <data name="Benefits_Step2_Required" xml:space="preserve">
+        <value>*</value>
+    </data>
+
+    <!-- Benefits - Step 3: Other Recurring Gains -->
+    <data name="Benefits_Step3_Title" xml:space="preserve">
+        <value>Other Recurring Income</value>
+    </data>
+    <data name="Benefits_Step3_Description" xml:space="preserve">
+        <value>Tell us about any other recurring income you receive.</value>
+    </data>
+    <data name="Benefits_Step3_Examples" xml:space="preserve">
+        <value>Examples: dividends, royalties, rental income from properties not listed in assets, etc.</value>
+    </data>
+    <data name="Benefits_Step3_LoadingMessage" xml:space="preserve">
+        <value>Loading your recurring income information...</value>
+    </data>
+    <data name="Benefits_Step3_Question" xml:space="preserve">
+        <value>Do you have any other recurring income?</value>
+    </data>
+    <data name="Benefits_Step3_Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="Benefits_Step3_No" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="Benefits_Step3_NoRecurringGainsAdded" xml:space="preserve">
+        <value>No recurring income added yet. Click "Add Recurring Income" to get started.</value>
+    </data>
+    <data name="Benefits_Step3_RecurringGainTitle" xml:space="preserve">
+        <value>Recurring Income #{0}</value>
+    </data>
+    <data name="Benefits_Step3_Remove" xml:space="preserve">
+        <value>Remove</value>
+    </data>
+    <data name="Benefits_Step3_SourceName" xml:space="preserve">
+        <value>Source Name</value>
+    </data>
+    <data name="Benefits_Step3_SourceNamePlaceholder" xml:space="preserve">
+        <value>e.g. Stock dividends, Book royalties</value>
+    </data>
+    <data name="Benefits_Step3_Amount" xml:space="preserve">
+        <value>Amount</value>
+    </data>
+    <data name="Benefits_Step3_Frequency" xml:space="preserve">
+        <value>Frequency</value>
+    </data>
+    <data name="Benefits_Step3_SelectFrequency" xml:space="preserve">
+        <value>-- Select frequency --</value>
+    </data>
+    <data name="Benefits_Step3_AddRecurringGain" xml:space="preserve">
+        <value>Add Recurring Income</value>
+    </data>
+    <data name="Benefits_Step3_PreviousStep" xml:space="preserve">
+        <value>Previous Step</value>
+    </data>
+    <data name="Benefits_Step3_Complete" xml:space="preserve">
+        <value>Complete</value>
+    </data>
+    <data name="Benefits_Step3_Saving" xml:space="preserve">
+        <value>Saving...</value>
+    </data>
+    <data name="Benefits_Step3_Required" xml:space="preserve">
+        <value>*</value>
     </data>
 </root>

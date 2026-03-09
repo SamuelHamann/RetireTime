@@ -16,7 +16,7 @@ public class BeginnerGuideAssetsInvestmentAccount
     
     // Navigation properties
     public required User User { get; set; }
-    public required AccountType AccountType { get; set; }
+    public required BeginnerGuideAccountType AccountType { get; set; }
     public virtual ICollection<BeginnerGuideAssetsStockData> Stocks { get; set; } = new List<BeginnerGuideAssetsStockData>();
 }
 

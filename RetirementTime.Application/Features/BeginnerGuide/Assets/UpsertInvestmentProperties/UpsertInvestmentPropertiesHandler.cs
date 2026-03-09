@@ -113,7 +113,7 @@ public partial class UpsertInvestmentPropertiesHandler(
             }
             
             // Prepare all properties for bulk insert
-            var properties = request.Properties.Select(propertyDto => new InvestmentProperty
+            var properties = request.Properties.Select(propertyDto => new BeginnerGuideInvestmentProperty
             {
                 UserId = request.UserId,
                 Name = propertyDto.Name,

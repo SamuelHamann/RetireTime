@@ -8,7 +8,7 @@ public class OtherAssetRepository(ApplicationDbContext context) : IOtherAssetRep
 {
     private readonly ApplicationDbContext _context = context;
 
-    public async Task<List<OtherAsset>> GetByUserIdAsync(long userId)
+    public async Task<List<BeginnerGuideOtherAsset>> GetByUserIdAsync(long userId)
     {
         return await _context.OtherAssets
             .Include(a => a.AssetType)
@@ -17,28 +17,28 @@ public class OtherAssetRepository(ApplicationDbContext context) : IOtherAssetRep
             .ToListAsync();
     }
 
-    public async Task<OtherAsset?> GetByIdAsync(int id)
+    public async Task<BeginnerGuideOtherAsset?> GetByIdAsync(int id)
     {
         return await _context.OtherAssets
             .Include(a => a.AssetType)
             .FirstOrDefaultAsync(a => a.Id == id);
     }
 
-    public async Task<OtherAsset> AddAsync(OtherAsset asset)
+    public async Task<BeginnerGuideOtherAsset> AddAsync(BeginnerGuideOtherAsset asset)
     {
         asset.CreatedAt = DateTime.UtcNow;
         asset.UpdatedAt = DateTime.UtcNow;
-        
+
         await _context.OtherAssets.AddAsync(asset);
         await _context.SaveChangesAsync();
         
         return asset;
     }
 
-    public async Task<OtherAsset> UpdateAsync(OtherAsset asset)
+    public async Task<BeginnerGuideOtherAsset> UpdateAsync(BeginnerGuideOtherAsset asset)
     {
         asset.UpdatedAt = DateTime.UtcNow;
-        
+
         _context.OtherAssets.Update(asset);
         await _context.SaveChangesAsync();
         
@@ -60,14 +60,14 @@ public class OtherAssetRepository(ApplicationDbContext context) : IOtherAssetRep
         var assets = await _context.OtherAssets
             .Where(a => a.UserId == userId)
             .ToListAsync();
-        
+
         _context.OtherAssets.RemoveRange(assets);
         await _context.SaveChangesAsync();
     }
 
-    public async Task<(List<OtherAsset> SavedAssets, List<int> AssetIds)> UpsertAssetsAsync(
+    public async Task<(List<BeginnerGuideOtherAsset> SavedAssets, List<int> AssetIds)> UpsertAssetsAsync(
         long userId,
-        List<OtherAsset> assets)
+        List<BeginnerGuideOtherAsset> assets)
     {
         // Use a transaction to ensure atomicity
         await using var transaction = await _context.Database.BeginTransactionAsync();
@@ -78,7 +78,7 @@ public class OtherAssetRepository(ApplicationDbContext context) : IOtherAssetRep
             var existingAssets = await _context.OtherAssets
                 .Where(a => a.UserId == userId)
                 .ToListAsync();
-            
+
             if (existingAssets.Any())
             {
                 _context.OtherAssets.RemoveRange(existingAssets);
