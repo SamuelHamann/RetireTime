@@ -1,58 +1,73 @@
+using MediatR;
 using Microsoft.AspNetCore.Components;
+using RetirementTime.Application.Features.BeginnerGuide.Benefits.UpsertOtherRecurringGains;
+using RetirementTime.Application.Features.Common.GetFrequencies;
 using RetirementTime.Models.BeginnerGuide.Benefits;
 
 namespace RetirementTime.Components.Pages.BeginnerGuide.Benefits;
 
 public partial class Step3OtherRecurringGains : ComponentBase
 {
+    [Inject] private IMediator Mediator { get; set; } = default!;
+
     [Parameter] public long UserId { get; set; }
+    [Parameter] public bool HasOtherRecurringGains { get; set; }
+    [Parameter] public EventCallback<bool> HasOtherRecurringGainsChanged { get; set; }
+    [Parameter] public List<OtherRecurringGainFormModel> OtherRecurringGains { get; set; } = new();
     [Parameter] public EventCallback OnPrevious { get; set; }
     [Parameter] public EventCallback OnNext { get; set; }
 
-    private bool _isLoading = false;
-    private bool _isSaving = false;
-    private bool _hasOtherRecurringGains = false;
-    private List<OtherRecurringGainFormModel> _otherRecurringGains = new();
-    private object _formData = new();
-
-    // Temporary frequencies list - will be replaced with database data later
-    private List<FrequencyDto> _frequencies = new()
-    {
-        new FrequencyDto { Id = 1, Name = "Monthly" },
-        new FrequencyDto { Id = 2, Name = "Quarterly" },
-        new FrequencyDto { Id = 3, Name = "Annually" },
-        new FrequencyDto { Id = 4, Name = "One-time" }
-    };
+    private bool _isSaving;
+    private List<FrequencyDto> _frequencies = new();
 
     protected override async Task OnInitializedAsync()
     {
-        _isLoading = true;
-        await Task.Delay(100); // Simulate loading
-        // TODO: Load existing recurring gains from backend
-        // TODO: Load frequencies from backend
-        _isLoading = false;
+        _frequencies = await Mediator.Send(new GetFrequenciesQuery());
+    }
+
+    private async Task OnHasGainsChanged(bool value)
+    {
+        HasOtherRecurringGains = value;
+        await HasOtherRecurringGainsChanged.InvokeAsync(value);
     }
 
     private void AddRecurringGain()
     {
-        _otherRecurringGains.Add(new OtherRecurringGainFormModel());
+        OtherRecurringGains.Add(new OtherRecurringGainFormModel());
     }
 
     private void RemoveRecurringGain(int index)
     {
-        if (index >= 0 && index < _otherRecurringGains.Count)
+        if (index >= 0 && index < OtherRecurringGains.Count)
         {
-            _otherRecurringGains.RemoveAt(index);
+            OtherRecurringGains.RemoveAt(index);
         }
     }
 
     private async Task HandleSaveAndComplete()
     {
         _isSaving = true;
-        await Task.Delay(500); // Simulate saving
-        // TODO: Save recurring gains to backend
+
+        var command = new UpsertOtherRecurringGainsCommand
+        {
+            UserId = UserId,
+            HasOtherRecurringGains = HasOtherRecurringGains,
+            Gains = OtherRecurringGains.Select(g => new OtherRecurringGainInputDto
+            {
+                SourceName = g.SourceName,
+                Amount = g.Amount,
+                FrequencyId = g.FrequencyId
+            }).ToList()
+        };
+
+        var result = await Mediator.Send(command);
+
         _isSaving = false;
-        await OnNext.InvokeAsync();
+
+        if (result.Success)
+        {
+            await OnNext.InvokeAsync();
+        }
     }
 
     private async Task HandleComplete()
@@ -63,12 +78,5 @@ public partial class Step3OtherRecurringGains : ComponentBase
     private async Task HandlePrevious()
     {
         await OnPrevious.InvokeAsync();
-    }
-
-    // Temporary DTO - will be replaced with actual backend DTO
-    private class FrequencyDto
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
     }
 }

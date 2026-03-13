@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RetirementTime.Domain.Entities;
 using RetirementTime.Domain.Entities.BeginnerGuide.Assets;
+using RetirementTime.Domain.Entities.BeginnerGuide.Benefits;
 using RetirementTime.Domain.Entities.BeginnerGuide.Debt;
 using RetirementTime.Domain.Entities.BeginnerGuide.Income;
 using RetirementTime.Domain.Entities.Common;
@@ -641,12 +642,117 @@ public class ApplicationDbContext : DbContext
 
 
 
+        modelBuilder.Entity<BeginnerGuidePensionType>(entity =>
+        {
+            entity.ToTable("beginner_guide_benefits_pension_types");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+            entity.Property(e => e.Description)
+                .HasMaxLength(500);
+        });
+
+        modelBuilder.Entity<BeginnerGuidePension>(entity =>
+        {
+            entity.ToTable("beginner_guide_benefits_pensions");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.UserId)
+                .IsRequired();
+            entity.Property(e => e.PensionTypeId)
+                .IsRequired();
+            entity.Property(e => e.EmployerName)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.PensionType)
+                .WithMany()
+                .HasForeignKey(e => e.PensionTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<BeginnerGuideGovernmentPension>(entity =>
+        {
+            entity.ToTable("beginner_guide_benefits_government_pension");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.UserId)
+                .IsRequired();
+            entity.Property(e => e.YearsWorked)
+                .IsRequired();
+            entity.Property(e => e.HasSpecializedPublicSectorPension)
+                .IsRequired();
+            entity.Property(e => e.SpecializedPensionName)
+                .HasMaxLength(200);
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasIndex(e => e.UserId)
+                .IsUnique();
+        });
+
+        modelBuilder.Entity<BeginnerGuideOtherRecurringGain>(entity =>
+        {
+            entity.ToTable("beginner_guide_benefits_other_recurring_gains");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.UserId)
+                .IsRequired();
+            entity.Property(e => e.SourceName)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.Amount)
+                .IsRequired()
+                .HasPrecision(18, 2);
+            entity.Property(e => e.FrequencyId)
+                .IsRequired();
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.Frequency)
+                .WithMany()
+                .HasForeignKey(e => e.FrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
         SeedRoleData(modelBuilder);
         SeedLocationData(modelBuilder);
         SeedLanguageData(modelBuilder);
         SeedAccountTypeData(modelBuilder);
         SeedAssetTypeData(modelBuilder);
         SeedFrequencyData(modelBuilder);
+        SeedPensionTypeData(modelBuilder);
 
     }
 
@@ -753,6 +859,18 @@ public class ApplicationDbContext : DbContext
             new Frequency { Id = 7, Name = "Annually", FrequencyPerYear = 1 }
         );
     }
+
+    private static void SeedPensionTypeData(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<BeginnerGuidePensionType>().HasData(
+            new BeginnerGuidePensionType { Id = 1, Name = "Defined Benefit Pension Plan (DBPP)", Description = "Employer-funded plan that pays a fixed monthly benefit at retirement based on salary and years of service." },
+            new BeginnerGuidePensionType { Id = 2, Name = "Defined Contribution Pension Plan (DCPP)", Description = "Contributions from employer and/or employee are invested; retirement income depends on investment performance." },
+            new BeginnerGuidePensionType { Id = 3, Name = "Pooled Registered Pension Plan (PRPP)", Description = "Large-scale pension plan for employees and self-employed individuals not covered by workplace plans." },
+            new BeginnerGuidePensionType { Id = 4, Name = "Group Registered Retirement Savings Plan (GRSP)", Description = "Employer-sponsored RRSP where contributions are made by both employer and employee." },
+            new BeginnerGuidePensionType { Id = 5, Name = "Target Benefit Plan", Description = "Hybrid plan that targets a specific retirement benefit but adjusts contributions or benefits based on fund performance." },
+            new BeginnerGuidePensionType { Id = 6, Name = "Deferred Profit Sharing Plan (DPSP)", Description = "Employer shares a portion of profits with employees, held in trust until retirement." }
+        );
+    }
     
     public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
@@ -776,4 +894,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<BeginnerGuideAdditionalCompensation> AdditionalCompensations { get; set; }
     public DbSet<BeginnerGuideSelfEmployment> SelfEmployments { get; set; }
     public DbSet<BeginnerGuideSelfEmploymentAdditionalCompensation> SelfEmploymentAdditionalCompensations { get; set; }
+    public DbSet<BeginnerGuidePensionType> PensionTypes { get; set; }
+    public DbSet<BeginnerGuidePension> BeginnerGuidePensions { get; set; }
+    public DbSet<BeginnerGuideGovernmentPension> GovernmentPensions { get; set; }
+    public DbSet<BeginnerGuideOtherRecurringGain> OtherRecurringGains { get; set; }
 }

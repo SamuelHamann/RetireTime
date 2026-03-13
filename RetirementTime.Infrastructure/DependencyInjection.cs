@@ -36,6 +36,10 @@ public static class DependencyInjection
         services.AddScoped<IBeginnerGuideDebtRepository, BeginnerGuideDebtRepository>();
         services.AddScoped<IEmploymentRepository, EmploymentRepository>();
         services.AddScoped<ISelfEmploymentRepository, SelfEmploymentRepository>();
+        services.AddScoped<IBeginnerGuidePensionTypeRepository, BeginnerGuidePensionTypeRepository>();
+        services.AddScoped<IBeginnerGuidePensionRepository, BeginnerGuidePensionRepository>();
+        services.AddScoped<IBeginnerGuideGovernmentPensionRepository, BeginnerGuideGovernmentPensionRepository>();
+        services.AddScoped<IBeginnerGuideOtherRecurringGainRepository, BeginnerGuideOtherRecurringGainRepository>();
         return services;
     }
 }

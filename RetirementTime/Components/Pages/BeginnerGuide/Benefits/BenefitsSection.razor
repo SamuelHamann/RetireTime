@@ -1,5 +1,4 @@
 @using RetirementTime.Resources.BeginnerGuide
-@using RetirementTime.Services
 @inject IStringLocalizer<BeginnerGuideResources> Localizer
 @rendermode InteractiveServer
 
@@ -39,6 +38,10 @@
         {
             <Step1Pension 
                 UserId="_userId"
+                HasPensions="_hasPensions"
+                HasPensionsChanged="EventCallback.Factory.Create<bool>(this, v => _hasPensions = v)"
+                Pensions="_pensions"
+                PensionTypes="_pensionTypes"
                 OnPrevious="EventCallback.Factory.Create(this, GoToPreviousSection)"
                 OnNext="EventCallback.Factory.Create(this, GoToNextStep)" />
         }
@@ -46,13 +49,17 @@
         {
             <Step2GovernmentPension 
                 UserId="_userId"
+                GovernmentPension="_governmentPension"
                 OnPrevious="EventCallback.Factory.Create(this, GoToPreviousStep)"
                 OnNext="EventCallback.Factory.Create(this, GoToNextStep)" />
         }
         else if (_currentStep == 2)
         {
-            <Step3OtherRecurringGains 
+            <Step3OtherRecurringGains
                 UserId="_userId"
+                HasOtherRecurringGains="_hasOtherRecurringGains"
+                HasOtherRecurringGainsChanged="EventCallback.Factory.Create<bool>(this, v => _hasOtherRecurringGains = v)"
+                OtherRecurringGains="_otherRecurringGains"
                 OnPrevious="EventCallback.Factory.Create(this, GoToPreviousStep)"
                 OnNext="EventCallback.Factory.Create(this, GoToNextSection)" />
         }

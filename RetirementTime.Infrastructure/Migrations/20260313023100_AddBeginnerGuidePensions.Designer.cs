@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RetirementTime.Infrastructure;
@@ -11,9 +12,11 @@ using RetirementTime.Infrastructure;
 namespace RetirementTime.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260313023100_AddBeginnerGuidePensions")]
+    partial class AddBeginnerGuidePensions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -512,87 +515,6 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("beginner_guide_assets_other_assets", (string)null);
-                });
-
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Benefits.BeginnerGuideGovernmentPension", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-
-                    b.Property<bool>("HasSpecializedPublicSectorPension")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("SpecializedPensionName")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("YearsWorked")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("beginner_guide_benefits_government_pension", (string)null);
-                });
-
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Benefits.BeginnerGuideOtherRecurringGain", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<decimal>("Amount")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("numeric(18,2)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-
-                    b.Property<int>("FrequencyId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("SourceName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FrequencyId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("beginner_guide_benefits_other_recurring_gains", (string)null);
                 });
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Benefits.BeginnerGuidePension", b =>
@@ -1544,36 +1466,6 @@ namespace RetirementTime.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("AssetType");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Benefits.BeginnerGuideGovernmentPension", b =>
-                {
-                    b.HasOne("RetirementTime.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RetirementTime.Domain.Entities.BeginnerGuide.Benefits.BeginnerGuideOtherRecurringGain", b =>
-                {
-                    b.HasOne("RetirementTime.Domain.Entities.Common.Frequency", "Frequency")
-                        .WithMany()
-                        .HasForeignKey("FrequencyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("RetirementTime.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Frequency");
 
                     b.Navigation("User");
                 });

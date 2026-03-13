@@ -1,59 +1,67 @@
+using MediatR;
 using Microsoft.AspNetCore.Components;
+using RetirementTime.Application.Features.BeginnerGuide.Benefits.GetPensionTypes;
+using RetirementTime.Application.Features.BeginnerGuide.Benefits.UpsertPensions;
 using RetirementTime.Models.BeginnerGuide.Benefits;
 
 namespace RetirementTime.Components.Pages.BeginnerGuide.Benefits;
 
 public partial class Step1Pension : ComponentBase
 {
+    [Inject] private IMediator Mediator { get; set; } = default!;
+
     [Parameter] public long UserId { get; set; }
+    [Parameter] public bool HasPensions { get; set; }
+    [Parameter] public EventCallback<bool> HasPensionsChanged { get; set; }
+    [Parameter] public List<PensionFormModel> Pensions { get; set; } = new();
+    [Parameter] public List<PensionTypeDto> PensionTypes { get; set; } = new();
     [Parameter] public EventCallback OnNext { get; set; }
     [Parameter] public EventCallback OnPrevious { get; set; }
 
-    private bool _isLoading = false;
-    private bool _isSaving = false;
-    private bool _hasPensions = false;
-    private List<PensionFormModel> _pensions = new();
-    private object _formData = new();
+    private bool _isSaving;
 
-    // Temporary pension types list - will be replaced with database data later
-    private List<PensionTypeDto> _pensionTypes = new()
+    private async Task OnHasPensionsChanged(bool value)
     {
-        new PensionTypeDto { Id = 1, Name = "Defined Benefit Pension Plan (DBPP)" },
-        new PensionTypeDto { Id = 2, Name = "Defined Contribution Pension Plan (DCPP)" },
-        new PensionTypeDto { Id = 3, Name = "Pooled Registered Pension Plan (PRPP)" },
-        new PensionTypeDto { Id = 4, Name = "Group Registered Retirement Savings Plan (GRSP)" },
-        new PensionTypeDto { Id = 5, Name = "Target Benefit Plan" },
-        new PensionTypeDto { Id = 6, Name = "Deferred Profit Sharing Plan (DPSP)" }
-    };
-
-    protected override async Task OnInitializedAsync()
-    {
-        _isLoading = true;
-        await Task.Delay(100); // Simulate loading
-        // TODO: Load existing pensions from backend
-        _isLoading = false;
+        HasPensions = value;
+        await HasPensionsChanged.InvokeAsync(value);
     }
 
     private void AddPension()
     {
-        _pensions.Add(new PensionFormModel());
+        Pensions.Add(new PensionFormModel());
     }
 
     private void RemovePension(int index)
     {
-        if (index >= 0 && index < _pensions.Count)
+        if (index >= 0 && index < Pensions.Count)
         {
-            _pensions.RemoveAt(index);
+            Pensions.RemoveAt(index);
         }
     }
 
     private async Task HandleSaveAndContinue()
     {
         _isSaving = true;
-        await Task.Delay(500); // Simulate saving
-        // TODO: Save pensions to backend
+
+        var command = new UpsertPensionsCommand
+        {
+            UserId = UserId,
+            HasPensions = HasPensions,
+            Pensions = Pensions.Select(p => new PensionInputDto
+            {
+                EmployerName = p.EmployerName,
+                PensionTypeId = p.PensionTypeId
+            }).ToList()
+        };
+
+        var result = await Mediator.Send(command);
+
         _isSaving = false;
-        await OnNext.InvokeAsync();
+
+        if (result.Success)
+        {
+            await OnNext.InvokeAsync();
+        }
     }
 
     private async Task HandleNext()
@@ -64,12 +72,5 @@ public partial class Step1Pension : ComponentBase
     private async Task HandlePrevious()
     {
         await OnPrevious.InvokeAsync();
-    }
-
-    // Temporary DTO - will be replaced with actual backend DTO
-    private class PensionTypeDto
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
     }
 }

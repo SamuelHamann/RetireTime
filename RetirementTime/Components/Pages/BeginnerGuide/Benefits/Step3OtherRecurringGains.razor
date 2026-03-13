@@ -1,7 +1,6 @@
 @using RetirementTime.Resources.BeginnerGuide
 @using RetirementTime.Models.BeginnerGuide.Benefits
 @using RetirementTime.Components.Shared
-
 @inject IStringLocalizer<BeginnerGuideResources> Localizer
 
 <div class="step-container">
@@ -11,118 +10,106 @@
         <p class="text-muted small">@Localizer["Benefits_Step3_Examples"]</p>
     </div>
 
-    @if (_isLoading)
-    {
-        <div class="loading-container">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">@Localizer["Common_Loading"]</span>
-            </div>
-            <p class="loading-message">@Localizer["Benefits_Step3_LoadingMessage"]</p>
+    <EditForm Model="@OtherRecurringGains" OnValidSubmit="@HandleSaveAndComplete">
+        <DataAnnotationsValidator />
+
+        <div class="form-section">
+            <label class="form-label fw-bold">@Localizer["Benefits_Step3_Question"]</label>
+            <YesNoToggle Value="@HasOtherRecurringGains"
+                         ValueChanged="OnHasGainsChanged"
+                         YesLabel="@Localizer["Benefits_Step3_Yes"]"
+                         NoLabel="@Localizer["Benefits_Step3_No"]" />
         </div>
-    }
-    else
-    {
-        <EditForm Model="@_formData" OnValidSubmit="@HandleSaveAndComplete">
-            <DataAnnotationsValidator />
 
-            <div class="form-section">
-                <label class="form-label fw-bold">@Localizer["Benefits_Step3_Question"]</label>
-                <YesNoToggle @bind-Value="@_hasOtherRecurringGains"
-                             YesLabel="@Localizer["Benefits_Step3_Yes"]"
-                             NoLabel="@Localizer["Benefits_Step3_No"]" />
-            </div>
-
-            @if (_hasOtherRecurringGains)
+        @if (HasOtherRecurringGains)
+        {
+            @if (OtherRecurringGains.Count == 0)
             {
-                @if (_otherRecurringGains.Count == 0)
-                {
-                    <div class="alert alert-info">
-                        @Localizer["Benefits_Step3_NoRecurringGainsAdded"]
+                <div class="alert alert-info">
+                    @Localizer["Benefits_Step3_NoRecurringGainsAdded"]
+                </div>
+            }
+
+            @for (int i = 0; i < OtherRecurringGains.Count; i++)
+            {
+                var index = i;
+
+                <div class="card mb-3">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">@string.Format(Localizer["Benefits_Step3_RecurringGainTitle"], index + 1)</h5>
+                        <button type="button" class="btn btn-sm btn-danger" @onclick="() => RemoveRecurringGain(index)">
+                            @Localizer["Benefits_Step3_Remove"]
+                        </button>
                     </div>
-                }
-
-                @for (int i = 0; i < _otherRecurringGains.Count; i++)
-                {
-                    var index = i;
-                    var gain = _otherRecurringGains[index];
-
-                    <div class="card mb-3">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">@string.Format(Localizer["Benefits_Step3_RecurringGainTitle"], index + 1)</h5>
-                            <button type="button" class="btn btn-sm btn-danger" @onclick="() => RemoveRecurringGain(index)">
-                                @Localizer["Benefits_Step3_Remove"]
-                            </button>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">
+                                @Localizer["Benefits_Step3_SourceName"]
+                                <span class="text-danger">@Localizer["Benefits_Step3_Required"]</span>
+                            </label>
+                            <InputText @bind-Value="OtherRecurringGains[index].SourceName"
+                                       class="form-control"
+                                       placeholder="@Localizer["Benefits_Step3_SourceNamePlaceholder"]" />
+                            <ValidationMessage For="@(() => OtherRecurringGains[index].SourceName)" />
                         </div>
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <label class="form-label">
-                                    @Localizer["Benefits_Step3_SourceName"]
-                                    <span class="text-danger">@Localizer["Benefits_Step3_Required"]</span>
-                                </label>
-                                <InputText @bind-Value="gain.SourceName"
-                                           class="form-control"
-                                           placeholder="@Localizer["Benefits_Step3_SourceNamePlaceholder"]" />
-                                <ValidationMessage For="@(() => gain.SourceName)" />
-                            </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">
-                                    @Localizer["Benefits_Step3_Amount"]
-                                    <span class="text-danger">@Localizer["Benefits_Step3_Required"]</span>
-                                </label>
-                                <InputNumber @bind-Value="gain.Amount"
-                                             class="form-control"
-                                             step="0.01" />
-                                <ValidationMessage For="@(() => gain.Amount)" />
-                            </div>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                @Localizer["Benefits_Step3_Amount"]
+                                <span class="text-danger">@Localizer["Benefits_Step3_Required"]</span>
+                            </label>
+                            <InputNumber @bind-Value="OtherRecurringGains[index].Amount"
+                                         class="form-control"
+                                         step="0.01" />
+                            <ValidationMessage For="@(() => OtherRecurringGains[index].Amount)" />
+                        </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">
-                                    @Localizer["Benefits_Step3_Frequency"]
-                                    <span class="text-danger">@Localizer["Benefits_Step3_Required"]</span>
-                                </label>
-                                <InputSelect @bind-Value="gain.FrequencyId" class="form-select">
+                        <div class="mb-3">
+                            <label class="form-label">
+                                @Localizer["Benefits_Step3_Frequency"]
+                                <span class="text-danger">@Localizer["Benefits_Step3_Required"]</span>
+                            </label>
+                                <InputSelect @bind-Value="OtherRecurringGains[index].FrequencyId" class="form-select">
                                     <option value="0">@Localizer["Benefits_Step3_SelectFrequency"]</option>
                                     @foreach (var frequency in _frequencies)
                                     {
                                         <option value="@frequency.Id">@frequency.Name</option>
                                     }
                                 </InputSelect>
-                                <ValidationMessage For="@(() => gain.FrequencyId)" />
-                            </div>
+                            <ValidationMessage For="@(() => OtherRecurringGains[index].FrequencyId)" />
                         </div>
                     </div>
-                }
-
-                <button type="button" class="btn btn-outline-primary mb-3" @onclick="AddRecurringGain">
-                    <i class="bi bi-plus-circle"></i> @Localizer["Benefits_Step3_AddRecurringGain"]
-                </button>
+                </div>
             }
 
-            <div class="form-actions">
-                <button type="button" class="btn btn-outline-secondary" @onclick="HandlePrevious">
-                    <i class="bi bi-arrow-left"></i> @Localizer["Benefits_Step3_PreviousStep"]
-                </button>
+            <button type="button" class="btn btn-outline-primary mb-3" @onclick="AddRecurringGain">
+                <i class="bi bi-plus-circle"></i> @Localizer["Benefits_Step3_AddRecurringGain"]
+            </button>
+        }
 
-                <button type="submit" class="btn btn-success" disabled="@_isSaving">
-                    @if (_isSaving)
-                    {
-                        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
-                        @Localizer["Benefits_Step3_Saving"]
-                    }
-                    else
-                    {
-                        @Localizer["Benefits_Step3_Complete"]
-                    }
-                </button>
+        <div class="form-actions">
+            <button type="button" class="btn btn-outline-secondary" @onclick="HandlePrevious">
+                <i class="bi bi-arrow-left"></i> @Localizer["Benefits_Step3_PreviousStep"]
+            </button>
 
-                @if (!_hasOtherRecurringGains)
+            <button type="submit" class="btn btn-success" disabled="@_isSaving">
+                @if (_isSaving)
                 {
-                    <button type="button" class="btn btn-success" @onclick="HandleComplete">
-                        @Localizer["Benefits_Step3_Complete"]
-                    </button>
+                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                    @Localizer["Benefits_Step3_Saving"]
                 }
-            </div>
-        </EditForm>
-    }
+                else
+                {
+                    @Localizer["Benefits_Step3_Complete"]
+                }
+            </button>
+
+            @if (!HasOtherRecurringGains)
+            {
+                <button type="button" class="btn btn-success" @onclick="HandleComplete">
+                    @Localizer["Benefits_Step3_Complete"]
+                </button>
+            }
+        </div>
+    </EditForm>
 </div>
