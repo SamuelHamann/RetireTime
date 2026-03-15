@@ -1,0 +1,14 @@
+.employment-step .card {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}
+
+.employment-step .card-body {
+    padding: 1.5rem;
+}
+
+.employment-step hr {
+    margin: 1rem 0;
+    border-color: #dee2e6;
+}
+

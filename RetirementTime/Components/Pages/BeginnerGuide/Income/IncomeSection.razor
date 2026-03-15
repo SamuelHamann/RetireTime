@@ -1,0 +1,48 @@
+@using RetirementTime.Resources.BeginnerGuide
+@using RetirementTime.Components.Pages.BeginnerGuide.Income
+@using RetirementTime.Services
+@inject IStringLocalizer<BeginnerGuideResources> Localizer
+@rendermode InteractiveServer
+
+<div class="income-container">
+    <!-- Sub-breadcrumb with dots -->
+    <nav class="sub-breadcrumb" aria-label="Income steps">
+        <ol class="dot-navigation">
+            @for (int i = 0; i < 2; i++)
+            {
+                var stepIndex = i;
+                <li class="dot-item @(_currentStep == stepIndex ? "dot-active" : "")">
+                    <button type="button" class="dot-button"
+                            @onclick="() => SetStep(stepIndex)"
+                            aria-label="Step @(stepIndex + 1)">
+                    </button>
+                </li>
+            }
+        </ol>
+    </nav>
+
+    <div class="step-content mt-4">
+        @if (_isLoading)
+        {
+            <div class="text-center py-4">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">@Localizer["Common_Loading"]</span>
+                </div>
+            </div>
+        }
+        else if (_currentStep == 0)
+        {
+            <Step1Employment
+                UserId="_userId"
+                OnPrevious="EventCallback.Factory.Create(this, GoToPreviousSection)"
+                OnNext="EventCallback.Factory.Create(this, GoToNextStep)" />
+        }
+        else if (_currentStep == 1)
+        {
+            <Step2SelfEmployment UserId="_userId"
+                             OnPrevious="EventCallback.Factory.Create(this, GoToPreviousSection)"
+                             OnNext="EventCallback.Factory.Create(this, GoToNextStep)" />
+        }
+    </div>
+</div>
+

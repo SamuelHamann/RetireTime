@@ -1,0 +1,72 @@
+@using RetirementTime.Components.Pages.BeginnerGuide.Assets.Components
+@using RetirementTime.Resources.BeginnerGuide
+@using RetirementTime.Components.Shared
+@inject IStringLocalizer<BeginnerGuideResources> Localizer
+ß
+<!-- Step 2: Investment Accounts -->
+<div class="question-section">
+    <h4 class="question-title">@Localizer["Assets_Step2_Question"]</h4>
+    <p class="question-description">@Localizer["Assets_Step2_Description"]</p>
+    
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @_errorMessage
+        </div>
+    }
+    
+    <YesNoToggle @bind-Value="HasInvestmentAccounts" 
+                YesLabel="@Localizer["Assets_Step2_Yes"]" 
+                NoLabel="@Localizer["Assets_Step2_No"]" />
+    
+    @if (HasInvestmentAccounts)
+    {
+        <EditForm Model="@Model" OnValidSubmit="HandleSave">
+            <DataAnnotationsValidator />
+            
+            <div class="accounts-container">
+                @for (int i = 0; i < Model.Accounts.Count; i++)
+                {
+                    var index = i;
+                    var account = Model.Accounts[index];
+                    
+                    <InvestmentAccountCard @key="account"
+                                          Account="@account"
+                                          Index="@index"
+                                          ShowRemoveButton="@(Model.Accounts.Count > 1)"
+                                          AccountTypes="@AccountTypes"
+                                          OnRemove="@(() => RemoveAccount(index))"
+                                          OnBulkAmountChange="@(isBulk => SetBulkAmount(index, isBulk))"
+                                          OnAddStock="@(() => AddStock(index))"
+                                          OnRemoveStock="@(stockIndex => RemoveStock(index, stockIndex))" />
+                }
+                
+                <button type="button" class="btn-add-account" @onclick="AddAccount">
+                    + @Localizer["Assets_Step2_AddAccount"]
+                </button>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-save" disabled="@_isSaving">
+                        @if (_isSaving)
+                        {
+                            <span>@Localizer["Assets_Step2_Saving"]</span>
+                        }
+                        else
+                        {
+                            @Localizer["Assets_Step2_SaveContinue"]
+                        }
+                    </button>
+                </div>
+            </div>
+        </EditForm>
+    }
+    else
+    {
+        <!-- Next button when No is selected -->
+        <div class="form-actions" style="margin-top: 2rem;">
+            <button type="button" class="btn-next" @onclick="HandleNext">
+                @Localizer["Assets_Step2_Next"]
+            </button>
+        </div>
+    }
+</div>

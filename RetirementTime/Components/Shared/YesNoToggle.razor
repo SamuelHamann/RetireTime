@@ -1,0 +1,14 @@
+@* Reusable Yes/No Toggle Button Component *@
+<div class="yes-no-toggle">
+    <button type="button" 
+            class="toggle-option toggle-yes @GetYesClass()" 
+            @onclick="SelectYes">
+        @YesLabel
+    </button>
+    <button type="button" 
+            class="toggle-option toggle-no @GetNoClass()" 
+            @onclick="SelectNo">
+        @NoLabel
+    </button>
+</div>
+

@@ -1,0 +1,104 @@
+@using RetirementTime.Resources.BeginnerGuide
+@using RetirementTime.Models.BeginnerGuide.Benefits
+@using RetirementTime.Components.Shared
+@using RetirementTime.Application.Features.BeginnerGuide.Benefits.GetPensionTypes
+@inject IStringLocalizer<BeginnerGuideResources> Localizer
+
+<div class="step-container">
+    <div class="step-header">
+        <h2>@Localizer["Benefits_Step1_Title"]</h2>
+        <p class="step-description">@Localizer["Benefits_Step1_Description"]</p>
+    </div>
+
+    <EditForm Model="@Pensions" OnValidSubmit="@HandleSaveAndContinue">
+        <DataAnnotationsValidator />
+
+        <div class="form-section">
+            <label class="form-label fw-bold">@Localizer["Benefits_Step1_Question"]</label>
+            <YesNoToggle Value="@HasPensions"
+                         ValueChanged="OnHasPensionsChanged"
+                         YesLabel="@Localizer["Benefits_Step1_Yes"]"
+                         NoLabel="@Localizer["Benefits_Step1_No"]" />
+        </div>
+
+        @if (HasPensions)
+        {
+            @if (Pensions.Count == 0)
+            {
+                <div class="alert alert-info">
+                    @Localizer["Benefits_Step1_NoPensionsAdded"]
+                </div>
+            }
+
+            @for (int i = 0; i < Pensions.Count; i++)
+            {
+                var index = i;
+
+                <div class="card mb-3">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">@string.Format(Localizer["Benefits_Step1_PensionTitle"], index + 1)</h5>
+                        <button type="button" class="btn btn-sm btn-danger" @onclick="() => RemovePension(index)">
+                            @Localizer["Benefits_Step1_Remove"]
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">
+                                @Localizer["Benefits_Step1_EmployerName"]
+                                <span class="text-danger">@Localizer["Benefits_Step1_Required"]</span>
+                            </label>
+                            <InputText @bind-Value="Pensions[index].EmployerName"
+                                       class="form-control"
+                                       placeholder="@Localizer["Benefits_Step1_EmployerNamePlaceholder"]" />
+                            <ValidationMessage For="@(() => Pensions[index].EmployerName)" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                @Localizer["Benefits_Step1_PensionType"]
+                                <span class="text-danger">@Localizer["Benefits_Step1_Required"]</span>
+                            </label>
+                            <InputSelect @bind-Value="Pensions[index].PensionTypeId" class="form-select">
+                                <option value="0">@Localizer["Benefits_Step1_SelectPensionType"]</option>
+                                @foreach (var type in PensionTypes)
+                                {
+                                    <option value="@type.Id">@type.Name</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => Pensions[index].PensionTypeId)" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <button type="button" class="btn btn-outline-primary mb-3" @onclick="AddPension">
+                <i class="bi bi-plus-circle"></i> @Localizer["Benefits_Step1_AddPension"]
+            </button>
+        }
+
+        <div class="form-actions">
+            <button type="button" class="btn btn-outline-secondary" @onclick="HandlePrevious">
+                <i class="bi bi-arrow-left"></i> @Localizer["Benefits_Step1_PreviousStep"]
+            </button>
+
+            <button type="submit" class="btn btn-primary" disabled="@_isSaving">
+                @if (_isSaving)
+                {
+                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                    @Localizer["Benefits_Step1_Saving"]
+                }
+                else
+                {
+                    @Localizer["Benefits_Step1_SaveContinue"]
+                }
+            </button>
+
+            @if (!HasPensions)
+            {
+                <button type="button" class="btn btn-secondary" @onclick="HandleNext">
+                    @Localizer["Benefits_Step1_Next"]
+                </button>
+            }
+        </div>
+    </EditForm>
+</div>

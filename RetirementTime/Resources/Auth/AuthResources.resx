@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    
+    <!-- Login Page -->
+    <data name="Login_WelcomeBack" xml:space="preserve">
+        <value>Welcome Back</value>
+    </data>
+    <data name="Login_Subtitle" xml:space="preserve">
+        <value>Login to continue your retirement planning</value>
+    </data>
+    <data name="Login_Email" xml:space="preserve">
+        <value>Email</value>
+    </data>
+    <data name="Login_Password" xml:space="preserve">
+        <value>Password</value>
+    </data>
+    <data name="Login_RememberMe" xml:space="preserve">
+        <value>Remember me</value>
+    </data>
+    <data name="Login_ForgotPassword" xml:space="preserve">
+        <value>Forgot password?</value>
+    </data>
+    <data name="Login_LoginButton" xml:space="preserve">
+        <value>Login</value>
+    </data>
+    <data name="Login_OrContinueWith" xml:space="preserve">
+        <value>Or continue with</value>
+    </data>
+    <data name="Login_GoogleSignIn" xml:space="preserve">
+        <value>Sign in with Google</value>
+    </data>
+    <data name="Login_NoAccount" xml:space="preserve">
+        <value>Don't have an account?</value>
+    </data>
+    <data name="Login_SignUpLink" xml:space="preserve">
+        <value>Sign up</value>
+    </data>
+    
+    <!-- SignUp Page -->
+    <data name="SignUp_CreateAccount" xml:space="preserve">
+        <value>Create Your Account</value>
+    </data>
+    <data name="SignUp_Subtitle" xml:space="preserve">
+        <value>Start your retirement planning journey today</value>
+    </data>
+    <data name="SignUp_FirstName" xml:space="preserve">
+        <value>First Name</value>
+    </data>
+    <data name="SignUp_LastName" xml:space="preserve">
+        <value>Last Name</value>
+    </data>
+    <data name="SignUp_Email" xml:space="preserve">
+        <value>Email</value>
+    </data>
+    <data name="SignUp_Password" xml:space="preserve">
+        <value>Password</value>
+    </data>
+    <data name="SignUp_ConfirmPassword" xml:space="preserve">
+        <value>Confirm Password</value>
+    </data>
+    <data name="SignUp_Country" xml:space="preserve">
+        <value>Country</value>
+    </data>
+    <data name="SignUp_SelectCountry" xml:space="preserve">
+        <value>Select a country</value>
+    </data>
+    <data name="SignUp_State" xml:space="preserve">
+        <value>State/Province</value>
+    </data>
+    <data name="SignUp_SelectState" xml:space="preserve">
+        <value>Select a state/province</value>
+    </data>
+    <data name="SignUp_CreateAccountButton" xml:space="preserve">
+        <value>Create Account</value>
+    </data>
+    <data name="SignUp_HaveAccount" xml:space="preserve">
+        <value>Already have an account?</value>
+    </data>
+    <data name="SignUp_LoginLink" xml:space="preserve">
+        <value>Login</value>
+    </data>
+</root>

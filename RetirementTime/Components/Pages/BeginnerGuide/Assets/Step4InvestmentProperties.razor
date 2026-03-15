@@ -1,0 +1,194 @@
+@using RetirementTime.Models.BeginnerGuide.Assets
+@using RetirementTime.Application.Features.BeginnerGuide.Assets.GetInvestmentProperties
+@using RetirementTime.Application.Features.BeginnerGuide.Assets.UpsertInvestmentProperties
+@using RetirementTime.Resources.BeginnerGuide
+@using RetirementTime.Components.Shared
+@inject IStringLocalizer<BeginnerGuideResources> Localizer
+
+<div class="investment-properties-step">
+    <h3>@Localizer["Assets_Step4_Title"]</h3>
+    <p class="mb-4">@Localizer["Assets_Step4_Description"]</p>
+
+    @if (_isLoading)
+    {
+        <div class="loading-container text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">@Localizer["Assets_Step4_Loading"]</span>
+            </div>
+            <p class="mt-3 text-muted">@Localizer["Assets_Step4_LoadingMessage"]</p>
+        </div>
+    }
+    else
+    {
+        <EditForm Model="@_formModel" OnValidSubmit="@HandleSubmit">
+            <DataAnnotationsValidator />
+            
+            <!-- Yes/No Toggle -->
+            <div class="form-group mb-4">
+                <label class="form-label fw-bold">@Localizer["Assets_Step4_Question"]</label>
+                <YesNoToggle @bind-Value="_formModel.HasInvestmentProperties" 
+                             YesLabel="@Localizer["Assets_Step4_Yes"]" 
+                             NoLabel="@Localizer["Assets_Step4_No"]" />
+            </div>
+
+        @if (_formModel.HasInvestmentProperties)
+        {
+            <!-- Properties List -->
+            <div class="properties-list mb-4">
+                @if (_formModel.Properties.Count == 0)
+                {
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i> @Localizer["Assets_Step4_NoPropertiesAdded"]
+                    </div>
+                }
+                else
+                {
+                    @for (int i = 0; i < _formModel.Properties.Count; i++)
+                    {
+                        var index = i;
+                        var property = _formModel.Properties[index];
+                        
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <h5 class="card-title mb-0">@Localizer["Assets_Step4_PropertyTitle", (index + 1)]</h5>
+                                    <button type="button" class="btn btn-sm btn-danger" @onclick="() => RemoveProperty(index)">
+                                        <i class="bi bi-trash"></i> @Localizer["Assets_Step4_Remove"]
+                                    </button>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">@Localizer["Assets_Step4_PropertyName"] <span class="text-danger">@Localizer["Assets_Step4_Required"]</span></label>
+                                        <InputText class="form-control" @bind-Value="property.Name" placeholder="@Localizer["Assets_Step4_PropertyNamePlaceholder"]" />
+                                        <ValidationMessage For="@(() => property.Name)" />
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">@Localizer["Assets_Step4_PurchasePrice"] <span class="text-danger">@Localizer["Assets_Step4_Required"]</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <InputNumber class="form-control" @bind-Value="property.PurchasePrice" placeholder="0.00" />
+                                        </div>
+                                        <ValidationMessage For="@(() => property.PurchasePrice)" />
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">@Localizer["Assets_Step4_MonthlyMortgagePayments"] <span class="text-danger">@Localizer["Assets_Step4_Required"]</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <InputNumber class="form-control" @bind-Value="property.MonthlyMortgagePayments" placeholder="0.00" />
+                                        </div>
+                                        <ValidationMessage For="@(() => property.MonthlyMortgagePayments)" />
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">@Localizer["Assets_Step4_MortgageLeft"] <span class="text-danger">@Localizer["Assets_Step4_Required"]</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <InputNumber class="form-control" @bind-Value="property.MortgageLeft" placeholder="0.00" />
+                                        </div>
+                                        <ValidationMessage For="@(() => property.MortgageLeft)" />
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">@Localizer["Assets_Step4_YearlyInsurance"] <span class="text-danger">@Localizer["Assets_Step4_Required"]</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <InputNumber class="form-control" @bind-Value="property.YearlyInsurance" placeholder="0.00" />
+                                        </div>
+                                        <ValidationMessage For="@(() => property.YearlyInsurance)" />
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">@Localizer["Assets_Step4_MonthlyElectricityCosts"] <span class="text-muted">@Localizer["Assets_Step4_Optional"]</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <InputNumber class="form-control" @bind-Value="property.MonthlyElectricityCosts" placeholder="0.00" />
+                                        </div>
+                                        <ValidationMessage For="@(() => property.MonthlyElectricityCosts)" />
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">@Localizer["Assets_Step4_MortgageDuration"] <span class="text-danger">@Localizer["Assets_Step4_Required"]</span></label>
+                                        <InputNumber class="form-control" @bind-Value="property.MortgageDuration" placeholder="25" />
+                                        <ValidationMessage For="@(() => property.MortgageDuration)" />
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">@Localizer["Assets_Step4_MortgageStartDate"] <span class="text-danger">@Localizer["Assets_Step4_Required"]</span></label>
+                                        <InputDate class="form-control" @bind-Value="property.MortgageStartDate" max="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                                        <ValidationMessage For="@(() => property.MortgageStartDate)" />
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">@Localizer["Assets_Step4_EstimatedValue"] <span class="text-muted">@Localizer["Assets_Step4_Optional"]</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <InputNumber class="form-control" @bind-Value="property.EstimatedValue" placeholder="0.00" />
+                                        </div>
+                                        <ValidationMessage For="@(() => property.EstimatedValue)" />
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">@Localizer["Assets_Step4_MonthlyCost"] <span class="text-danger">@Localizer["Assets_Step4_Required"]</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <InputNumber class="form-control" @bind-Value="property.MonthlyCost" placeholder="0.00" />
+                                        </div>
+                                        <ValidationMessage For="@(() => property.MonthlyCost)" />
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">@Localizer["Assets_Step4_MonthlyRevenue"] <span class="text-danger">@Localizer["Assets_Step4_Required"]</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <InputNumber class="form-control" @bind-Value="property.MonthlyRevenue" placeholder="0.00" />
+                                        </div>
+                                        <ValidationMessage For="@(() => property.MonthlyRevenue)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+                <button type="button" class="btn btn-outline-primary" @onclick="AddProperty">
+                    <i class="bi bi-plus-circle"></i> @Localizer["Assets_Step4_AddProperty"]
+                </button>
+            </div>
+        }
+
+        <!-- Error Message -->
+        @if (!string.IsNullOrEmpty(_errorMessage))
+        {
+            <div class="alert alert-danger" role="alert">
+                <i class="bi bi-exclamation-triangle"></i> @_errorMessage
+            </div>
+        }
+
+        <!-- Success Message -->
+        @if (!string.IsNullOrEmpty(_successMessage))
+        {
+            <div class="alert alert-success" role="alert">
+                <i class="bi bi-check-circle"></i> @_successMessage
+            </div>
+        }
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-between mt-4">
+            <button type="button" class="btn btn-secondary" @onclick="GoBack">
+                <i class="bi bi-arrow-left"></i> @Localizer["Assets_Step4_PreviousStep"]
+            </button>
+            <button type="submit" class="btn btn-primary" disabled="@_isSubmitting">
+                @if (_isSubmitting)
+                {
+                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                }
+                @Localizer["Assets_Step4_SaveContinue"] <i class="bi bi-arrow-right"></i>
+            </button>
+        </div>
+    </EditForm>
+    }
+</div>
+

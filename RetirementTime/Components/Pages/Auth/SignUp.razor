@@ -1,0 +1,92 @@
+@page "/signup"
+@layout HomeLayout
+@rendermode InteractiveServer
+
+<div class="signup-container">
+    <div class="signup-card">
+        <div class="signup-header">
+            <h1>@Localizer["SignUp_CreateAccount"]</h1>
+            <p>@Localizer["SignUp_Subtitle"]</p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(_errorMessage))
+        {
+            <div class="alert alert-error">
+                @_errorMessage
+            </div>
+        }
+
+        <EditForm Model="@_signupModel" OnValidSubmit="@HandleSignUp" class="signup-form">
+            <DataAnnotationsValidator />
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">@Localizer["SignUp_FirstName"]</label>
+                    <InputText id="firstName" @bind-Value="_signupModel.FirstName" class="form-input" />
+                    <ValidationMessage For="@(() => _signupModel.FirstName)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">@Localizer["SignUp_LastName"]</label>
+                    <InputText id="lastName" @bind-Value="_signupModel.LastName" class="form-input" />
+                    <ValidationMessage For="@(() => _signupModel.LastName)" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">@Localizer["SignUp_Email"]</label>
+                <InputText id="email" type="email" @bind-Value="_signupModel.Email" class="form-input" />
+                <ValidationMessage For="@(() => _signupModel.Email)" />
+                @if (!string.IsNullOrEmpty(_emailErrorMessage))
+                {
+                    <span class="validation-message">@_emailErrorMessage</span>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="password">@Localizer["SignUp_Password"]</label>
+                <InputText id="password" type="password" @bind-Value="_signupModel.Password" class="form-input"/>
+                <ValidationMessage For="@(() => _signupModel.Password)" />
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">@Localizer["SignUp_ConfirmPassword"]</label>
+                <InputText id="confirmPassword" type="password" @bind-Value="_signupModel.ConfirmPassword" class="form-input" />
+                <ValidationMessage For="@(() => _signupModel.ConfirmPassword)" />
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="country">@Localizer["SignUp_Country"]</label>
+                    <InputSelect id="country" @bind-Value="_signupModel.Country" @bind-Value:after="@HandleCountryChanged" class="form-input">
+                    <option value="">@Localizer["SignUp_SelectCountry"]</option>
+                    @foreach (var country in _countries)
+                    {
+                        <option value="@country.Id">@country.Name</option>
+                    }
+                    </InputSelect>
+                    <ValidationMessage For="@(() => _signupModel.Country)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="state">@Localizer["SignUp_State"]</label>
+                    <InputSelect id="state" @bind-Value="_signupModel.State" class="form-input">
+                        <option value="">@Localizer["SignUp_SelectState"]</option>
+                        @foreach (var subdivision in _subdivisions)
+                        {
+                            <option value="@subdivision.Id">@subdivision.Name</option>
+                        }
+                    </InputSelect>                          
+                    <ValidationMessage For="@(() => _signupModel.State)" />
+                </div>
+            </div>
+
+            <button type="submit" class="submit-button">@Localizer["SignUp_CreateAccountButton"]</button>
+        </EditForm>
+
+        <div class="signup-footer">
+            <p>@Localizer["SignUp_HaveAccount"] <a href="/login" class="login-link">@Localizer["SignUp_LoginLink"]</a></p>
+        </div>
+    </div>
+</div>
+

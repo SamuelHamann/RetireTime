@@ -1,3 +1,6 @@
 <Solution>
-  <Project Path="RetireFront/RetireFront.csproj" />
+  <Project Path="RetirementTime.Application/RetirementTime.Application.csproj" />
+  <Project Path="RetirementTime.Domain\RetirementTime.Domain.csproj" />
+  <Project Path="RetirementTime.Infrastructure/RetirementTime.Infrastructure.csproj" />
+  <Project Path="RetirementTime\RetirementTime.csproj" />
 </Solution>

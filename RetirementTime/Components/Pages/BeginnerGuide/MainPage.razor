@@ -1,0 +1,102 @@
+@page "/beginner-guide"
+@page "/beginner-guide/{Section}"
+@layout BeginnerGuideLayout
+@attribute [Authorize]
+@using RetirementTime.Components.Pages.BeginnerGuide.Assets
+@using RetirementTime.Components.Pages.BeginnerGuide.Debts
+@using RetirementTime.Components.Pages.BeginnerGuide.Income
+@using RetirementTime.Components.Pages.BeginnerGuide.Benefits
+@using RetirementTime.Resources.BeginnerGuide
+@using Microsoft.AspNetCore.Authorization
+@inject IStringLocalizer<BeginnerGuideResources> Localizer
+@inject NavigationManager Navigation
+@rendermode InteractiveServer
+
+<h3>@Localizer["MainPage_Title"]</h3>
+
+<div class="beginner-guide-layout">
+    <nav class="container mb-4" aria-label="Progress">
+        <ol class="breadcrumb bg-light p-3 rounded">
+            <li class="breadcrumb-item @GetActiveClass("assets")">
+                <button type="button" class="btn btn-link p-0 border-0 text-decoration-none" @onclick="@(() => SetCurrentSection("assets"))">
+                    @Localizer["MainPage_Assets"]
+                </button>
+            </li>
+            <li class="breadcrumb-item @GetActiveClass("debts")">
+                <button type="button" class="btn btn-link p-0 border-0 text-decoration-none" @onclick="@(() => SetCurrentSection("debts"))">
+                    @Localizer["MainPage_Debts"]
+                </button>
+            </li>
+            <li class="breadcrumb-item @GetActiveClass("income")">
+                <button type="button" class="btn btn-link p-0 border-0 text-decoration-none" @onclick="@(() => SetCurrentSection("income"))">
+                    @Localizer["MainPage_Income"]
+                </button>
+            </li>
+            <li class="breadcrumb-item @GetActiveClass("benefits")">
+                <button type="button" class="btn btn-link p-0 border-0 text-decoration-none" @onclick="@(() => SetCurrentSection("benefits"))">
+                    @Localizer["MainPage_Benefits"]
+                </button>
+            </li>
+        </ol>
+    </nav>
+
+    <main class="container">
+        @if (_currentSection == "assets")
+        {
+            <Assets />
+        }
+        else if (_currentSection == "debts")
+        {
+            <DebtsSection />
+        }
+        else if (_currentSection == "income")
+        {
+            <IncomeSection />
+        }
+        else if (_currentSection == "benefits")
+        {
+			<BenefitsSection />
+        }
+    </main>
+
+    <footer class="bg-light text-center p-3 mt-4">
+        <small>@Localizer["MainPage_Copyright"]</small>
+    </footer>
+</div>
+
+@code {
+    [Parameter]
+    public string? Section { get; set; }
+    
+    private string _currentSection = "assets";
+
+    protected override void OnInitialized()
+    {
+        _currentSection = Section ?? "assets";
+        Navigation.LocationChanged += HandleLocationChanged;
+    }
+
+    private void HandleLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        var uri = new Uri(e.Location);
+        var segments = uri.AbsolutePath.Split('/');
+        _currentSection = segments.Length > 2 ? segments[2] : "assets";
+        StateHasChanged();
+    }
+
+    private void SetCurrentSection(string section)
+    {
+        _currentSection = section;
+        Navigation.NavigateTo($"/beginner-guide/{section}");
+    }
+
+    private string GetActiveClass(string section)
+    {
+        return _currentSection == section ? "active" : string.Empty;
+    }
+
+    public void Dispose()
+    {
+        Navigation.LocationChanged -= HandleLocationChanged;
+    }
+}

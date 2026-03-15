@@ -1,0 +1,114 @@
+﻿@page "/"
+@layout HomeLayout
+@using RetirementTime.Resources.Landing
+@using System.Globalization
+@inject IStringLocalizer<LandingResources> Localizer
+@rendermode InteractiveServer
+
+<div class="landing-container">
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <h2>RetireTime</h2>
+            </div>
+            <div class="nav-links">
+                <a href="/beginner-guide/introduction" class="nav-link">@Localizer["Home_PlanningTools"]</a>
+                <a href="#resources" class="nav-link">@Localizer["Home_Resources"]</a>
+                <a href="#about" class="nav-link">@Localizer["Home_About"]</a>
+                <a href="#contact" class="nav-link">@Localizer["Home_Contact"]</a>
+                <button class="language-toggle" @onclick="ToggleLanguage" title="Switch Language / Changer de langue">
+                    @_currentLanguageDisplay
+                </button>
+                <button class="cta-button" @onclick="@(() => Navigation.NavigateTo("/signup"))">@Localizer["Home_StartPlanning"]</button>
+                <button class="login-button" @onclick="HandleLoginClick">@Localizer["Home_Login"]</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="hero-section">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    @Localizer["Home_HeroTitle"]
+                </h1>
+                <p class="hero-subtitle">
+                    @Localizer["Home_HeroSubtitle"]
+                </p>
+                <button class="hero-cta-button" @onclick="@(() => Navigation.NavigateTo("/signup"))">@Localizer["Home_StartPlanning"]</button>
+            </div>
+            <div class="hero-visual">
+                <div class="dashboard-preview">
+                    <!-- Retirement Dashboard Preview -->
+                    <div class="dashboard-card main-card">
+                        <div class="card-header">
+                            <span class="status-indicator">@Localizer["Home_StatusOnTrack"]</span>
+                        </div>
+                        <div class="retirement-rocket">
+                            <div class="rocket-icon">🚀</div>
+                        </div>
+                        <div class="progress-info">
+                            <div class="years-left">@Localizer["Home_YearsToRetirement"]</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card savings-card">
+                        <div class="chart-area">
+                            <div class="savings-chart"></div>
+                        </div>
+                        <div class="savings-info">@Localizer["Home_SavingsProjected"]</div>
+                    </div>
+                    
+                    <div class="dashboard-card goals-card">
+                        <div class="goal-items">
+                            <div class="goal-item">@Localizer["Home_MortgagePaid"]</div>
+                            <div class="goal-item">@Localizer["Home_TravelFund"]</div>
+                            <div class="goal-item">@Localizer["Home_EmergencyFund"]</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Credentials Footer -->
+    <footer class="credentials-section">
+        <div class="credentials-content">
+            <div class="credential-item">
+                <div class="credential-icon">📊</div>
+                <div class="credential-text">
+                    <div class="credential-title">@Localizer["Home_ComprehensivePlanningTitle"]</div>
+                    <div class="credential-subtitle">@Localizer["Home_ComprehensivePlanningSubtitle"]</div>
+                </div>
+            </div>
+            
+            <div class="credential-item">
+                <div class="credential-icon">🎯</div>
+                <div class="credential-text">
+                    <div class="credential-title">@Localizer["Home_GoalBasedTitle"]</div>
+                    <div class="credential-subtitle">@Localizer["Home_GoalBasedSubtitle"]</div>
+                </div>
+            </div>
+            
+            <div class="credential-item">
+                <div class="credential-icon">📈</div>
+                <div class="credential-text">
+                    <div class="credential-title">@Localizer["Home_InvestmentGrowthTitle"]</div>
+                    <div class="credential-subtitle">@Localizer["Home_InvestmentGrowthSubtitle"]</div>
+                </div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-number">@Localizer["Home_AverageGoalNumber"]</div>
+                <div class="stat-label">@Localizer["Home_AverageGoalLabel"]</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-number">@Localizer["Home_ExperienceNumber"]</div>
+                <div class="stat-label">@Localizer["Home_ExperienceLabel"]</div>
+            </div>
+        </div>
+    </footer>
+</div>
+
