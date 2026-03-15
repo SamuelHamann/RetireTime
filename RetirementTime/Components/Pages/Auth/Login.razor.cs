@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using RetirementTime.Application.Features.UserProgress.GetUserProgress;
 using RetirementTime.Application.Features.Users.Login;
 using RetirementTime.Models.Auth;
 using RetirementTime.Resources.Auth;
@@ -32,11 +33,16 @@ public partial class Login
 
         if (result is { Success: true, UserId: not null })
         {
+            // Check user progress
+            var progressResult = await Mediator.Send(new GetUserProgressQuery { UserId = result.UserId.Value });
+            var hasFinishedBeginnerGuide = progressResult.Success && progressResult.HasFinishedBeginnerGuide;
+
             // Build query string with user information for the API login endpoint
             var queryString = $"?userId={result.UserId}" +
                             $"&firstName={Uri.EscapeDataString(result.FirstName ?? string.Empty)}" +
                             $"&roleId={result.RoleId ?? 1}" +
-                            $"&roleName={Uri.EscapeDataString(result.RoleName ?? "User")}";
+                            $"&roleName={Uri.EscapeDataString(result.RoleName ?? "User")}" +
+                            $"&hasFinishedBeginnerGuide={hasFinishedBeginnerGuide.ToString().ToLower()}";
             
             // Redirect to API controller endpoint that has HttpContext access
             Navigation.NavigateTo($"/api/auth/login{queryString}", forceLoad: true);
@@ -53,4 +59,6 @@ public partial class Login
         await Task.CompletedTask;
     }
 }
+
+
 

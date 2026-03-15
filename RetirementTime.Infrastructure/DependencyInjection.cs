@@ -40,6 +40,7 @@ public static class DependencyInjection
         services.AddScoped<IBeginnerGuidePensionRepository, BeginnerGuidePensionRepository>();
         services.AddScoped<IBeginnerGuideGovernmentPensionRepository, BeginnerGuideGovernmentPensionRepository>();
         services.AddScoped<IBeginnerGuideOtherRecurringGainRepository, BeginnerGuideOtherRecurringGainRepository>();
+        services.AddScoped<IUserProgressRepository, UserProgressRepository>();
         return services;
     }
 }

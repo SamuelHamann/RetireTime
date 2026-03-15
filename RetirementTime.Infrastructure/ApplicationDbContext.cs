@@ -746,6 +746,23 @@ public class ApplicationDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict);
         });
 
+        modelBuilder.Entity<UserProgress>(entity =>
+        {
+            entity.ToTable("user_progress");
+            entity.HasKey(e => e.UserId);
+
+            entity.Property(e => e.UserId)
+                .IsRequired();
+            entity.Property(e => e.HasFinishedBeginnerGuide)
+                .IsRequired()
+                .HasDefaultValue(false);
+
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
         SeedRoleData(modelBuilder);
         SeedLocationData(modelBuilder);
         SeedLanguageData(modelBuilder);
@@ -898,4 +915,5 @@ public class ApplicationDbContext : DbContext
     public DbSet<BeginnerGuidePension> BeginnerGuidePensions { get; set; }
     public DbSet<BeginnerGuideGovernmentPension> GovernmentPensions { get; set; }
     public DbSet<BeginnerGuideOtherRecurringGain> OtherRecurringGains { get; set; }
+    public DbSet<UserProgress> UserProgresses { get; set; }
 }

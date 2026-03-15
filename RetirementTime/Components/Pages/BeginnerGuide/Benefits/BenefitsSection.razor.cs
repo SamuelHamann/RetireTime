@@ -5,6 +5,7 @@ using RetirementTime.Application.Features.BeginnerGuide.Benefits.GetGovernmentPe
 using RetirementTime.Application.Features.BeginnerGuide.Benefits.GetOtherRecurringGains;
 using RetirementTime.Application.Features.BeginnerGuide.Benefits.GetPensionTypes;
 using RetirementTime.Application.Features.BeginnerGuide.Benefits.GetPensions;
+using RetirementTime.Application.Features.UserProgress.CompleteBeginnerGuide;
 using RetirementTime.Models.BeginnerGuide.Benefits;
 using RetirementTime.Services;
 
@@ -120,9 +121,10 @@ public partial class BenefitsSection
             _currentStep--;
     }
 
-    private void GoToNextSection()
+    private async Task GoToNextSection()
     {
-        Navigation.NavigateTo("/beginner-guide");
+        await Mediator.Send(new CompleteBeginnerGuideCommand { UserId = _userId });
+        Navigation.NavigateTo("/home");
     }
 
     private void GoToPreviousSection()

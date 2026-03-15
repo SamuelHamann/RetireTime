@@ -16,7 +16,8 @@ public class AuthController : ControllerBase
         [FromQuery] long userId,
         [FromQuery] string? firstName,
         [FromQuery] int? roleId,
-        [FromQuery] string? roleName)
+        [FromQuery] string? roleName,
+        [FromQuery] bool hasFinishedBeginnerGuide = false)
     {
         // Validate required parameters
         if (userId <= 0)
@@ -39,8 +40,10 @@ public class AuthController : ControllerBase
             CookieAuthenticationDefaults.AuthenticationScheme,
             principal);
 
-        // Redirect to the beginner guide assets page
-        return Redirect("/beginner-guide/assets");
+        // Redirect based on whether the user has completed the beginner guide
+        return hasFinishedBeginnerGuide
+            ? Redirect("/home")
+            : Redirect("/beginner-guide/introduction");
     }
 
     [HttpGet("logout")]
@@ -50,4 +53,6 @@ public class AuthController : ControllerBase
         return Redirect("/");
     }
 }
+
+
 
