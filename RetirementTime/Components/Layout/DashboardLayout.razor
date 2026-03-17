@@ -1,0 +1,23 @@
+@inherits LayoutComponentBase
+@using RetirementTime.Components.Pages.Dashboard
+@using RetirementTime.Components.Shared
+
+<HeadContent>
+    <link rel="stylesheet" href="css/dashboard.css" />
+</HeadContent>
+
+<AuthorizeView>
+    <Authorized>
+        <div class="dashboard-shell">
+            <DashboardSidebar />
+
+            <div class="dashboard-body">
+                @Body
+            </div>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
+

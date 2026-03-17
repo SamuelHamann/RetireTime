@@ -4,6 +4,12 @@
 
 RetireTime is a retirement planning tool designed to be user-friendly with a simple question/answer prompt interface similar to TurboTax. This application is targeted at customers who want to plan their retirement independently, without requiring a financial planner.
 
+### Brand Name
+- **English**: NestEgg
+- **French (fr-CA)**: Cagnotte
+- The project/solution name remains `RetirementTime` — only the UI-facing brand name changes per language.
+- Always use `NestEgg` in English UI text and resource files, and `Cagnotte` in French (`fr-CA`) resource files.
+
 ## Technology Stack
 
 - **Framework**: Blazor Web App (C#)

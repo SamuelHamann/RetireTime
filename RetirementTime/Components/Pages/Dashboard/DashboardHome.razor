@@ -1,26 +1,19 @@
 @page "/home"
-@layout HomeLayout
-@attribute [Authorize]
-@using Microsoft.AspNetCore.Authorization
+@layout DashboardLayout
 @rendermode InteractiveServer
 
-<div class="dashboard-container">
-    <nav class="dashboard-nav">
-        <div class="nav-brand">
-            <h2>RetireTime</h2>
-        </div>
-        <div class="nav-actions">
-            <span class="user-greeting">@_greeting</span>
-            <a href="/api/auth/logout" class="btn-logout">@_logoutLabel</a>
-        </div>
-    </nav>
+<header class="dashboard-topbar">
+    <span class="topbar-greeting">@_greeting</span>
+</header>
 
-    <main class="dashboard-main">
-        <div class="dashboard-hero">
-            <h1>@_title</h1>
-            <p class="subtitle">@_subtitle</p>
-            <p class="description">@_description</p>
-        </div>
-    </main>
-</div>
+<main class="dashboard-content">
+    <div class="dashboard-hero">
+        <h1>@_title</h1>
+        <p class="subtitle">@_subtitle</p>
+        <p class="description">@_description</p>
+    </div>
+</main>
+
+
+
 
