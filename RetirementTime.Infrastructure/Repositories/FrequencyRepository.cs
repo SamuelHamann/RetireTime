@@ -6,18 +6,14 @@ namespace RetirementTime.Infrastructure.Repositories;
 
 public class FrequencyRepository(ApplicationDbContext context) : IFrequencyRepository
 {
-    private readonly ApplicationDbContext _context = context;
-
-    public async Task<List<Frequency>> GetAllAsync()
+    public async Task<List<Frequency>> GetFrequencies()
     {
-        return await _context.Frequencies
-            .OrderBy(f => f.FrequencyPerYear)
-            .ToListAsync();
+        return await context.Frequencies.OrderBy(f => f.FrequencyPerYear).ToListAsync();
     }
 
-    public async Task<Frequency?> GetByIdAsync(int id)
+    public async Task<Frequency?> GetById(int id)
     {
-        return await _context.Frequencies
-            .FirstOrDefaultAsync(f => f.Id == id);
+        return await context.Frequencies.FirstOrDefaultAsync(f => f.Id == id);
     }
 }
+

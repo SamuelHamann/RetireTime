@@ -12,8 +12,320 @@
         <p class="page-header-subtitle">A summary of everything you own.</p>
     </div>
 
-    <div class="assets-body">
-        <!-- Assets content goes here -->
+    <div class="form-card">
+
+        <!-- ── Section 1: Text inputs ─────────────────────── -->
+        <div class="form-section">
+            <h2 class="form-section-title">Personal Information</h2>
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label class="form-label">First Name <span class="form-required">*</span></label>
+                    <input type="text" class="form-control" placeholder="e.g. Marie" @bind="_firstName" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Last Name <span class="form-required">*</span></label>
+                    <input type="text" class="form-control" placeholder="e.g. Tremblay" @bind="_lastName" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control" placeholder="marie.tremblay@email.com" @bind="_email" />
+                    <span class="form-hint">We'll never share your email with anyone.</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" placeholder="(514) 555-0123" @bind="_phone" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" @bind="_dateOfBirth" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Planned Retirement Date</label>
+                    <input type="month" class="form-control" @bind="_retirementMonth" @bind:format="yyyy-MM" />
+                </div>
+
+            </div>
+        </div>
+
+        <hr class="form-divider" />
+
+        <!-- ── Section 2: Numeric & range ────────────────── -->
+        <div class="form-section">
+            <h2 class="form-section-title">Financial Overview</h2>
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label class="form-label">Current Savings ($)</label>
+                    <input type="number" class="form-control" placeholder="125000" min="0" step="500" @bind="_savings" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Annual Income ($)</label>
+                    <input type="number" class="form-control" placeholder="85000" min="0" step="1000" @bind="_income" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Website / Portfolio URL</label>
+                    <input type="url" class="form-control" placeholder="https://myportfolio.com" @bind="_url" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" placeholder="••••••••" @bind="_password" />
+                    <span class="form-hint">Minimum 8 characters.</span>
+                </div>
+
+                <div class="form-group form-group-full">
+                    <label class="form-label">Risk Tolerance — @_riskTolerance%</label>
+                    <div class="form-range-row">
+                        <span class="form-hint">Low</span>
+                        <input type="range" class="form-control" min="0" max="100" step="5"
+                               @bind="_riskTolerance" @bind:event="oninput" />
+                        <span class="form-hint">High</span>
+                        <span class="form-range-value">@_riskTolerance%</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <hr class="form-divider" />
+
+        <!-- ── Section 3: Select & textarea ──────────────── -->
+        <div class="form-section">
+            <h2 class="form-section-title">Profile Details</h2>
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label class="form-label">Province</label>
+                    <select class="form-control" @bind="_province">
+                        <option value="">Select a province…</option>
+                        <option value="QC">Québec</option>
+                        <option value="ON">Ontario</option>
+                        <option value="BC">British Columbia</option>
+                        <option value="AB">Alberta</option>
+                        <option value="MB">Manitoba</option>
+                        <option value="SK">Saskatchewan</option>
+                        <option value="NS">Nova Scotia</option>
+                        <option value="NB">New Brunswick</option>
+                        <option value="PE">Prince Edward Island</option>
+                        <option value="NL">Newfoundland &amp; Labrador</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Employment Status</label>
+                    <select class="form-control" @bind="_employmentStatus">
+                        <option value="">Choose…</option>
+                        <option value="employed">Employed (full-time)</option>
+                        <option value="part-time">Employed (part-time)</option>
+                        <option value="self-employed">Self-employed</option>
+                        <option value="retired">Retired</option>
+                        <option value="unemployed">Unemployed</option>
+                    </select>
+                </div>
+
+                <div class="form-group form-group-full">
+                    <label class="form-label">Additional Notes</label>
+                    <textarea class="form-control" rows="4"
+                              placeholder="Any other details about your financial situation…"
+                              @bind="_notes"></textarea>
+                    <span class="form-hint">Optional — this is only visible to you.</span>
+                </div>
+
+            </div>
+        </div>
+
+        <hr class="form-divider" />
+
+        <!-- ── Section 4: Checkboxes & radios ────────────── -->
+        <div class="form-section">
+            <h2 class="form-section-title">Preferences</h2>
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label class="form-label">Asset Types Owned</label>
+                    <div class="form-check-group">
+                        <label class="form-check">
+                            <input type="checkbox" @bind="_hasRealEstate" />
+                            Real estate
+                        </label>
+                        <label class="form-check">
+                            <input type="checkbox" @bind="_hasStocks" />
+                            Stocks &amp; ETFs
+                        </label>
+                        <label class="form-check">
+                            <input type="checkbox" @bind="_hasBonds" />
+                            Bonds
+                        </label>
+                        <label class="form-check">
+                            <input type="checkbox" @bind="_hasCrypto" />
+                            Cryptocurrency
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Preferred Contact Method</label>
+                    <div class="form-check-group">
+                        <label class="form-check">
+                            <input type="radio" name="contact" value="email"
+                                   checked="@(_contactMethod == "email")"
+                                   @onchange="@(() => _contactMethod = "email")" />
+                            Email
+                        </label>
+                        <label class="form-check">
+                            <input type="radio" name="contact" value="sms"
+                                   checked="@(_contactMethod == "sms")"
+                                   @onchange="@(() => _contactMethod = "sms")" />
+                            SMS
+                        </label>
+                        <label class="form-check">
+                            <input type="radio" name="contact" value="none"
+                                   checked="@(_contactMethod == "none")"
+                                   @onchange="@(() => _contactMethod = "none")" />
+                            No notifications
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group form-group-full">
+                    <label class="form-label">Report Frequency</label>
+                    <div class="form-radio-pills">
+                        @foreach (var freq in new[] { "Weekly", "Monthly", "Quarterly", "Yearly" })
+                        {
+                            var f = freq;
+                            <div class="form-radio-pill">
+                                <input type="radio" name="frequency" id="freq-@f"
+                                       checked="@(_frequency == f)"
+                                       @onchange="@(() => _frequency = f)" />
+                                <label for="freq-@f">@f</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <hr class="form-divider" />
+
+        <!-- ── Section 5: Toggle, color, file, datetime ───── -->
+        <div class="form-section">
+            <h2 class="form-section-title">Settings</h2>
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label class="form-label">Enable Two-Factor Authentication</label>
+                    <label class="form-toggle">
+                        <input type="checkbox" @bind="_twoFactor" />
+                        <span>@(_twoFactor ? "Enabled" : "Disabled")</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Dark Mode</label>
+                    <label class="form-toggle">
+                        <input type="checkbox" @bind="_darkMode" />
+                        <span>@(_darkMode ? "On" : "Off")</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Accent Colour</label>
+                    <input type="color" class="form-control" @bind="_accentColor" />
+                    <span class="form-hint">Choose your dashboard accent colour.</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Appointment Date &amp; Time</label>
+                    <input type="datetime-local" class="form-control" @bind="_appointment" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Preferred Review Time</label>
+                    <input type="time" class="form-control" @bind="_reviewTime" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Search</label>
+                    <input type="search" class="form-control" placeholder="Search assets…" @bind="_search" />
+                </div>
+
+                <div class="form-group form-group-full">
+                    <label class="form-label">Upload Statement</label>
+                    <div class="form-file">
+                        <input type="file" class="form-file-input" accept=".pdf,.csv,.xlsx" />
+                        <span class="form-hint">Accepted formats: PDF, CSV, XLSX — max 10 MB.</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ── Actions ──────────────────────────────────────── -->
+        <div class="form-actions">
+            <button type="button" class="btn btn-danger btn-delete">
+                <span class="btn-delete-label">Delete Profile</span>
+                <span class="btn-delete-x">
+                    <i class="bi bi-trash3" style="font-size: 1.25rem;"></i>
+                </span>
+            </button>
+            <button type="button" class="btn btn-secondary">Cancel</button>
+            <button type="button" class="btn btn-primary">Save Changes</button>
+        </div>
+
     </div>
 </main>
+
+@code {
+    // Text
+    private string _firstName = string.Empty;
+    private string _lastName = string.Empty;
+    private string _email = string.Empty;
+    private string _phone = string.Empty;
+    private string _password = string.Empty;
+    private string _url = string.Empty;
+    private string _notes = string.Empty;
+    private string _search = string.Empty;
+
+    // Date / time
+    private DateTime? _dateOfBirth;
+    private DateTime? _appointment;
+    private DateTime? _retirementMonth;
+    private TimeOnly? _reviewTime;
+
+    // Numeric
+    private decimal _savings;
+    private decimal _income;
+    private int _riskTolerance = 40;
+
+    // Select
+    private string _province = string.Empty;
+    private string _employmentStatus = string.Empty;
+
+    // Checkboxes
+    private bool _hasRealEstate;
+    private bool _hasStocks = true;
+    private bool _hasBonds;
+    private bool _hasCrypto;
+
+    // Radio
+    private string _contactMethod = "email";
+    private string _frequency = "Monthly";
+
+    // Toggles
+    private bool _twoFactor;
+    private bool _darkMode;
+
+    // Color
+    private string _accentColor = "#2563eb";
+}
+
 
