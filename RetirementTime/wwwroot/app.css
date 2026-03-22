@@ -1,3 +1,50 @@
+/* ============================================================
+   Nest Egg — Global Design Tokens  (DESIGN.md — "Editorial Earth & Refined Utility")
+   Primary: Terracotta #9A3412 | Secondary/Tertiary: Charcoal Slate #334155
+   Surface: Warm Cream #fdf9e9
+   ============================================================ */
+:root {
+    /* Brand colours */
+    --ne-primary:             #9A3412;
+    --ne-primary-dark:        #781f00;
+    --ne-primary-shadow:      rgba(154, 52, 18, 0.22);
+    --ne-primary-shadow-deep: rgba(154, 52, 18, 0.30);
+    --ne-primary-tint:        #fef2ee;
+    --ne-primary-tint-hover:  #fde0d4;
+
+    --ne-secondary:           #334155;
+    --ne-secondary-hover:     #253247;
+    --ne-tertiary:            #334155;
+    --ne-accent-bar:          #334155;
+
+    /* Surfaces — warm cream family */
+    --ne-surface:             #fdf9e9;
+    --ne-surface-low:         #f2eede;   /* form cards / sidebar */
+    --ne-surface-container:   #f0ead6;
+    --ne-surface-highest:     #ede8dc;   /* checklist items */
+    --ne-surface-hover:       #d8d3c9;   /* checklist hover */
+    --ne-surface-white:       #ffffff;
+    --ne-focus-bg:            #ffffff;
+
+    /* Tonal borders */
+    --ne-border-tonal:        #dec0b7;
+    --ne-outline-variant:     #dec0b7;
+
+    /* Text */
+    --ne-on-surface:          #1c1c13;
+    --ne-on-surface-variant:  #4a4035;
+    --ne-on-surface-muted:    #7a6e65;
+
+
+    /* Avatar */
+    --ne-avatar-bg:           #fddab2;
+    --ne-avatar-bg-hover:     #f0c490;
+
+    /* Shadows */
+    --ne-shadow-ambient:      rgba(28, 28, 19, 0.06);
+    --ne-shadow-card:         0px 12px 40px rgba(28, 28, 19, 0.06);
+}
+
 *, *::before, *::after {
     font-family: Arial, sans-serif;
 }
@@ -19,6 +66,9 @@ a, .btn-link {
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
+
+/* Suppress all Blazor validation outlines globally */
+.valid, .modified.valid, .invalid { outline: none !important; box-shadow: none !important; }
 
 .content {
     padding-top: 1.1rem;

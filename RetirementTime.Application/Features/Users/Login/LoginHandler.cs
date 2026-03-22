@@ -57,7 +57,8 @@ public partial class LoginHandler(
                 UserId = user.Id,
                 FirstName = user.FirstName,
                 RoleId = user.RoleId,
-                RoleName = user.Role.Name
+                RoleName = user.Role.Name,
+                HasCompletedIntro = user.HasCompletedIntro
             };
         }
         catch (Exception ex)

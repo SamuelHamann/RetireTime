@@ -74,5 +74,35 @@ namespace RetirementTime.Resources.Dashboard {
                 return ResourceManager.GetString("Home_Logout", resourceCulture);
             }
         }
+        
+        public static string Settings_Title {
+            get {
+                return ResourceManager.GetString("Settings_Title", resourceCulture);
+            }
+        }
+        
+        public static string Settings_IntroSection {
+            get {
+                return ResourceManager.GetString("Settings_IntroSection", resourceCulture);
+            }
+        }
+        
+        public static string Settings_ResetIntroLabel {
+            get {
+                return ResourceManager.GetString("Settings_ResetIntroLabel", resourceCulture);
+            }
+        }
+        
+        public static string Settings_ResetIntroDescription {
+            get {
+                return ResourceManager.GetString("Settings_ResetIntroDescription", resourceCulture);
+            }
+        }
+        
+        public static string Settings_ResetIntroButton {
+            get {
+                return ResourceManager.GetString("Settings_ResetIntroButton", resourceCulture);
+            }
+        }
     }
 }

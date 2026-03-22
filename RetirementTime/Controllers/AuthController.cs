@@ -16,7 +16,8 @@ public class AuthController : ControllerBase
         [FromQuery] long userId,
         [FromQuery] string? firstName,
         [FromQuery] int? roleId,
-        [FromQuery] string? roleName)
+        [FromQuery] string? roleName,
+        [FromQuery] bool hasCompletedIntro = false)
     {
         if (userId <= 0)
         {
@@ -38,7 +39,7 @@ public class AuthController : ControllerBase
             CookieAuthenticationDefaults.AuthenticationScheme,
             principal);
 
-        return Redirect("/home");
+        return Redirect(hasCompletedIntro ? "/home" : "/introduction");
     }
 
     [HttpGet("logout")]

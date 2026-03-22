@@ -1,0 +1,112 @@
+.intro-sidebar {
+    width: 240px;
+    min-width: 240px;
+    height: 100%;
+    background: var(--ne-surface-low);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    box-shadow: 1px 0 0 0 var(--ne-border-tonal);
+}
+
+.intro-sidebar-header {
+    padding: 1.5rem 1.25rem 1.25rem;
+}
+
+.intro-sidebar-section {
+    font-family: 'Newsreader', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ne-on-surface);
+    margin: 0 0 0.2rem 0;
+}
+
+.intro-sidebar-step {
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ne-secondary);
+    margin: 0;
+}
+
+.intro-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 0.25rem 0;
+    flex: 1;
+}
+
+.intro-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.8rem 1.25rem;
+    border: none;
+    background: transparent;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    position: relative;
+    letter-spacing: 0.02em;
+}
+
+/* Pending — same colour as done, just not clickable */
+.intro-nav-item--pending {
+    color: var(--ne-secondary);
+    cursor: default;
+    opacity: 0.6;
+}
+
+/* Done — clickable */
+.intro-nav-item--done {
+    color: var(--ne-secondary);
+    opacity: 1;
+}
+.intro-nav-item--done:hover {
+    background: var(--ne-surface-container);
+    color: var(--ne-on-surface);
+}
+
+/* Active — lifted surface */
+.intro-nav-item--active {
+    background: var(--ne-surface);
+    color: var(--ne-primary);
+    font-weight: 700;
+    border-right: 3px solid var(--ne-primary);
+    border-radius: 0.5rem 0 0 0.5rem;
+    box-shadow: 0 2px 8px var(--ne-shadow-ambient);
+    opacity: 1;
+}
+
+.intro-nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: inherit;
+}
+
+.intro-nav-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 9999px;
+    background: currentColor;
+    display: block;
+}
+
+.intro-nav-item--active .intro-nav-dot {
+    background: var(--ne-primary);
+    box-shadow: 0 0 0 3px rgba(154, 52, 18, 0.15);
+}
+
+.intro-nav-label {
+    white-space: nowrap;
+}

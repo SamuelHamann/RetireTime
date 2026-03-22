@@ -3,31 +3,22 @@
    Tokens + reusable patterns for every dashboard page.
    ============================================================ */
 
-/* ---- Design tokens ---------------------------------------- */
+/* ---- Design tokens (legacy aliases → NE vars) ------------ */
 :root {
-    /* Brand */
-    --color-primary:        #2563eb;
-    --color-primary-hover:  #1d4ed8;
-
-    /* Surfaces */
-    --color-surface-page:    #f8fafc;
-    --color-surface-sidebar: #f7f7f8;
-    --color-surface-card:    #ffffff;
-
-    /* Nav / selection */
-    --color-nav-active-bg:   #e8e8eb;
-    --color-nav-hover-bg:    #ececee;
-    --color-nav-active-bar:  var(--color-primary);
-
-    /* Borders */
-    --color-border:          #e4e4e7;
-    --color-border-light:    #f1f1f3;
-
-    /* Text */
-    --color-text-primary:    #111827;
-    --color-text-secondary:  #374151;
-    --color-text-muted:      #6b7280;
-    --color-text-faint:      #9ca3af;
+    --color-primary:        var(--ne-primary);
+    --color-primary-hover:  var(--ne-primary-dark);
+    --color-surface-page:   var(--ne-surface);
+    --color-surface-sidebar:var(--ne-surface-low);
+    --color-surface-card:   var(--ne-surface-white);
+    --color-nav-active-bg:  var(--ne-surface);
+    --color-nav-hover-bg:   var(--ne-surface-container);
+    --color-nav-active-bar: var(--ne-accent-bar);
+    --color-border:         var(--ne-border-tonal);
+    --color-border-light:   var(--ne-outline-variant);
+    --color-text-primary:   var(--ne-on-surface);
+    --color-text-secondary: var(--ne-on-surface-variant);
+    --color-text-muted:     var(--ne-on-surface-muted);
+    --color-text-faint:     var(--ne-on-surface-muted);
 }
 
 /* ---- Shared layout ---------------------------------------- */
@@ -35,7 +26,7 @@
     display: flex;
     width: 100%;
     min-height: 100vh;
-    background: var(--color-surface-page);
+    background: var(--ne-surface);
 }
 
 .dashboard-body {
@@ -43,6 +34,7 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
+    background: var(--ne-surface);
 }
 
 .dashboard-topbar {
@@ -50,8 +42,9 @@
     align-items: center;
     justify-content: flex-end;
     padding: 0.875rem 2rem;
-    background: var(--color-surface-card);
-    border-bottom: 1px solid var(--color-border);
+    background: #F8F3E9; /* surface-container-low */
+    border-bottom: none;
+    box-shadow: 0 1px 0 0 #E7E2D8;
     flex-shrink: 0;
 }
 

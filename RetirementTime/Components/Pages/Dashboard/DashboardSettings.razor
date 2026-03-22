@@ -1,0 +1,28 @@
+@page "/home/settings"
+@layout DashboardLayout
+@rendermode InteractiveServer
+
+<header class="dashboard-topbar">
+    <span class="topbar-title">@Localizer["Settings_Title"]</span>
+</header>
+
+<main class="dashboard-content">
+    <div class="settings-page">
+
+        <section class="settings-section">
+            <h2 class="settings-section-title">@Localizer["Settings_IntroSection"]</h2>
+
+            <div class="settings-row">
+                <div class="settings-row-info">
+                    <span class="settings-row-label">@Localizer["Settings_ResetIntroLabel"]</span>
+                    <span class="settings-row-description">@Localizer["Settings_ResetIntroDescription"]</span>
+                </div>
+                <button class="btn-reset-intro" @onclick="ResetIntro">
+                    @Localizer["Settings_ResetIntroButton"]
+                </button>
+            </div>
+        </section>
+
+    </div>
+</main>
+

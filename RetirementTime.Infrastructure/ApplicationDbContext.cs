@@ -184,6 +184,9 @@ public class ApplicationDbContext : DbContext
                 .IsRequired();
             entity.Property(e => e.IsActive)
                 .IsRequired();
+            entity.Property(e => e.HasCompletedIntro)
+                .IsRequired()
+                .HasDefaultValue(false);
             entity.Property(e => e.LanguageCode)
                 .IsRequired()
                 .HasMaxLength(10)

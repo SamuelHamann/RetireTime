@@ -1,14 +1,31 @@
 @rendermode InteractiveServer
+@using RetirementTime.Resources.Common
 
 <div class="sidebar">
     <div class="sidebar-header">
-        <h2 class="sidebar-brand">NestEgg</h2>
+        <h2 class="sidebar-brand">@Localizer["Sidebar_Brand"]</h2>
+        <span class="sidebar-brand-sub">@Localizer["Sidebar_BrandSub"]</span>
     </div>
 
     <nav class="sidebar-nav">
         <ul class="sidebar-nav-list">
+
+            @if (!HasCompletedIntro)
+            {
+                <li>
+                    <button class="nav-item @IsActive("introduction")" @onclick="@(() => SelectItem("introduction"))">
+                        <span class="nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/>
+                            </svg>
+                        </span>
+                        <span class="nav-label">Introduction</span>
+                    </button>
+                </li>
+            }
+
             <li>
-                <button class="nav-item @IsActive("overview")" @onclick="@(() => SelectItem("overview"))">
+                <button class="nav-item @IsActive("overview") @IsDisabled("overview")" @onclick="@(() => SelectItem("overview"))">
                     <span class="nav-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
@@ -19,7 +36,7 @@
                 </button>
             </li>
             <li>
-                <button class="nav-item @IsActive("retirement-plan")" @onclick="@(() => SelectItem("retirement-plan"))">
+                <button class="nav-item @IsActive("retirement-plan") @IsDisabled("retirement-plan")" @onclick="@(() => SelectItem("retirement-plan"))">
                     <span class="nav-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
@@ -29,7 +46,7 @@
                 </button>
             </li>
             <li>
-                <button class="nav-item @IsActive("assets")" @onclick="@(() => SelectItem("assets"))">
+                <button class="nav-item @IsActive("assets") @IsDisabled("assets")" @onclick="@(() => SelectItem("assets"))">
                     <span class="nav-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
@@ -39,7 +56,7 @@
                 </button>
             </li>
             <li>
-                <button class="nav-item @IsActive("debts")" @onclick="@(() => SelectItem("debts"))">
+                <button class="nav-item @IsActive("debts") @IsDisabled("debts")" @onclick="@(() => SelectItem("debts"))">
                     <span class="nav-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
@@ -49,7 +66,7 @@
                 </button>
             </li>
             <li>
-                <button class="nav-item @IsActive("income")" @onclick="@(() => SelectItem("income"))">
+                <button class="nav-item @IsActive("income") @IsDisabled("income")" @onclick="@(() => SelectItem("income"))">
                     <span class="nav-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
@@ -59,7 +76,7 @@
                 </button>
             </li>
             <li>
-                <button class="nav-item @IsActive("benefits")" @onclick="@(() => SelectItem("benefits"))">
+                <button class="nav-item @IsActive("benefits") @IsDisabled("benefits")" @onclick="@(() => SelectItem("benefits"))">
                     <span class="nav-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -69,7 +86,7 @@
                 </button>
             </li>
             <li>
-                <button class="nav-item @IsActive("projections")" @onclick="@(() => SelectItem("projections"))">
+                <button class="nav-item @IsActive("projections") @IsDisabled("projections")" @onclick="@(() => SelectItem("projections"))">
                     <span class="nav-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
@@ -80,7 +97,7 @@
                 </button>
             </li>
             <li>
-                <button class="nav-item @IsActive("settings")" @onclick="@(() => SelectItem("settings"))">
+                <button class="nav-item @IsActive("settings") @IsDisabled("settings")" @onclick="@(() => SelectItem("settings"))">
                     <span class="nav-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="3"/>
@@ -105,4 +122,3 @@
         </a>
     </div>
 </div>
-

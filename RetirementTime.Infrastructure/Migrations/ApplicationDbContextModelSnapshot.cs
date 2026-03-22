@@ -523,6 +523,11 @@ namespace RetirementTime.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("HasCompletedIntro")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 

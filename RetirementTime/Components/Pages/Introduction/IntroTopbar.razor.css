@@ -1,0 +1,110 @@
+.intro-topnav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 60px;
+    background: var(--ne-surface);
+    box-shadow: 0 1px 0 0 var(--ne-border-tonal);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    flex-shrink: 0;
+}
+
+/* Brand */
+.intro-topnav-brand {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.intro-topnav-brand-text {
+    font-family: 'Newsreader', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--ne-on-surface);
+    letter-spacing: -0.01em;
+}
+
+/* Right group: nav links + icon actions */
+.intro-topnav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Nav links */
+.intro-topnav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+}
+
+.intro-topnav-link {
+    font-family: 'Newsreader', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ne-secondary);
+    text-decoration: none;
+    padding: 0.25rem 0.1rem;
+    transition: color 0.15s ease;
+    white-space: nowrap;
+}
+
+.intro-topnav-link:hover {
+    color: var(--ne-on-surface);
+}
+
+.intro-topnav-link--active {
+    color: var(--ne-on-surface);
+    border-bottom: 2px solid var(--ne-primary);
+    padding-bottom: 0.2rem;
+}
+
+/* Right actions */
+.intro-topnav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.intro-topnav-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    color: var(--ne-on-surface);
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.intro-topnav-icon-btn:hover {
+    background: var(--ne-surface-container);
+}
+
+.intro-topnav-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 9999px;
+    background: var(--ne-avatar-bg);
+    color: var(--ne-secondary);
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.intro-topnav-avatar:hover {
+    background: var(--ne-avatar-bg-hover);
+}

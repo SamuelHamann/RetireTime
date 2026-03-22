@@ -1,0 +1,103 @@
+@page "/introduction"
+@layout HomeLayout
+@rendermode InteractiveServer
+@using RetirementTime.Components.Pages.Introduction.Steps
+@using RetirementTime.Components.Pages.Dashboard
+@using RetirementTime.Components.Shared
+
+<HeadContent>
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/introduction.css" />
+</HeadContent>
+
+<AuthorizeView>
+    <Authorized>
+
+@{
+    var stepNames = new[]
+    {
+        Localizer["Intro_Step1_Title"].Value,
+        Localizer["Intro_Step2_Title"].Value,
+        Localizer["Intro_Step3_Title"].Value,
+        Localizer["Intro_Step4_Title"].Value,
+        Localizer["Intro_Step5_Title"].Value
+    };
+}
+
+<div class="intro-shell">
+
+    <!-- Top navbar -->
+    <IntroTopbar ActiveSection="introduction" Initials="@_initials" />
+
+    <div class="intro-shell-body">
+
+        <!-- Left sidebar with steps -->
+        <IntroSidebar CurrentStep="@_currentStep"
+                      TotalSteps="@TotalSteps"
+                      StepNames="@stepNames"
+                      OnStepSelected="GoToStep" />
+
+        <!-- Main content -->
+        <div class="intro-main" id="intro-main">
+            <div class="intro-page">
+
+                <div class="intro-body">
+                    @switch (_currentStep)
+                    {
+                        case 1:
+                            <Step0Welcome OnStart="NextStep" />
+                            break;
+                        case 2:
+                            <Step1PersonalInfo />
+                            break;
+                        case 3:
+                            <Step2Assets />
+                            break;
+                        case 4:
+                            <Step3Debt />
+                            break;
+                        case 5:
+                            <Step4Employment />
+                            break;
+                    }
+                </div>
+
+                @if (_currentStep > 1)
+                {
+                    var prevName = stepNames[_currentStep - 2];
+                    var nextName = _currentStep < TotalSteps ? stepNames[_currentStep] : string.Empty;
+
+                    <div class="intro-actions">
+                        <button class="btn-back" @onclick="PreviousStep">
+                            <span class="btn-arrow-icon">←</span>
+                            <span class="btn-label">@prevName</span>
+                        </button>
+
+                        @if (_currentStep < TotalSteps)
+                        {
+                            <button class="btn-next" @onclick="NextStep">
+                                <span class="btn-label">@Localizer["Intro_ContinueTo"] @nextName</span>
+                                <span class="btn-arrow-icon">→</span>
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn-finish" @onclick="Finish">
+                                <span class="btn-label">@Localizer["Intro_Finish"]</span>
+                                <span class="btn-arrow-icon">→</span>
+                            </button>
+                        }
+                    </div>
+                }
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    </Authorized>
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>

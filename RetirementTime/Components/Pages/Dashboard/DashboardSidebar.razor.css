@@ -2,27 +2,41 @@
     width: 240px;
     min-width: 240px;
     height: 100vh;
-    background: var(--color-surface-sidebar);
-    border-right: 1px solid var(--color-border);
+    background: var(--ne-surface-low);
+    border-right: none;
     display: flex;
     flex-direction: column;
     position: sticky;
     top: 0;
     overflow: hidden;
+    /* Tonal separation — no border, shadow depth instead */
+    box-shadow: 1px 0 0 0 var(--ne-border-tonal);
 }
 
 .sidebar-header {
-    padding: 1.25rem 1rem 1rem 1rem;
-    border-bottom: 1px solid var(--color-border);
+    padding: 1.5rem 1.25rem 1.25rem 1.25rem;
+    border-bottom: none;
     flex-shrink: 0;
 }
 
 .sidebar-brand {
-    margin: 0;
-    font-size: 1.2rem;
+    margin: 0 0 0.25rem 0;
+    font-family: 'Newsreader', serif;
+    font-size: 1.4rem;
     font-weight: 700;
-    color: var(--color-primary);
-    letter-spacing: -0.02em;
+    color: var(--ne-on-surface);
+    letter-spacing: -0.01em;
+}
+
+.sidebar-brand-sub {
+    display: block;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ne-secondary);
+    margin-top: 0.1rem;
 }
 
 .sidebar-nav {
@@ -32,62 +46,51 @@
     padding: 0.5rem 0;
 }
 
-/* Custom scrollbar */
-.sidebar-nav::-webkit-scrollbar {
-    width: 4px;
-}
+.sidebar-nav::-webkit-scrollbar { width: 4px; }
+.sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+.sidebar-nav::-webkit-scrollbar-thumb { background: var(--ne-outline-variant); border-radius: 2px; }
 
-.sidebar-nav::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.sidebar-nav::-webkit-scrollbar-thumb {
-    background: var(--color-border);
-    border-radius: 2px;
-}
-
-.sidebar-nav-list {
-    list-style: none;
-    margin: 0;
-    padding: 0 0.5rem;
-}
-
-.sidebar-nav-list li {
-    margin: 1px 0;
-}
+.sidebar-nav-list { list-style: none; margin: 0; padding: 0; }
+.sidebar-nav-list li { margin: 1px 0; }
 
 .nav-item {
     display: flex;
     align-items: center;
-    gap: 0.65rem;
+    gap: 0.75rem;
     width: 100%;
-    padding: 0.55rem 0.75rem;
+    padding: 0.8rem 1.25rem;
     border: none;
     background: transparent;
-    color: var(--color-text-muted);
-    font-size: 0.875rem;
+    color: var(--ne-secondary);
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.82rem;
     font-weight: 500;
+    letter-spacing: 0.03em;
     text-align: left;
-    border-radius: 6px;
+    border-radius: 0;
     cursor: pointer;
-    transition: background 0.15s, color 0.15s;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
     text-decoration: none;
-    border-left: 2px solid transparent;
-    box-sizing: border-box;
     position: relative;
+    opacity: 0.75;
 }
 
 .nav-item:hover {
-    background: var(--color-nav-hover-bg);
-    color: var(--color-text-secondary);
+    background: var(--ne-surface-container);
+    color: var(--ne-on-surface);
+    opacity: 1;
 }
 
 .nav-item.active {
-    background: var(--color-nav-active-bg);
-    color: var(--color-text-primary);
+    background: var(--ne-surface);
+    color: var(--ne-primary);
     font-weight: 600;
-    border-left: 2px solid var(--color-nav-active-bar);
-    border-radius: 0 6px 6px 0;
+    opacity: 1;
+    border-left: none;
+    border-right: 3px solid var(--ne-primary);
+    border-radius: 0.75rem 0 0 0.75rem;
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px var(--ne-shadow-ambient);
 }
 
 .nav-icon {
@@ -101,27 +104,33 @@
 }
 
 .nav-icon svg {
-    width: 18px;
-    height: 18px;
+    width: 100%;
+    height: 100%;
 }
 
-.nav-label {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.nav-item.active .nav-icon svg {
+    stroke-width: 2.5;
 }
 
-.sidebar-footer {
-    padding: 0.5rem 0.5rem 0.75rem 0.5rem;
-    border-top: 1px solid var(--color-border);
-    flex-shrink: 0;
+.nav-item-disabled {
+    opacity: 0.35 !important;
+    cursor: not-allowed !important;
+    pointer-events: none;
 }
 
 .nav-item-logout {
-    color: var(--color-text-faint);
+    color: var(--ne-on-surface-muted);
+    opacity: 0.8;
 }
 
 .nav-item-logout:hover {
-    background: var(--color-nav-hover-bg);
-    color: #ef4444;
+    background: var(--ne-surface-container);
+    color: #BA1A1A;
+    opacity: 1;
+}
+
+.sidebar-footer {
+    padding: 0.75rem 0;
+    border-top: none;
+    box-shadow: 0 -1px 0 0 rgba(222, 192, 183, 0.4);
 }

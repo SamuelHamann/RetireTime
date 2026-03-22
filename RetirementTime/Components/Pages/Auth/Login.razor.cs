@@ -35,7 +35,8 @@ public partial class Login
             var queryString = $"?userId={result.UserId}" +
                               $"&firstName={Uri.EscapeDataString(result.FirstName ?? string.Empty)}" +
                               $"&roleId={result.RoleId ?? 1}" +
-                              $"&roleName={Uri.EscapeDataString(result.RoleName ?? "User")}";
+                              $"&roleName={Uri.EscapeDataString(result.RoleName ?? "User")}" +
+                              $"&hasCompletedIntro={result.HasCompletedIntro.ToString().ToLower()}";
 
             Navigation.NavigateTo($"/api/auth/login{queryString}", forceLoad: true);
         }

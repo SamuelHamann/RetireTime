@@ -1,0 +1,131 @@
+@using RetirementTime.Models.Introduction
+@using RetirementTime.Components.Shared
+
+<div class="intro-step step-header-animate" style="font-family: 'Manrope', sans-serif;">
+
+    <!-- Header -->
+    <header class="mb-4">
+        <h1 class="font-headline text-5xl font-bold text-ne-primary mt-3 mb-2">@Localizer["Intro_Step2_Title"]</h1>
+        <p class="font-body text-ne-on-surface-variant max-w-2xl text-lg leading-relaxed">
+            @Localizer["Intro_Step2_Subtitle"]
+        </p>
+    </header>
+
+    <div class="step-body-animate">
+
+        <EditForm Model="@Model" class="bg-ne-surface-low rounded-xl px-8 pb-8 pt-3 shadow-[0px_24px_48px_rgba(29,28,22,0.05)] space-y-6">
+                <DataAnnotationsValidator />
+
+                <!-- Name Row -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="ne-field">
+                        <label class="ne-label">@Localizer["Intro_Step2_FirstName"]</label>
+                        <InputText @bind-Value="Model.FirstName" class="ne-input" />
+                        <ValidationMessage For="@(() => Model.FirstName)" class="ne-error" />
+                    </div>
+                    <div class="ne-field">
+                        <label class="ne-label">@Localizer["Intro_Step2_LastName"]</label>
+                        <InputText @bind-Value="Model.LastName" class="ne-input" />
+                        <ValidationMessage For="@(() => Model.LastName)" class="ne-error" />
+                    </div>
+                </div>
+
+                <!-- DOB + Email Row -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="ne-field">
+                        <label class="ne-label">@Localizer["Intro_Step2_DateOfBirth"]</label>
+                        <InputDate @bind-Value="Model.DateOfBirth" class="ne-input" />
+                        <ValidationMessage For="@(() => Model.DateOfBirth)" class="ne-error" />
+                    </div>
+                    <div class="ne-field">
+                        <label class="ne-label">@Localizer["Intro_Step2_Email"]</label>
+                        <InputText @bind-Value="Model.Email" class="ne-input" type="email" />
+                        <ValidationMessage For="@(() => Model.Email)" class="ne-error" />
+                    </div>
+                </div>
+
+                <!-- Marital Status -->
+                <div class="ne-field">
+                    <label class="ne-label">@Localizer["Intro_Step2_MaritalStatus"]</label>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-1">
+                        @foreach (var option in new[] {
+                            ("single",      Localizer["Intro_Step2_MaritalStatus_Single"].Value),
+                            ("married",     Localizer["Intro_Step2_MaritalStatus_Married"].Value),
+                            ("common_law",  Localizer["Intro_Step2_MaritalStatus_CommonLaw"].Value),
+                            ("widowed",     Localizer["Intro_Step2_MaritalStatus_Widowed"].Value),
+                        })
+                        {
+                            var val = option.Item1;
+                            var lbl = option.Item2;
+                            var isActive = Model.MaritalStatus == val;
+                            <button type="button" class="ne-option-btn @(isActive ? "ne-option-btn--active" : "")"
+                                    @onclick="() => Model.MaritalStatus = val">
+                                @lbl
+                            </button>
+                        }
+                    </div>
+                    <ValidationMessage For="@(() => Model.MaritalStatus)" class="ne-error" />
+                </div>
+
+                <!-- Citizenship -->
+                <div class="ne-field">
+                    <label class="ne-label">@Localizer["Intro_Step2_Citizenship"]</label>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-1">
+                        @foreach (var option in new[] {
+                            ("canadian", Localizer["Intro_Step2_Citizenship_Canadian"].Value),
+                            ("us",       Localizer["Intro_Step2_Citizenship_US"].Value),
+                            ("other",    Localizer["Intro_Step2_Citizenship_Other"].Value),
+                        })
+                        {
+                            var val = option.Item1;
+                            var lbl = option.Item2;
+                            var isActive = Model.CitizenshipStatus == val;
+                            <button type="button" class="ne-option-btn @(isActive ? "ne-option-btn--active" : "")"
+                                    @onclick="() => Model.CitizenshipStatus = val">
+                                @lbl
+                            </button>
+                        }
+                    </div>
+                    <ValidationMessage For="@(() => Model.CitizenshipStatus)" class="ne-error" />
+                </div>
+
+                <div class="h-px bg-ne-outline-variant/20 w-full"></div>
+
+                <!-- Toggle rows -->
+                @if (Model.MaritalStatus is "married" or "common_law")
+                {
+                    <div class="ne-toggle-row">
+                        <div>
+                            <span class="ne-toggle-title">@Localizer["Intro_Step2_IncludePartner"]</span>
+                            <span class="ne-toggle-hint">@Localizer["Intro_Step2_IncludePartner_Hint"]</span>
+                        </div>
+                        <YesNoToggle @bind-Value="Model.IncludePartner"
+                                     YesLabel="@Localizer["Intro_Step2_Yes"]"
+                                     NoLabel="@Localizer["Intro_Step2_No"]" />
+                    </div>
+                }
+
+                <div class="ne-toggle-row">
+                    <div>
+                        <span class="ne-toggle-title">@Localizer["Intro_Step2_CurrentChildren"]</span>
+                        <span class="ne-toggle-hint">@Localizer["Intro_Step2_CurrentChildren_Hint"]</span>
+                    </div>
+                    <YesNoToggle @bind-Value="Model.HasCurrentChildren"
+                                 YesLabel="@Localizer["Intro_Step2_Yes"]"
+                                 NoLabel="@Localizer["Intro_Step2_No"]" />
+                </div>
+
+                <div class="ne-toggle-row">
+                    <div>
+                        <span class="ne-toggle-title">@Localizer["Intro_Step2_FutureChildren"]</span>
+                        <span class="ne-toggle-hint">@Localizer["Intro_Step2_FutureChildren_Hint"]</span>
+                    </div>
+                    <YesNoToggle @bind-Value="Model.PlansFutureChildren"
+                                 YesLabel="@Localizer["Intro_Step2_Yes"]"
+                                 NoLabel="@Localizer["Intro_Step2_No"]" />
+                </div>
+
+            </EditForm>
+
+    </div>
+</div>

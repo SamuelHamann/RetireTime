@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,6 +10,55 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
     <link rel="stylesheet" href="@Assets["app.css"]"/>
     <link rel="stylesheet" href="@Assets["RetirementTime.styles.css"]"/>
+    <!-- Nest Egg Design System: Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "ne-surface":              "#fef9ef",
+                        "ne-surface-low":          "#f8f3e9",
+                        "ne-surface-container":    "#f2ede3",
+                        "ne-surface-high":         "#ede8de",
+                        "ne-surface-highest":      "#e7e2d8",
+                        "ne-surface-card":         "#ffffff",
+                        "ne-primary":              "#322214",
+                        "ne-primary-container":    "#4a3728",
+                        "ne-on-primary":           "#ffffff",
+                        "ne-secondary":            "#735a3a",
+                        "ne-secondary-container":  "#fddab2",
+                        "ne-on-secondary":         "#ffffff",
+                        "ne-tertiary":             "#16282b",
+                        "ne-tertiary-fixed":       "#d2e6ea",
+                        "ne-on-tertiary-fixed":    "#0c1e21",
+                        "ne-on-tertiary-fixed-dim":"#384a4d",
+                        "ne-outline":              "#80756d",
+                        "ne-outline-variant":      "#d2c4bb",
+                        "ne-on-surface":           "#1d1c16",
+                        "ne-on-surface-variant":   "#4e453e",
+                        "ne-error":                "#ba1a1a",
+                    },
+                    fontFamily: {
+                        "headline": ["Newsreader", "serif"],
+                        "body":     ["Manrope", "sans-serif"],
+                        "label":    ["Manrope", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg":  "0.5rem",
+                        "xl":  "0.75rem",
+                        "2xl": "1rem",
+                        "full":"9999px",
+                    },
+                }
+            }
+        }
+    </script>
     <ImportMap/>
     <link rel="icon" type="image/png" href="favicon.png"/>
     <HeadOutlet/>

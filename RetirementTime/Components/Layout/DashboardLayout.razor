@@ -1,5 +1,6 @@
 @inherits LayoutComponentBase
 @using RetirementTime.Components.Pages.Dashboard
+@using RetirementTime.Components.Pages.Introduction
 @using RetirementTime.Components.Shared
 
 <HeadContent>
@@ -9,9 +10,10 @@
 <AuthorizeView>
     <Authorized>
         <div class="dashboard-shell">
-            <DashboardSidebar />
+            <DashboardSidebar HasCompletedIntro="@HasCompletedIntro" />
 
             <div class="dashboard-body">
+                <IntroTopbar ActiveSection="dashboard" Initials="@_initials" />
                 @Body
             </div>
         </div>

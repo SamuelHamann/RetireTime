@@ -31,5 +31,20 @@
   <data name="Home_Logout" xml:space="preserve">
     <value>Déconnexion</value>
   </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="Settings_IntroSection" xml:space="preserve">
+    <value>Introduction</value>
+  </data>
+  <data name="Settings_ResetIntroLabel" xml:space="preserve">
+    <value>Réinitialiser l'introduction</value>
+  </data>
+  <data name="Settings_ResetIntroDescription" xml:space="preserve">
+    <value>Relancez l'assistant d'introduction pour mettre à jour votre profil et vos préférences.</value>
+  </data>
+  <data name="Settings_ResetIntroButton" xml:space="preserve">
+    <value>Réinitialiser l'introduction</value>
+  </data>
 </root>
 

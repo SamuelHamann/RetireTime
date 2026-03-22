@@ -457,6 +457,63 @@ public class LoginModel
 - Step-by-step retirement planning process
 - Empower users to make informed decisions without professional help
 
+## Introduction Pages
+
+### Shared Stylesheet
+All introduction step pages load `wwwroot/css/introduction.css` via `<HeadContent>` in `Introduction.razor`. This file contains all reusable primitives for the introduction flow:
+- Step shell (`.intro-step`, `.step-title`, `.step-subtitle`, `.step-divider`, `.welcome-step`, `.welcome-body`, `.btn-start`)
+- Form layout (`.intro-form`)
+- Field group (`.field-group`, `.field-question`, `.field-sublabel`, `.field-row`, `.field-row-item`)
+- Inputs (`.field-input`, `.field-input--date`, `.field-select`, `.field-error`)
+- Animations (`.step-header-animate`, `.step-body-animate`)
+
+**Do NOT** put step-specific or form styles in `Introduction.razor.css` — that file is reserved for page layout, the topbar breadcrumb, and nav action buttons only.
+
+### Animation Pattern — REQUIRED for all intro steps
+**EVERY** introduction step component must use the two-phase fade-in animation. This is mandatory:
+
+1. Wrap the title (and subtitle if present) in `<div class="step-header-animate">` — fades in immediately.
+2. Wrap everything below (divider, form, body text, buttons) in `<div class="step-body-animate">` — fades in after a `0.45s` delay.
+
+**Standard structure for a step with a form:**
+```razor
+<div class="intro-step">
+    <div class="step-header-animate">
+        <h2 class="step-title">@Localizer["Intro_StepN_Title"]</h2>
+        <p class="step-subtitle">@Localizer["Intro_StepN_Subtitle"]</p>
+    </div>
+
+    <div class="step-body-animate">
+        <hr class="step-divider" />
+        <EditForm Model="@Model" class="intro-form">
+            <!-- fields -->
+        </EditForm>
+    </div>
+</div>
+```
+
+**Standard structure for the welcome step (no divider/form):**
+```razor
+<div class="intro-step welcome-step">
+    <div class="step-header-animate">
+        <h2 class="step-title">@Localizer["Intro_Step1_Title"]</h2>
+    </div>
+
+    <div class="step-body-animate">
+        <p class="welcome-body">...</p>
+        <button class="btn-start" @onclick="OnStart">...</button>
+    </div>
+</div>
+```
+
+### Navigation Buttons
+Back/Next/Finish buttons in `Introduction.razor` use `<span>` inside the button tag so the arrow hover effect works correctly:
+```razor
+<button class="btn-back" @onclick="PreviousStep"><span>@Localizer["Intro_Back"]</span></button>
+<button class="btn-next" @onclick="NextStep"><span>@Localizer["Intro_Next"]</span></button>
+```
+On hover, the text slides out and an arrow (`←` / `→`) slides in via `::after` pseudo-element.
+
 ## Localization and Resource Files
 
 ### Resource File Organization
@@ -663,5 +720,65 @@ public class {Name}Resources {  // Must be public, not internal
 
 ---
 
-**Last Updated**: January 24, 2026
+## Design System
+
+**Reference file**: `RetirementTime/ThemesAndUI/DESIGN (1).md` — *"Editorial Earth & Refined Utility"*
+
+### Creative North Star
+"The Modern Tactile" — editorial warmth meets precise utility. Pairs **Newsreader** (serif, headlines) with **Inter** (sans-serif, body/labels) on a warm cream canvas. Feels like a high-end architectural journal, not a generic fintech app.
+
+### CSS Variables
+All design tokens are defined in `:root` inside `RetirementTime/wwwroot/app.css`. **Always use these variables — never hardcode palette colours.**
+
+| Variable | Value | Role |
+|---|---|---|
+| `--ne-primary` | `#9A3412` | Terracotta — CTAs, active states, checked items |
+| `--ne-primary-dark` | `#781f00` | Hover / gradient start for primary buttons |
+| `--ne-primary-tint` | `#fef2ee` | Checked checklist background |
+| `--ne-secondary` | `#334155` | Charcoal Slate — nav links, sub-labels, inactive items |
+| `--ne-tertiary` | `#334155` | Same as secondary |
+| `--ne-accent-bar` | `#334155` | Active sidebar right border |
+| `--ne-surface` | `#fdf9e9` | Warm Cream — page background (never use pure white) |
+| `--ne-surface-low` | `#f8f4e4` | Sidebar / surface_container_low |
+| `--ne-surface-container` | `#f0ead6` | Hover states, card groupings |
+| `--ne-surface-highest` | `#dedacb` | Input backgrounds (surface_dim) |
+| `--ne-surface-hover` | `#d1ccbc` | Input/checklist hover |
+| `--ne-surface-white` | `#ffffff` | Cards on surface_low (natural lift) |
+| `--ne-border-tonal` | `#dec0b7` | Tonal separators (sidebar shadow, topbar) |
+| `--ne-outline-variant` | `#dec0b7` | Section divider lines |
+| `--ne-on-surface` | `#1c1c13` | Primary text (warm near-black) |
+| `--ne-on-surface-variant` | `#4a4035` | Body text, labels |
+| `--ne-on-surface-muted` | `#7a6e65` | Hints, placeholders |
+| `--ne-focus-bg` | `#ede8d5` | Input focus background |
+| `--ne-shadow-ambient` | `rgba(28,28,19,0.06)` | Ambient card shadow |
+
+### Typography Rules
+- **Headlines / Display**: `Newsreader` serif — `font-headline`, tight letter-spacing `-0.02em`
+- **Body / Labels / UI**: `Inter` (primary), `Manrope` (fallback) — `font-body` / `font-label`
+- **Pairing rule**: Always follow a Newsreader headline with an Inter subtitle
+
+### The "No-Line" Rule
+Never use `1px solid` borders to section content. Use **tonal background shifts** instead:
+- Sidebar (`--ne-surface-low`) against page (`--ne-surface`)
+- Cards (`--ne-surface-white`) on a `--ne-surface-low` background
+
+### Introduction Pages — Animation
+**EVERY** intro step must use the two-phase fade-in:
+```razor
+<div class="intro-step step-header-animate">
+    <header class="mb-4">
+        <h1 class="font-headline text-5xl text-ne-primary ...">Title</h1>
+        <p class="font-body text-ne-on-surface-variant ...">Subtitle</p>
+    </header>
+    <div class="step-body-animate">
+        <div class="bg-ne-surface-low rounded-xl px-8 pb-8 pt-5 ...">
+            <!-- form content -->
+        </div>
+    </div>
+</div>
+```
+
+---
+
+**Last Updated**: March 21, 2026
 

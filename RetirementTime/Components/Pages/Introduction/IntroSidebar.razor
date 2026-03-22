@@ -1,0 +1,38 @@
+@using RetirementTime.Resources.Introduction
+@using RetirementTime.Resources.Common
+
+<aside class="intro-sidebar">
+    <div class="intro-sidebar-header">
+        <p class="intro-sidebar-section">@Localizer["Intro_Onboarding"]</p>
+        <p class="intro-sidebar-step">@string.Format(Localizer["Intro_StepOf"].Value, CurrentStep - 1, TotalSteps - 1)</p>
+    </div>
+
+    <nav class="intro-sidebar-nav">
+        @for (var i = 1; i <= TotalSteps; i++)
+        {
+            var step = i;
+            var isDone    = step < CurrentStep;
+            var isActive  = step == CurrentStep;
+            var isPending = step > CurrentStep;
+
+            var cls = isActive  ? "intro-nav-item intro-nav-item--active"
+                    : isDone    ? "intro-nav-item intro-nav-item--done"
+                    :             "intro-nav-item intro-nav-item--pending";
+
+            <button class="@cls" @onclick="() => OnStepSelected.InvokeAsync(step)" disabled="@isPending">
+                <span class="intro-nav-icon">
+                    @if (isDone)
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    }
+                    else
+                    {
+                        <span class="intro-nav-dot"></span>
+                    }
+                </span>
+                <span class="intro-nav-label">@StepNames[step - 1]</span>
+            </button>
+        }
+    </nav>
+</aside>
+

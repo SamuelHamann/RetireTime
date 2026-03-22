@@ -15,5 +15,6 @@ public record LoginResult : BaseResult
     public string? FirstName { get; init; }
     public int? RoleId { get; init; }
     public string? RoleName { get; init; }
+    public bool HasCompletedIntro { get; init; }
 }
 
