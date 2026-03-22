@@ -20,12 +20,12 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="ne-field">
                         <label class="ne-label">@Localizer["Intro_Step2_FirstName"]</label>
-                        <InputText @bind-Value="Model.FirstName" class="ne-input" />
+                        <InputText @bind-Value="Model.FirstName" class="ne-input" disabled />
                         <ValidationMessage For="@(() => Model.FirstName)" class="ne-error" />
                     </div>
                     <div class="ne-field">
                         <label class="ne-label">@Localizer["Intro_Step2_LastName"]</label>
-                        <InputText @bind-Value="Model.LastName" class="ne-input" />
+                        <InputText @bind-Value="Model.LastName" class="ne-input" disabled />
                         <ValidationMessage For="@(() => Model.LastName)" class="ne-error" />
                     </div>
                 </div>
@@ -34,12 +34,12 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="ne-field">
                         <label class="ne-label">@Localizer["Intro_Step2_DateOfBirth"]</label>
-                        <InputDate @bind-Value="Model.DateOfBirth" class="ne-input" />
+                        <InputDate @bind-Value="Model.DateOfBirth" class="ne-input" @onfocusout="OnFieldChanged" />
                         <ValidationMessage For="@(() => Model.DateOfBirth)" class="ne-error" />
                     </div>
                     <div class="ne-field">
                         <label class="ne-label">@Localizer["Intro_Step2_Email"]</label>
-                        <InputText @bind-Value="Model.Email" class="ne-input" type="email" />
+                        <InputText @bind-Value="Model.Email" class="ne-input" type="email" disabled />
                         <ValidationMessage For="@(() => Model.Email)" class="ne-error" />
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                             var lbl = option.Item2;
                             var isActive = Model.MaritalStatus == val;
                             <button type="button" class="ne-option-btn @(isActive ? "ne-option-btn--active" : "")"
-                                    @onclick="() => Model.MaritalStatus = val">
+                                    @onclick="async () => { Model.MaritalStatus = val; await OnFieldChanged(); }">
                                 @lbl
                             </button>
                         }
@@ -81,7 +81,7 @@
                             var lbl = option.Item2;
                             var isActive = Model.CitizenshipStatus == val;
                             <button type="button" class="ne-option-btn @(isActive ? "ne-option-btn--active" : "")"
-                                    @onclick="() => Model.CitizenshipStatus = val">
+                                    @onclick="async () => { Model.CitizenshipStatus = val; await OnFieldChanged(); }">
                                 @lbl
                             </button>
                         }

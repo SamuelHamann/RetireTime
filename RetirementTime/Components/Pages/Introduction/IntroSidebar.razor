@@ -11,9 +11,13 @@
         @for (var i = 1; i <= TotalSteps; i++)
         {
             var step = i;
-            var isDone    = step < CurrentStep;
+            // Step 1 is welcome page (no completion status)
+            // Step 2+ have completion status at index (step - 2)
+            var isComplete = step > 1 && StepCompletionStatus.Length >= (step - 1) && StepCompletionStatus[step - 2];
+            var isDone    = step < CurrentStep || isComplete;
             var isActive  = step == CurrentStep;
-            var isPending = step > CurrentStep;
+            // Welcome page (step 1) is always accessible
+            var isPending = step > 1 && step > CurrentStep && !isComplete;
 
             var cls = isActive  ? "intro-nav-item intro-nav-item--active"
                     : isDone    ? "intro-nav-item intro-nav-item--done"
@@ -21,7 +25,7 @@
 
             <button class="@cls" @onclick="() => OnStepSelected.InvokeAsync(step)" disabled="@isPending">
                 <span class="intro-nav-icon">
-                    @if (isDone)
+                    @if (isDone && !isActive)
                     {
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                     }

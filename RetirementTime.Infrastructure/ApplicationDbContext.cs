@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using RetirementTime.Domain.Entities;
 using RetirementTime.Domain.Entities.Common;
 using RetirementTime.Domain.Entities.Location;
+using RetirementTime.Domain.Entities.Onboarding;
 using RetirementTime.Domain.Entities.RealEstate;
 using System.Collections.Generic;
 
@@ -240,6 +241,118 @@ public class ApplicationDbContext : DbContext
                 .IsRequired();
         });
 
+        modelBuilder.Entity<OnboardingPersonalInfo>(entity =>
+        {
+            entity.ToTable("onboarding_step1_personal_info");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.DateOfBirth)
+                .IsRequired();
+
+            entity.Property(e => e.CitizenshipStatus)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            entity.Property(e => e.MaritalStatus)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            entity.Property(e => e.HasCurrentChildren)
+                .IsRequired();
+
+            entity.Property(e => e.PlansFutureChildren)
+                .IsRequired();
+
+            entity.Property(e => e.IncludePartner)
+                .IsRequired();
+
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasIndex(e => e.UserId)
+                .IsUnique();
+        });
+
+        modelBuilder.Entity<OnboardingAssets>(entity =>
+        {
+            entity.ToTable("onboarding_step2_assets");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.HasSavingsAccount)
+                .IsRequired();
+
+            entity.Property(e => e.HasTFSA)
+                .IsRequired();
+
+            entity.Property(e => e.HasRRSP)
+                .IsRequired();
+
+            entity.Property(e => e.HasRRIF)
+                .IsRequired();
+
+            entity.Property(e => e.HasFHSA)
+                .IsRequired();
+
+            entity.Property(e => e.HasRESP)
+                .IsRequired();
+
+            entity.Property(e => e.HasRDSP)
+                .IsRequired();
+
+            entity.Property(e => e.HasNonRegistered)
+                .IsRequired();
+
+            entity.Property(e => e.HasPension)
+                .IsRequired();
+
+            entity.Property(e => e.HasPrincipalResidence)
+                .IsRequired();
+
+            entity.Property(e => e.HasCar)
+                .IsRequired();
+
+            entity.Property(e => e.HasInvestmentProperty)
+                .IsRequired();
+
+            entity.Property(e => e.HasBusiness)
+                .IsRequired();
+
+            entity.Property(e => e.HasIncorporation)
+                .IsRequired();
+
+            entity.Property(e => e.HasPreciousMetals)
+                .IsRequired();
+
+            entity.Property(e => e.HasOtherHardAssets)
+                .IsRequired();
+
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasIndex(e => e.UserId)
+                .IsUnique();
+        });
+
         SeedRoleData(modelBuilder);
         SeedLocationData(modelBuilder);
         SeedLanguageData(modelBuilder);
@@ -314,5 +427,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<BuyOrRent> BuyOrRents { get; set; }
     public DbSet<Language> Languages { get; set; }
     public DbSet<Frequency> Frequencies { get; set; }
+    public DbSet<OnboardingPersonalInfo> OnboardingPersonalInfos { get; set; }
+    public DbSet<OnboardingAssets> OnboardingAssets { get; set; }
 
 }

@@ -13,5 +13,6 @@ public partial class IntroSidebar
     [Parameter] public int TotalSteps { get; set; } = 5;
     [Parameter] public string[] StepNames { get; set; } = [];
     [Parameter] public EventCallback<int> OnStepSelected { get; set; }
+    [Parameter] public bool[] StepCompletionStatus { get; set; } = [];
 }
 

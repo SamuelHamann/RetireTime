@@ -30,14 +30,14 @@
                 <div class="field-group">
                     <label class="field-question">@Localizer["Intro_Step3_InvestmentAccounts"]</label>
                     <div class="checklist">
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasTFSA" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasTFSA"]</span></label>
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasRRSP" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasRRSP"]</span></label>
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasRRIF" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasRRIF"]</span></label>
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasFHSA" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasFHSA"]</span></label>
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasRESP" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasRESP"]</span></label>
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasRDSP" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasRDSP"]</span></label>
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasNonRegistered" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasNonRegistered"]</span></label>
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasPension" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasPension"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasTFSA" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasTFSA"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasRRSP" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasRRSP"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasRRIF" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasRRIF"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasFHSA" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasFHSA"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasRESP" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasRESP"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasRDSP" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasRDSP"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasNonRegistered" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasNonRegistered"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasPension" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasPension"]</span></label>
                     </div>
                 </div>
             </div>
@@ -52,13 +52,13 @@
                 <div class="field-group">
                     <label class="field-question">@Localizer["Intro_Step3_PhysicalAssets"]</label>
                     <div class="checklist">
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasPrincipalResidence" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasPrincipalResidence"]</span></label>
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasCar" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasCar"]</span></label>
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasInvestmentProperty" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasInvestmentProperty"]</span></label>
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasBusiness" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasBusiness"]</span></label>
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasIncorporation" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasIncorporation"]</span></label>
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasPreciousMetals" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasPreciousMetals"]</span></label>
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasOtherHardAssets" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasOtherHardAssets"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasPrincipalResidence" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasPrincipalResidence"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasCar" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasCar"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasInvestmentProperty" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasInvestmentProperty"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasBusiness" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasBusiness"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasIncorporation" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasIncorporation"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasPreciousMetals" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasPreciousMetals"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasOtherHardAssets" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step3_HasOtherHardAssets"]</span></label>
                     </div>
                 </div>
             </div>

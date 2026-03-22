@@ -22,6 +22,15 @@
         Localizer["Intro_Step4_Title"].Value,
         Localizer["Intro_Step5_Title"].Value
     };
+
+    var stepCompletionStatus = new[]
+    {
+        _onboardingData.IsStep1Complete,
+        _onboardingData.IsStep2Complete
+        // Add more as they're implemented:
+        // _onboardingData.IsStep3Complete,
+        // _onboardingData.IsStep4Complete
+    };
 }
 
 <div class="intro-shell">
@@ -35,6 +44,7 @@
         <IntroSidebar CurrentStep="@_currentStep"
                       TotalSteps="@TotalSteps"
                       StepNames="@stepNames"
+                      StepCompletionStatus="@stepCompletionStatus"
                       OnStepSelected="GoToStep" />
 
         <!-- Main content -->
@@ -42,27 +52,43 @@
             <div class="intro-page">
 
                 <div class="intro-body">
-                    @switch (_currentStep)
+                    @if (_isLoading)
                     {
-                        case 1:
-                            <Step0Welcome OnStart="NextStep" />
-                            break;
-                        case 2:
-                            <Step1PersonalInfo />
-                            break;
-                        case 3:
-                            <Step2Assets />
-                            break;
-                        case 4:
-                            <Step3Debt />
-                            break;
-                        case 5:
-                            <Step4Employment />
-                            break;
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">@Localizer["Common_Loading"]</span>
+                            </div>
+                            <p class="mt-3 text-muted">@Localizer["Intro_LoadingData"]</p>
+                        </div>
+                    }
+                    else
+                    {
+                        @switch (_currentStep)
+                        {
+                            case 1:
+                                <Step0Welcome OnStart="NextStep" />
+                                break;
+                            case 2:
+                                <Step1PersonalInfo UserId="_userId" 
+                                                   InitialData="_onboardingData.PersonalInfo" 
+                                                   OnDataChanged="OnStepDataChanged" />
+                                break;
+                            case 3:
+                                <Step2Assets UserId="_userId"
+                                            InitialData="_onboardingData.Assets"
+                                            OnDataChanged="OnAssetsChanged" />
+                                break;
+                            case 4:
+                                <Step3Debt />
+                                break;
+                            case 5:
+                                <Step4Employment />
+                                break;
+                        }
                     }
                 </div>
 
-                @if (_currentStep > 1)
+                @if (_currentStep > 1 && !_isLoading)
                 {
                     var prevName = stepNames[_currentStep - 2];
                     var nextName = _currentStep < TotalSteps ? stepNames[_currentStep] : string.Empty;

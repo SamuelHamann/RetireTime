@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RetirementTime.Infrastructure;
@@ -11,9 +12,11 @@ using RetirementTime.Infrastructure;
 namespace RetirementTime.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260322194834_RemoveUserFieldsFromOnboardingPersonalInfo")]
+    partial class RemoveUserFieldsFromOnboardingPersonalInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -271,83 +274,6 @@ namespace RetirementTime.Infrastructure.Migrations
                             CountryId = 1,
                             Name = "Yukon"
                         });
-                });
-
-            modelBuilder.Entity("RetirementTime.Domain.Entities.Onboarding.OnboardingAssets", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-
-                    b.Property<bool>("HasBusiness")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("HasCar")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("HasFHSA")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("HasIncorporation")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("HasInvestmentProperty")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("HasNonRegistered")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("HasOtherHardAssets")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("HasPension")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("HasPreciousMetals")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("HasPrincipalResidence")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("HasRDSP")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("HasRESP")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("HasRRIF")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("HasRRSP")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("HasSavingsAccount")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("HasTFSA")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("onboarding_step2_assets", (string)null);
                 });
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.Onboarding.OnboardingPersonalInfo", b =>
@@ -712,17 +638,6 @@ namespace RetirementTime.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("RetirementTime.Domain.Entities.Onboarding.OnboardingAssets", b =>
-                {
-                    b.HasOne("RetirementTime.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.Onboarding.OnboardingPersonalInfo", b =>

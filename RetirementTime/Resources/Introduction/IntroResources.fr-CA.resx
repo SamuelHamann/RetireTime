@@ -336,5 +336,13 @@
     <data name="Intro_Step5_OtherIncomeItem" xml:space="preserve">
         <value>Autres revenus réguliers</value>
     </data>
+
+    <!-- Common Loading Messages -->
+    <data name="Common_Loading" xml:space="preserve">
+        <value>Chargement...</value>
+    </data>
+    <data name="Intro_LoadingData" xml:space="preserve">
+        <value>Chargement de vos informations...</value>
+    </data>
 </root>
 
