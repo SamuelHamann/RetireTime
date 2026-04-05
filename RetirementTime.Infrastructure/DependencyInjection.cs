@@ -27,6 +27,10 @@ public static class DependencyInjection
         services.AddScoped<IFrequencyRepository, FrequencyRepository>();
         services.AddScoped<IOnboardingPersonalInfoRepository, OnboardingPersonalInfoRepository>();
         services.AddScoped<IOnboardingAssetsRepository, OnboardingAssetsRepository>();
+        services.AddScoped<IOnboardingDebtRepository, OnboardingDebtRepository>();
+        services.AddScoped<IOnboardingEmploymentRepository, OnboardingEmploymentRepository>();
+        services.AddScoped<IDashboardScenarioRepository, DashboardScenarioRepository>();
+        services.AddScoped<IEmploymentIncomeRepository, EmploymentIncomeRepository>();
 
         return services;
     }

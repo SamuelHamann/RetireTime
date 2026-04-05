@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using RetirementTime.Application.Features.Onboarding.GetAssets;
+using RetirementTime.Application.Features.Onboarding.GetDebt;
+using RetirementTime.Application.Features.Onboarding.GetEmployment;
 using RetirementTime.Application.Features.Onboarding.GetPersonalInfo;
 using RetirementTime.Application.Features.Users.CompleteIntro;
 using RetirementTime.Models.Introduction;
@@ -26,9 +28,20 @@ public partial class Introduction
     private string _initials = "?";
     private long _userId;
     private bool _isLoading = true;
+    private bool _hasCompletedIntro = false;
 
     // View model containing all onboarding data
     private OnboardingDataViewModel _onboardingData = new();
+
+    // Calculate the active step (first incomplete step or last step if all complete)
+    private int GetActiveStep()
+    {
+        if (!_onboardingData.IsStep1Complete) return 2; // Step 1 is PersonalInfo (step 2 in UI)
+        if (!_onboardingData.IsStep2Complete) return 3; // Step 2 is Assets (step 3 in UI)
+        if (!_onboardingData.IsStep3Complete) return 4; // Step 3 is Debt (step 4 in UI)
+        if (!_onboardingData.IsStep4Complete) return 5; // Step 4 is Employment (step 5 in UI)
+        return 5; // All complete, active step is the last step
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -36,6 +49,7 @@ public partial class Introduction
         if (user != null)
         {
             _userId = user.UserId;
+            _hasCompletedIntro = user.HasCompletedIntro;
 
             if (!string.IsNullOrEmpty(user.FirstName))
                 _initials = user.FirstName.Length >= 2 ? user.FirstName[..2].ToUpper() : user.FirstName.ToUpper();
@@ -44,6 +58,9 @@ public partial class Introduction
 
             // Fetch all step data asynchronously
             await LoadAllOnboardingData();
+
+            // Start at welcome page
+            _currentStep = 1;
         }
 
         _isLoading = false;
@@ -51,21 +68,11 @@ public partial class Introduction
 
     private async Task LoadAllOnboardingData()
     {
-        // Create all query tasks
-        var personalInfoTask = LoadPersonalInfoAsync();
-        var assetsTask = LoadAssetsAsync();
-        // TODO: Add more step data loading tasks here
-        // var debtsTask = LoadDebtsAsync();
-        // var employmentTask = LoadEmploymentAsync();
-
-        // Wait for all tasks to complete
-        await Task.WhenAll(
-            personalInfoTask,
-            assetsTask
-            // Add more tasks here as they're implemented
-            // debtsTask,
-            // employmentTask
-        );
+        // Load data sequentially to avoid DbContext concurrency issues
+        await LoadPersonalInfoAsync();
+        await LoadAssetsAsync();
+        await LoadDebtAsync();
+        await LoadEmploymentAsync();
     }
 
     private async Task LoadPersonalInfoAsync()
@@ -135,9 +142,65 @@ public partial class Introduction
         }
     }
 
-    // TODO: Add methods for loading other step data
-    // private async Task LoadDebtsAsync() { ... }
-    // private async Task LoadEmploymentAsync() { ... }
+    private async Task LoadDebtAsync()
+    {
+        try
+        {
+            var query = new GetDebtQuery { UserId = _userId };
+            var result = await Mediator.Send(query);
+
+            if (result.Success && result.Debt != null)
+            {
+                // Convert DTO to Model for UI use
+                _onboardingData.Debt = new DebtModel
+                {
+                    HasPrimaryMortgage = result.Debt.HasPrimaryMortgage,
+                    HasInvestmentPropertyMortgage = result.Debt.HasInvestmentPropertyMortgage,
+                    HasCarPayments = result.Debt.HasCarPayments,
+                    HasStudentLoans = result.Debt.HasStudentLoans,
+                    HasCreditCardDebt = result.Debt.HasCreditCardDebt,
+                    HasPersonalLoans = result.Debt.HasPersonalLoans,
+                    HasBusinessLoans = result.Debt.HasBusinessLoans,
+                    HasTaxDebt = result.Debt.HasTaxDebt,
+                    HasMedicalDebt = result.Debt.HasMedicalDebt,
+                    HasInformalDebt = result.Debt.HasInformalDebt
+                };
+            }
+        }
+        catch (Exception)
+        {
+            // Silently fail - step will show as incomplete
+        }
+    }
+
+    private async Task LoadEmploymentAsync()
+    {
+        try
+        {
+            var query = new GetEmploymentQuery { UserId = _userId };
+            var result = await Mediator.Send(query);
+
+            if (result.Success && result.Employment != null)
+            {
+                // Convert DTO to Model for UI use
+                _onboardingData.Employment = new EmploymentModel
+                {
+                    IsEmployed = result.Employment.IsEmployed,
+                    IsSelfEmployed = result.Employment.IsSelfEmployed,
+                    PlannedRetirementAge = result.Employment.PlannedRetirementAge,
+                    CppContributionYears = result.Employment.CppContributionYears,
+                    HasRoyalties = result.Employment.HasRoyalties,
+                    HasDividends = result.Employment.HasDividends,
+                    HasRentalIncome = result.Employment.HasRentalIncome,
+                    HasOtherIncome = result.Employment.HasOtherIncome
+                };
+            }
+        }
+        catch (Exception)
+        {
+            // Silently fail - step will show as incomplete
+        }
+    }
 
     private async Task NextStep()
     {
@@ -194,6 +257,22 @@ public partial class Introduction
     {
         // Update the view model directly with the saved data
         _onboardingData.Assets = updatedModel;
+        StateHasChanged();
+    }
+
+    private void OnDebtChanged(DebtModel updatedModel)
+    {
+        // Update the view model directly with the saved data
+        _onboardingData.Debt = updatedModel;
+        // Force re-render to update completion status in sidebar
+        StateHasChanged();
+    }
+
+    private void OnEmploymentChanged(EmploymentModel updatedModel)
+    {
+        // Update the view model directly with the saved data
+        _onboardingData.Employment = updatedModel;
+        // Force re-render to update completion status in sidebar
         StateHasChanged();
     }
 }

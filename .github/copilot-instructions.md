@@ -18,6 +18,36 @@ RetireTime is a retirement planning tool designed to be user-friendly with a sim
 - **Communication Pattern**: MediatR (CQRS)
 - **Authentication**: Session-based with cookies
 
+## Typography Standards (CRITICAL)
+
+**⚠️ ALWAYS use these fonts consistently across all pages:**
+
+### Font Families
+- **Headlines/Titles**: `Newsreader` (serif) — Use class `.font-headline`
+- **Body/Labels/UI**: `Inter` + `Manrope` (sans-serif) — Use class `.font-body` or `.font-label`
+- **Rule**: Always follow a Newsreader headline with an Inter subtitle
+
+### Standard Page Header Pattern
+```html
+<div class="step-header-animate">
+    <h1 class="font-headline text-5xl text-ne-primary tracking-tight mb-3">
+        Page Title
+    </h1>
+    <p class="font-body text-ne-on-surface-variant text-base leading-relaxed">
+        Page description or subtitle.
+    </p>
+</div>
+```
+
+### Form Elements
+- **Labels**: `.field-question` (Inter/Manrope, uppercase, letter-spacing 0.1em)
+- **Inputs**: `.field-input` (Inter/Manrope)
+- **Buttons**: `font-family: 'Manrope', sans-serif`
+
+**📄 Full Documentation**: See `RetirementTime/TYPOGRAPHY-STANDARDS.md` for complete guidelines and examples.
+
+**❌ Never use**: Arial, generic sans-serif, or any other fonts not listed above.
+
 ## Project Structure
 
 The solution follows Clean Architecture principles and is divided into four distinct projects:

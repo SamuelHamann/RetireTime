@@ -1,16 +1,15 @@
 /* ---- Intro shell layout ----------------------------------- */
 .intro-shell {
     display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow: hidden;
+    width: 100%;
+    min-height: 100vh;
     background: var(--ne-surface);
 }
 
 .intro-shell-body {
     display: flex;
     flex: 1;
-    min-height: 0; /* critical — lets children shrink inside the fixed height */
+    min-height: 100vh;
     overflow: hidden;
 }
 
@@ -20,7 +19,9 @@
     flex-direction: column;
     min-width: 0;
     background: var(--ne-surface);
-    overflow-y: auto; /* only the main content area scrolls */
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100vh;
 }
 
 /* ---- Intro content area ----------------------------------- */

@@ -38,6 +38,7 @@
                 <div class="field-group">
                     <label class="field-question">@Localizer["Intro_Step5_RetirementAge"]</label>
                     <InputNumber @bind-Value="Model.PlannedRetirementAge"
+                                 @onfocusout="OnFieldChanged"
                                  class="ne-input"
                                  style="max-width:120px;-moz-appearance:textfield;border-radius:0.5rem;" />
                     <ValidationMessage For="@(() => Model.PlannedRetirementAge)" class="ne-error" />
@@ -46,6 +47,7 @@
                 <div class="field-group">
                     <label class="field-question">@Localizer["Intro_Step5_CppYears"]</label>
                     <InputNumber @bind-Value="Model.CppContributionYears"
+                                 @onfocusout="OnFieldChanged"
                                  class="ne-input"
                                  style="max-width:120px;-moz-appearance:textfield;border-radius:0.5rem;" />
                     <ValidationMessage For="@(() => Model.CppContributionYears)" class="ne-error" />
@@ -62,14 +64,27 @@
                 <div class="field-group">
                     <label class="field-question">@Localizer["Intro_Step5_OtherIncome"]</label>
                     <div class="checklist">
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasRoyalties" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step5_Royalties"]</span></label>
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasDividends" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step5_Dividends"]</span></label>
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasRentalIncome" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step5_RentalIncome"]</span></label>
-                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasOtherIncome" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step5_OtherIncomeItem"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasRoyalties" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step5_Royalties"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasDividends" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step5_Dividends"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasRentalIncome" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step5_RentalIncome"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasOtherIncome" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step5_OtherIncomeItem"]</span></label>
                     </div>
                 </div>
             </div>
 
         </EditForm>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="intro-actions">
+        <button class="btn-back" @onclick="HandleBack">
+            <span class="btn-arrow-icon">←</span>
+            <span class="btn-label">@Localizer["Intro_Step4_Title"]</span>
+        </button>
+
+        <button class="btn-finish" @onclick="HandleFinish" disabled="@(!IsFormValid)">
+            <span class="btn-label">@Localizer["Intro_Finish"]</span>
+            <span class="btn-arrow-icon">→</span>
+        </button>
     </div>
 </div>

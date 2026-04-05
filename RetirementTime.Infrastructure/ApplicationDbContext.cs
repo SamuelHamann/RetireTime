@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using RetirementTime.Domain.Entities;
 using RetirementTime.Domain.Entities.Common;
+using RetirementTime.Domain.Entities.Dashboard;
+using RetirementTime.Domain.Entities.Dashboard.Income;
 using RetirementTime.Domain.Entities.Location;
 using RetirementTime.Domain.Entities.Onboarding;
 using RetirementTime.Domain.Entities.RealEstate;
@@ -353,6 +355,202 @@ public class ApplicationDbContext : DbContext
                 .IsUnique();
         });
 
+        modelBuilder.Entity<OnboardingDebt>(entity =>
+        {
+            entity.ToTable("onboarding_step3_debt");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.HasPrimaryMortgage)
+                .IsRequired();
+
+            entity.Property(e => e.HasInvestmentPropertyMortgage)
+                .IsRequired();
+
+            entity.Property(e => e.HasCarPayments)
+                .IsRequired();
+
+            entity.Property(e => e.HasStudentLoans)
+                .IsRequired();
+
+            entity.Property(e => e.HasCreditCardDebt)
+                .IsRequired();
+
+            entity.Property(e => e.HasPersonalLoans)
+                .IsRequired();
+
+            entity.Property(e => e.HasBusinessLoans)
+                .IsRequired();
+
+            entity.Property(e => e.HasTaxDebt)
+                .IsRequired();
+
+            entity.Property(e => e.HasMedicalDebt)
+                .IsRequired();
+
+            entity.Property(e => e.HasInformalDebt)
+                .IsRequired();
+
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasIndex(e => e.UserId)
+                .IsUnique();
+        });
+
+        modelBuilder.Entity<OnboardingEmployment>(entity =>
+        {
+            entity.ToTable("onboarding_step4_employment");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.IsEmployed)
+                .IsRequired();
+
+            entity.Property(e => e.IsSelfEmployed)
+                .IsRequired();
+
+            entity.Property(e => e.PlannedRetirementAge);
+
+            entity.Property(e => e.CppContributionYears);
+
+            entity.Property(e => e.HasRoyalties)
+                .IsRequired();
+
+            entity.Property(e => e.HasDividends)
+                .IsRequired();
+
+            entity.Property(e => e.HasRentalIncome)
+                .IsRequired();
+
+            entity.Property(e => e.HasOtherIncome)
+                .IsRequired();
+
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasIndex(e => e.UserId)
+                .IsUnique();
+        });
+
+        modelBuilder.Entity<DashboardScenario>(entity =>
+        {
+            entity.ToTable("dashboard_scenario");
+            entity.HasKey(e => e.ScenarioId);
+
+            entity.Property(e => e.ScenarioName)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.Property(e => e.ScenarioFullyCreated)
+                .IsRequired()
+                .HasDefaultValue(false);
+
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasIndex(e => e.UserId);
+        });
+
+        modelBuilder.Entity<EmploymentIncome>(entity =>
+        {
+            entity.ToTable("dashboard_employment_income");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.UserId)
+                .IsRequired();
+
+            entity.Property(e => e.EmployerName)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(e => e.GrossSalary)
+                .HasColumnType("numeric(18,2)");
+
+            entity.Property(e => e.NetSalary)
+                .HasColumnType("numeric(18,2)");
+
+            entity.Property(e => e.GrossCommissions)
+                .HasColumnType("numeric(18,2)");
+
+            entity.Property(e => e.NetCommissions)
+                .HasColumnType("numeric(18,2)");
+
+            entity.Property(e => e.GrossBonus)
+                .HasColumnType("numeric(18,2)");
+
+            entity.Property(e => e.NetBonus)
+                .HasColumnType("numeric(18,2)");
+
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasMany(e => e.OtherIncomes)
+                .WithOne(o => o.EmploymentIncome)
+                .HasForeignKey(o => o.EmploymentIncomeId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasIndex(e => e.ScenarioId);
+            entity.HasIndex(e => e.UserId);
+        });
+
+        modelBuilder.Entity<OtherEmploymentIncome>(entity =>
+        {
+            entity.ToTable("dashboard_other_employment_income");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(e => e.Gross)
+                .HasColumnType("numeric(18,2)");
+
+            entity.Property(e => e.Net)
+                .HasColumnType("numeric(18,2)");
+
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.EmploymentIncome)
+                .WithMany(ei => ei.OtherIncomes)
+                .HasForeignKey(e => e.EmploymentIncomeId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
         SeedRoleData(modelBuilder);
         SeedLocationData(modelBuilder);
         SeedLanguageData(modelBuilder);
@@ -429,5 +627,10 @@ public class ApplicationDbContext : DbContext
     public DbSet<Frequency> Frequencies { get; set; }
     public DbSet<OnboardingPersonalInfo> OnboardingPersonalInfos { get; set; }
     public DbSet<OnboardingAssets> OnboardingAssets { get; set; }
+    public DbSet<OnboardingDebt> OnboardingDebts { get; set; }
+    public DbSet<OnboardingEmployment> OnboardingEmployments { get; set; }
+    public DbSet<DashboardScenario> DashboardScenarios { get; set; }
+    public DbSet<EmploymentIncome> EmploymentIncomes { get; set; }
+    public DbSet<OtherEmploymentIncome> OtherEmploymentIncomes { get; set; }
 
 }

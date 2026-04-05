@@ -14,12 +14,16 @@ public partial class DashboardLayout : LayoutComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     internal bool HasCompletedIntro { get; private set; } = true;
+    internal long UserId { get; private set; }
     internal string _initials = "?";
+    private int _scenarioRefreshTrigger = 0;
 
     protected override async Task OnInitializedAsync()
     {
         var authenticatedUser = await AuthService.GetAuthenticatedUserAsync(AuthenticationState);
         if (authenticatedUser == null) return;
+
+        UserId = authenticatedUser.UserId;
 
         if (!string.IsNullOrEmpty(authenticatedUser.FirstName))
             _initials = authenticatedUser.FirstName.Length >= 2 ? authenticatedUser.FirstName[..2].ToUpper() : authenticatedUser.FirstName.ToUpper();
@@ -32,7 +36,7 @@ public partial class DashboardLayout : LayoutComponentBase
 
         if (!HasCompletedIntro)
         {
-            Navigation.NavigateTo("/introduction", replace: true);
+            Navigation.NavigateTo("/onboarding", replace: true);
         }
     }
 }

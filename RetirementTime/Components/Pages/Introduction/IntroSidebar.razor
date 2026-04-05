@@ -1,9 +1,15 @@
 @using RetirementTime.Resources.Introduction
 @using RetirementTime.Resources.Common
+@inject IStringLocalizer<CommonResources> CommonLocalizer
+@inject IStringLocalizer<IntroResources> Localizer
 
 <aside class="intro-sidebar">
     <div class="intro-sidebar-header">
-        <p class="intro-sidebar-section">@Localizer["Intro_Onboarding"]</p>
+        <h2 class="intro-sidebar-brand">@CommonLocalizer["Sidebar_Brand"]</h2>
+        <span class="intro-sidebar-brand-sub">@CommonLocalizer["Sidebar_BrandSub_Onboarding"]</span>
+    </div>
+
+    <div class="intro-sidebar-section-header">
         <p class="intro-sidebar-step">@string.Format(Localizer["Intro_StepOf"].Value, CurrentStep - 1, TotalSteps - 1)</p>
     </div>
 
@@ -11,21 +17,27 @@
         @for (var i = 1; i <= TotalSteps; i++)
         {
             var step = i;
-            // Step 1 is welcome page (no completion status)
-            // Step 2+ have completion status at index (step - 2)
-            var isComplete = step > 1 && StepCompletionStatus.Length >= (step - 1) && StepCompletionStatus[step - 2];
-            var isDone    = step < CurrentStep || isComplete;
-            var isActive  = step == CurrentStep;
-            // Welcome page (step 1) is always accessible
-            var isPending = step > 1 && step > CurrentStep && !isComplete;
 
-            var cls = isActive  ? "intro-nav-item intro-nav-item--active"
-                    : isDone    ? "intro-nav-item intro-nav-item--done"
-                    :             "intro-nav-item intro-nav-item--pending";
+            // Calculate states
+            var isSelected = IsStepSelected(step);
+            var isCompleted = IsStepCompleted(step);
+            var isAccessible = IsStepAccessible(step);
 
-            <button class="@cls" @onclick="() => OnStepSelected.InvokeAsync(step)" disabled="@isPending">
+            // Determine CSS class based on state priority
+            // Priority: Selected > Completed > Accessible > Pending
+            var cls = isSelected && isCompleted ? "intro-nav-item intro-nav-item--active intro-nav-item--completed"
+                    : isSelected ? "intro-nav-item intro-nav-item--active"
+                    : isCompleted ? "intro-nav-item intro-nav-item--completed"
+                    : isAccessible ? "intro-nav-item intro-nav-item--accessible"
+                    : "intro-nav-item intro-nav-item--pending";
+
+            <button class="@cls" @onclick="() => OnStepSelected.InvokeAsync(step)" disabled="@(!isAccessible)">
                 <span class="intro-nav-icon">
-                    @if (isDone && !isActive)
+                    @if (isCompleted && !isSelected)
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    }
+                    else if (isSelected && isCompleted)
                     {
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                     }

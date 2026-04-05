@@ -31,8 +31,11 @@
     <data name="Sidebar_Brand" xml:space="preserve">
         <value>Nest Egg</value>
     </data>
-    <data name="Sidebar_BrandSub" xml:space="preserve">
+    <data name="Sidebar_BrandSub_Onboarding" xml:space="preserve">
         <value>Onboarding</value>
+    </data>
+    <data name="Sidebar_BrandSub_Dashboard" xml:space="preserve">
+        <value>Dashboard</value>
     </data>
 
     <!-- Top navigation -->

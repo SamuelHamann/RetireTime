@@ -16,19 +16,32 @@
             <div class="field-group">
                 <label class="field-question">@Localizer["Intro_Step4_DebtQuestion"]</label>
                 <div class="checklist">
-                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasPrimaryMortgage" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_PrimaryMortgage"]</span></label>
-                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasInvestmentPropertyMortgage" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_InvestmentPropertyMortgage"]</span></label>
-                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasCarPayments" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_CarPayments"]</span></label>
-                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasStudentLoans" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_StudentLoans"]</span></label>
-                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasCreditCardDebt" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_CreditCardDebt"]</span></label>
-                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasPersonalLoans" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_PersonalLoans"]</span></label>
-                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasBusinessLoans" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_BusinessLoans"]</span></label>
-                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasTaxDebt" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_TaxDebt"]</span></label>
-                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasMedicalDebt" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_MedicalDebt"]</span></label>
-                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasInformalDebt" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_InformalDebt"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasPrimaryMortgage" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_PrimaryMortgage"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasInvestmentPropertyMortgage" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_InvestmentPropertyMortgage"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasCarPayments" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_CarPayments"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasStudentLoans" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_StudentLoans"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasCreditCardDebt" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_CreditCardDebt"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasPersonalLoans" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_PersonalLoans"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasBusinessLoans" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_BusinessLoans"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasTaxDebt" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_TaxDebt"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasMedicalDebt" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_MedicalDebt"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasInformalDebt" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_InformalDebt"]</span></label>
                 </div>
             </div>
 
         </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="intro-actions">
+        <button class="btn-back" @onclick="HandleBack">
+            <span class="btn-arrow-icon">←</span>
+            <span class="btn-label">@Localizer["Intro_Step3_Title"]</span>
+        </button>
+
+        <button class="btn-next" @onclick="HandleNext" disabled="@(!IsFormValid)">
+            <span class="btn-label">@Localizer["Intro_ContinueTo"] @Localizer["Intro_Step5_Title"]</span>
+            <span class="btn-arrow-icon">→</span>
+        </button>
     </div>
 </div>

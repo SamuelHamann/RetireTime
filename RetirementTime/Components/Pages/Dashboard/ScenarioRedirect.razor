@@ -1,0 +1,12 @@
+@page "/scenario/{scenarioId:long}"
+@inject NavigationManager Navigation
+
+@code {
+    [Parameter] public long ScenarioId { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // Redirect to settings page
+        Navigation.NavigateTo($"/scenario/{ScenarioId}/settings", replace: true);
+    }
+}

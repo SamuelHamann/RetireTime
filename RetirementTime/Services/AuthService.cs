@@ -50,13 +50,20 @@ public class AuthService
             ? parsedRoleId 
             : 1;
 
+        // Extract HasCompletedIntro
+        var hasCompletedIntroClaim = user.FindFirst("HasCompletedIntro");
+        var hasCompletedIntro = hasCompletedIntroClaim != null && bool.TryParse(hasCompletedIntroClaim.Value, out bool parsedHasCompleted) 
+            ? parsedHasCompleted 
+            : false;
+
         return new AuthenticatedUser
         {
             UserId = userId,
             FirstName = firstName,
             Email = email,
             RoleId = roleId,
-            RoleName = roleName
+            RoleName = roleName,
+            HasCompletedIntro = hasCompletedIntro
         };
     }
 }

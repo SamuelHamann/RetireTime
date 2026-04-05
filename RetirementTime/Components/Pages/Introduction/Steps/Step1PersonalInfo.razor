@@ -128,4 +128,17 @@
             </EditForm>
 
     </div>
+
+    <!-- Navigation Buttons -->
+    <div class="intro-actions">
+        <button class="btn-back" @onclick="HandleBack">
+            <span class="btn-arrow-icon">←</span>
+            <span class="btn-label">@Localizer["Intro_Step1_Title"]</span>
+        </button>
+
+        <button class="btn-next" @onclick="HandleNext" disabled="@(!IsFormValid)">
+            <span class="btn-label">@Localizer["Intro_ContinueTo"] @Localizer["Intro_Step3_Title"]</span>
+            <span class="btn-arrow-icon">→</span>
+        </button>
+    </div>
 </div>

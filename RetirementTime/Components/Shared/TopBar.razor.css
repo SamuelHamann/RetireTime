@@ -1,7 +1,7 @@
-.intro-topnav {
+.topnav {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: 0 2rem;
     height: 60px;
     background: var(--ne-surface);
@@ -12,37 +12,21 @@
     flex-shrink: 0;
 }
 
-/* Brand */
-.intro-topnav-brand {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-}
-
-.intro-topnav-brand-text {
-    font-family: 'Newsreader', serif;
-    font-size: 1.35rem;
-    font-weight: 700;
-    color: var(--ne-on-surface);
-    letter-spacing: -0.01em;
-}
-
 /* Right group: nav links + icon actions */
-.intro-topnav-right {
+.topnav-right {
     display: flex;
     align-items: center;
     gap: 2rem;
 }
 
 /* Nav links */
-.intro-topnav-links {
+.topnav-links {
     display: flex;
     align-items: center;
     gap: 1.75rem;
 }
 
-.intro-topnav-link {
+.topnav-link {
     font-family: 'Newsreader', serif;
     font-size: 1rem;
     font-weight: 600;
@@ -53,24 +37,59 @@
     white-space: nowrap;
 }
 
-.intro-topnav-link:hover {
+.topnav-link:hover {
     color: var(--ne-on-surface);
 }
 
-.intro-topnav-link--active {
+.topnav-link--active {
     color: var(--ne-on-surface);
     border-bottom: 2px solid var(--ne-primary);
     padding-bottom: 0.2rem;
 }
 
+.topnav-link--disabled {
+    color: var(--ne-on-surface-muted);
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.topnav-link--disabled:hover {
+    color: var(--ne-on-surface-muted);
+}
+
 /* Right actions */
-.intro-topnav-actions {
+.topnav-actions {
     display: flex;
     align-items: center;
     gap: 0.75rem;
 }
 
-.intro-topnav-icon-btn {
+.topnav-btn-scenario {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--ne-primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 0.375rem;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.topnav-btn-scenario:hover {
+    background: var(--ne-primary-dark);
+}
+
+.topnav-btn-scenario:active {
+    transform: scale(0.98);
+}
+
+.topnav-icon-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -84,11 +103,11 @@
     transition: background 0.15s ease;
 }
 
-.intro-topnav-icon-btn:hover {
+.topnav-icon-btn:hover {
     background: var(--ne-surface-container);
 }
 
-.intro-topnav-avatar {
+.topnav-avatar {
     width: 34px;
     height: 34px;
     border-radius: 9999px;
@@ -105,6 +124,6 @@
     transition: background 0.15s ease;
 }
 
-.intro-topnav-avatar:hover {
+.topnav-avatar:hover {
     background: var(--ne-avatar-bg-hover);
 }

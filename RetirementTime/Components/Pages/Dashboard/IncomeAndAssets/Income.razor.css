@@ -1,0 +1,58 @@
+/* Field input overrides — white background, no border, explicit rounding */
+.field-input {
+    background-color: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0.75rem !important;
+}
+
+.field-input:focus {
+    background-color: #ffffff !important;
+    border-radius: 0.75rem !important;
+}
+
+/* Money input — $ prefix via wrapper pseudo-element, no spinner arrows */
+.money-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.money-input-wrapper::before {
+    content: '$';
+    position: absolute;
+    left: 0.875rem;
+    color: var(--ne-on-surface-muted);
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+}
+
+.money-input {
+    width: 100%;
+    padding-left: 1.75rem !important;
+    -moz-appearance: textfield;
+}
+
+.money-input::-webkit-outer-spin-button,
+.money-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Faster animations for dashboard pages */
+@keyframes income-fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.step-header-animate {
+    animation: income-fade-in 0.3s ease both;
+}
+
+.step-body-animate {
+    animation: income-fade-in 0.3s ease 0.25s both;
+}

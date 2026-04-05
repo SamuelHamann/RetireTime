@@ -1,16 +1,27 @@
 .intro-sidebar {
     width: 240px;
     min-width: 240px;
-    height: 100%;
+    height: 100vh;
     background: var(--ne-surface-low);
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-    box-shadow: 1px 0 0 0 var(--ne-border-tonal);
+    position: sticky;
+    top: 0;
+    overflow: hidden;
 }
 
 .intro-sidebar-header {
-    padding: 1.5rem 1.25rem 1.25rem;
+    padding: 1.5rem 1.25rem 1.25rem 1.25rem;
+    border-bottom: none;
+    flex-shrink: 0;
+}
+
+/* Brand and subtitle styling now in dashboard.css shared styles */
+
+.intro-sidebar-section-header {
+    padding: 0.75rem 1.25rem 1rem;
+    border-bottom: none;
 }
 
 .intro-sidebar-section {
@@ -56,24 +67,39 @@
     letter-spacing: 0.02em;
 }
 
-/* Pending — same colour as done, just not clickable */
+/* Pending — not accessible (greyed out, disabled) */
 .intro-nav-item--pending {
     color: var(--ne-secondary);
     cursor: default;
     opacity: 0.6;
 }
 
-/* Done — clickable */
-.intro-nav-item--done {
+/* Accessible — can navigate but not completed (primary color, no highlight) */
+.intro-nav-item--accessible {
+    color: var(--ne-primary);
+    font-weight: 600;
+    opacity: 1;
+    cursor: pointer;
+}
+.intro-nav-item--accessible:hover {
+    background: rgba(154, 52, 18, 0.08);
+}
+.intro-nav-item--accessible .intro-nav-dot {
+    background: var(--ne-primary);
+}
+
+/* Completed — step is done (checkmark, not greyed out, clickable) */
+.intro-nav-item--completed {
     color: var(--ne-secondary);
     opacity: 1;
+    cursor: pointer;
 }
-.intro-nav-item--done:hover {
+.intro-nav-item--completed:hover {
     background: var(--ne-surface-container);
     color: var(--ne-on-surface);
 }
 
-/* Active — lifted surface */
+/* Active (Selected) — current step being displayed */
 .intro-nav-item--active {
     background: var(--ne-surface);
     color: var(--ne-primary);
@@ -82,7 +108,14 @@
     border-radius: 0.5rem 0 0 0.5rem;
     box-shadow: 0 2px 8px var(--ne-shadow-ambient);
     opacity: 1;
+    cursor: default;
 }
+
+/* Active + Completed — show checkmark even when selected */
+.intro-nav-item--active.intro-nav-item--completed .intro-nav-icon svg {
+    color: var(--ne-primary);
+}
+
 
 .intro-nav-icon {
     display: flex;

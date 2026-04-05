@@ -16,7 +16,6 @@ public partial class DashboardHome
     private string _title = string.Empty;
     private string _subtitle = string.Empty;
     private string _description = string.Empty;
-    private string _activeSection = "overview";
 
     protected override async Task OnInitializedAsync()
     {

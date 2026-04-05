@@ -1,28 +1,15 @@
 @rendermode InteractiveServer
 @using RetirementTime.Resources.Common
+@using RetirementTime.Resources.Dashboard
 
 <div class="sidebar">
     <div class="sidebar-header">
         <h2 class="sidebar-brand">@Localizer["Sidebar_Brand"]</h2>
-        <span class="sidebar-brand-sub">@Localizer["Sidebar_BrandSub"]</span>
+        <span class="sidebar-brand-sub">@Localizer["Sidebar_BrandSub_Dashboard"]</span>
     </div>
 
     <nav class="sidebar-nav">
         <ul class="sidebar-nav-list">
-
-            @if (!HasCompletedIntro)
-            {
-                <li>
-                    <button class="nav-item @IsActive("introduction")" @onclick="@(() => SelectItem("introduction"))">
-                        <span class="nav-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/>
-                            </svg>
-                        </span>
-                        <span class="nav-label">Introduction</span>
-                    </button>
-                </li>
-            }
 
             <li>
                 <button class="nav-item @IsActive("overview") @IsDisabled("overview")" @onclick="@(() => SelectItem("overview"))">
@@ -32,81 +19,92 @@
                             <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
                         </svg>
                     </span>
-                    <span class="nav-label">Overview</span>
+                    <span class="nav-label">@DashboardLocalizer["Sidebar_Overview"]</span>
                 </button>
             </li>
+
+            <!-- Dynamic Scenarios -->
+            @foreach (var scenario in _scenarios)
+            {
+                var scenarioKey = $"scenario_{scenario.ScenarioId}";
+                var isExpanded = _expandedScenarios.Contains(scenario.ScenarioId);
+
+                <li>
+                    <button class="nav-item nav-item-expandable @(isExpanded ? "expanded" : "")" @onclick="@(() => ToggleScenario(scenario.ScenarioId))">
+                        <span class="nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </span>
+                        <span class="nav-label @(scenario.ScenarioId == _activeScenarioId ? "nav-label-active" : "")">@scenario.ScenarioName</span>
+                        <span class="nav-chevron">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </span>
+                    </button>
+                    @if (isExpanded)
+                    {
+                        <ul class="nav-submenu">
+                            <li>
+                                <button class="nav-item nav-item-sub @IsActive($"scenario_{scenario.ScenarioId}_settings")" 
+                                        @onclick="@(() => SelectScenarioSettings(scenario.ScenarioId))">
+                                    <span class="nav-label">@DashboardLocalizer["Sidebar_ScenarioSettings"]</span>
+                                </button>
+                            </li>
+                            @if (scenario.ScenarioFullyCreated)
+                            {
+                                var isTemp1Expanded = _expendedIncomeAssets.Contains(scenario.ScenarioId);
+                                <li>
+                                    <button class="nav-item nav-item-sub nav-item-sub-expandable @(isTemp1Expanded ? "expanded" : "")"
+                                            @onclick="@(() => ToggleTemp1(scenario.ScenarioId))">
+                                        <span class="nav-label @(_activeScenarioId == scenario.ScenarioId && (_activeView == "income" || _activeView == "spending") ? "nav-label-active" : "")">@DashboardLocalizer["Sidebar_FinancialProfile"]</span>
+                                        <span class="nav-chevron">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <polyline points="6 9 12 15 18 9"/>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                    @if (isTemp1Expanded)
+                                    {
+                                        <ul class="nav-sub-submenu">
+                                            <li>
+                                                <button class="nav-item nav-item-sub-sub @IsActive($"scenario_{scenario.ScenarioId}_income")"
+                                                        @onclick="@(() => Navigation.NavigateTo($"/scenario/{scenario.ScenarioId}/income", forceLoad: false))">
+                                                    <span class="nav-label">@DashboardLocalizer["Sidebar_Income"]</span>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="nav-item nav-item-sub-sub @IsActive($"scenario_{scenario.ScenarioId}_spending")"
+                                                        @onclick="@(() => Navigation.NavigateTo($"/scenario/{scenario.ScenarioId}/spending", forceLoad: false))">
+                                                    <span class="nav-label">@DashboardLocalizer["Sidebar_Spending"]</span>
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    }
+                </li>
+            }
+
+            <!-- New Scenario Button -->
+            <li class="sidebar-section-divider"></li>
             <li>
-                <button class="nav-item @IsActive("retirement-plan") @IsDisabled("retirement-plan")" @onclick="@(() => SelectItem("retirement-plan"))">
+                <button class="nav-item nav-item-new-scenario" @onclick="OnNewScenarioClick">
                     <span class="nav-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
                         </svg>
                     </span>
-                    <span class="nav-label">Retirement Plan</span>
+                    <span class="nav-label">@DashboardLocalizer["Sidebar_NewScenario"]</span>
                 </button>
             </li>
-            <li>
-                <button class="nav-item @IsActive("assets") @IsDisabled("assets")" @onclick="@(() => SelectItem("assets"))">
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                        </svg>
-                    </span>
-                    <span class="nav-label">Assets</span>
-                </button>
-            </li>
-            <li>
-                <button class="nav-item @IsActive("debts") @IsDisabled("debts")" @onclick="@(() => SelectItem("debts"))">
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
-                        </svg>
-                    </span>
-                    <span class="nav-label">Debts</span>
-                </button>
-            </li>
-            <li>
-                <button class="nav-item @IsActive("income") @IsDisabled("income")" @onclick="@(() => SelectItem("income"))">
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                        </svg>
-                    </span>
-                    <span class="nav-label">Income</span>
-                </button>
-            </li>
-            <li>
-                <button class="nav-item @IsActive("benefits") @IsDisabled("benefits")" @onclick="@(() => SelectItem("benefits"))">
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                        </svg>
-                    </span>
-                    <span class="nav-label">Benefits</span>
-                </button>
-            </li>
-            <li>
-                <button class="nav-item @IsActive("projections") @IsDisabled("projections")" @onclick="@(() => SelectItem("projections"))">
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
-                            <line x1="6" y1="20" x2="6" y2="14"/>
-                        </svg>
-                    </span>
-                    <span class="nav-label">Projections</span>
-                </button>
-            </li>
-            <li>
-                <button class="nav-item @IsActive("settings") @IsDisabled("settings")" @onclick="@(() => SelectItem("settings"))">
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="3"/>
-                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-                        </svg>
-                    </span>
-                    <span class="nav-label">Settings</span>
-                </button>
-            </li>
+            <li class="sidebar-section-divider"></li>
+
+
         </ul>
     </nav>
 
@@ -118,7 +116,7 @@
                     <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
                 </svg>
             </span>
-            <span class="nav-label">Logout</span>
+            <span class="nav-label">@DashboardLocalizer["Sidebar_Logout"]</span>
         </a>
     </div>
 </div>

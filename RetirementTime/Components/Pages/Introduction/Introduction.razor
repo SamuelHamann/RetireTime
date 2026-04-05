@@ -1,8 +1,7 @@
-@page "/introduction"
+@page "/onboarding"
 @layout HomeLayout
 @rendermode InteractiveServer
 @using RetirementTime.Components.Pages.Introduction.Steps
-@using RetirementTime.Components.Pages.Dashboard
 @using RetirementTime.Components.Shared
 
 <HeadContent>
@@ -25,30 +24,31 @@
 
     var stepCompletionStatus = new[]
     {
+        _onboardingData.IsStep0Complete,
         _onboardingData.IsStep1Complete,
-        _onboardingData.IsStep2Complete
-        // Add more as they're implemented:
-        // _onboardingData.IsStep3Complete,
-        // _onboardingData.IsStep4Complete
+        _onboardingData.IsStep2Complete,
+        _onboardingData.IsStep3Complete,
+        _onboardingData.IsStep4Complete
     };
 }
 
 <div class="intro-shell">
-
-    <!-- Top navbar -->
-    <IntroTopbar ActiveSection="introduction" Initials="@_initials" />
 
     <div class="intro-shell-body">
 
         <!-- Left sidebar with steps -->
         <IntroSidebar CurrentStep="@_currentStep"
                       TotalSteps="@TotalSteps"
+                      ActiveStep="@GetActiveStep()"
                       StepNames="@stepNames"
                       StepCompletionStatus="@stepCompletionStatus"
                       OnStepSelected="GoToStep" />
 
         <!-- Main content -->
         <div class="intro-main" id="intro-main">
+            <!-- Top navbar -->
+            <TopBar ActiveSection="onboarding" Initials="@_initials" HasCompletedIntro="@_hasCompletedIntro" />
+
             <div class="intro-page">
 
                 <div class="intro-body">
@@ -71,50 +71,34 @@
                             case 2:
                                 <Step1PersonalInfo UserId="_userId" 
                                                    InitialData="_onboardingData.PersonalInfo" 
-                                                   OnDataChanged="OnStepDataChanged" />
+                                                   OnDataChanged="OnStepDataChanged"
+                                                   OnNext="NextStep"
+                                                   OnBack="PreviousStep" />
                                 break;
                             case 3:
                                 <Step2Assets UserId="_userId"
                                             InitialData="_onboardingData.Assets"
-                                            OnDataChanged="OnAssetsChanged" />
+                                            OnDataChanged="OnAssetsChanged"
+                                            OnNext="NextStep"
+                                            OnBack="PreviousStep" />
                                 break;
                             case 4:
-                                <Step3Debt />
+                                <Step3Debt UserId="_userId"
+                                          InitialData="_onboardingData.Debt"
+                                          OnDataChanged="OnDebtChanged"
+                                          OnNext="NextStep"
+                                          OnBack="PreviousStep" />
                                 break;
                             case 5:
-                                <Step4Employment />
+                                <Step4Employment UserId="_userId"
+                                                InitialData="_onboardingData.Employment"
+                                                OnDataChanged="OnEmploymentChanged"
+                                                OnFinish="Finish"
+                                                OnBack="PreviousStep" />
                                 break;
                         }
                     }
                 </div>
-
-                @if (_currentStep > 1 && !_isLoading)
-                {
-                    var prevName = stepNames[_currentStep - 2];
-                    var nextName = _currentStep < TotalSteps ? stepNames[_currentStep] : string.Empty;
-
-                    <div class="intro-actions">
-                        <button class="btn-back" @onclick="PreviousStep">
-                            <span class="btn-arrow-icon">←</span>
-                            <span class="btn-label">@prevName</span>
-                        </button>
-
-                        @if (_currentStep < TotalSteps)
-                        {
-                            <button class="btn-next" @onclick="NextStep">
-                                <span class="btn-label">@Localizer["Intro_ContinueTo"] @nextName</span>
-                                <span class="btn-arrow-icon">→</span>
-                            </button>
-                        }
-                        else
-                        {
-                            <button class="btn-finish" @onclick="Finish">
-                                <span class="btn-label">@Localizer["Intro_Finish"]</span>
-                                <span class="btn-arrow-icon">→</span>
-                            </button>
-                        }
-                    </div>
-                }
 
             </div>
         </div>

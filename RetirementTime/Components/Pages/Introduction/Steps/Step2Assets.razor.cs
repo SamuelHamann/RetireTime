@@ -15,9 +15,14 @@ public partial class Step2Assets
     [Parameter] public long UserId { get; set; }
     [Parameter] public AssetsModel? InitialData { get; set; }
     [Parameter] public EventCallback<AssetsModel> OnDataChanged { get; set; }
+    [Parameter] public EventCallback OnNext { get; set; }
+    [Parameter] public EventCallback OnBack { get; set; }
 
     public AssetsModel Model { get; set; } = new();
     private bool _isInitialized = false;
+
+    // Step2 has no required fields - all checkboxes are optional
+    private bool IsFormValid => true;
 
     protected override async Task OnParametersSetAsync()
     {
@@ -82,6 +87,18 @@ public partial class Step2Assets
     private async Task OnFieldChanged()
     {
         await SaveData();
+    }
+
+    private async Task HandleNext()
+    {
+        await SaveData();
+        await OnNext.InvokeAsync();
+    }
+
+    private async Task HandleBack()
+    {
+        await SaveData();
+        await OnBack.InvokeAsync();
     }
 }
 

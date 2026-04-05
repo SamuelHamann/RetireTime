@@ -90,7 +90,7 @@
         <value>Canadian</value>
     </data>
     <data name="Intro_Step2_Citizenship_US" xml:space="preserve">
-        <value>American</value>
+        <value>US Citizen</value>
     </data>
     <data name="Intro_Step2_Citizenship_PermanentResident" xml:space="preserve">
         <value>Permanent Resident</value>

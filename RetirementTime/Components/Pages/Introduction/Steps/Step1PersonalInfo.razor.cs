@@ -15,9 +15,16 @@ public partial class Step1PersonalInfo
     [Parameter] public long UserId { get; set; }
     [Parameter] public PersonalInfoModel? InitialData { get; set; }
     [Parameter] public EventCallback<PersonalInfoModel> OnDataChanged { get; set; }
+    [Parameter] public EventCallback OnNext { get; set; }
+    [Parameter] public EventCallback OnBack { get; set; }
 
     public PersonalInfoModel Model { get; set; } = new();
     private bool _isInitialized = false;
+
+    private bool IsFormValid =>
+        Model.DateOfBirth.HasValue &&
+        !string.IsNullOrWhiteSpace(Model.CitizenshipStatus) &&
+        !string.IsNullOrWhiteSpace(Model.MaritalStatus);
 
     protected override async Task OnParametersSetAsync()
     {
@@ -37,18 +44,10 @@ public partial class Step1PersonalInfo
         }
     }
 
-    private async Task SaveData()
+    public async Task SaveData()
     {
-        if (!_isInitialized || UserId == 0)
+        if (!_isInitialized || UserId == 0 || !IsFormValid)
             return;
-
-        // Check if all required fields are filled (excluding Email/FirstName/LastName since they're in User table)
-        if (!Model.DateOfBirth.HasValue ||
-            string.IsNullOrWhiteSpace(Model.CitizenshipStatus) ||
-            string.IsNullOrWhiteSpace(Model.MaritalStatus))
-        {
-            return;
-        }
 
         try
         {
@@ -79,6 +78,18 @@ public partial class Step1PersonalInfo
 
     private async Task OnFieldChanged()
     {
+        StateHasChanged();
+    }
+
+    private async Task HandleNext()
+    {
         await SaveData();
+        await OnNext.InvokeAsync();
+    }
+
+    private async Task HandleBack()
+    {
+        await SaveData();
+        await OnBack.InvokeAsync();
     }
 }

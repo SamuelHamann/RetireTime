@@ -40,6 +40,7 @@ builder.Services.AddLocalization();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddScoped<RetirementTime.Services.AuthService>();
+builder.Services.AddScoped<RetirementTime.Services.DelayedLoadingService>();
 
 
 var app = builder.Build();

@@ -29,7 +29,8 @@ public class AuthController : ControllerBase
             new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
             new Claim(ClaimTypes.GivenName, firstName ?? string.Empty),
             new Claim(ClaimTypes.Role, roleName ?? "User"),
-            new Claim("RoleId", (roleId ?? 1).ToString())
+            new Claim("RoleId", (roleId ?? 1).ToString()),
+            new Claim("HasCompletedIntro", hasCompletedIntro.ToString())
         };
 
         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -39,7 +40,7 @@ public class AuthController : ControllerBase
             CookieAuthenticationDefaults.AuthenticationScheme,
             principal);
 
-        return Redirect(hasCompletedIntro ? "/home" : "/introduction");
+        return Redirect(hasCompletedIntro ? "/home" : "/onboarding");
     }
 
     [HttpGet("logout")]
