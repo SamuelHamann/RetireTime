@@ -1,12 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using RetirementTime.Domain.Entities;
-using RetirementTime.Domain.Entities.Common;
 using RetirementTime.Domain.Entities.Dashboard;
 using RetirementTime.Domain.Entities.Dashboard.Income;
 using RetirementTime.Domain.Entities.Location;
 using RetirementTime.Domain.Entities.Onboarding;
 using RetirementTime.Domain.Entities.RealEstate;
-using System.Collections.Generic;
+using RetirementTime.Domain.Entities.Common;
 
 namespace RetirementTime.Infrastructure;
 
@@ -23,7 +22,6 @@ public class ApplicationDbContext : DbContext
         {
             entity.ToTable("subdivision");
             entity.HasKey(e => e.Id);
-
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(100);
@@ -477,7 +475,7 @@ public class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<EmploymentIncome>(entity =>
         {
-            entity.ToTable("dashboard_employment_income");
+            entity.ToTable("dashboard_income_employment_income");
             entity.HasKey(e => e.Id);
 
             entity.Property(e => e.UserId)
@@ -489,22 +487,54 @@ public class ApplicationDbContext : DbContext
 
             entity.Property(e => e.GrossSalary)
                 .HasColumnType("numeric(18,2)");
-
+            entity.Property(e => e.GrossSalaryFrequencyId)
+                .IsRequired();
+            
             entity.Property(e => e.NetSalary)
                 .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.NetSalaryFrequencyId)
+                .IsRequired();
 
             entity.Property(e => e.GrossCommissions)
                 .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.GrossCommissionsFrequencyId)
+                .IsRequired();
 
             entity.Property(e => e.NetCommissions)
                 .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.NetCommissionsFrequencyId)
+                .IsRequired();
 
             entity.Property(e => e.GrossBonus)
                 .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.GrossBonusFrequencyId)
+                .IsRequired();
 
             entity.Property(e => e.NetBonus)
                 .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.NetBonusFrequencyId)
+                .IsRequired();
 
+            entity.Property(e => e.PensionContributions)
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.PensionContributionFrequencyId)
+                .IsRequired();
+            
+            entity.Property(e => e.TaxDeductions)
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.TaxDeductionFrequencyId)
+                .IsRequired();
+            
+            entity.Property(e => e.CppDeductions)
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.CppDeductionFrequencyId)
+                .IsRequired();
+            
+            entity.Property(e => e.OtherDeductions)
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.OtherDeductionFrequencyId)
+                .IsRequired();
+            
             entity.Property(e => e.CreatedAt)
                 .IsRequired()
                 .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
@@ -517,6 +547,46 @@ public class ApplicationDbContext : DbContext
                 .WithOne(o => o.EmploymentIncome)
                 .HasForeignKey(o => o.EmploymentIncomeId)
                 .OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.GrossSalaryFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.GrossSalaryFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.NetSalaryFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.NetSalaryFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.GrossCommissionsFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.GrossCommissionsFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.NetCommissionsFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.NetCommissionsFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.GrossBonusFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.GrossBonusFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.NetBonusFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.NetBonusFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.PensionContributionFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.PensionContributionFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.TaxDeductionFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.TaxDeductionFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.CppDeductionFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.CppDeductionFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.OtherDeductionFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.OtherDeductionFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             entity.HasIndex(e => e.ScenarioId);
             entity.HasIndex(e => e.UserId);
@@ -524,7 +594,7 @@ public class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<OtherEmploymentIncome>(entity =>
         {
-            entity.ToTable("dashboard_other_employment_income");
+            entity.ToTable("dashboard_income_other_employment_income");
             entity.HasKey(e => e.Id);
 
             entity.Property(e => e.Name)
@@ -533,10 +603,14 @@ public class ApplicationDbContext : DbContext
 
             entity.Property(e => e.Gross)
                 .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.GrossFrequencyId)
+                .IsRequired();
 
             entity.Property(e => e.Net)
                 .HasColumnType("numeric(18,2)");
-
+            entity.Property(e => e.NetFrequencyId)
+                .IsRequired();
+            
             entity.Property(e => e.CreatedAt)
                 .IsRequired()
                 .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
@@ -549,6 +623,312 @@ public class ApplicationDbContext : DbContext
                 .WithMany(ei => ei.OtherIncomes)
                 .HasForeignKey(e => e.EmploymentIncomeId)
                 .OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.GrossFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.GrossFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.NetFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.NetFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<SelfEmploymentIncome>(entity =>
+        {
+            entity.ToTable("dashboard_income_self_employment_income");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+            
+            entity.Property(e => e.NetSalary)
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.NetSalaryFrequencyId)
+                .IsRequired();
+            
+            entity.Property(e => e.GrossSalary)
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.GrossSalaryFrequencyId)
+                .IsRequired();
+            
+            entity.Property(e => e.GrossDividends)
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.GrossDividendsFrequencyId)
+                .IsRequired();
+            
+            entity.Property(e => e.NetDividends)
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.NetDividendsFrequencyId)
+                .IsRequired();
+            
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            
+            entity.HasOne(e => e.Scenario)
+                .WithMany()
+                .HasForeignKey(e => e.ScenarioId)
+                .OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.GrossSalaryFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.GrossSalaryFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.NetSalaryFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.NetSalaryFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.GrossDividendsFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.GrossDividendsFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.NetDividendsFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.NetDividendsFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<PensionDefinedBenefits>(entity =>
+        {
+            entity.ToTable("dashboard_income_pension_defined_benefits");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+            
+            entity.Property(e => e.StartAge)
+                .IsRequired();
+            
+            entity.Property(e => e.BenefitsPre65)
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.BenefitsPre65FrequencyId)
+                .IsRequired();
+            
+            entity.Property(e => e.BenefitsPost65)
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.BenefitsPost65FrequencyId)
+                .IsRequired();
+            
+            entity.Property(e => e.PercentIndexedToInflation)
+                .IsRequired();
+            
+            entity.Property(e => e.PercentSurvivorBenefits)
+                .IsRequired();
+            
+            entity.Property(e => e.RrspAdjustment)
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.RrspAdjustmentFrequencyId)
+                .IsRequired();
+            
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            
+            entity.HasOne(e => e.Scenario)
+                .WithMany()
+                .HasForeignKey(e => e.ScenarioId)
+                .OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.BenefitsPre65Frequency)
+                .WithMany()
+                .HasForeignKey(e => e.BenefitsPre65FrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.BenefitsPost65Frequency)
+                .WithMany()
+                .HasForeignKey(e => e.BenefitsPost65FrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.RrspAdjustmentFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.RrspAdjustmentFrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<PensionDefinedContribution>(entity =>
+        {
+            entity.ToTable("dashboard_income_pension_defined_contribution");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+            
+            entity.Property(e => e.PercentOfSalaryEmployee)
+                .HasColumnType("numeric(5,2)");
+            
+            entity.Property(e => e.PercentOfSalaryEmployer)
+                .HasColumnType("numeric(5,2)");
+            
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            
+            entity.HasOne(e => e.Scenario)
+                .WithMany()
+                .HasForeignKey(e => e.ScenarioId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+        
+        modelBuilder.Entity<GroupRrsp>(entity =>
+        {
+            entity.ToTable("dashboard_income_group_rrsp");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+            
+            entity.Property(e => e.PercentOfSalaryEmployee)
+                .HasColumnType("numeric(5,2)");
+            
+            entity.Property(e => e.PercentOfSalaryEmployer)
+                .HasColumnType("numeric(5,2)");
+            
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            
+            entity.HasOne(e => e.Scenario)
+                .WithMany()
+                .HasForeignKey(e => e.ScenarioId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+        
+        modelBuilder.Entity<DefinedProfitSharing>(entity =>
+        {
+            entity.ToTable("dashboard_income_defined_profit_sharing");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+            
+            entity.Property(e => e.PercentOfSalaryEmployer)
+                .HasColumnType("numeric(5,2)");
+            
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            
+            entity.HasOne(e => e.Scenario)
+                .WithMany()
+                .HasForeignKey(e => e.ScenarioId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+        
+        modelBuilder.Entity<SharePurchasePlan>(entity =>
+        {
+            entity.ToTable("dashboard_income_share_purchase_plan");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+            
+            entity.Property(e => e.PercentOfSalaryEmployee)
+                .IsRequired()
+                .HasColumnType("numeric(5,2)");
+            
+            entity.Property(e => e.PercentOfSalaryEmployer)
+                .IsRequired()
+                .HasColumnType("numeric(5,2)");
+            
+            entity.Property(e => e.UseFlatAmountInsteadOfPercent)
+                .IsRequired();
+            
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            
+            entity.HasOne(e => e.Scenario)
+                .WithMany()
+                .HasForeignKey(e => e.ScenarioId)
+                .OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.PurchaseFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.PurchaseFrequencyId);
+            entity.HasOne(e => e.EmployerMatchFrequency)
+                .WithMany()
+                .HasForeignKey(e => e.EmployerMatchFrequencyId);
+        });
+
+        modelBuilder.Entity<OasCppIncome>(entity =>
+        {
+            entity.ToTable("dashboard_income_oas_cpp");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.IncomeLastYear)
+                .IsRequired()
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.Income2YearsAgo)
+                .IsRequired()
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.Income3YearsAgo)
+                .IsRequired()
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.Income4YearsAgo)
+                .IsRequired()
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.Income5YearsAgo)
+                .IsRequired()
+                .HasColumnType("numeric(18,2)");
+            
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            
+            entity.HasOne(e => e.Scenario)
+                .WithMany()
+                .HasForeignKey(e => e.ScenarioId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+        
+        modelBuilder.Entity<OtherIncomeOrBenefits>(entity =>
+        {
+            entity.ToTable("dashboard_income_other_income_or_benefits");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+            
+            entity.Property(e => e.Amount)
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.FrequencyId)
+                .IsRequired();
+            
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            
+
+            entity.HasOne(e => e.Frequency)
+                .WithMany()
+                .HasForeignKey(e => e.FrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
         });
 
         SeedRoleData(modelBuilder);
@@ -605,13 +985,13 @@ public class ApplicationDbContext : DbContext
     private static void SeedFrequencyData(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Frequency>().HasData(
-            new Frequency { Id = 1, Name = "Weekly", FrequencyPerYear = 52 },
-            new Frequency { Id = 2, Name = "Bi-Weekly", FrequencyPerYear = 26 },
-            new Frequency { Id = 3, Name = "Monthly", FrequencyPerYear = 12 },
-            new Frequency { Id = 4, Name = "Bi-Monthly", FrequencyPerYear = 6 },
-            new Frequency { Id = 5, Name = "Quarterly", FrequencyPerYear = 4 },
-            new Frequency { Id = 6, Name = "Semi-Annually", FrequencyPerYear = 2 },
-            new Frequency { Id = 7, Name = "Annually", FrequencyPerYear = 1 }
+            new Frequency { Id = (int)FrequencyEnum.Weekly,       Name = FrequencyEnum.Weekly.GetDescription(),       FrequencyPerYear = 52 },
+            new Frequency { Id = (int)FrequencyEnum.BiWeekly,     Name = FrequencyEnum.BiWeekly.GetDescription(),     FrequencyPerYear = 26 },
+            new Frequency { Id = (int)FrequencyEnum.Monthly,      Name = FrequencyEnum.Monthly.GetDescription(),      FrequencyPerYear = 12 },
+            new Frequency { Id = (int)FrequencyEnum.BiMonthly,    Name = FrequencyEnum.BiMonthly.GetDescription(),    FrequencyPerYear = 6  },
+            new Frequency { Id = (int)FrequencyEnum.Quarterly,    Name = FrequencyEnum.Quarterly.GetDescription(),    FrequencyPerYear = 4  },
+            new Frequency { Id = (int)FrequencyEnum.SemiAnnually, Name = FrequencyEnum.SemiAnnually.GetDescription(), FrequencyPerYear = 2  },
+            new Frequency { Id = (int)FrequencyEnum.Annually,     Name = FrequencyEnum.Annually.GetDescription(),     FrequencyPerYear = 1  }
         );
     }
 

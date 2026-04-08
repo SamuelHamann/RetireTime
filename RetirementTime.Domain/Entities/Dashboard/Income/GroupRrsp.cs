@@ -1,0 +1,16 @@
+namespace RetirementTime.Domain.Entities.Dashboard.Income;
+
+public class GroupRrsp
+{
+    public long Id { get; set; }
+    public long ScenarioId { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public decimal? PercentOfSalaryEmployee { get; set; }
+    public decimal? PercentOfSalaryEmployer { get; set; }
+    
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
+    
+    // Navigation properties
+    public DashboardScenario Scenario { get; set; } = null!;
+}
