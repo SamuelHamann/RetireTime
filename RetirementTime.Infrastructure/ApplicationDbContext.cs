@@ -6,6 +6,7 @@ using RetirementTime.Domain.Entities.Location;
 using RetirementTime.Domain.Entities.Onboarding;
 using RetirementTime.Domain.Entities.RealEstate;
 using RetirementTime.Domain.Entities.Common;
+using RetirementTime.Domain.Entities.Dashboard.PersistingIncome;
 
 namespace RetirementTime.Infrastructure;
 
@@ -925,6 +926,36 @@ public class ApplicationDbContext : DbContext
                 .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
             
 
+            entity.HasOne(e => e.Frequency)
+                .WithMany()
+                .HasForeignKey(e => e.FrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<RealEstateIncome>(entity =>
+        {
+            entity.ToTable("dashboard_income_real_estate");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.PropertyName)
+                .IsRequired()
+                .HasMaxLength(200);
+            
+            entity.Property(e => e.Amount)
+                .IsRequired()
+                .HasColumnType("numeric(18,2)");
+            
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            
+            entity.HasOne(e => e.Scenario)
+                .WithMany()
+                .HasForeignKey(e => e.ScenarioId)
+                .OnDelete(DeleteBehavior.Cascade);
             entity.HasOne(e => e.Frequency)
                 .WithMany()
                 .HasForeignKey(e => e.FrequencyId)
