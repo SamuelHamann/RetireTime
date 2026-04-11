@@ -44,4 +44,5 @@ public class EmploymentIncome
     public Frequency TaxDeductionFrequency { get; set; } = null!;
     public Frequency CppDeductionFrequency { get; set; } = null!;
     public Frequency OtherDeductionFrequency { get; set; } = null!;
+    public DashboardScenario Scenario { get; set; } = null!;
 }
