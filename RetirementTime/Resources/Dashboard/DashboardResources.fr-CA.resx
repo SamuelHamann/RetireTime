@@ -159,6 +159,33 @@
   <data name="Sidebar_Income" xml:space="preserve">
     <value>Revenus</value>
   </data>
+  <data name="Sidebar_Income_Employment" xml:space="preserve">
+    <value>Emploi</value>
+  </data>
+  <data name="Sidebar_Income_SelfEmployment" xml:space="preserve">
+    <value>Travail autonome</value>
+  </data>
+  <data name="Sidebar_Income_DefinedBenefits" xml:space="preserve">
+    <value>Pension à prestations déterminées</value>
+  </data>
+  <data name="Sidebar_Income_DefinedContribution" xml:space="preserve">
+    <value>Cotisation déterminée</value>
+  </data>
+  <data name="Sidebar_Income_GroupRrsp" xml:space="preserve">
+    <value>REER collectif</value>
+  </data>
+  <data name="Sidebar_Income_DefinedProfitSharing" xml:space="preserve">
+    <value>Participation définie aux bénéfices</value>
+  </data>
+  <data name="Sidebar_Income_SharePurchasePlan" xml:space="preserve">
+    <value>Régime d'achat d'actions</value>
+  </data>
+  <data name="Sidebar_Income_OasCpp" xml:space="preserve">
+    <value>SV &amp; RPC</value>
+  </data>
+  <data name="Sidebar_Income_Other" xml:space="preserve">
+    <value>Autre</value>
+  </data>
   <data name="Sidebar_Spending" xml:space="preserve">
     <value>Dépenses</value>
   </data>
@@ -173,6 +200,63 @@
   </data>
   <data name="Income_Subtitle" xml:space="preserve">
     <value>Suivez toutes vos sources de revenus pour votre scénario de retraite.</value>
+  </data>
+  <data name="Income_Next" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="Income_Employment_Title" xml:space="preserve">
+    <value>Revenus d'emploi</value>
+  </data>
+  <data name="Income_Employment_Subtitle" xml:space="preserve">
+    <value>Suivez votre salaire, vos commissions, vos primes et autres revenus d'emploi.</value>
+  </data>
+  <data name="Income_SelfEmployment_Title" xml:space="preserve">
+    <value>Revenus de travail autonome</value>
+  </data>
+  <data name="Income_SelfEmployment_Subtitle" xml:space="preserve">
+    <value>Suivez les revenus de votre propre entreprise, de vos activités freelance ou de vos dividendes.</value>
+  </data>
+  <data name="Income_DefinedBenefits_Title" xml:space="preserve">
+    <value>Pension à prestations déterminées</value>
+  </data>
+  <data name="Income_DefinedBenefits_Subtitle" xml:space="preserve">
+    <value>Suivez les prestations de pension garanties avant et après 65 ans.</value>
+  </data>
+  <data name="Income_DefinedContribution_Title" xml:space="preserve">
+    <value>Pension à cotisation déterminée</value>
+  </data>
+  <data name="Income_DefinedContribution_Subtitle" xml:space="preserve">
+    <value>Suivez les cotisations de l'employeur et de l'employé à votre régime à cotisation déterminée.</value>
+  </data>
+  <data name="Income_GroupRrsp_Title" xml:space="preserve">
+    <value>REER collectif</value>
+  </data>
+  <data name="Income_GroupRrsp_Subtitle" xml:space="preserve">
+    <value>Suivez les cotisations de l'employé et de l'employeur à votre REER collectif.</value>
+  </data>
+  <data name="Income_DefinedProfitSharing_Title" xml:space="preserve">
+    <value>Participation définie aux bénéfices</value>
+  </data>
+  <data name="Income_DefinedProfitSharing_Subtitle" xml:space="preserve">
+    <value>Suivez les cotisations de participation aux bénéfices de l'employeur en votre nom.</value>
+  </data>
+  <data name="Income_SharePurchasePlan_Title" xml:space="preserve">
+    <value>Régime d'achat d'actions</value>
+  </data>
+  <data name="Income_SharePurchasePlan_Subtitle" xml:space="preserve">
+    <value>Suivez les cotisations de l'employé et de l'employeur à votre régime d'achat d'actions.</value>
+  </data>
+  <data name="Income_OasCpp_Title" xml:space="preserve">
+    <value>SV &amp; RPC</value>
+  </data>
+  <data name="Income_OasCpp_Subtitle" xml:space="preserve">
+    <value>Estimez vos prestations de Sécurité de la vieillesse et du Régime de pensions du Canada.</value>
+  </data>
+  <data name="Income_Other_Title" xml:space="preserve">
+    <value>Autres revenus et prestations</value>
+  </data>
+  <data name="Income_Other_Subtitle" xml:space="preserve">
+    <value>Suivez toute autre source de revenus telle que les redevances, les loyers ou les prestations.</value>
   </data>
   <data name="Income_Remove" xml:space="preserve">
     <value>Supprimer</value>

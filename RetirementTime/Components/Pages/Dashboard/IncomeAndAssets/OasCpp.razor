@@ -1,0 +1,22 @@
+@page "/scenario/{scenarioId:long}/income/oas-cpp"
+@layout DashboardLayout
+@rendermode InteractiveServer
+
+<div class="intro-step">
+    <div class="step-header-animate">
+        <h1 class="font-headline text-5xl font-bold text-ne-primary mt-3 mb-2">@Localizer["Income_OasCpp_Title"]</h1>
+        <p class="font-body text-ne-on-surface-variant text-base leading-relaxed">@Localizer["Income_OasCpp_Subtitle"]</p>
+    </div>
+    <div class="step-body-animate">
+        <div class="bg-ne-surface-low rounded-xl px-8 pb-8 pt-5 shadow-sm">
+        </div>
+    </div>
+    <div class="income-next-row">
+        <button class="income-next-btn" @onclick="NavigateNext">
+            <span>@Localizer["Income_Next"]</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+        </button>
+    </div>
+</div>

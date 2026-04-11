@@ -41,6 +41,7 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddScoped<RetirementTime.Services.AuthService>();
 builder.Services.AddScoped<RetirementTime.Services.DelayedLoadingService>();
+builder.Services.AddScoped<RetirementTime.Services.IncomeNavigationService>();
 
 
 var app = builder.Build();

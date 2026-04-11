@@ -18,6 +18,7 @@ public partial class DashboardLayout : LayoutComponentBase
     internal string _initials = "?";
     private int _scenarioRefreshTrigger = 0;
 
+
     protected override async Task OnInitializedAsync()
     {
         var authenticatedUser = await AuthService.GetAuthenticatedUserAsync(AuthenticationState);

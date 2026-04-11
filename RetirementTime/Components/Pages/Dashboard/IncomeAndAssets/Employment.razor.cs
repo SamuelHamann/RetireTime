@@ -16,12 +16,13 @@ using RetirementTime.Services;
 
 namespace RetirementTime.Components.Pages.Dashboard.IncomeAndAssets;
 
-public partial class Income : ComponentBase
+public partial class Employment : ComponentBase
 {
     [Inject] private AuthService AuthService { get; set; } = default!;
     [Inject] private NavigationManager Navigation { get; set; } = default!;
     [Inject] private IStringLocalizer<DashboardResources> Localizer { get; set; } = default!;
     [Inject] private IMediator Mediator { get; set; } = default!;
+    [Inject] private IncomeNavigationService IncomeNavService { get; set; } = default!;
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
@@ -129,6 +130,8 @@ public partial class Income : ComponentBase
             Net = other.Net
         });
     }
+
+    private void NavigateNext() => IncomeNavService.NavigateNext();
 
     }
 

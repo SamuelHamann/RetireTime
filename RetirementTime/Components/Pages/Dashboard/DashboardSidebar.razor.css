@@ -233,3 +233,82 @@
     border-top: none;
     box-shadow: 0 -1px 0 0 rgba(222, 192, 183, 0.4);
 }
+
+/* Income sub-sub-expandable (the "Income" row that has the chevron) */
+.nav-item-sub-sub-expandable {
+    position: relative;
+}
+
+.nav-item-sub-sub-expandable .nav-chevron {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s ease;
+}
+
+.nav-item-sub-sub-expandable.expanded .nav-chevron {
+    transform: rotate(180deg);
+}
+
+/* Income dot submenu list */
+.nav-income-submenu {
+    list-style: none;
+    margin: 0;
+    padding: 0.1rem 0 0.25rem 0;
+}
+
+/* Each income sub-page item */
+.nav-income-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.45rem 1.25rem 0.45rem 5rem;
+    border: none;
+    background: transparent;
+    color: var(--ne-on-surface);
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s ease, opacity 0.15s ease;
+    opacity: 0.75;
+    border-right: 3px solid transparent;
+}
+
+.nav-income-item:hover {
+    background: var(--ne-surface-container);
+    opacity: 1;
+    color: var(--ne-on-surface);
+}
+
+.nav-income-item.active {
+    color: var(--ne-primary);
+    opacity: 1;
+    font-weight: 700;
+    border-right: 3px solid var(--ne-primary);
+    background: var(--ne-primary-tint);
+    border-radius: 0.5rem 0 0 0.5rem;
+}
+
+/* Dot indicator */
+.nav-income-dot {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ne-primary);
+    background: transparent;
+    transition: background 0.15s ease;
+}
+
+.nav-income-dot.filled {
+    background: var(--ne-primary);
+}
+

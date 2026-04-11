@@ -19,20 +19,22 @@ public partial class Step1PersonalInfo
     [Parameter] public EventCallback OnBack { get; set; }
 
     public PersonalInfoModel Model { get; set; } = new();
-    private bool _isInitialized = false;
+    private bool _isInitialized;
 
     private bool IsFormValid =>
         Model.DateOfBirth.HasValue &&
         !string.IsNullOrWhiteSpace(Model.CitizenshipStatus) &&
         !string.IsNullOrWhiteSpace(Model.MaritalStatus);
 
-    protected override async Task OnParametersSetAsync()
+    protected override Task OnParametersSetAsync()
     {
         if (!_isInitialized)
         {
             LoadInitialData();
             _isInitialized = true;
         }
+
+        return Task.CompletedTask;
     }
 
     private void LoadInitialData()
@@ -76,9 +78,10 @@ public partial class Step1PersonalInfo
         }
     }
 
-    private async Task OnFieldChanged()
+    private Task OnFieldChanged()
     {
         StateHasChanged();
+        return Task.CompletedTask;
     }
 
     private async Task HandleNext()

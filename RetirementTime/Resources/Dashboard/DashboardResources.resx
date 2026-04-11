@@ -159,6 +159,33 @@
   <data name="Sidebar_Income" xml:space="preserve">
     <value>Income</value>
   </data>
+  <data name="Sidebar_Income_Employment" xml:space="preserve">
+    <value>Employment</value>
+  </data>
+  <data name="Sidebar_Income_SelfEmployment" xml:space="preserve">
+    <value>Self-Employment</value>
+  </data>
+  <data name="Sidebar_Income_DefinedBenefits" xml:space="preserve">
+    <value>Defined Benefits Pension</value>
+  </data>
+  <data name="Sidebar_Income_DefinedContribution" xml:space="preserve">
+    <value>Defined Contribution</value>
+  </data>
+  <data name="Sidebar_Income_GroupRrsp" xml:space="preserve">
+    <value>Group RRSP</value>
+  </data>
+  <data name="Sidebar_Income_DefinedProfitSharing" xml:space="preserve">
+    <value>Defined Profit Sharing</value>
+  </data>
+  <data name="Sidebar_Income_SharePurchasePlan" xml:space="preserve">
+    <value>Share Purchase Plan</value>
+  </data>
+  <data name="Sidebar_Income_OasCpp" xml:space="preserve">
+    <value>OAS &amp; CPP</value>
+  </data>
+  <data name="Sidebar_Income_Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
   <data name="Sidebar_Spending" xml:space="preserve">
     <value>Spending</value>
   </data>
@@ -173,6 +200,63 @@
   </data>
   <data name="Income_Subtitle" xml:space="preserve">
     <value>Track all sources of income for your retirement scenario.</value>
+  </data>
+  <data name="Income_Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Income_Employment_Title" xml:space="preserve">
+    <value>Employment Income</value>
+  </data>
+  <data name="Income_Employment_Subtitle" xml:space="preserve">
+    <value>Track your salary, commissions, bonuses, and other employment income.</value>
+  </data>
+  <data name="Income_SelfEmployment_Title" xml:space="preserve">
+    <value>Self-Employment Income</value>
+  </data>
+  <data name="Income_SelfEmployment_Subtitle" xml:space="preserve">
+    <value>Track income from your own business, freelance work, or dividends.</value>
+  </data>
+  <data name="Income_DefinedBenefits_Title" xml:space="preserve">
+    <value>Defined Benefits Pension</value>
+  </data>
+  <data name="Income_DefinedBenefits_Subtitle" xml:space="preserve">
+    <value>Track guaranteed pension benefits payable before and after age 65.</value>
+  </data>
+  <data name="Income_DefinedContribution_Title" xml:space="preserve">
+    <value>Defined Contribution Pension</value>
+  </data>
+  <data name="Income_DefinedContribution_Subtitle" xml:space="preserve">
+    <value>Track employer and employee contributions to your defined contribution plan.</value>
+  </data>
+  <data name="Income_GroupRrsp_Title" xml:space="preserve">
+    <value>Group RRSP</value>
+  </data>
+  <data name="Income_GroupRrsp_Subtitle" xml:space="preserve">
+    <value>Track employee and employer contributions to your group RRSP.</value>
+  </data>
+  <data name="Income_DefinedProfitSharing_Title" xml:space="preserve">
+    <value>Defined Profit Sharing</value>
+  </data>
+  <data name="Income_DefinedProfitSharing_Subtitle" xml:space="preserve">
+    <value>Track employer profit sharing contributions on your behalf.</value>
+  </data>
+  <data name="Income_SharePurchasePlan_Title" xml:space="preserve">
+    <value>Share Purchase Plan</value>
+  </data>
+  <data name="Income_SharePurchasePlan_Subtitle" xml:space="preserve">
+    <value>Track employee and employer contributions to your share purchase plan.</value>
+  </data>
+  <data name="Income_OasCpp_Title" xml:space="preserve">
+    <value>OAS &amp; CPP</value>
+  </data>
+  <data name="Income_OasCpp_Subtitle" xml:space="preserve">
+    <value>Estimate your Old Age Security and Canada Pension Plan benefits.</value>
+  </data>
+  <data name="Income_Other_Title" xml:space="preserve">
+    <value>Other Income &amp; Benefits</value>
+  </data>
+  <data name="Income_Other_Subtitle" xml:space="preserve">
+    <value>Track any other income sources such as royalties, rental income, or benefits.</value>
   </data>
   <data name="Income_Remove" xml:space="preserve">
     <value>Remove</value>

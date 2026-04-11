@@ -69,10 +69,45 @@
                                     {
                                         <ul class="nav-sub-submenu">
                                             <li>
-                                                <button class="nav-item nav-item-sub-sub @IsActive($"scenario_{scenario.ScenarioId}_income")"
-                                                        @onclick="@(() => Navigation.NavigateTo($"/scenario/{scenario.ScenarioId}/income", forceLoad: false))">
-                                                    <span class="nav-label">@DashboardLocalizer["Sidebar_Income"]</span>
+                                                @{
+                                                    var isIncomeExpanded = _expandedIncomeSubMenu.Contains(scenario.ScenarioId);
+                                                }
+                                                <button class="nav-item nav-item-sub-sub nav-item-sub-sub-expandable @(isIncomeExpanded ? "expanded" : "")"
+                                                        @onclick="@(() => ToggleIncomeSubMenu(scenario.ScenarioId))">
+                                                    <span class="nav-label @(_activeScenarioId == scenario.ScenarioId && _activeView == "income" ? "nav-label-active" : "")">@DashboardLocalizer["Sidebar_Income"]</span>
+                                                    <span class="nav-chevron">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <polyline points="6 9 12 15 18 9"/>
+                                                        </svg>
+                                                    </span>
                                                 </button>
+                                                @if (isIncomeExpanded)
+                                                {
+                                                    <ul class="nav-income-submenu">
+                                                        @foreach (var (subView, labelKey) in new (string, string)[]
+                                                        {
+                                                            ("employment",           "Sidebar_Income_Employment"),
+                                                            ("self-employment",      "Sidebar_Income_SelfEmployment"),
+                                                            ("defined-benefits",     "Sidebar_Income_DefinedBenefits"),
+                                                            ("defined-contribution", "Sidebar_Income_DefinedContribution"),
+                                                            ("group-rrsp",           "Sidebar_Income_GroupRrsp"),
+                                                            ("defined-profit-sharing","Sidebar_Income_DefinedProfitSharing"),
+                                                            ("share-purchase-plan",  "Sidebar_Income_SharePurchasePlan"),
+                                                            ("oas-cpp",              "Sidebar_Income_OasCpp"),
+                                                            ("other",                "Sidebar_Income_Other"),
+                                                        })
+                                                        {
+                                                            var isSubActive = IsIncomeSubActive(scenario.ScenarioId, subView) == "active";
+                                                            <li>
+                                                                <button class="nav-item nav-income-item @(isSubActive ? "active" : "")"
+                                                                        @onclick="@(() => NavigateToIncomeSubPage(scenario.ScenarioId, subView))">
+                                                                    <span class="nav-income-dot @(isSubActive ? "filled" : "")"></span>
+                                                                    <span class="nav-label">@DashboardLocalizer[labelKey]</span>
+                                                                </button>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                }
                                             </li>
                                             <li>
                                                 <button class="nav-item nav-item-sub-sub @IsActive($"scenario_{scenario.ScenarioId}_spending")"
