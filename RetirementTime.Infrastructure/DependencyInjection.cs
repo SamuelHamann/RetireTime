@@ -50,6 +50,7 @@ public static class DependencyInjection
         services.AddScoped<IAssetsPhysicalAssetRepository, AssetsPhysicalAssetRepository>();
         services.AddScoped<IGenericDebtRepository, GenericDebtRepository>();
         services.AddScoped<INetWorthHistoryRepository, NetWorthHistoryRepository>();
+        services.AddScoped<ISpendingRepository, SpendingRepository>();
 
         return services;
     }

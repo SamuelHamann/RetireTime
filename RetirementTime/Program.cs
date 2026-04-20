@@ -44,6 +44,7 @@ builder.Services.AddScoped<RetirementTime.Services.DelayedLoadingService>();
 builder.Services.AddScoped<RetirementTime.Services.IncomeNavigationService>();
 builder.Services.AddScoped<RetirementTime.Services.AssetNavigationService>();
 builder.Services.AddScoped<RetirementTime.Services.DebtNavigationService>();
+builder.Services.AddScoped<RetirementTime.Services.SpendingNavigationService>();
 
 
 var app = builder.Build();

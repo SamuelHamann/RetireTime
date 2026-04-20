@@ -18,6 +18,7 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
     [Inject] private IncomeNavigationService IncomeNavService { get; set; } = null!;
     [Inject] private AssetNavigationService AssetNavService { get; set; } = null!;
     [Inject] private DebtNavigationService DebtNavService { get; set; } = null!;
+    [Inject] private SpendingNavigationService SpendingNavService { get; set; } = null!;
 
     [Parameter] public bool HasCompletedIntro { get; set; }
     [Parameter] public long UserId { get; set; }
@@ -30,6 +31,7 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
     private HashSet<long> _expandedIncomeSubMenu = [];
     private HashSet<long> _expandedAssetsSubMenu = [];
     private HashSet<long> _expandedDebtSubMenu = [];
+    private HashSet<long> _expandedSpendingSubMenu = [];
     private HashSet<long> _expandedScenarioOverview = [];
     private int _lastRefreshTrigger = -1;
     private bool _isCreatingScenario;
@@ -41,6 +43,7 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
     private string _activeIncomeSubView = string.Empty;
     private string _activeAssetsSubView = string.Empty;
     private string _activeDebtSubView = string.Empty;
+    private string _activeSpendingSubView = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
@@ -49,6 +52,7 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
         IncomeNavService.Register(NavigateNextIncomeStep);
         AssetNavService.Register(NavigateNextAssetStep);
         DebtNavService.Register(NavigateNextDebtStep);
+        SpendingNavService.Register(NavigateNextSpendingStep);
         UpdateActiveStateFromUrl();
     }
 
@@ -167,6 +171,22 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
                 else if (_activeView != "debt")
                 {
                     _activeDebtSubView = string.Empty;
+                }
+
+                // Handle spending sub-view: /scenario/{id}/spending/{subview}
+                if (_activeView == "spending" && parts.Length >= 4)
+                {
+                    _activeSpendingSubView = parts[3];
+                    _expandedSpendingSubMenu.Add(scenarioId);
+                }
+                else if (_activeView == "spending" && parts.Length == 3)
+                {
+                    _activeSpendingSubView = "living-expenses";
+                    _expandedSpendingSubMenu.Add(scenarioId);
+                }
+                else if (_activeView != "spending")
+                {
+                    _activeSpendingSubView = string.Empty;
                 }
             }
         }
@@ -293,6 +313,42 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
         InvokeAsync(StateHasChanged);
     }
 
+    private void ToggleSpendingSubMenu(long scenarioId)
+    {
+        if (!_expandedSpendingSubMenu.Add(scenarioId))
+            _expandedSpendingSubMenu.Remove(scenarioId);
+    }
+
+    private void NavigateToSpendingSubPage(long scenarioId, string subView)
+    {
+        _activeSpendingSubView = subView;
+        _activeView = "spending";
+        _activeScenarioId = scenarioId;
+        Navigation.NavigateTo($"/scenario/{scenarioId}/spending/{subView}", forceLoad: false);
+        InvokeAsync(StateHasChanged);
+    }
+
+    private string IsSpendingSubActive(long scenarioId, string subView)
+    {
+        if (_activeScenarioId == scenarioId && _activeView == "spending" && _activeSpendingSubView == subView)
+            return "active";
+        return string.Empty;
+    }
+
+    private static readonly string[] SpendingSubViewOrder =
+    [
+        "living-expenses", "discretionary-expenses", "debt-repayments",
+        "assets-expenses", "other-expenses"
+    ];
+
+    public void NavigateNextSpendingStep()
+    {
+        if (_activeScenarioId is null) return;
+        var idx = Array.IndexOf(SpendingSubViewOrder, _activeSpendingSubView);
+        if (idx >= 0 && idx < SpendingSubViewOrder.Length - 1)
+            NavigateToSpendingSubPage(_activeScenarioId.Value, SpendingSubViewOrder[idx + 1]);
+    }
+
     private static readonly string[] IncomeSubViewOrder =
     [
         "employment", "self-employment", "defined-benefits",
@@ -402,5 +458,6 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
         IncomeNavService.Unregister(NavigateNextIncomeStep);
         AssetNavService.Unregister(NavigateNextAssetStep);
         DebtNavService.Unregister(NavigateNextDebtStep);
+        SpendingNavService.Unregister(NavigateNextSpendingStep);
     }
 }

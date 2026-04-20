@@ -1,0 +1,86 @@
+@page "/scenario/{scenarioId:long}/spending/living-expenses"
+@layout DashboardLayout
+@rendermode InteractiveServer
+@using RetirementTime.Models.Spending
+
+<div class="intro-step">
+    <div class="step-header-animate">
+        <h1 class="font-headline text-5xl font-bold text-ne-primary mt-3 mb-2">@Localizer["Spending_Living_Title"]</h1>
+        <p class="font-body text-ne-on-surface-variant text-base leading-relaxed">@Localizer["Spending_Living_Subtitle"]</p>
+    </div>
+    <div class="step-body-animate">
+        <div class="bg-ne-surface-low rounded-xl px-8 pb-8 pt-5 shadow-sm">
+            <div class="income-section-header">
+                <h2 class="assets-section-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    @Localizer["Spending_Living_SectionTitle"]
+                </h2>
+            </div>
+
+            @if (_isLoading)
+            {
+                <div class="intro-loading"><p>Loading...</p></div>
+            }
+            else
+            {
+                <div class="income-fields-grid">
+                    @RenderAmountFrequencyRow("Spending_Living_RentOrMortgage", _model.RentOrMortgage, _model.RentOrMortgageFrequencyId,
+                        v => { _model.RentOrMortgage = v; }, f => { _model.RentOrMortgageFrequencyId = f; })
+                    @RenderAmountFrequencyRow("Spending_Living_Food", _model.Food, _model.FoodFrequencyId,
+                        v => { _model.Food = v; }, f => { _model.FoodFrequencyId = f; })
+                    @RenderAmountFrequencyRow("Spending_Living_Utilities", _model.Utilities, _model.UtilitiesFrequencyId,
+                        v => { _model.Utilities = v; }, f => { _model.UtilitiesFrequencyId = f; })
+                    @RenderAmountFrequencyRow("Spending_Living_Insurance", _model.Insurance, _model.InsuranceFrequencyId,
+                        v => { _model.Insurance = v; }, f => { _model.InsuranceFrequencyId = f; })
+                    @RenderAmountFrequencyRow("Spending_Living_Gas", _model.Gas, _model.GasFrequencyId,
+                        v => { _model.Gas = v; }, f => { _model.GasFrequencyId = f; })
+                    @RenderAmountFrequencyRow("Spending_Living_HomeMaintenance", _model.HomeMaintenance, _model.HomeMaintenanceFrequencyId,
+                        v => { _model.HomeMaintenance = v; }, f => { _model.HomeMaintenanceFrequencyId = f; })
+                    @RenderAmountFrequencyRow("Spending_Living_Cellphone", _model.Cellphone, _model.CellphoneFrequencyId,
+                        v => { _model.Cellphone = v; }, f => { _model.CellphoneFrequencyId = f; })
+                    @RenderAmountFrequencyRow("Spending_Living_HealthSpendings", _model.HealthSpendings, _model.HealthSpendingsFrequencyId,
+                        v => { _model.HealthSpendings = v; }, f => { _model.HealthSpendingsFrequencyId = f; })
+                    @RenderAmountFrequencyRow("Spending_Living_OtherLivingExpenses", _model.OtherLivingExpenses, _model.OtherLivingExpensesFrequencyId,
+                        v => { _model.OtherLivingExpenses = v; }, f => { _model.OtherLivingExpensesFrequencyId = f; })
+                </div>
+            }
+        </div>
+    </div>
+    <div class="income-next-row">
+        <button class="income-next-btn" @onclick="NavigateNext">
+            <span>@Localizer["Spending_Next"]</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+        </button>
+    </div>
+</div>
+
+@code {
+    private RenderFragment RenderAmountFrequencyRow(string labelKey, decimal? amount, int frequencyId,
+        Action<decimal?> onAmountChange, Action<int> onFrequencyChange) =>
+        @<div class="spending-field-row">
+            <div class="field-group">
+                <label class="field-question">@Localizer[labelKey]</label>
+                <div class="money-input-wrapper">
+                    <input type="number" class="field-input money-input"
+                           value="@amount"
+                           @onchange="async e => { onAmountChange(e.Value is string s && decimal.TryParse(s, out var v) ? v : null); await Save(); }"
+                            />
+                </div>
+            </div>
+            <div class="field-group">
+                <label class="field-question">@Localizer["Spending_Field_Frequency"]</label>
+                <select class="field-select"
+                        value="@frequencyId"
+                        @onchange="async e => { if (int.TryParse(e.Value?.ToString(), out var v)) { onFrequencyChange(v); await Save(); } }">
+                    @foreach (var f in _frequencies)
+                    {
+                        <option value="@f.Id">@f.Name</option>
+                    }
+                </select>
+            </div>
+        </div>;
+}

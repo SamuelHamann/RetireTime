@@ -189,6 +189,21 @@
   <data name="Sidebar_Spending" xml:space="preserve">
     <value>Dépenses</value>
   </data>
+  <data name="Sidebar_Spending_LivingExpenses" xml:space="preserve">
+    <value>Dépenses courantes</value>
+  </data>
+  <data name="Sidebar_Spending_DiscretionaryExpenses" xml:space="preserve">
+    <value>Dépenses discrétionnaires</value>
+  </data>
+  <data name="Sidebar_Spending_DebtRepayments" xml:space="preserve">
+    <value>Remboursements de dettes</value>
+  </data>
+  <data name="Sidebar_Spending_AssetsExpenses" xml:space="preserve">
+    <value>Dépenses liées aux actifs</value>
+  </data>
+  <data name="Sidebar_Spending_OtherExpenses" xml:space="preserve">
+    <value>Autres dépenses</value>
+  </data>
   <data name="Sidebar_NewScenario" xml:space="preserve">
     <value>Nouveau scénario</value>
   </data>
@@ -914,5 +929,175 @@
   </data>
   <data name="Debt_CarLoans_DefaultName" xml:space="preserve">
     <value>Véhicule</value>
+  </data>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       DÉPENSES — Champs communs
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <data name="Spending_Next" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="Spending_Remove" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Spending_Field_Name" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Spending_Field_Amount" xml:space="preserve">
+    <value>Montant</value>
+  </data>
+  <data name="Spending_Field_Expense" xml:space="preserve">
+    <value>Montant de la dépense</value>
+  </data>
+  <data name="Spending_Field_Frequency" xml:space="preserve">
+    <value>Fréquence</value>
+  </data>
+
+  <!-- Dépenses courantes -->
+  <data name="Spending_Living_Title" xml:space="preserve">
+    <value>Dépenses courantes</value>
+  </data>
+  <data name="Spending_Living_Subtitle" xml:space="preserve">
+    <value>Suivez vos coûts de vie quotidiens.</value>
+  </data>
+  <data name="Spending_Living_SectionTitle" xml:space="preserve">
+    <value>Dépenses courantes</value>
+  </data>
+  <data name="Spending_Living_RentOrMortgage" xml:space="preserve">
+    <value>Loyer ou hypothèque</value>
+  </data>
+  <data name="Spending_Living_Food" xml:space="preserve">
+    <value>Alimentation et épicerie</value>
+  </data>
+  <data name="Spending_Living_Utilities" xml:space="preserve">
+    <value>Services publics</value>
+  </data>
+  <data name="Spending_Living_Insurance" xml:space="preserve">
+    <value>Assurances</value>
+  </data>
+  <data name="Spending_Living_Gas" xml:space="preserve">
+    <value>Essence</value>
+  </data>
+  <data name="Spending_Living_HomeMaintenance" xml:space="preserve">
+    <value>Entretien domicile</value>
+  </data>
+  <data name="Spending_Living_Cellphone" xml:space="preserve">
+    <value>Téléphone cellulaire</value>
+  </data>
+  <data name="Spending_Living_HealthSpendings" xml:space="preserve">
+    <value>Dépenses de santé</value>
+  </data>
+  <data name="Spending_Living_OtherLivingExpenses" xml:space="preserve">
+    <value>Autres dépenses courantes</value>
+  </data>
+
+  <!-- Dépenses discrétionnaires -->
+  <data name="Spending_Discretionary_Title" xml:space="preserve">
+    <value>Dépenses discrétionnaires</value>
+  </data>
+  <data name="Spending_Discretionary_Subtitle" xml:space="preserve">
+    <value>Suivez vos dépenses de style de vie et de loisirs.</value>
+  </data>
+  <data name="Spending_Discretionary_SectionTitle" xml:space="preserve">
+    <value>Dépenses discrétionnaires</value>
+  </data>
+  <data name="Spending_Discretionary_GymMembership" xml:space="preserve">
+    <value>Abonnement gym</value>
+  </data>
+  <data name="Spending_Discretionary_Subscriptions" xml:space="preserve">
+    <value>Abonnements</value>
+  </data>
+  <data name="Spending_Discretionary_EatingOut" xml:space="preserve">
+    <value>Restaurants</value>
+  </data>
+  <data name="Spending_Discretionary_Entertainment" xml:space="preserve">
+    <value>Divertissements</value>
+  </data>
+  <data name="Spending_Discretionary_Travel" xml:space="preserve">
+    <value>Voyages</value>
+  </data>
+  <data name="Spending_Discretionary_CharitableDonations" xml:space="preserve">
+    <value>Dons caritatifs</value>
+  </data>
+  <data name="Spending_Discretionary_OtherDiscretionaryExpenses" xml:space="preserve">
+    <value>Autres dépenses discrétionnaires</value>
+  </data>
+
+  <!-- Remboursements de dettes -->
+  <data name="Spending_DebtRepayments_Title" xml:space="preserve">
+    <value>Remboursements de dettes</value>
+  </data>
+  <data name="Spending_DebtRepayments_Subtitle" xml:space="preserve">
+    <value>Suivez vos paiements sur vos dettes à chaque période.</value>
+  </data>
+  <data name="Spending_DebtRepayments_SectionTitle" xml:space="preserve">
+    <value>Remboursements de dettes</value>
+  </data>
+  <data name="Spending_DebtRepayments_Hint" xml:space="preserve">
+    <value>Une entrée de remboursement a été créée pour chacune de vos dettes. Ajoutez des remboursements supplémentaires ci-dessous.</value>
+  </data>
+  <data name="Spending_DebtRepayments_Item" xml:space="preserve">
+    <value>Remboursement #{0}</value>
+  </data>
+  <data name="Spending_DebtRepayments_AddItem" xml:space="preserve">
+    <value>Ajouter un remboursement</value>
+  </data>
+  <data name="Spending_DebtRepayments_DefaultName" xml:space="preserve">
+    <value>Remboursement de dette</value>
+  </data>
+
+  <!-- Dépenses liées aux actifs -->
+  <data name="Spending_AssetsExpenses_Title" xml:space="preserve">
+    <value>Dépenses liées aux actifs</value>
+  </data>
+  <data name="Spending_AssetsExpenses_Subtitle" xml:space="preserve">
+    <value>Suivez les coûts associés à vos actifs.</value>
+  </data>
+  <data name="Spending_AssetsExpenses_SectionTitle" xml:space="preserve">
+    <value>Dépenses liées aux actifs</value>
+  </data>
+  <data name="Spending_AssetsExpenses_Hint" xml:space="preserve">
+    <value>Une entrée de dépense a été créée pour chacun de vos actifs. Ajoutez des dépenses supplémentaires ci-dessous.</value>
+  </data>
+  <data name="Spending_AssetsExpenses_Item" xml:space="preserve">
+    <value>Dépense #{0}</value>
+  </data>
+  <data name="Spending_AssetsExpenses_AddItem" xml:space="preserve">
+    <value>Ajouter une dépense</value>
+  </data>
+  <data name="Spending_AssetsExpenses_DefaultName" xml:space="preserve">
+    <value>Dépense d'actif</value>
+  </data>
+  <data name="Spending_AssetsExpenses_Home" xml:space="preserve">
+    <value>Résidence principale</value>
+  </data>
+  <data name="Spending_AssetsExpenses_InvestmentProperty" xml:space="preserve">
+    <value>Immeuble de placement</value>
+  </data>
+  <data name="Spending_AssetsExpenses_InvestmentAccount" xml:space="preserve">
+    <value>Compte de placement</value>
+  </data>
+  <data name="Spending_AssetsExpenses_PhysicalAsset" xml:space="preserve">
+    <value>Actif physique</value>
+  </data>
+
+  <!-- Autres dépenses -->
+  <data name="Spending_Other_Title" xml:space="preserve">
+    <value>Autres dépenses</value>
+  </data>
+  <data name="Spending_Other_Subtitle" xml:space="preserve">
+    <value>Ajoutez toute dépense non couverte dans les catégories précédentes.</value>
+  </data>
+  <data name="Spending_Other_SectionTitle" xml:space="preserve">
+    <value>Autres dépenses</value>
+  </data>
+  <data name="Spending_Other_Hint" xml:space="preserve">
+    <value>Ajoutez les dépenses qui ne correspondent pas aux autres catégories.</value>
+  </data>
+  <data name="Spending_Other_Item" xml:space="preserve">
+    <value>Dépense #{0}</value>
+  </data>
+  <data name="Spending_Other_AddItem" xml:space="preserve">
+    <value>Ajouter une dépense</value>
   </data>
 </root>

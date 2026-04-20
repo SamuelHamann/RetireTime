@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RetirementTime.Infrastructure;
@@ -11,9 +12,11 @@ using RetirementTime.Infrastructure;
 namespace RetirementTime.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260420200920_AddSpendingDebtRepaymentGenericDebtFK")]
+    partial class AddSpendingDebtRepaymentGenericDebtFK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1541,18 +1544,6 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<long?>("AssetsHomeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("AssetsInvestmentAccountId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("AssetsInvestmentPropertyId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("AssetsPhysicalAssetId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
@@ -1578,14 +1569,6 @@ namespace RetirementTime.Infrastructure.Migrations
                         .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AssetsHomeId");
-
-                    b.HasIndex("AssetsInvestmentAccountId");
-
-                    b.HasIndex("AssetsInvestmentPropertyId");
-
-                    b.HasIndex("AssetsPhysicalAssetId");
 
                     b.HasIndex("FrequencyId");
 
@@ -3176,27 +3159,6 @@ namespace RetirementTime.Infrastructure.Migrations
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Spending.SpendingAssetsExpense", b =>
                 {
-                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Asset.AssetsHome", "AssetsHome")
-                        .WithMany()
-                        .HasForeignKey("AssetsHomeId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Asset.AssetsInvestmentAccount", "AssetsInvestmentAccount")
-                        .WithMany()
-                        .HasForeignKey("AssetsInvestmentAccountId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Asset.AssetsInvestmentProperty", "AssetsInvestmentProperty")
-                        .WithMany()
-                        .HasForeignKey("AssetsInvestmentPropertyId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .HasConstraintName("FK_dashboard_spending_assets_expense_dashboard_assets_investm~1");
-
-                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Asset.AssetsPhysicalAsset", "AssetsPhysicalAsset")
-                        .WithMany()
-                        .HasForeignKey("AssetsPhysicalAssetId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.HasOne("RetirementTime.Domain.Entities.Common.Frequency", "Frequency")
                         .WithMany()
                         .HasForeignKey("FrequencyId")
@@ -3208,14 +3170,6 @@ namespace RetirementTime.Infrastructure.Migrations
                         .HasForeignKey("ScenarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("AssetsHome");
-
-                    b.Navigation("AssetsInvestmentAccount");
-
-                    b.Navigation("AssetsInvestmentProperty");
-
-                    b.Navigation("AssetsPhysicalAsset");
 
                     b.Navigation("Frequency");
 

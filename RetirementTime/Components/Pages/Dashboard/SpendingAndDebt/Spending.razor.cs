@@ -29,6 +29,8 @@ public partial class Spending : ComponentBase, IDisposable
         _userId = authenticatedUser.UserId;
 
         LoadingService.StopLoading();
+
+        Navigation.NavigateTo($"/scenario/{ScenarioId}/spending/living-expenses");
     }
 
     public void Dispose()

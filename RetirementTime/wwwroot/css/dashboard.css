@@ -1166,6 +1166,11 @@ input[type="number"].ne-input { -moz-appearance: textfield; }
     border-color: rgba(186, 26, 26, 0.55);
 }
 
+/* Spending pages – one row per expense field: [amount] [frequency] */
+.spending-field-row {
+    display: contents;
+}
+
 .income-fields-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1400,7 +1405,7 @@ input[type="number"].ne-input { -moz-appearance: textfield; }
 }
 .debt-asset-context svg {
     width: 1rem; height: 1rem;
-    stroke: var(--ne-primary);
+    stroke: var(--ne-primary);s
     flex-shrink: 0;
 }
 .debt-asset-context-value {
@@ -1415,7 +1420,7 @@ input[type="number"].ne-input { -moz-appearance: textfield; }
     border-radius: 0.75rem;
     padding: 1rem 1.25rem 1rem;
     margin-bottom: 1.25rem;
-    background: var(--ne-surface-white);
+    background: var(--ne-surface-container);
 }
 .debt-asset-group-header {
     display: flex;

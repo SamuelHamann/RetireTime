@@ -9,6 +9,7 @@ using RetirementTime.Domain.Entities.RealEstate;
 using RetirementTime.Domain.Entities.Common;
 using RetirementTime.Domain.Entities.Dashboard.Asset;
 using RetirementTime.Domain.Entities.Dashboard.PersistingIncome;
+using RetirementTime.Domain.Entities.Dashboard.Spending;
 
 namespace RetirementTime.Infrastructure;
 
@@ -1488,6 +1489,151 @@ public class ApplicationDbContext : DbContext
             entity.HasIndex(e => e.ScenarioId);
         });
 
+        modelBuilder.Entity<SpendingLivingExpenses>(entity =>
+        {
+            entity.ToTable("dashboard_spending_living_expenses");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.RentOrMortgage).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.RentOrMortgageFrequencyId).IsRequired();
+            entity.Property(e => e.Food).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.FoodFrequencyId).IsRequired();
+            entity.Property(e => e.Utilities).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.UtilitiesFrequencyId).IsRequired();
+            entity.Property(e => e.Insurance).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.InsuranceFrequencyId).IsRequired();
+            entity.Property(e => e.Gas).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.GasFrequencyId).IsRequired();
+            entity.Property(e => e.HomeMaintenance).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.HomeMaintenanceFrequencyId).IsRequired();
+            entity.Property(e => e.Cellphone).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.CellphoneFrequencyId).IsRequired();
+            entity.Property(e => e.HealthSpendings).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.HealthSpendingsFrequencyId).IsRequired();
+            entity.Property(e => e.OtherLivingExpenses).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.OtherLivingExpensesFrequencyId).IsRequired();
+
+            entity.Property(e => e.CreatedAt).IsRequired().HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt).IsRequired().HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.Scenario).WithMany().HasForeignKey(e => e.ScenarioId).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.RentOrMortgageFrequency).WithMany().HasForeignKey(e => e.RentOrMortgageFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.FoodFrequency).WithMany().HasForeignKey(e => e.FoodFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.UtilitiesFrequency).WithMany().HasForeignKey(e => e.UtilitiesFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.InsuranceFrequency).WithMany().HasForeignKey(e => e.InsuranceFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.GasFrequency).WithMany().HasForeignKey(e => e.GasFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.HomeMaintenanceFrequency).WithMany().HasForeignKey(e => e.HomeMaintenanceFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.CellphoneFrequency).WithMany().HasForeignKey(e => e.CellphoneFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.HealthSpendingsFrequency).WithMany().HasForeignKey(e => e.HealthSpendingsFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.OtherLivingExpensesFrequency).WithMany().HasForeignKey(e => e.OtherLivingExpensesFrequencyId).OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasIndex(e => e.ScenarioId);
+        });
+
+        modelBuilder.Entity<SpendingDiscretionaryExpenses>(entity =>
+        {
+            entity.ToTable("dashboard_spending_discretionary_expenses");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.GymMembership).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.GymMembershipFrequencyId).IsRequired();
+            entity.Property(e => e.Subscriptions).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.SubscriptionsFrequencyId).IsRequired();
+            entity.Property(e => e.EatingOut).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.EatingOutFrequencyId).IsRequired();
+            entity.Property(e => e.Entertainment).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.EntertainmentFrequencyId).IsRequired();
+            entity.Property(e => e.Travel).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.TravelFrequencyId).IsRequired();
+            entity.Property(e => e.CharitableDonations).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.CharitableDonationsFrequencyId).IsRequired();
+            entity.Property(e => e.OtherDiscretionaryExpenses).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.OtherDiscretionaryExpensesFrequencyId).IsRequired();
+
+            entity.Property(e => e.CreatedAt).IsRequired().HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt).IsRequired().HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.Scenario).WithMany().HasForeignKey(e => e.ScenarioId).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.GymMembershipFrequency).WithMany().HasForeignKey(e => e.GymMembershipFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.SubscriptionsFrequency).WithMany().HasForeignKey(e => e.SubscriptionsFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.EatingOutFrequency).WithMany().HasForeignKey(e => e.EatingOutFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.EntertainmentFrequency).WithMany().HasForeignKey(e => e.EntertainmentFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.TravelFrequency).WithMany().HasForeignKey(e => e.TravelFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.CharitableDonationsFrequency).WithMany().HasForeignKey(e => e.CharitableDonationsFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.OtherDiscretionaryExpensesFrequency).WithMany().HasForeignKey(e => e.OtherDiscretionaryExpensesFrequencyId).OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasIndex(e => e.ScenarioId);
+        });
+
+        modelBuilder.Entity<SpendingDebtRepayment>(entity =>
+        {
+            entity.ToTable("dashboard_spending_debt_repayment");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.Amount).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.FrequencyId).IsRequired();
+            entity.Property(e => e.GenericDebtId);
+
+            entity.Property(e => e.CreatedAt).IsRequired().HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt).IsRequired().HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.Scenario).WithMany().HasForeignKey(e => e.ScenarioId).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.Frequency).WithMany().HasForeignKey(e => e.FrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.GenericDebt).WithMany().HasForeignKey(e => e.GenericDebtId).OnDelete(DeleteBehavior.SetNull);
+
+            entity.HasIndex(e => e.ScenarioId);
+            entity.HasIndex(e => e.GenericDebtId);
+        });
+
+        modelBuilder.Entity<SpendingAssetsExpense>(entity =>
+        {
+            entity.ToTable("dashboard_spending_assets_expense");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.Expense).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.FrequencyId).IsRequired();
+            entity.Property(e => e.AssetsHomeId);
+            entity.Property(e => e.AssetsInvestmentPropertyId);
+            entity.Property(e => e.AssetsInvestmentAccountId);
+            entity.Property(e => e.AssetsPhysicalAssetId);
+
+            entity.Property(e => e.CreatedAt).IsRequired().HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt).IsRequired().HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.Scenario).WithMany().HasForeignKey(e => e.ScenarioId).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.Frequency).WithMany().HasForeignKey(e => e.FrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.AssetsHome).WithMany().HasForeignKey(e => e.AssetsHomeId).OnDelete(DeleteBehavior.SetNull);
+            entity.HasOne(e => e.AssetsInvestmentProperty).WithMany().HasForeignKey(e => e.AssetsInvestmentPropertyId).OnDelete(DeleteBehavior.SetNull);
+            entity.HasOne(e => e.AssetsInvestmentAccount).WithMany().HasForeignKey(e => e.AssetsInvestmentAccountId).OnDelete(DeleteBehavior.SetNull);
+            entity.HasOne(e => e.AssetsPhysicalAsset).WithMany().HasForeignKey(e => e.AssetsPhysicalAssetId).OnDelete(DeleteBehavior.SetNull);
+
+            entity.HasIndex(e => e.ScenarioId);
+            entity.HasIndex(e => e.AssetsHomeId);
+            entity.HasIndex(e => e.AssetsInvestmentPropertyId);
+            entity.HasIndex(e => e.AssetsInvestmentAccountId);
+            entity.HasIndex(e => e.AssetsPhysicalAssetId);
+        });
+
+        modelBuilder.Entity<SpendingOtherExpense>(entity =>
+        {
+            entity.ToTable("dashboard_spending_other_expense");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.Amount).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.FrequencyId).IsRequired();
+
+            entity.Property(e => e.CreatedAt).IsRequired().HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt).IsRequired().HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.Scenario).WithMany().HasForeignKey(e => e.ScenarioId).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.Frequency).WithMany().HasForeignKey(e => e.FrequencyId).OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasIndex(e => e.ScenarioId);
+        });
+
         SeedRoleData(modelBuilder);
         SeedLocationData(modelBuilder);
         SeedLanguageData(modelBuilder);
@@ -1661,5 +1807,12 @@ public class ApplicationDbContext : DbContext
 
     // Dashboard — Net Worth
     public DbSet<NetWorthHistory> NetWorthHistories { get; set; }
+
+    // Dashboard — Spending
+    public DbSet<SpendingLivingExpenses> SpendingLivingExpenses { get; set; }
+    public DbSet<SpendingDiscretionaryExpenses> SpendingDiscretionaryExpenses { get; set; }
+    public DbSet<SpendingDebtRepayment> SpendingDebtRepayments { get; set; }
+    public DbSet<SpendingAssetsExpense> SpendingAssetsExpenses { get; set; }
+    public DbSet<SpendingOtherExpense> SpendingOtherExpenses { get; set; }
 
 }
