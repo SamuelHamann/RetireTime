@@ -6,6 +6,13 @@ namespace RetirementTime.Infrastructure.Repositories;
 
 public class DashboardScenarioRepository(ApplicationDbContext context) : IDashboardScenarioRepository
 {
+    public async Task<List<long>> GetAllScenarioIdsAsync()
+    {
+        return await context.DashboardScenarios
+            .Select(s => s.ScenarioId)
+            .ToListAsync();
+    }
+
     public async Task<List<DashboardScenario>> GetAllByUserIdAsync(long userId)
     {
         return await context.DashboardScenarios

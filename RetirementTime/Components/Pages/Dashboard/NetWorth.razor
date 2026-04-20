@@ -1,0 +1,232 @@
+@page "/scenario/{scenarioId:long}/net-worth"
+@layout DashboardLayout
+@rendermode InteractiveServer
+@using RetirementTime.Application.Features.Dashboard.NetWorth.GetNetWorth
+
+@if (_isLoading)
+{
+    <div class="intro-loading"><p>Loading...</p></div>
+}
+else
+{
+    <div class="step-header-animate" style="padding-top: 1.25rem; padding-bottom: 1.25rem;">
+        <h1 class="font-headline text-5xl font-bold text-ne-primary mt-3 mb-2">@Localizer["NetWorth_Title"]</h1>
+        <p class="font-body text-ne-on-surface-variant text-base leading-relaxed">@Localizer["NetWorth_Subtitle"]</p>
+    </div>
+
+    <div class="step-body-animate">
+        <div class="nw-page">
+
+                @* ── Total Net Worth ─────────────────────────────────── *@
+                <section class="nw-hero">
+            <div>
+                <span class="nw-hero-label">@Localizer["NetWorth_ConsolidatedValue"]</span>
+                <h1 class="nw-hero-value">@FormatCurrency(_netWorth!.TotalNetWorth)</h1>
+            </div>
+        </section>
+
+        @* ── Category Cards ──────────────────────────────────── *@
+        <section class="nw-cards">
+            <div class="nw-card">
+                <div class="nw-card-inner">
+                    <div class="nw-card-top">
+                        <div class="nw-card-icon nw-card-icon--blue">
+                            <span class="material-symbols-outlined" style="font-size:20px;">home</span>
+                        </div>
+                        <span class="nw-card-alloc">@GetCategoryAllocation("Real Estate")</span>
+                    </div>
+                    <div class="nw-card-bottom">
+                        <p class="nw-card-label">@Localizer["NetWorth_Category_RealEstate"]</p>
+                        <p class="nw-card-amount">@FormatCurrency(GetCategoryTotal("Real Estate"))</p>
+                        <ul class="nw-card-hover-list">
+                            @foreach (var item in _netWorth!.Assets.Where(a => a.Category == "Real Estate"))
+                            {
+                                <li class="nw-card-hover-item">
+                                    <span class="nw-hover-item-name">@item.Name</span>
+                                    <span class="nw-hover-item-value">@FormatCurrency(item.Value)</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="nw-card-ghost">
+                    <span class="material-symbols-outlined" style="font-size: 120px;">home_work</span>
+                </div>
+            </div>
+            <div class="nw-card">
+                <div class="nw-card-inner">
+                    <div class="nw-card-top">
+                        <div class="nw-card-icon nw-card-icon--teal">
+                            <span class="material-symbols-outlined" style="font-size:20px;">trending_up</span>
+                        </div>
+                        <span class="nw-card-alloc">@GetCategoryAllocation("Investment Accounts")</span>
+                    </div>
+                    <div class="nw-card-bottom">
+                        <p class="nw-card-label">@Localizer["NetWorth_Category_Investments"]</p>
+                        <p class="nw-card-amount">@FormatCurrency(GetCategoryTotal("Investment Accounts"))</p>
+                        <ul class="nw-card-hover-list">
+                            @foreach (var item in _netWorth!.Assets.Where(a => a.Category == "Investment Accounts"))
+                            {
+                                <li class="nw-card-hover-item">
+                                    <span class="nw-hover-item-name">@item.Name</span>
+                                    <span class="nw-hover-item-value">@FormatCurrency(item.Value)</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="nw-card-ghost">
+                    <span class="material-symbols-outlined" style="font-size: 120px;">monitoring</span>
+                </div>
+            </div>
+            <div class="nw-card">
+                <div class="nw-card-inner">
+                    <div class="nw-card-top">
+                        <div class="nw-card-icon nw-card-icon--amber">
+                            <span class="material-symbols-outlined" style="font-size:20px;">local_shipping</span>
+                        </div>
+                        <span class="nw-card-alloc">@GetCategoryAllocation("Physical Assets")</span>
+                    </div>
+                    <div class="nw-card-bottom">
+                        <p class="nw-card-label">@Localizer["NetWorth_Category_PhysicalAssets"]</p>
+                        <p class="nw-card-amount">@FormatCurrency(GetCategoryTotal("Physical Assets"))</p>
+                        <ul class="nw-card-hover-list">
+                            @foreach (var item in _netWorth!.Assets.Where(a => a.Category == "Physical Assets"))
+                            {
+                                <li class="nw-card-hover-item">
+                                    <span class="nw-hover-item-name">@item.Name</span>
+                                    <span class="nw-hover-item-value">@FormatCurrency(item.Value)</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="nw-card-ghost">
+                    <span class="material-symbols-outlined" style="font-size: 120px;">local_shipping</span>
+                </div>
+            </div>
+            <div class="nw-card nw-card--debt">
+                <div class="nw-card-inner">
+                    <div class="nw-card-top">
+                        <div class="nw-card-icon nw-card-icon--red">
+                            <span class="material-symbols-outlined" style="font-size:20px;">credit_card</span>
+                        </div>
+                        <span class="nw-card-alloc nw-card-alloc--debt">@GetDebtRatio()</span>
+                    </div>
+                    <div class="nw-card-bottom">
+                        <p class="nw-card-label">@Localizer["NetWorth_Category_TotalDebts"]</p>
+                        <p class="nw-card-amount nw-card-amount--debt">@FormatCurrency(_netWorth.TotalDebts)</p>
+                        <ul class="nw-card-hover-list">
+                            @foreach (var debt in _netWorth!.Debts)
+                            {
+                                <li class="nw-card-hover-item">
+                                    <span class="nw-hover-item-name">@debt.Name</span>
+                                    <span class="nw-hover-item-value nw-hover-item-value--debt">−@FormatCurrency(debt.Balance)</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="nw-card-ghost">
+                    <span class="material-symbols-outlined" style="font-size: 120px;">payments</span>
+                </div>
+            </div>
+        </section>
+
+        @* ── Growth Projection (placeholder) ─────────────────── *@
+        <section class="nw-chart-section">
+            <div class="nw-chart-header">
+                <div>
+                    <h2 class="nw-chart-title">@Localizer["NetWorth_GrowthProjection_Title"]</h2>
+                    <p class="nw-chart-subtitle">@Localizer["NetWorth_GrowthProjection_Subtitle"]</p>
+                </div>
+                <div class="nw-chart-legend">
+                    <span class="nw-legend-dot nw-legend-dot--primary"></span>
+                    <span class="nw-legend-label">@Localizer["NetWorth_Legend_NetWorth"]</span>
+                    <span class="nw-legend-dot nw-legend-dot--debt"></span>
+                    <span class="nw-legend-label">@Localizer["NetWorth_Legend_Liabilities"]</span>
+                </div>
+            </div>
+            <div class="nw-chart-placeholder">
+                @foreach (var (month, pct) in _chartBars)
+                {
+                    <div class="nw-bar-col">
+                        <div class="nw-bar" style="height: @(pct)%;"></div>
+                        <span class="nw-bar-label">@month</span>
+                    </div>
+                }
+            </div>
+        </section>
+
+        @* ── Balance Sheet ────────────────────────────────────── *@
+        <section class="nw-sheet-section">
+            <div class="nw-sheet-header">
+                <h2 class="nw-chart-title">@Localizer["NetWorth_BalanceSheet_Title"]</h2>
+            </div>
+            <div class="nw-sheet-table-wrap">
+                <table class="nw-table">
+                    <thead>
+                        <tr>
+                            <th>@Localizer["NetWorth_Col_Name"]</th>
+                            <th>@Localizer["NetWorth_Col_Value"]</th>
+                            <th>@Localizer["NetWorth_Col_DebtAgainst"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @* Assets *@
+                        @foreach (var asset in _netWorth.Assets)
+                        {
+                            var linkedDebt = GetDebtFor(asset.AssetId, asset.AssetType);
+                            var (assetIcon, assetBadge) = GetAssetIconInfo(asset.AssetType);
+                            <tr>
+                                <td>
+                                    <div class="nw-name-cell">
+                                        <div class="nw-icon-badge @assetBadge">
+                                            <span class="material-symbols-outlined" style="font-size:18px;">@assetIcon</span>
+                                        </div>
+                                        <div>
+                                            <p class="nw-name-primary">@asset.Name</p>
+                                            <p class="nw-name-sub">@asset.Category</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="nw-value-cell">@FormatCurrency(asset.Value)</td>
+                                <td class="nw-debt-cell">
+                                    @if (linkedDebt != null)
+                                    {
+                                        <span class="nw-debt-against">−@FormatCurrency(linkedDebt.Balance)</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="nw-no-debt">—</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        @* Standalone debts (not linked to any asset) *@
+                        @foreach (var debt in _netWorth.Debts.Where(d => !d.AgainstAssetId.HasValue))
+                        {
+                            var (debtIcon, debtBadge) = GetDebtIconInfo(debt.Category);
+                            <tr>
+                                <td>
+                                    <div class="nw-name-cell">
+                                        <div class="nw-icon-badge @debtBadge">
+                                            <span class="material-symbols-outlined" style="font-size:18px;">@debtIcon</span>
+                                        </div>
+                                        <div>
+                                            <p class="nw-name-primary">@debt.Name</p>
+                                            <p class="nw-name-sub">@debt.Category</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="nw-value-cell nw-value-cell--debt">−@FormatCurrency(debt.Balance)</td>
+                                <td class="nw-debt-cell"><span class="nw-no-debt">—</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+                    </div>
+                </div>
+            }

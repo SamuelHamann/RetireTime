@@ -7,7 +7,7 @@ public class OtherIncomeOrBenefits
     public long Id { get; set; }
     public long ScenarioId { get; set; }
     public string Name { get; set; } = string.Empty;
-    public decimal? Amount { get; set; }
+    public decimal? Amount { get; set; } = 0;
     public int? FrequencyId { get; set; } = (int)FrequencyEnum.Annually;
     
     public DateTime CreatedAt { get; set; }

@@ -1,0 +1,11 @@
+.investment-holding-card {
+    background: var(--ne-surface-white);
+    border-radius: 0.625rem;
+    padding: 1rem 1.25rem 0.75rem;
+}
+
+.holding-remove-row {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 0.5rem;
+}

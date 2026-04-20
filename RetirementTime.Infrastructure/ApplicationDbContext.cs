@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using RetirementTime.Domain.Entities;
 using RetirementTime.Domain.Entities.Dashboard;
 using RetirementTime.Domain.Entities.Dashboard.Income;
+using RetirementTime.Domain.Entities.Dashboard.Debt;
 using RetirementTime.Domain.Entities.Location;
 using RetirementTime.Domain.Entities.Onboarding;
 using RetirementTime.Domain.Entities.RealEstate;
@@ -1207,7 +1208,11 @@ public class ApplicationDbContext : DbContext
         {
             entity.ToTable("dashboard_assets_investment_property");
             entity.HasKey(e => e.Id);
-            
+
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200)
+                .HasDefaultValue(string.Empty);
             entity.Property(e => e.PropertyValue)
                 .HasColumnType("numeric(18,2)");
             entity.Property(e => e.PurchasePrice)
@@ -1235,7 +1240,11 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.AccountName)
                 .IsRequired()
                 .HasMaxLength(200);
-            
+
+            entity.Property(e => e.UseIndividualHoldings)
+                .IsRequired()
+                .HasDefaultValue(false);
+
             entity.Property(e => e.AdjustedCostBasis)
                 .HasColumnType("numeric(18,2)");
             
@@ -1358,11 +1367,11 @@ public class ApplicationDbContext : DbContext
             {
             entity.ToTable("physical_asset_type");
             entity.HasKey(at => at.Id);
-            
+
             entity.Property(at => at.Name)
                 .IsRequired()
                 .HasMaxLength(100);
-            
+
             entity.Property(e => e.CreatedAt)
                 .IsRequired()
                 .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
@@ -1370,13 +1379,137 @@ public class ApplicationDbContext : DbContext
                 .IsRequired()
                 .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
         });
-        
+
+        modelBuilder.Entity<DebtType>(entity =>
+        {
+            entity.ToTable("debt_type");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+        });
+
+        modelBuilder.Entity<GenericDebt>(entity =>
+        {
+            entity.ToTable("dashboard_debt");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(e => e.IsHomeMortgage)
+                .IsRequired()
+                .HasDefaultValue(false);
+
+            entity.Property(e => e.DebtAgainstAssetId);
+
+            entity.Property(e => e.Balance)
+                .HasColumnType("numeric(18,2)");
+
+            entity.Property(e => e.InterestRate)
+                .HasColumnType("numeric(7,4)");
+
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.Scenario)
+                .WithMany()
+                .HasForeignKey(e => e.ScenarioId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.DebtType)
+                .WithMany()
+                .HasForeignKey(e => e.DebtTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(e => e.Frequency)
+                .WithMany()
+                .HasForeignKey(e => e.FrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<NetWorthHistory>(entity =>
+        {
+            entity.ToTable("dashboard_net_worth_history");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.DateOfSnapShot)
+                .IsRequired();
+            entity.Property(e => e.Debts)
+                .IsRequired();
+            entity.Property(e => e.Assets)
+                .IsRequired();
+            entity.Property(e => e.Debt)
+                .IsRequired();
+            entity.Property(e => e.Asset)
+                .IsRequired();
+
+            entity.HasOne(e => e.Scenario)
+                .WithMany()
+                .HasForeignKey(e => e.ScenarioId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<NetWorthHistory>(entity =>
+        {
+            entity.ToTable("dashboard_net_worth_history");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.DateOfSnapShot)
+                .IsRequired();
+            entity.Property(e => e.Debt)
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.Asset)
+                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.Debts)
+                .IsRequired()
+                .HasColumnType("text");
+            entity.Property(e => e.Assets)
+                .IsRequired()
+                .HasColumnType("text");
+
+            entity.HasOne(e => e.Scenario)
+                .WithMany()
+                .HasForeignKey(e => e.ScenarioId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasIndex(e => e.ScenarioId);
+        });
+
         SeedRoleData(modelBuilder);
         SeedLocationData(modelBuilder);
         SeedLanguageData(modelBuilder);
         SeedFrequencyData(modelBuilder);
         SeedPhysicalAssetTypeData(modelBuilder);
         SeedAccountTypeData(modelBuilder);
+        SeedDebtTypeData(modelBuilder);
+    }
+
+    private static void SeedDebtTypeData(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<DebtType>().HasData(
+            new DebtType { Id = (long)DebtTypeEnum.Mortgage,               Name = "Mortgage" },
+            new DebtType { Id = (long)DebtTypeEnum.HomeEquityLineOfCredit, Name = "Home Equity Line of Credit" },
+            new DebtType { Id = (long)DebtTypeEnum.CarLoan,                Name = "Car Loan" },
+            new DebtType { Id = (long)DebtTypeEnum.StudentLoan,            Name = "Student Loan" },
+            new DebtType { Id = (long)DebtTypeEnum.CreditCard,             Name = "Credit Card" },
+            new DebtType { Id = (long)DebtTypeEnum.PersonalLoan,           Name = "Personal Loan" },
+            new DebtType { Id = (long)DebtTypeEnum.LineOfCredit,           Name = "Line of Credit" },
+            new DebtType { Id = (long)DebtTypeEnum.Other,                  Name = "Other" },
+            new DebtType { Id = (long)DebtTypeEnum.Medical,                Name = "Medical" }
+        );
     }
     
     
@@ -1521,5 +1654,12 @@ public class ApplicationDbContext : DbContext
     public DbSet<AssetsInvestmentAccount> AssetsInvestmentAccounts { get; set; }
     public DbSet<AssetsHolding> AssetsHoldings { get; set; }
     public DbSet<AssetsPhysicalAsset> AssetsPhysicalAssets { get; set; }
+
+    // Dashboard — Debt
+    public DbSet<GenericDebt> GenericDebts { get; set; }
+    public DbSet<DebtType> DebtTypes { get; set; }
+
+    // Dashboard — Net Worth
+    public DbSet<NetWorthHistory> NetWorthHistories { get; set; }
 
 }

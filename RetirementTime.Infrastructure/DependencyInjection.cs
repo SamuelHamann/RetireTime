@@ -2,7 +2,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using RetirementTime.Domain.Interfaces.Repositories;
+using RetirementTime.Domain.Interfaces.Services;
+using RetirementTime.Domain.Services;
 using RetirementTime.Infrastructure.Repositories;
+using RetirementTime.Infrastructure.Services;
 
 namespace RetirementTime.Infrastructure;
 
@@ -15,6 +18,8 @@ public static class DependencyInjection
             options.UseNpgsql(connectionString));
 
         services.AddRepositories();
+        services.AddScoped<INetWorthSnapshotService, NetWorthSnapshotService>();
+        services.AddScoped<INetWorthCalculationService, NetWorthCalculationService>();
 
         return services;
     }
@@ -31,6 +36,20 @@ public static class DependencyInjection
         services.AddScoped<IOnboardingEmploymentRepository, OnboardingEmploymentRepository>();
         services.AddScoped<IDashboardScenarioRepository, DashboardScenarioRepository>();
         services.AddScoped<IEmploymentIncomeRepository, EmploymentIncomeRepository>();
+        services.AddScoped<ISelfEmploymentIncomeRepository, SelfEmploymentIncomeRepository>();
+        services.AddScoped<IPensionDefinedBenefitsRepository, PensionDefinedBenefitsRepository>();
+        services.AddScoped<IPensionDefinedContributionRepository, PensionDefinedContributionRepository>();
+        services.AddScoped<IDefinedProfitSharingRepository, DefinedProfitSharingRepository>();
+        services.AddScoped<IGroupRrspRepository, GroupRrspRepository>();
+        services.AddScoped<ISharePurchasePlanRepository, SharePurchasePlanRepository>();
+        services.AddScoped<IOasCppIncomeRepository, OasCppIncomeRepository>();
+        services.AddScoped<IOtherIncomeOrBenefitsRepository, OtherIncomeOrBenefitsRepository>();
+        services.AddScoped<IAssetsHomeRepository, AssetsHomeRepository>();
+        services.AddScoped<IAssetsInvestmentPropertyRepository, AssetsInvestmentPropertyRepository>();
+        services.AddScoped<IAssetsInvestmentAccountRepository, AssetsInvestmentAccountRepository>();
+        services.AddScoped<IAssetsPhysicalAssetRepository, AssetsPhysicalAssetRepository>();
+        services.AddScoped<IGenericDebtRepository, GenericDebtRepository>();
+        services.AddScoped<INetWorthHistoryRepository, NetWorthHistoryRepository>();
 
         return services;
     }

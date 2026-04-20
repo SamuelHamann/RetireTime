@@ -10,6 +10,7 @@ public class AssetsInvestmentAccount
     public long AccountTypeId { get; set; }
     public decimal? AdjustedCostBasis { get; set; }
     public decimal? CurrentTotalValue { get; set; }
+    public bool UseIndividualHoldings { get; set; } = false;
     
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }

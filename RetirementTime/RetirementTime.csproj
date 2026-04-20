@@ -152,4 +152,8 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Components\Pages\Dashboard\NetWorth\" />
+    </ItemGroup>
+
 </Project>

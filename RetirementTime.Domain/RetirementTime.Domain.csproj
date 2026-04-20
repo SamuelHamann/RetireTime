@@ -13,4 +13,8 @@
       <None Remove="Common\**" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Entities\Dashboard\Spending\" />
+    </ItemGroup>
+
 </Project>

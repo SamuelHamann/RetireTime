@@ -16,6 +16,8 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
     [Inject] private IStringLocalizer<DashboardResources> DashboardLocalizer { get; set; } = null!;
     [Inject] private IMediator Mediator { get; set; } = null!;
     [Inject] private IncomeNavigationService IncomeNavService { get; set; } = null!;
+    [Inject] private AssetNavigationService AssetNavService { get; set; } = null!;
+    [Inject] private DebtNavigationService DebtNavService { get; set; } = null!;
 
     [Parameter] public bool HasCompletedIntro { get; set; }
     [Parameter] public long UserId { get; set; }
@@ -26,6 +28,9 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
     private HashSet<long> _expandedScenarios = [];
     private HashSet<long> _expendedIncomeAssets = [];
     private HashSet<long> _expandedIncomeSubMenu = [];
+    private HashSet<long> _expandedAssetsSubMenu = [];
+    private HashSet<long> _expandedDebtSubMenu = [];
+    private HashSet<long> _expandedScenarioOverview = [];
     private int _lastRefreshTrigger = -1;
     private bool _isCreatingScenario;
 
@@ -34,12 +39,16 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
     private long? _activeScenarioId;
     private string _activeView = "overview";
     private string _activeIncomeSubView = string.Empty;
+    private string _activeAssetsSubView = string.Empty;
+    private string _activeDebtSubView = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
         await LoadScenarios();
         Navigation.LocationChanged += OnLocationChanged;
         IncomeNavService.Register(NavigateNextIncomeStep);
+        AssetNavService.Register(NavigateNextAssetStep);
+        DebtNavService.Register(NavigateNextDebtStep);
         UpdateActiveStateFromUrl();
     }
 
@@ -104,10 +113,13 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
                 _expandedScenarios.Add(scenarioId);
 
                 // Auto-expand the Financial Profile group
-                HashSet<string> financialProfileViews = ["income", "spending"];
+                HashSet<string> financialProfileViews = ["income", "spending", "assets", "debt"];
                 if (financialProfileViews.Contains(_activeView))
                     _expendedIncomeAssets.Add(scenarioId);
 
+                // Auto-expand Scenario Overview for net-worth view
+                if (_activeView == "net-worth")
+                    _expandedScenarioOverview.Add(scenarioId);
                 // Handle income sub-view: /scenario/{id}/income/{subview}
                 if (_activeView == "income" && parts.Length >= 4)
                 {
@@ -123,6 +135,38 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
                 else
                 {
                     _activeIncomeSubView = string.Empty;
+                }
+
+                // Handle assets sub-view: /scenario/{id}/assets/{subview}
+                if (_activeView == "assets" && parts.Length >= 4)
+                {
+                    _activeAssetsSubView = parts[3];
+                    _expandedAssetsSubMenu.Add(scenarioId);
+                }
+                else if (_activeView == "assets" && parts.Length == 3)
+                {
+                    _activeAssetsSubView = "home";
+                    _expandedAssetsSubMenu.Add(scenarioId);
+                }
+                else if (_activeView != "assets")
+                {
+                    _activeAssetsSubView = string.Empty;
+                }
+
+                // Handle debt sub-view: /scenario/{id}/debt/{subview}
+                if (_activeView == "debt" && parts.Length >= 4)
+                {
+                    _activeDebtSubView = parts[3];
+                    _expandedDebtSubMenu.Add(scenarioId);
+                }
+                else if (_activeView == "debt" && parts.Length == 3)
+                {
+                    _activeDebtSubView = "home-mortgage";
+                    _expandedDebtSubMenu.Add(scenarioId);
+                }
+                else if (_activeView != "debt")
+                {
+                    _activeDebtSubView = string.Empty;
                 }
             }
         }
@@ -158,6 +202,80 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
     {
         if (!_expendedIncomeAssets.Add(scenarioId))
             _expendedIncomeAssets.Remove(scenarioId);
+    }
+
+    private void ToggleAssetsSubMenu(long scenarioId)
+    {
+        if (!_expandedAssetsSubMenu.Add(scenarioId))
+            _expandedAssetsSubMenu.Remove(scenarioId);
+    }
+
+    private void NavigateToAssetsSubPage(long scenarioId, string subView)
+    {
+        _activeAssetsSubView = subView;
+        _activeView = "assets";
+        _activeScenarioId = scenarioId;
+        Navigation.NavigateTo($"/scenario/{scenarioId}/assets/{subView}", forceLoad: false);
+        InvokeAsync(StateHasChanged);
+    }
+
+    private string IsAssetsSubActive(long scenarioId, string subView)
+    {
+        if (_activeScenarioId == scenarioId && _activeView == "assets" && _activeAssetsSubView == subView)
+            return "active";
+        return string.Empty;
+    }
+
+    private static readonly string[] AssetSubViewOrder = ["home", "investment-properties", "investment-accounts", "physical-assets"];
+
+    public void NavigateNextAssetStep()
+    {
+        if (_activeScenarioId is null) return;
+        var idx = Array.IndexOf(AssetSubViewOrder, _activeAssetsSubView);
+        if (idx >= 0 && idx < AssetSubViewOrder.Length - 1)
+            NavigateToAssetsSubPage(_activeScenarioId.Value, AssetSubViewOrder[idx + 1]);
+    }
+
+    private void ToggleDebtSubMenu(long scenarioId)
+    {
+        if (!_expandedDebtSubMenu.Add(scenarioId))
+            _expandedDebtSubMenu.Remove(scenarioId);
+    }
+
+    private void ToggleScenarioOverview(long scenarioId)
+    {
+        if (!_expandedScenarioOverview.Add(scenarioId))
+            _expandedScenarioOverview.Remove(scenarioId);
+    }
+
+    private void NavigateToDebtSubPage(long scenarioId, string subView)
+    {
+        _activeDebtSubView = subView;
+        _activeView = "debt";
+        _activeScenarioId = scenarioId;
+        Navigation.NavigateTo($"/scenario/{scenarioId}/debt/{subView}", forceLoad: false);
+        InvokeAsync(StateHasChanged);
+    }
+
+    private string IsDebtSubActive(long scenarioId, string subView)
+    {
+        if (_activeScenarioId == scenarioId && _activeView == "debt" && _activeDebtSubView == subView)
+            return "active";
+        return string.Empty;
+    }
+
+    private static readonly string[] DebtSubViewOrder =
+    [
+        "home-mortgage", "investment-property-mortgage", "car-loans",
+        "student-loans", "medical-debt", "personal-loans", "credit-cards"
+    ];
+
+    public void NavigateNextDebtStep()
+    {
+        if (_activeScenarioId is null) return;
+        var idx = Array.IndexOf(DebtSubViewOrder, _activeDebtSubView);
+        if (idx >= 0 && idx < DebtSubViewOrder.Length - 1)
+            NavigateToDebtSubPage(_activeScenarioId.Value, DebtSubViewOrder[idx + 1]);
     }
 
     private void ToggleIncomeSubMenu(long scenarioId)
@@ -282,5 +400,7 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
     {
         Navigation.LocationChanged -= OnLocationChanged;
         IncomeNavService.Unregister(NavigateNextIncomeStep);
+        AssetNavService.Unregister(NavigateNextAssetStep);
+        DebtNavService.Unregister(NavigateNextDebtStep);
     }
 }

@@ -1,0 +1,83 @@
+@page "/scenario/{scenarioId:long}/assets/investment-properties"
+@layout DashboardLayout
+@rendermode InteractiveServer
+
+@using RetirementTime.Models.Asset
+
+<div class="intro-step">
+    <div class="step-header-animate">
+        <h1 class="font-headline text-5xl font-bold text-ne-primary mt-3 mb-2">@Localizer["Assets_InvestmentProperties_Title"]</h1>
+        <p class="font-body text-ne-on-surface-variant text-base leading-relaxed">@Localizer["Assets_InvestmentProperties_Subtitle"]</p>
+    </div>
+    <div class="step-body-animate">
+        <div class="bg-ne-surface-low rounded-xl px-8 pb-8 pt-5 shadow-sm">
+
+            <div class="income-section-header">
+                <h2 class="assets-section-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                        <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+                    </svg>
+                    @Localizer["Assets_InvestmentProperties_SectionTitle"]
+                </h2>
+            </div>
+
+            <p class="field-sublabel" style="margin-bottom: 1.25rem;">@Localizer["Assets_InvestmentProperties_Hint"]</p>
+
+            @if (_isLoading)
+            {
+                <div class="intro-loading"><p>Loading...</p></div>
+            }
+            else
+            {
+                <div class="income-items-list">
+                    @foreach (var item in _propertyItems)
+                    {
+                        var index = _propertyItems.IndexOf(item);
+                        <div class="income-item-card">
+                            <div class="income-item-header">
+                                <span class="income-item-number">@string.Format(Localizer["Assets_InvestmentProperties_Item"].Value, index + 1)</span>
+                                <button type="button" class="income-remove-btn" @onclick="async () => await RemoveProperty(item)">@Localizer["Assets_Remove"]</button>
+                            </div>
+                            <div class="income-fields-grid">
+                                <div class="field-group income-field-full">
+                                    <label class="field-question">@Localizer["Assets_InvestmentProperties_Name"]</label>
+                                    <input type="text" class="field-input" @bind="item.Name" @bind:after="async () => await SaveProperty(item)" />
+                                </div>
+                                <div class="field-group income-field-full">
+                                    <label class="field-question">@Localizer["Assets_InvestmentProperties_PurchaseDate"]</label>
+                                    <input type="date" class="field-input field-input--date" @bind="item.PurchaseDate" @bind:after="async () => await SaveProperty(item)" />
+                                </div>
+                                <div class="field-group">
+                                    <label class="field-question">@Localizer["Assets_InvestmentProperties_PropertyValue"]</label>
+                                    <div class="money-input-wrapper">
+                                        <input type="number" class="field-input money-input" @bind="item.PropertyValue" @bind:after="async () => await SaveProperty(item)" min="0" step="0.01" />
+                                    </div>
+                                </div>
+                                <div class="field-group">
+                                    <label class="field-question">@Localizer["Assets_InvestmentProperties_PurchasePrice"]</label>
+                                    <div class="money-input-wrapper">
+                                        <input type="number" class="field-input money-input" @bind="item.PurchasePrice" @bind:after="async () => await SaveProperty(item)" min="0" step="0.01" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+
+            <button type="button" class="income-add-main-btn" @onclick="async () => await AddProperty()">
+                + @Localizer["Assets_InvestmentProperties_AddProperty"]
+            </button>
+
+        </div>
+    </div>
+    <div class="income-next-row">
+        <button class="income-next-btn" @onclick="NavigateNext">
+            <span>@Localizer["Assets_Next"]</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+        </button>
+    </div>
+</div>

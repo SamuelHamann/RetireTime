@@ -7,9 +7,9 @@ public class SharePurchasePlan
     public long Id { get; set; }
     public long ScenarioId { get; set; }
     public string Name { get; set; } = string.Empty;
-    public decimal? PercentOfSalaryEmployee { get; set; }
+    public decimal? PercentOfSalaryEmployee { get; set; } = 0;
     public int PurchaseFrequencyId { get; set; } = (int)FrequencyEnum.BiWeekly;
-    public decimal? PercentOfSalaryEmployer { get; set; }
+    public decimal? PercentOfSalaryEmployer { get; set; } = 0;
     public int EmployerMatchFrequencyId { get; set; } = (int)FrequencyEnum.BiWeekly;
     public bool UseFlatAmountInsteadOfPercent { get; set; } = false;
     

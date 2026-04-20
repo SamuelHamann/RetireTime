@@ -1271,3 +1271,167 @@ input[type="number"].ne-input { -moz-appearance: textfield; }
     background: var(--ne-primary-tint);
     border-color: var(--ne-primary);
 }
+
+/* ---- Income page field overrides -------------------------- */
+/* White, borderless inputs and selects inside income item cards and standalone form grids */
+.income-item-card .field-input,
+.income-fields-grid .field-input,
+.income-item-card .field-select,
+.income-fields-grid .field-select {
+    background-color: #ffffff;
+    border: none;
+    box-shadow: none;
+    border-radius: 0.75rem;
+}
+
+.income-item-card .field-input:focus,
+.income-fields-grid .field-input:focus,
+.income-item-card .field-select:focus,
+.income-fields-grid .field-select:focus {
+    background-color: #ffffff;
+    outline: none;
+}
+
+/* ---- Money input ------------------------------------------ */
+/* Dollar-sign prefix via wrapper ::before, no spinner arrows  */
+/* Usage: <div class="money-input-wrapper"><input class="field-input money-input" .../></div> */
+
+/* Global: remove spinner arrows from ALL number inputs in the dashboard */
+.dashboard-body input[type="number"]::-webkit-outer-spin-button,
+.dashboard-body input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.dashboard-body input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+.money-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.money-input-wrapper::before {
+    content: '$';
+    position: absolute;
+    left: 0.875rem;
+    color: var(--ne-on-surface-muted);
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+}
+
+.money-input {
+    width: 100%;
+    padding-left: 1.75rem !important;
+    -moz-appearance: textfield;
+}
+
+.money-input::-webkit-outer-spin-button,
+.money-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* ---- Percent input ---------------------------------------- */
+/* Percent-sign suffix via wrapper ::after, no spinner arrows  */
+/* Usage: <div class="percent-input-wrapper"><input class="field-input percent-input" .../></div> */
+.percent-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.percent-input-wrapper::after {
+    content: '%';
+    position: absolute;
+    right: 0.875rem;
+    color: var(--ne-on-surface-muted);
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    pointer-events: none;
+    user-select: none;
+}
+
+.percent-input {
+    width: 100%;
+    padding-right: 1.75rem !important;
+    -moz-appearance: textfield;
+}
+
+.percent-input::-webkit-outer-spin-button,
+.percent-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* ---- Income page animations ------------------------------- */
+/* Faster fade-in scoped to .dashboard-body to avoid overriding intro pages */
+@keyframes income-fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.dashboard-body .step-header-animate {
+    animation: income-fade-in 0.3s ease both;
+}
+
+.dashboard-body .step-body-animate {
+    animation: income-fade-in 0.3s ease 0.25s both;
+}
+
+/* Next button appears after the body has fully settled (0.25s delay + 0.3s duration) */
+.dashboard-body .income-next-row {
+    animation: income-fade-in 0.3s ease 0.55s both;
+}
+
+/* ---- Debt: asset-context banner (home mortgage) -------------------- */
+.debt-asset-context {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--ne-primary-tint);
+    border-left: 3px solid var(--ne-primary);
+    border-radius: 0.5rem;
+    padding: 0.625rem 0.875rem;
+    margin-bottom: 1.25rem;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.875rem;
+    color: var(--ne-on-surface);
+}
+.debt-asset-context svg {
+    width: 1rem; height: 1rem;
+    stroke: var(--ne-primary);
+    flex-shrink: 0;
+}
+.debt-asset-context-value {
+    margin-left: auto;
+    font-weight: 600;
+    color: var(--ne-primary);
+}
+
+/* ---- Debt: asset-group card (investment property / car loan pages) -- */
+.debt-asset-group {
+    border: 1px solid var(--ne-outline-variant);
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem 1rem;
+    margin-bottom: 1.25rem;
+    background: var(--ne-surface-white);
+}
+.debt-asset-group-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ne-on-surface);
+    margin-bottom: 0.875rem;
+}
+.debt-asset-group-header svg {
+    width: 1rem; height: 1rem;
+    stroke: var(--ne-primary);
+    flex-shrink: 0;
+}
+.debt-asset-group--standalone { background: var(--ne-surface-low); }
+.debt-asset-group-header--standalone { color: var(--ne-on-surface-variant); }
+.debt-asset-group-header--standalone svg { stroke: var(--ne-on-surface-muted); }

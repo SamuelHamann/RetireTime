@@ -385,6 +385,11 @@ namespace RetirementTime.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
 
+                    b.Property<bool>("UseIndividualHoldings")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
                     b.HasKey("Id");
 
                     b.HasIndex("AccountTypeId");
@@ -406,6 +411,13 @@ namespace RetirementTime.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasDefaultValue("");
 
                     b.Property<decimal?>("PropertyValue")
                         .HasColumnType("numeric(18,2)");
@@ -517,6 +529,159 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("dashboard_scenario", (string)null);
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Debt.DebtType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("debt_type", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Mortgage",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Home Equity Line of Credit",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Car Loan",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Student Loan",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Credit Card",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Personal Loan",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Line of Credit",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Other",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Medical",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Debt.GenericDebt", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal?>("Balance")
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<long?>("DebtAgainstAssetId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("DebtTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("FrequencyId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal?>("InterestRate")
+                        .HasColumnType("numeric(7,4)");
+
+                    b.Property<bool>("IsHomeMortgage")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<long>("ScenarioId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("TermInYears")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DebtTypeId");
+
+                    b.HasIndex("FrequencyId");
+
+                    b.HasIndex("ScenarioId");
+
+                    b.ToTable("dashboard_debt", (string)null);
                 });
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Income.DefinedProfitSharing", b =>
@@ -1068,6 +1233,41 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.HasIndex("ScenarioId");
 
                     b.ToTable("dashboard_income_share_purchase_plan", (string)null);
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.NetWorthHistory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("Asset")
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<string>("Assets")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DateOfSnapShot")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Debt")
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<string>("Debts")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("ScenarioId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScenarioId");
+
+                    b.ToTable("dashboard_net_worth_history", (string)null);
                 });
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.PersistingIncome.OtherPersistingIncome", b =>
@@ -2132,6 +2332,33 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Navigation("Scenario");
                 });
 
+            modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Debt.GenericDebt", b =>
+                {
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Debt.DebtType", "DebtType")
+                        .WithMany()
+                        .HasForeignKey("DebtTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("RetirementTime.Domain.Entities.Common.Frequency", "Frequency")
+                        .WithMany()
+                        .HasForeignKey("FrequencyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
+                        .WithMany()
+                        .HasForeignKey("ScenarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DebtType");
+
+                    b.Navigation("Frequency");
+
+                    b.Navigation("Scenario");
+                });
+
             modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Income.DefinedProfitSharing", b =>
                 {
                     b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
@@ -2422,6 +2649,17 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Navigation("EmployerMatchFrequency");
 
                     b.Navigation("PurchaseFrequency");
+
+                    b.Navigation("Scenario");
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.NetWorthHistory", b =>
+                {
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
+                        .WithMany()
+                        .HasForeignKey("ScenarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Scenario");
                 });
