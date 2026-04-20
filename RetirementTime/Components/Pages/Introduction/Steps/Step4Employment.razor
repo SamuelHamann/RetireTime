@@ -1,0 +1,90 @@
+@using RetirementTime.Models.Introduction
+@using RetirementTime.Components.Shared
+
+<div class="intro-step step-header-animate" style="font-family: 'Manrope', sans-serif;">
+
+    <header class="mb-4">
+        <h1 class="font-headline text-5xl font-bold text-ne-primary mt-3 mb-2">@Localizer["Intro_Step5_Title"]</h1>
+        <p class="font-body text-ne-on-surface-variant max-w-2xl text-lg leading-relaxed">
+            @Localizer["Intro_Step5_Subtitle"]
+        </p>
+    </header>
+
+    <div class="step-body-animate">
+        <EditForm Model="@Model" class="bg-ne-surface-low rounded-xl px-8 pb-8 pt-5 shadow-[0px_24px_48px_rgba(29,28,22,0.05)] space-y-6">
+            <DataAnnotationsValidator />
+
+            <!-- Employment -->
+            <div class="assets-section" style="padding-top:0;margin-top:0;">
+                <h3 class="assets-section-title" style="margin-top:0;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    @Localizer["Intro_Step5_Section_Employment"]
+                </h3>
+
+                <div class="field-group">
+                    <label class="field-question">@Localizer["Intro_Step5_IsEmployed"]</label>
+                    <YesNoToggle @bind-Value="Model.IsEmployed"
+                                 YesLabel="@Localizer["Intro_Step5_Yes"]"
+                                 NoLabel="@Localizer["Intro_Step5_No"]" />
+                </div>
+
+                <div class="field-group">
+                    <label class="field-question">@Localizer["Intro_Step5_IsSelfEmployed"]</label>
+                    <YesNoToggle @bind-Value="Model.IsSelfEmployed"
+                                 YesLabel="@Localizer["Intro_Step5_Yes"]"
+                                 NoLabel="@Localizer["Intro_Step5_No"]" />
+                </div>
+
+                <div class="field-group">
+                    <label class="field-question">@Localizer["Intro_Step5_RetirementAge"]</label>
+                    <InputNumber @bind-Value="Model.PlannedRetirementAge"
+                                 @onfocusout="OnFieldChanged"
+                                 class="ne-input"
+                                 style="max-width:120px;-moz-appearance:textfield;border-radius:0.5rem;" />
+                    <ValidationMessage For="@(() => Model.PlannedRetirementAge)" class="ne-error" />
+                </div>
+
+                <div class="field-group">
+                    <label class="field-question">@Localizer["Intro_Step5_CppYears"]</label>
+                    <InputNumber @bind-Value="Model.CppContributionYears"
+                                 @onfocusout="OnFieldChanged"
+                                 class="ne-input"
+                                 style="max-width:120px;-moz-appearance:textfield;border-radius:0.5rem;" />
+                    <ValidationMessage For="@(() => Model.CppContributionYears)" class="ne-error" />
+                </div>
+            </div>
+
+            <!-- Income -->
+            <div class="assets-section">
+                <h3 class="assets-section-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                    @Localizer["Intro_Step5_Section_Income"]
+                </h3>
+
+                <div class="field-group">
+                    <label class="field-question">@Localizer["Intro_Step5_OtherIncome"]</label>
+                    <div class="checklist">
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasRoyalties" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step5_Royalties"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasDividends" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step5_Dividends"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasRentalIncome" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step5_RentalIncome"]</span></label>
+                        <label class="checklist-item"><input type="checkbox" @bind="Model.HasOtherIncome" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step5_OtherIncomeItem"]</span></label>
+                    </div>
+                </div>
+            </div>
+
+        </EditForm>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="intro-actions">
+        <button class="btn-back" @onclick="HandleBack">
+            <span class="btn-arrow-icon">←</span>
+            <span class="btn-label">@Localizer["Intro_Step4_Title"]</span>
+        </button>
+
+        <button class="btn-finish" @onclick="HandleFinish" disabled="@(!IsFormValid)">
+            <span class="btn-label">@Localizer["Intro_Finish"]</span>
+            <span class="btn-arrow-icon">→</span>
+        </button>
+    </div>
+</div>

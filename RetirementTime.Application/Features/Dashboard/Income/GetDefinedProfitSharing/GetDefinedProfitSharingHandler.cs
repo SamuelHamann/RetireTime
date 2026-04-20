@@ -1,0 +1,37 @@
+using MediatR;
+using Microsoft.Extensions.Logging;
+using RetirementTime.Domain.Entities.Dashboard.Income;
+using RetirementTime.Domain.Interfaces.Repositories;
+
+namespace RetirementTime.Application.Features.Dashboard.Income.GetDefinedProfitSharing;
+
+public partial class GetDefinedProfitSharingHandler(
+    IDefinedProfitSharingRepository repository,
+    ILogger<GetDefinedProfitSharingHandler> logger) : IRequestHandler<GetDefinedProfitSharingQuery, List<DefinedProfitSharing>>
+{
+    public async Task<List<DefinedProfitSharing>> Handle(GetDefinedProfitSharingQuery request, CancellationToken cancellationToken)
+    {
+        LogStartingHandler(logger, request.ScenarioId);
+
+        try
+        {
+            var items = await repository.GetByScenarioIdAsync(request.ScenarioId);
+            LogSuccessfullyCompleted(logger, items.Count, request.ScenarioId);
+            return items;
+        }
+        catch (Exception ex)
+        {
+            LogErrorOccurred(logger, ex.Message, request.ScenarioId);
+            return [];
+        }
+    }
+
+    [LoggerMessage(LogLevel.Information, "Starting GetDefinedProfitSharing handler for ScenarioId: {ScenarioId}")]
+    static partial void LogStartingHandler(ILogger<GetDefinedProfitSharingHandler> logger, long ScenarioId);
+
+    [LoggerMessage(LogLevel.Information, "Successfully retrieved {Count} profit sharing plans for ScenarioId: {ScenarioId}")]
+    static partial void LogSuccessfullyCompleted(ILogger<GetDefinedProfitSharingHandler> logger, int Count, long ScenarioId);
+
+    [LoggerMessage(LogLevel.Error, "Error occurred while getting profit sharing plans for ScenarioId: {ScenarioId} | Exception: {Exception}")]
+    static partial void LogErrorOccurred(ILogger<GetDefinedProfitSharingHandler> logger, string Exception, long ScenarioId);
+}

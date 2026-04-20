@@ -16,6 +16,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Include="Services\NetWorthSnapshotService.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.1" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.1">
         <PrivateAssets>all</PrivateAssets>
@@ -23,6 +27,7 @@
       </PackageReference>
       <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.1" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
+      <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.6" />
     </ItemGroup>
 
     <ItemGroup>

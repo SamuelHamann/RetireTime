@@ -40,6 +40,11 @@ builder.Services.AddLocalization();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddScoped<RetirementTime.Services.AuthService>();
+builder.Services.AddScoped<RetirementTime.Services.DelayedLoadingService>();
+builder.Services.AddScoped<RetirementTime.Services.IncomeNavigationService>();
+builder.Services.AddScoped<RetirementTime.Services.AssetNavigationService>();
+builder.Services.AddScoped<RetirementTime.Services.DebtNavigationService>();
+builder.Services.AddScoped<RetirementTime.Services.SpendingNavigationService>();
 
 
 var app = builder.Build();

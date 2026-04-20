@@ -1,0 +1,47 @@
+@using RetirementTime.Models.Introduction
+@using RetirementTime.Components.Shared
+
+<div class="intro-step step-header-animate" style="font-family: 'Manrope', sans-serif;">
+
+    <header class="mb-4">
+        <h1 class="font-headline text-5xl font-bold text-ne-primary mt-3 mb-2">@Localizer["Intro_Step4_Title"]</h1>
+        <p class="font-body text-ne-on-surface-variant max-w-2xl text-lg leading-relaxed">
+            @Localizer["Intro_Step4_Subtitle"]
+        </p>
+    </header>
+
+    <div class="step-body-animate">
+        <div class="bg-ne-surface-low rounded-xl px-8 pb-8 pt-5 shadow-[0px_24px_48px_rgba(29,28,22,0.05)] space-y-6">
+
+            <div class="field-group">
+                <label class="field-question">@Localizer["Intro_Step4_DebtQuestion"]</label>
+                <div class="checklist">
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasPrimaryMortgage" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_PrimaryMortgage"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasInvestmentPropertyMortgage" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_InvestmentPropertyMortgage"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasCarPayments" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_CarPayments"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasStudentLoans" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_StudentLoans"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasCreditCardDebt" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_CreditCardDebt"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasPersonalLoans" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_PersonalLoans"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasBusinessLoans" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_BusinessLoans"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasTaxDebt" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_TaxDebt"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasMedicalDebt" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_MedicalDebt"]</span></label>
+                    <label class="checklist-item"><input type="checkbox" @bind="Model.HasInformalDebt" @bind:after="OnFieldChanged" /><span class="checkbox-custom"></span><span>@Localizer["Intro_Step4_InformalDebt"]</span></label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="intro-actions">
+        <button class="btn-back" @onclick="HandleBack">
+            <span class="btn-arrow-icon">←</span>
+            <span class="btn-label">@Localizer["Intro_Step3_Title"]</span>
+        </button>
+
+        <button class="btn-next" @onclick="HandleNext" disabled="@(!IsFormValid)">
+            <span class="btn-label">@Localizer["Intro_ContinueTo"] @Localizer["Intro_Step5_Title"]</span>
+            <span class="btn-arrow-icon">→</span>
+        </button>
+    </div>
+</div>

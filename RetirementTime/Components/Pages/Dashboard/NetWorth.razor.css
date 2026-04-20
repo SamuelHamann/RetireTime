@@ -1,0 +1,425 @@
+/* ============================================================
+   Net Worth Page — scoped styles
+   ============================================================ */
+
+.nw-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+/* ── Hero ──────────────────────────────────────────────────── */
+.nw-hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.nw-hero-label {
+    display: block;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ne-secondary);
+    margin-bottom: 0.4rem;
+}
+
+.nw-hero-value {
+    font-family: 'Newsreader', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    color: var(--ne-on-surface);
+    margin: 0;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+/* ── Category Cards ────────────────────────────────────────── */
+.nw-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+}
+
+@media (max-width: 1100px) {
+    .nw-cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+.nw-card {
+    background: var(--ne-surface-container);
+    border-radius: 1rem;
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(28, 28, 19, 0.05);
+}
+
+.nw-card:hover .nw-card-ghost { opacity: 0.10; }
+
+.nw-card-inner {
+    position: relative;
+    z-index: 1;
+}
+
+.nw-card-ghost {
+    position: absolute;
+    right: -1rem;
+    bottom: -1rem;
+    opacity: 0.05;
+    transition: opacity 0.2s;
+    pointer-events: none;
+}
+
+.nw-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.25rem;
+}
+
+.nw-card-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.nw-card-icon svg {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+.nw-card-icon--blue  { background: #dbeafe; color: #1d4ed8; }
+.nw-card-icon--teal  { background: #ccfbf1; color: #0f766e; }
+.nw-card-icon--amber { background: #fef3c7; color: #b45309; }
+.nw-card-icon--red   { background: #fee2e2; color: #b91c1c; }
+
+.nw-card-alloc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--ne-on-surface-muted);
+}
+
+.nw-card-alloc--debt { color: #b91c1c; }
+
+.nw-card-label {
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ne-on-surface-variant);
+    margin: 0 0 0.35rem 0;
+    transition: opacity 0.2s;
+}
+
+.nw-card-amount {
+    font-family: 'Newsreader', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--ne-on-surface);
+    margin: 0;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+}
+
+.nw-card-amount--debt { color: #b91c1c; }
+
+.nw-card:hover .nw-card-label,
+.nw-card:hover .nw-card-amount { opacity: 0; }
+
+/* ── Card hover item list ──────────────────────────────────── */
+.nw-card-bottom {
+    position: relative;
+    min-height: 3.5rem;
+    overflow: hidden;
+}
+
+.nw-card-hover-list {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+    list-style: none;
+    padding: 0 0.6rem 0 0;
+    margin: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--ne-primary) transparent;
+}
+
+.nw-card-hover-list::-webkit-scrollbar        { width: 3px; }
+.nw-card-hover-list::-webkit-scrollbar-track  { background: transparent; }
+.nw-card-hover-list::-webkit-scrollbar-thumb  { background: var(--ne-primary); border-radius: 2px; }
+.nw-card-hover-list::-webkit-scrollbar-button { display: none; height: 0; width: 0; }
+
+.nw-card:hover .nw-card-hover-list { opacity: 1; }
+
+.nw-card-hover-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.nw-hover-item-name {
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.7rem;
+    color: var(--ne-on-surface-variant);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+}
+
+.nw-hover-item-value {
+    font-family: 'Newsreader', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ne-on-surface);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.nw-hover-item-value--debt { color: #b91c1c; }
+
+/* ── Chart ─────────────────────────────────────────────────── */
+.nw-chart-section,
+.nw-sheet-section {
+    background: var(--ne-surface-container);
+    border-radius: 1rem;
+    padding: 2rem 2rem 1.5rem;
+    border: 1px solid rgba(28, 28, 19, 0.05);
+}
+
+.nw-chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.nw-chart-title {
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--ne-on-surface);
+    margin: 0 0 0.2rem 0;
+}
+
+.nw-chart-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    color: var(--ne-on-surface-muted);
+    margin: 0;
+}
+
+.nw-chart-legend {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nw-legend-dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.nw-legend-dot--primary { background: var(--ne-primary); }
+.nw-legend-dot--debt    { background: var(--ne-secondary); }
+
+.nw-legend-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ne-on-surface-variant);
+    margin-right: 0.75rem;
+}
+
+.nw-chart-placeholder {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.4rem;
+    height: 260px;
+    width: 100%;
+}
+
+.nw-bar-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.nw-bar {
+    width: 100%;
+    background: var(--ne-primary);
+    border-radius: 0.5rem 0.5rem 0 0;
+    opacity: 0.15;
+    transition: opacity 0.2s;
+}
+
+.nw-bar-col:hover .nw-bar { opacity: 0.35; }
+
+/* Progressive opacity to simulate the reference design gradient */
+.nw-bar-col:nth-child(1)  .nw-bar { opacity: 0.12; }
+.nw-bar-col:nth-child(2)  .nw-bar { opacity: 0.15; }
+.nw-bar-col:nth-child(3)  .nw-bar { opacity: 0.14; }
+.nw-bar-col:nth-child(4)  .nw-bar { opacity: 0.20; }
+.nw-bar-col:nth-child(5)  .nw-bar { opacity: 0.26; }
+.nw-bar-col:nth-child(6)  .nw-bar { opacity: 0.32; }
+.nw-bar-col:nth-child(7)  .nw-bar { opacity: 0.46; }
+.nw-bar-col:nth-child(8)  .nw-bar { opacity: 0.52; }
+.nw-bar-col:nth-child(9)  .nw-bar { opacity: 0.58; }
+.nw-bar-col:nth-child(10) .nw-bar { opacity: 0.70; }
+.nw-bar-col:nth-child(11) .nw-bar { opacity: 0.82; }
+.nw-bar-col:nth-child(12) .nw-bar { opacity: 1.00; }
+
+.nw-bar-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--ne-on-surface-muted);
+    margin-top: 0.4rem;
+    text-align: center;
+    letter-spacing: 0.04em;
+}
+
+/* ── Balance Sheet ─────────────────────────────────────────── */
+.nw-sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--ne-outline-variant);
+}
+
+.nw-sheet-table-wrap {
+    overflow-x: auto;
+}
+
+.nw-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Inter', 'Manrope', sans-serif;
+}
+
+.nw-table thead tr {
+    background: var(--ne-surface-container);
+}
+
+.nw-table th {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ne-on-surface-muted);
+    text-align: left;
+    white-space: nowrap;
+}
+
+.nw-table tbody tr {
+    border-bottom: 1px solid var(--ne-surface-low);
+    transition: background 0.15s;
+}
+
+.nw-table tbody tr:last-child { border-bottom: none; }
+
+.nw-table tbody tr:hover { background: rgba(154, 52, 18, 0.03); }
+
+.nw-table td {
+    padding: 1.1rem 1.5rem;
+    vertical-align: middle;
+}
+
+.nw-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.nw-icon-badge {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 0.6rem;
+    background: var(--ne-surface-container);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--ne-primary);
+}
+
+.nw-icon-badge--home       { background: #dbeafe; color: #1d4ed8; }
+.nw-icon-badge--property   { background: #fef3c7; color: #b45309; }
+.nw-icon-badge--investment { background: #ccfbf1; color: #0f766e; }
+.nw-icon-badge--physical   { background: #ede9fe; color: #7c3aed; }
+.nw-icon-badge--debt       { background: #fee2e2; color: #b91c1c; }
+
+.nw-name-primary {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ne-on-surface);
+    margin: 0 0 0.1rem 0;
+}
+
+.nw-name-sub {
+    font-size: 0.72rem;
+    color: var(--ne-on-surface-muted);
+    margin: 0;
+}
+
+.nw-type-cell {
+    font-size: 0.8rem;
+    color: var(--ne-on-surface-variant);
+}
+
+.nw-value-cell {
+    font-family: 'Newsreader', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ne-on-surface);
+    white-space: nowrap;
+}
+
+.nw-value-cell--debt {
+    color: #b91c1c;
+}
+
+.nw-debt-cell {
+    white-space: nowrap;
+}
+
+.nw-debt-against {
+    font-family: 'Newsreader', serif;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    color: #b91c1c;
+    font-weight: 600;
+}
+
+.nw-no-debt {
+    color: var(--ne-on-surface-muted);
+}

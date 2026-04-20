@@ -25,5 +25,15 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
         return await context.Users
             .FirstOrDefaultAsync(u => u.Id == userId);
     }
+
+    public async Task<bool> UpdateHasCompletedIntro(long userId, bool hasCompletedIntro)
+    {
+        var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        if (user == null) return false;
+
+        user.HasCompletedIntro = hasCompletedIntro;
+        await context.SaveChangesAsync();
+        return true;
+    }
 }
 

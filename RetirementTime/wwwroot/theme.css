@@ -1,0 +1,32 @@
+/* ============================================================
+   RetireTime — Design Tokens
+   All shared colors, spacing, and theme values live here.
+   Import this file before any component styles.
+   ============================================================ */
+
+:root {
+    /* --- Brand colors --- */
+    --color-primary:        #2563eb;   /* Blue — active indicator, links */
+    --color-primary-hover:  #1d4ed8;   /* Darker blue for hover states   */
+
+    /* --- Surface / background colors --- */
+    --color-surface-page:   #f8fafc;   /* Page background                */
+    --color-surface-sidebar:#f7f7f8;   /* Off-white sidebar background   */
+    --color-surface-card:   #ffffff;   /* Card / panel background        */
+
+    /* --- Navigation / selection states --- */
+    --color-nav-active-bg:  #e8e8eb;   /* Highlighted nav item fill      */
+    --color-nav-hover-bg:   #ececee;   /* Hovered nav item fill          */
+    --color-nav-active-bar: var(--color-primary); /* Left-side blue bar  */
+
+    /* --- Border colors --- */
+    --color-border:         #e4e4e7;   /* Default border                 */
+    --color-border-light:   #f1f1f3;   /* Subtle dividers                */
+
+    /* --- Text colors --- */
+    --color-text-primary:   #111827;   /* Headings / strong text         */
+    --color-text-secondary: #374151;   /* Body text                      */
+    --color-text-muted:     #6b7280;   /* Nav labels, captions           */
+    --color-text-faint:     #9ca3af;   /* Placeholder / disabled text    */
+}
+

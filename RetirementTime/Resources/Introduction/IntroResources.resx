@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <!-- General -->
+    <data name="Intro_Title" xml:space="preserve">
+        <value>Welcome to Nest Egg</value>
+    </data>
+    <data name="Intro_Onboarding" xml:space="preserve">
+        <value>Onboarding</value>
+    </data>
+    <data name="Intro_Subtitle" xml:space="preserve">
+        <value>Let's get to know you a little better so we can tailor your retirement plan.</value>
+    </data>
+    <data name="Intro_Next" xml:space="preserve">
+        <value>Next</value>
+    </data>
+    <data name="Intro_Back" xml:space="preserve">
+        <value>Back</value>
+    </data>
+    <data name="Intro_ContinueTo" xml:space="preserve">
+        <value>Continue to</value>
+    </data>
+    <data name="Intro_Finish" xml:space="preserve">
+        <value>Get Started</value>
+    </data>
+    <data name="Intro_StepOf" xml:space="preserve">
+        <value>Step {0} of {1}</value>
+    </data>
+    <data name="Intro_LetsGetStarted" xml:space="preserve">
+        <value>Let's get started</value>
+    </data>
+
+    <!-- Step 1: Welcome -->
+    <data name="Intro_Step1_Title" xml:space="preserve">
+        <value>Welcome to Nest Egg!</value>
+    </data>
+    <data name="Intro_Step1_Body" xml:space="preserve">
+        <value>You've taken the first step toward a more confident retirement. Nest Egg will guide you through simple questions to assess your current financial situation — from your assets and income to your goals and timeline.</value>
+    </data>
+    <data name="Intro_Step1_Body2" xml:space="preserve">
+        <value>We'll start by asking you simple introductory questions regarding your current financial situation to help us determine which forms you'll need to answer later on — making sure you're not wasting time and receive an accurate retirement projection. You will be able to modify these answers even after completing the introductory section.</value>
+    </data>
+
+    <!-- Step 2: Personal Information -->
+    <data name="Intro_Step2_Title" xml:space="preserve">
+        <value>Personal Information</value>
+    </data>
+    <data name="Intro_Step2_Subtitle" xml:space="preserve">
+        <value>Let's start by gathering a bit of information about yourself.</value>
+    </data>
+    <data name="Intro_Step2_Email" xml:space="preserve">
+        <value>What is your email address?</value>
+    </data>
+    <data name="Intro_Step2_Name" xml:space="preserve">
+        <value>What is your name?</value>
+    </data>
+    <data name="Intro_Step2_FirstName" xml:space="preserve">
+        <value>First name</value>
+    </data>
+    <data name="Intro_Step2_LastName" xml:space="preserve">
+        <value>Last name</value>
+    </data>
+    <data name="Intro_Step2_DateOfBirth" xml:space="preserve">
+        <value>What is your date of birth?</value>
+    </data>
+    <data name="Intro_Step2_Citizenship" xml:space="preserve">
+        <value>What is your citizenship status?</value>
+    </data>
+    <data name="Intro_Step2_Citizenship_Citizen" xml:space="preserve">
+        <value>Citizen</value>
+    </data>
+    <data name="Intro_Step2_Citizenship_Canadian" xml:space="preserve">
+        <value>Canadian</value>
+    </data>
+    <data name="Intro_Step2_Citizenship_US" xml:space="preserve">
+        <value>US Citizen</value>
+    </data>
+    <data name="Intro_Step2_Citizenship_PermanentResident" xml:space="preserve">
+        <value>Permanent Resident</value>
+    </data>
+    <data name="Intro_Step2_Citizenship_TemporaryResident" xml:space="preserve">
+        <value>Temporary Resident</value>
+    </data>
+    <data name="Intro_Step2_Citizenship_Other" xml:space="preserve">
+        <value>Other</value>
+    </data>
+    <data name="Intro_Step2_Citizenship_Select" xml:space="preserve">
+        <value>Select your citizenship status</value>
+    </data>
+    <data name="Intro_Step2_MaritalStatus" xml:space="preserve">
+        <value>What is your marital status?</value>
+    </data>
+    <data name="Intro_Step2_MaritalStatus_Single" xml:space="preserve">
+        <value>Single</value>
+    </data>
+    <data name="Intro_Step2_MaritalStatus_Married" xml:space="preserve">
+        <value>Married</value>
+    </data>
+    <data name="Intro_Step2_MaritalStatus_CommonLaw" xml:space="preserve">
+        <value>Common-law</value>
+    </data>
+    <data name="Intro_Step2_MaritalStatus_Divorced" xml:space="preserve">
+        <value>Divorced</value>
+    </data>
+    <data name="Intro_Step2_MaritalStatus_Widowed" xml:space="preserve">
+        <value>Widowed</value>
+    </data>
+    <data name="Intro_Step2_MaritalStatus_Select" xml:space="preserve">
+        <value>Select your marital status</value>
+    </data>
+    <data name="Intro_Step2_CurrentChildren" xml:space="preserve">
+        <value>Do you currently have children?</value>
+    </data>
+    <data name="Intro_Step2_FutureChildren" xml:space="preserve">
+        <value>Are you planning to have children in the future?</value>
+    </data>
+    <data name="Intro_Step2_IncludePartner" xml:space="preserve">
+        <value>Would you like to include your partner in the retirement plan?</value>
+    </data>
+    <data name="Intro_Step2_Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="Intro_Step2_No" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="Intro_Step2_Preface" xml:space="preserve">
+        <value>Step 1 of 5 — Personal Information</value>
+    </data>
+    <data name="Intro_Step2_IncludePartner_Hint" xml:space="preserve">
+        <value>We'll factor their income, savings, and goals into your shared plan.</value>
+    </data>
+    <data name="Intro_Step2_CurrentChildren_Hint" xml:space="preserve">
+        <value>Helps estimate current and future financial obligations.</value>
+    </data>
+    <data name="Intro_Step2_FutureChildren_Hint" xml:space="preserve">
+        <value>May affect your savings timeline and retirement target.</value>
+    </data>
+    <data name="Intro_Step2_Sidebar_Title" xml:space="preserve">
+        <value>Why do we ask?</value>
+    </data>
+    <data name="Intro_Step2_Sidebar_Body" xml:space="preserve">
+        <value>Your personal profile helps us tailor tax strategies, contribution room estimates, and government benefit projections (CPP, OAS, GIS) specifically to your situation.</value>
+    </data>
+    <data name="Intro_Step2_Sidebar_Security" xml:space="preserve">
+        <value>Your data is encrypted and never shared.</value>
+    </data>
+    <data name="Intro_Step2_Sidebar_TaxTitle" xml:space="preserve">
+        <value>Tax residency matters</value>
+    </data>
+    <data name="Intro_Step2_Sidebar_TaxBody" xml:space="preserve">
+        <value>Your citizenship and marital status directly impact your RRSP/TFSA contribution limits and eligibility for spousal splitting strategies in retirement.</value>
+    </data>
+
+    <!-- Step 3: Assets -->
+    <data name="Intro_Step3_Title" xml:space="preserve">
+        <value>Your Assets</value>
+    </data>
+    <data name="Intro_Step3_Subtitle" xml:space="preserve">
+        <value>Help us understand the types of investments and assets you currently have.</value>
+    </data>
+    <data name="Intro_Step3_Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="Intro_Step3_No" xml:space="preserve">
+        <value>No</value>
+    </data>
+
+    <!-- Step 3 — Subsection: Savings & Investment Accounts -->
+    <data name="Intro_Step3_Section_Savings" xml:space="preserve">
+        <value>Financial Accounts</value>
+    </data>
+    <data name="Intro_Step3_Section_Financial" xml:space="preserve">
+        <value>Financial Accounts</value>
+    </data>
+    <data name="Intro_Step3_HasSavingsAccount" xml:space="preserve">
+        <value>Do you have any cash account(s) (e.g. chequing, savings, high-yield savings)?</value>
+    </data>
+    <data name="Intro_Step3_InvestmentAccounts" xml:space="preserve">
+        <value>Which of the following investment or registered account(s) do you have?</value>
+    </data>
+    <data name="Intro_Step3_HasTFSA" xml:space="preserve">
+        <value>Tax-Free Savings Account (TFSA)</value>
+    </data>
+    <data name="Intro_Step3_HasRRSP" xml:space="preserve">
+        <value>Registered Retirement Savings Plan (RRSP)</value>
+    </data>
+    <data name="Intro_Step3_HasRRIF" xml:space="preserve">
+        <value>Registered Retirement Income Fund (RRIF)</value>
+    </data>
+    <data name="Intro_Step3_HasFHSA" xml:space="preserve">
+        <value>First Home Savings Account (FHSA)</value>
+    </data>
+    <data name="Intro_Step3_HasRESP" xml:space="preserve">
+        <value>Registered Education Savings Plan (RESP)</value>
+    </data>
+    <data name="Intro_Step3_HasRDSP" xml:space="preserve">
+        <value>Registered Disability Savings Plan (RDSP)</value>
+    </data>
+    <data name="Intro_Step3_HasNonRegistered" xml:space="preserve">
+        <value>Non-registered investment account (stocks, ETFs, mutual funds, etc.)</value>
+    </data>
+    <data name="Intro_Step3_HasPension" xml:space="preserve">
+        <value>Workplace pension plan (DBPP or DCPP)</value>
+    </data>
+
+    <!-- Step 3 — Subsection: Physical Assets -->
+    <data name="Intro_Step3_Section_Physical" xml:space="preserve">
+        <value>Physical Assets</value>
+    </data>
+    <data name="Intro_Step3_PhysicalAssets" xml:space="preserve">
+        <value>Which of the following physical asset(s) do you own?</value>
+    </data>
+    <data name="Intro_Step3_HasPrincipalResidence" xml:space="preserve">
+        <value>Principal residence (home you live in)</value>
+    </data>
+    <data name="Intro_Step3_HasCar" xml:space="preserve">
+        <value>Car or other personal vehicles</value>
+    </data>
+    <data name="Intro_Step3_HasInvestmentProperty" xml:space="preserve">
+        <value>Investment or rental property</value>
+    </data>
+    <data name="Intro_Step3_HasBusiness" xml:space="preserve">
+        <value>Business (sole proprietorship or partnership)</value>
+    </data>
+    <data name="Intro_Step3_HasIncorporation" xml:space="preserve">
+        <value>Corporation or professional incorporation</value>
+    </data>
+    <data name="Intro_Step3_HasPreciousMetals" xml:space="preserve">
+        <value>Physical precious metals (gold, silver, etc.)</value>
+    </data>
+    <data name="Intro_Step3_HasOtherHardAssets" xml:space="preserve">
+        <value>Other hard assets (art, collectibles, equipment, etc.)</value>
+    </data>
+
+    <!-- Step 4: Debt -->
+    <data name="Intro_Step4_Title" xml:space="preserve">
+        <value>Your Debt</value>
+    </data>
+    <data name="Intro_Step4_Subtitle" xml:space="preserve">
+        <value>Understanding your current debt helps us build a more accurate retirement plan.</value>
+    </data>
+    <data name="Intro_Step4_DebtQuestion" xml:space="preserve">
+        <value>Which of the following debt(s) do you currently have?</value>
+    </data>
+    <data name="Intro_Step4_PrimaryMortgage" xml:space="preserve">
+        <value>Mortgage on principal residence</value>
+    </data>
+    <data name="Intro_Step4_InvestmentPropertyMortgage" xml:space="preserve">
+        <value>Mortgage on investment or rental property</value>
+    </data>
+    <data name="Intro_Step4_CarPayments" xml:space="preserve">
+        <value>Car loan or vehicle financing</value>
+    </data>
+    <data name="Intro_Step4_StudentLoans" xml:space="preserve">
+        <value>Student loans</value>
+    </data>
+    <data name="Intro_Step4_CreditCardDebt" xml:space="preserve">
+        <value>Credit card debt</value>
+    </data>
+    <data name="Intro_Step4_PersonalLoans" xml:space="preserve">
+        <value>Personal loan or line of credit</value>
+    </data>
+    <data name="Intro_Step4_BusinessLoans" xml:space="preserve">
+        <value>Business loan or business line of credit</value>
+    </data>
+    <data name="Intro_Step4_TaxDebt" xml:space="preserve">
+        <value>Tax debt (e.g. owing to the CRA)</value>
+    </data>
+    <data name="Intro_Step4_MedicalDebt" xml:space="preserve">
+        <value>Medical or dental debt</value>
+    </data>
+    <data name="Intro_Step4_InformalDebt" xml:space="preserve">
+        <value>Informal debt (family or personal loans)</value>
+    </data>
+
+    <!-- Step 5: Employment & Income -->
+    <data name="Intro_Step5_Title" xml:space="preserve">
+        <value>Employment &amp; Income</value>
+    </data>
+    <data name="Intro_Step5_Subtitle" xml:space="preserve">
+        <value>Tell us about your current employment situation and any additional sources of income.</value>
+    </data>
+    <data name="Intro_Step5_Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="Intro_Step5_No" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="Intro_Step5_Section_Employment" xml:space="preserve">
+        <value>Employment</value>
+    </data>
+    <data name="Intro_Step5_IsEmployed" xml:space="preserve">
+        <value>Are you currently employed by an employer?</value>
+    </data>
+    <data name="Intro_Step5_IsSelfEmployed" xml:space="preserve">
+        <value>Are you self-employed or a freelancer?</value>
+    </data>
+    <data name="Intro_Step5_RetirementAge" xml:space="preserve">
+        <value>At what age do you plan to retire?</value>
+    </data>
+    <data name="Intro_Step5_CppYears" xml:space="preserve">
+        <value>How many years have you contributed to the Canada Pension Plan (CPP)?</value>
+    </data>
+    <data name="Intro_Step5_Section_Income" xml:space="preserve">
+        <value>Other Income</value>
+    </data>
+    <data name="Intro_Step5_OtherIncome" xml:space="preserve">
+        <value>Are you receiving any of the following regular income sources?</value>
+    </data>
+    <data name="Intro_Step5_Royalties" xml:space="preserve">
+        <value>Royalties (books, music, patents, etc.)</value>
+    </data>
+    <data name="Intro_Step5_Dividends" xml:space="preserve">
+        <value>Dividends from stocks or business ownership</value>
+    </data>
+    <data name="Intro_Step5_RentalIncome" xml:space="preserve">
+        <value>Rental income from properties</value>
+    </data>
+    <data name="Intro_Step5_OtherIncomeItem" xml:space="preserve">
+        <value>Other regular income</value>
+    </data>
+
+    <!-- Common Loading Messages -->
+    <data name="Common_Loading" xml:space="preserve">
+        <value>Loading...</value>
+    </data>
+    <data name="Intro_LoadingData" xml:space="preserve">
+        <value>Loading your information...</value>
+    </data>
+</root>

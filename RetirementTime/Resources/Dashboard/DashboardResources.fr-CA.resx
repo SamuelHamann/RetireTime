@@ -1,7 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
     </xsd:element>
   </xsd:schema>
   <resheader name="resmimetype">
@@ -17,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Home_Title" xml:space="preserve">
-    <value>Bienvenue sur RetireTime</value>
+    <value>Bienvenue sur Cagnotte</value>
   </data>
   <data name="Home_Subtitle" xml:space="preserve">
     <value>Votre tableau de bord de planification de retraite</value>
@@ -31,5 +132,972 @@
   <data name="Home_Logout" xml:space="preserve">
     <value>Déconnexion</value>
   </data>
-</root>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="Settings_IntroSection" xml:space="preserve">
+    <value>Introduction</value>
+  </data>
+  <data name="Settings_ResetIntroLabel" xml:space="preserve">
+    <value>Réinitialiser l'introduction</value>
+  </data>
+  <data name="Settings_ResetIntroDescription" xml:space="preserve">
+    <value>Relancez l'assistant d'introduction pour mettre à jour votre profil et vos préférences.</value>
+  </data>
+  <data name="Settings_ResetIntroButton" xml:space="preserve">
+    <value>Réinitialiser l'introduction</value>
+  </data>
+  <data name="Sidebar_Overview" xml:space="preserve">
+    <value>Aperçu</value>
+  </data>
+  <data name="Sidebar_ScenarioSettings" xml:space="preserve">
+    <value>Paramètres du scénario</value>
+  </data>
+  <data name="Sidebar_FinancialProfile" xml:space="preserve">
+    <value>Revenus et Actifs</value>
+  </data>
+  <data name="Sidebar_Income" xml:space="preserve">
+    <value>Revenus</value>
+  </data>
+  <data name="Sidebar_Income_Employment" xml:space="preserve">
+    <value>Emploi</value>
+  </data>
+  <data name="Sidebar_Income_SelfEmployment" xml:space="preserve">
+    <value>Travail autonome</value>
+  </data>
+  <data name="Sidebar_Income_DefinedBenefits" xml:space="preserve">
+    <value>Pension à prestations déterminées</value>
+  </data>
+  <data name="Sidebar_Income_DefinedContribution" xml:space="preserve">
+    <value>Cotisation déterminée</value>
+  </data>
+  <data name="Sidebar_Income_GroupRrsp" xml:space="preserve">
+    <value>REER collectif</value>
+  </data>
+  <data name="Sidebar_Income_DefinedProfitSharing" xml:space="preserve">
+    <value>Participation définie aux bénéfices</value>
+  </data>
+  <data name="Sidebar_Income_SharePurchasePlan" xml:space="preserve">
+    <value>Régime d'achat d'actions</value>
+  </data>
+  <data name="Sidebar_Income_OasCpp" xml:space="preserve">
+    <value>SV &amp; RPC</value>
+  </data>
+  <data name="Sidebar_Income_Other" xml:space="preserve">
+    <value>Autre</value>
+  </data>
+  <data name="Sidebar_Spending" xml:space="preserve">
+    <value>Dépenses</value>
+  </data>
+  <data name="Sidebar_Spending_LivingExpenses" xml:space="preserve">
+    <value>Dépenses courantes</value>
+  </data>
+  <data name="Sidebar_Spending_DiscretionaryExpenses" xml:space="preserve">
+    <value>Dépenses discrétionnaires</value>
+  </data>
+  <data name="Sidebar_Spending_DebtRepayments" xml:space="preserve">
+    <value>Remboursements de dettes</value>
+  </data>
+  <data name="Sidebar_Spending_AssetsExpenses" xml:space="preserve">
+    <value>Dépenses liées aux actifs</value>
+  </data>
+  <data name="Sidebar_Spending_OtherExpenses" xml:space="preserve">
+    <value>Autres dépenses</value>
+  </data>
+  <data name="Sidebar_NewScenario" xml:space="preserve">
+    <value>Nouveau scénario</value>
+  </data>
+  <data name="Sidebar_NetWorth" xml:space="preserve">
+    <value>Valeur nette</value>
+  </data>
+  <data name="Sidebar_ScenarioOverview" xml:space="preserve">
+    <value>Aperçu du scénario</value>
+  </data>
+  <data name="NetWorth_Title" xml:space="preserve">
+    <value>Valeur nette</value>
+  </data>
+  <data name="NetWorth_Subtitle" xml:space="preserve">
+    <value>Un aperçu de vos actifs totaux moins vos dettes totales.</value>
+  </data>
+  <data name="NetWorth_ConsolidatedValue" xml:space="preserve">
+    <value>Valeur consolidée</value>
+  </data>
+  <data name="NetWorth_Category_RealEstate" xml:space="preserve">
+    <value>Immobilier</value>
+  </data>
+  <data name="NetWorth_Category_Investments" xml:space="preserve">
+    <value>Placements</value>
+  </data>
+  <data name="NetWorth_Category_PhysicalAssets" xml:space="preserve">
+    <value>Actifs physiques</value>
+  </data>
+  <data name="NetWorth_Category_TotalDebts" xml:space="preserve">
+    <value>Total des dettes</value>
+  </data>
+  <data name="NetWorth_GrowthProjection_Title" xml:space="preserve">
+    <value>Projection de croissance</value>
+  </data>
+  <data name="NetWorth_GrowthProjection_Subtitle" xml:space="preserve">
+    <value>Performance historique des actions et des actifs</value>
+  </data>
+  <data name="NetWorth_Legend_NetWorth" xml:space="preserve">
+    <value>Valeur nette</value>
+  </data>
+  <data name="NetWorth_Legend_Liabilities" xml:space="preserve">
+    <value>Passifs</value>
+  </data>
+  <data name="NetWorth_BalanceSheet_Title" xml:space="preserve">
+    <value>Détails du bilan</value>
+  </data>
+  <data name="NetWorth_Col_Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="NetWorth_Col_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="NetWorth_Col_Value" xml:space="preserve">
+    <value>Valeur</value>
+  </data>
+  <data name="NetWorth_Col_DebtAgainst" xml:space="preserve">
+    <value>Dette liée</value>
+  </data>
+  <data name="NetWorth_Type_Home" xml:space="preserve">
+    <value>Immobilier</value>
+  </data>
+  <data name="NetWorth_Type_InvestmentProperty" xml:space="preserve">
+    <value>Immobilier</value>
+  </data>
+  <data name="NetWorth_Type_InvestmentAccount" xml:space="preserve">
+    <value>Placement</value>
+  </data>
+  <data name="NetWorth_Type_PhysicalAsset" xml:space="preserve">
+    <value>Actif physique</value>
+  </data>
+  <data name="Sidebar_Logout" xml:space="preserve">
+    <value>Déconnexion</value>
+  </data>
+  <data name="Income_Title" xml:space="preserve">
+    <value>Revenus</value>
+  </data>
+  <data name="Income_Subtitle" xml:space="preserve">
+    <value>Suivez toutes vos sources de revenus pour votre scénario de retraite.</value>
+  </data>
+  <data name="Income_Next" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="Income_Employment_Title" xml:space="preserve">
+    <value>Revenus d'emploi</value>
+  </data>
+  <data name="Income_Employment_Subtitle" xml:space="preserve">
+    <value>Suivez votre salaire, vos commissions, vos primes et autres revenus d'emploi.</value>
+  </data>
+  <data name="Income_SelfEmployment_Title" xml:space="preserve">
+    <value>Revenus de travail autonome</value>
+  </data>
+  <data name="Income_SelfEmployment_Subtitle" xml:space="preserve">
+    <value>Suivez les revenus de votre propre entreprise, de vos activités freelance ou de vos dividendes.</value>
+  </data>
+  <data name="Income_DefinedBenefits_Title" xml:space="preserve">
+    <value>Pension à prestations déterminées</value>
+  </data>
+  <data name="Income_DefinedBenefits_Subtitle" xml:space="preserve">
+    <value>Suivez les prestations de pension garanties avant et après 65 ans.</value>
+  </data>
+  <data name="Income_DefinedContribution_Title" xml:space="preserve">
+    <value>Pension à cotisation déterminée</value>
+  </data>
+  <data name="Income_DefinedContribution_Subtitle" xml:space="preserve">
+    <value>Suivez les cotisations de l'employeur et de l'employé à votre régime à cotisation déterminée.</value>
+  </data>
+  <data name="Income_GroupRrsp_Title" xml:space="preserve">
+    <value>REER collectif</value>
+  </data>
+  <data name="Income_GroupRrsp_Subtitle" xml:space="preserve">
+    <value>Suivez les cotisations de l'employé et de l'employeur à votre REER collectif.</value>
+  </data>
+  <data name="Income_DefinedProfitSharing_Title" xml:space="preserve">
+    <value>Participation définie aux bénéfices</value>
+  </data>
+  <data name="Income_DefinedProfitSharing_Subtitle" xml:space="preserve">
+    <value>Suivez les cotisations de participation aux bénéfices de l'employeur en votre nom.</value>
+  </data>
+  <data name="Income_SharePurchasePlan_Title" xml:space="preserve">
+    <value>Régime d'achat d'actions</value>
+  </data>
+  <data name="Income_SharePurchasePlan_Subtitle" xml:space="preserve">
+    <value>Suivez les cotisations de l'employé et de l'employeur à votre régime d'achat d'actions.</value>
+  </data>
+  <data name="Income_OasCpp_Title" xml:space="preserve">
+    <value>SV &amp; RPC</value>
+  </data>
+  <data name="Income_OasCpp_Subtitle" xml:space="preserve">
+    <value>Estimez vos prestations de Sécurité de la vieillesse et du Régime de pensions du Canada.</value>
+  </data>
+  <data name="Income_Other_Title" xml:space="preserve">
+    <value>Autres revenus et prestations</value>
+  </data>
+  <data name="Income_Other_Subtitle" xml:space="preserve">
+    <value>Suivez toute autre source de revenus telle que les redevances, les loyers ou les prestations.</value>
+  </data>
+  <data name="Income_Remove" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Income_Employment_SectionTitle" xml:space="preserve">
+    <value>Revenus d'emploi</value>
+  </data>
+  <data name="Income_Employment_Hint" xml:space="preserve">
+    <value>Toutes les valeurs sont annuelles. Entrez les montants bruts (avant impôt) et nets (après impôt).</value>
+  </data>
+  <data name="Income_Employment_Item" xml:space="preserve">
+    <value>Emploi #{0}</value>
+  </data>
+  <data name="Income_Employment_EmployerName" xml:space="preserve">
+    <value>Nom de l'employeur</value>
+  </data>
+  <data name="Income_Employment_GrossSalary" xml:space="preserve">
+    <value>Salaire brut</value>
+  </data>
+  <data name="Income_Employment_NetSalary" xml:space="preserve">
+    <value>Salaire net</value>
+  </data>
+  <data name="Income_Employment_GrossCommissions" xml:space="preserve">
+    <value>Commissions et pourboires bruts</value>
+  </data>
+  <data name="Income_Employment_NetCommissions" xml:space="preserve">
+    <value>Commissions et pourboires nets</value>
+  </data>
+  <data name="Income_Employment_GrossBonus" xml:space="preserve">
+    <value>Boni brut</value>
+  </data>
+  <data name="Income_Employment_NetBonus" xml:space="preserve">
+    <value>Boni net</value>
+  </data>
+  <data name="Income_Employment_OtherIncome" xml:space="preserve">
+    <value>Autres revenus</value>
+  </data>
+  <data name="Income_Employment_OtherIncomeName" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Income_Employment_OtherIncomeGross" xml:space="preserve">
+    <value>Brut</value>
+  </data>
+  <data name="Income_Employment_OtherIncomeNet" xml:space="preserve">
+    <value>Net</value>
+  </data>
+  <data name="Income_Employment_AddOtherIncome" xml:space="preserve">
+    <value>Ajouter un revenu</value>
+  </data>
+  <data name="Income_Employment_AddEmployment" xml:space="preserve">
+    <value>Ajouter un emploi</value>
+  </data>
+  <data name="Income_SelfEmployment_SectionTitle" xml:space="preserve">
+    <value>Revenu de travail indépendant</value>
+  </data>
+  <data name="Income_SelfEmployment_Hint" xml:space="preserve">
+    <value>Toutes les valeurs sont annuelles. Entrez les montants bruts (avant impôt) et nets (après impôt).</value>
+  </data>
+  <data name="Income_SelfEmployment_Item" xml:space="preserve">
+    <value>Entreprise #{0}</value>
+  </data>
+  <data name="Income_SelfEmployment_Name" xml:space="preserve">
+    <value>Nom de l'entreprise / du travail autonome</value>
+  </data>
+  <data name="Income_SelfEmployment_GrossSalary" xml:space="preserve">
+    <value>Salaire brut</value>
+  </data>
+  <data name="Income_SelfEmployment_NetSalary" xml:space="preserve">
+    <value>Salaire net</value>
+  </data>
+  <data name="Income_SelfEmployment_GrossDividends" xml:space="preserve">
+    <value>Dividendes bruts</value>
+  </data>
+  <data name="Income_SelfEmployment_NetDividends" xml:space="preserve">
+    <value>Dividendes nets</value>
+  </data>
+  <data name="Income_SelfEmployment_AddSelfEmployment" xml:space="preserve">
+    <value>Ajouter une entreprise / travail autonome</value>
+  </data>
+  <data name="Income_DefinedBenefits_SectionTitle" xml:space="preserve">
+    <value>Régime de retraite à prestations déterminées</value>
+  </data>
+  <data name="Income_DefinedBenefits_Hint" xml:space="preserve">
+    <value>Entrez les détails de chaque régime de retraite à prestations déterminées auquel vous avez droit.</value>
+  </data>
+  <data name="Income_DefinedBenefits_Item" xml:space="preserve">
+    <value>Pension #{0}</value>
+  </data>
+  <data name="Income_DefinedBenefits_Name" xml:space="preserve">
+    <value>Nom du régime</value>
+  </data>
+  <data name="Income_DefinedBenefits_StartAge" xml:space="preserve">
+    <value>Âge de début</value>
+  </data>
+  <data name="Income_DefinedBenefits_BenefitsPre65" xml:space="preserve">
+    <value>Prestations annuelles (avant 65 ans)</value>
+  </data>
+  <data name="Income_DefinedBenefits_BenefitsPost65" xml:space="preserve">
+    <value>Prestations annuelles (après 65 ans)</value>
+  </data>
+  <data name="Income_DefinedBenefits_PercentIndexedToInflation" xml:space="preserve">
+    <value>% indexé à l'inflation</value>
+  </data>
+  <data name="Income_DefinedBenefits_PercentSurvivorBenefits" xml:space="preserve">
+    <value>% prestations de survivant</value>
+  </data>
+  <data name="Income_DefinedBenefits_RrspAdjustment" xml:space="preserve">
+    <value>Facteur d'ajustement REER</value>
+  </data>
+  <data name="Income_DefinedBenefits_AddPension" xml:space="preserve">
+    <value>Ajouter une pension</value>
+  </data>
+  <data name="Income_DefinedContribution_SectionTitle" xml:space="preserve">
+    <value>Régime de retraite à cotisations déterminées</value>
+  </data>
+  <data name="Income_DefinedContribution_Hint" xml:space="preserve">
+    <value>Suivez les cotisations de l'employé et de l'employeur en pourcentage du salaire.</value>
+  </data>
+  <data name="Income_DefinedContribution_Item" xml:space="preserve">
+    <value>Régime #{0}</value>
+  </data>
+  <data name="Income_DefinedContribution_Name" xml:space="preserve">
+    <value>Nom du régime</value>
+  </data>
+  <data name="Income_DefinedContribution_PercentEmployee" xml:space="preserve">
+    <value>Cotisation de l'employé (%)</value>
+  </data>
+  <data name="Income_DefinedContribution_PercentEmployer" xml:space="preserve">
+    <value>Cotisation de l'employeur (%)</value>
+  </data>
+  <data name="Income_DefinedContribution_AddPlan" xml:space="preserve">
+    <value>Ajouter un régime</value>
+  </data>
+  <data name="Income_DefinedProfitSharing_SectionTitle" xml:space="preserve">
+    <value>Participation aux bénéfices</value>
+  </data>
+  <data name="Income_DefinedProfitSharing_Hint" xml:space="preserve">
+    <value>Suivez les contributions de l'employeur à la participation aux bénéfices en votre nom.</value>
+  </data>
+  <data name="Income_DefinedProfitSharing_Item" xml:space="preserve">
+    <value>Régime #{0}</value>
+  </data>
+  <data name="Income_DefinedProfitSharing_Name" xml:space="preserve">
+    <value>Nom du régime</value>
+  </data>
+  <data name="Income_DefinedProfitSharing_PercentEmployer" xml:space="preserve">
+    <value>Cotisation de l'employeur (%)</value>
+  </data>
+  <data name="Income_DefinedProfitSharing_AddPlan" xml:space="preserve">
+    <value>Ajouter un régime</value>
+  </data>
+  <data name="Income_GroupRrsp_SectionTitle" xml:space="preserve">
+    <value>REER collectif</value>
+  </data>
+  <data name="Income_GroupRrsp_Hint" xml:space="preserve">
+    <value>Suivez les cotisations de l'employé et de l'employeur à votre REER collectif.</value>
+  </data>
+  <data name="Income_GroupRrsp_Item" xml:space="preserve">
+    <value>Régime #{0}</value>
+  </data>
+  <data name="Income_GroupRrsp_Name" xml:space="preserve">
+    <value>Nom du régime</value>
+  </data>
+  <data name="Income_GroupRrsp_PercentEmployee" xml:space="preserve">
+    <value>Cotisation de l'employé (%)</value>
+  </data>
+  <data name="Income_GroupRrsp_PercentEmployer" xml:space="preserve">
+    <value>Cotisation de l'employeur (%)</value>
+  </data>
+  <data name="Income_GroupRrsp_AddPlan" xml:space="preserve">
+    <value>Ajouter un régime</value>
+  </data>
+  <data name="Income_SharePurchasePlan_SectionTitle" xml:space="preserve">
+    <value>Plan d'achat d'actions</value>
+  </data>
+  <data name="Income_SharePurchasePlan_Hint" xml:space="preserve">
+    <value>Suivez les cotisations d'achat d'actions de l'employé et de l'employeur.</value>
+  </data>
+  <data name="Income_SharePurchasePlan_Item" xml:space="preserve">
+    <value>Régime #{0}</value>
+  </data>
+  <data name="Income_SharePurchasePlan_Name" xml:space="preserve">
+    <value>Nom du régime</value>
+  </data>
+  <data name="Income_SharePurchasePlan_PercentEmployee" xml:space="preserve">
+    <value>Cotisation de l'employé (%)</value>
+  </data>
+  <data name="Income_SharePurchasePlan_PercentEmployer" xml:space="preserve">
+    <value>Participation de l'employeur (%)</value>
+  </data>
+  <data name="Income_SharePurchasePlan_UseFlatAmount" xml:space="preserve">
+    <value>Utiliser un montant fixe plutôt qu'un pourcentage</value>
+  </data>
+  <data name="Income_SharePurchasePlan_AddPlan" xml:space="preserve">
+    <value>Ajouter un régime</value>
+  </data>
+  <data name="Income_OasCpp_SectionTitle" xml:space="preserve">
+    <value>SV &amp; RPC</value>
+  </data>
+  <data name="Income_OasCpp_Hint" xml:space="preserve">
+    <value>Entrez vos revenus d'emploi des 5 dernières années pour estimer vos prestations SV et RPC.</value>
+  </data>
+  <data name="Income_OasCpp_IncomeLastYear" xml:space="preserve">
+    <value>Revenu de l'année dernière</value>
+  </data>
+  <data name="Income_OasCpp_Income2YearsAgo" xml:space="preserve">
+    <value>Revenu il y a 2 ans</value>
+  </data>
+  <data name="Income_OasCpp_Income3YearsAgo" xml:space="preserve">
+    <value>Revenu il y a 3 ans</value>
+  </data>
+  <data name="Income_OasCpp_Income4YearsAgo" xml:space="preserve">
+    <value>Revenu il y a 4 ans</value>
+  </data>
+  <data name="Income_OasCpp_Income5YearsAgo" xml:space="preserve">
+    <value>Revenu il y a 5 ans</value>
+  </data>
+  <data name="Income_OasCpp_YearsSpentInCanada" xml:space="preserve">
+    <value>Années passées au Canada</value>
+  </data>
+  <data name="Income_Other_SectionTitle" xml:space="preserve">
+    <value>Autres revenus et prestations</value>
+  </data>
+  <data name="Income_Other_Hint" xml:space="preserve">
+    <value>Suivez toute autre source de revenus comme les redevances, les loyers ou les prestations gouvernementales.</value>
+  </data>
+  <data name="Income_Other_Item" xml:space="preserve">
+    <value>Revenu #{0}</value>
+  </data>
+  <data name="Income_Other_Name" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Income_Other_Amount" xml:space="preserve">
+    <value>Montant annuel</value>
+  </data>
+  <data name="Income_Other_AddIncome" xml:space="preserve">
+    <value>Ajouter un revenu / prestation</value>
+  </data>
+  <data name="Sidebar_Assets" xml:space="preserve">
+    <value>Actifs</value>
+  </data>
+  <data name="Sidebar_Assets_Home" xml:space="preserve">
+    <value>Résidence principale</value>
+  </data>
+  <data name="Sidebar_Assets_InvestmentProperties" xml:space="preserve">
+    <value>Immeubles de placement</value>
+  </data>
+  <data name="Assets_Home_Title" xml:space="preserve">
+    <value>Votre résidence</value>
+  </data>
+  <data name="Assets_Home_Subtitle" xml:space="preserve">
+    <value>Suivez la valeur et les détails d'achat de votre résidence principale.</value>
+  </data>
+  <data name="Assets_Home_SectionTitle" xml:space="preserve">
+    <value>Résidence principale</value>
+  </data>
+  <data name="Assets_Home_Hint" xml:space="preserve">
+    <value>Entrez la valeur actuelle de votre résidence et la date d'achat.</value>
+  </data>
+  <data name="Assets_Home_PurchaseDate" xml:space="preserve">
+    <value>Date d'achat</value>
+  </data>
+  <data name="Assets_Home_HomeValue" xml:space="preserve">
+    <value>Valeur estimée de la résidence</value>
+  </data>
+  <data name="Assets_Home_PurchasePrice" xml:space="preserve">
+    <value>Prix d'achat</value>
+  </data>
+  <data name="Assets_InvestmentProperties_Title" xml:space="preserve">
+    <value>Immeubles de placement</value>
+  </data>
+  <data name="Assets_InvestmentProperties_Subtitle" xml:space="preserve">
+    <value>Suivez la valeur et les détails d'achat de vos immeubles de placement.</value>
+  </data>
+  <data name="Assets_InvestmentProperties_SectionTitle" xml:space="preserve">
+    <value>Immeubles de placement</value>
+  </data>
+  <data name="Assets_InvestmentProperties_Hint" xml:space="preserve">
+    <value>Ajoutez chaque immeuble de placement que vous possédez avec sa valeur estimée.</value>
+  </data>
+  <data name="Assets_InvestmentProperties_Item" xml:space="preserve">
+    <value>Propriété #{0}</value>
+  </data>
+  <data name="Assets_InvestmentProperties_Name" xml:space="preserve">
+    <value>Nom de la propriété</value>
+  </data>
+  <data name="Assets_InvestmentProperties_PurchaseDate" xml:space="preserve">
+    <value>Date d'achat</value>
+  </data>
+  <data name="Assets_InvestmentProperties_PropertyValue" xml:space="preserve">
+    <value>Valeur estimée de la propriété</value>
+  </data>
+  <data name="Assets_InvestmentProperties_PurchasePrice" xml:space="preserve">
+    <value>Prix d'achat</value>
+  </data>
+  <data name="Assets_InvestmentProperties_AddProperty" xml:space="preserve">
+    <value>Ajouter une propriété</value>
+  </data>
+  <data name="Assets_Next" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="Assets_Remove" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Sidebar_Assets_InvestmentAccounts" xml:space="preserve">
+    <value>Comptes de placement</value>
+  </data>
+  <data name="Sidebar_Assets_PhysicalAssets" xml:space="preserve">
+    <value>Actifs physiques</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_Title" xml:space="preserve">
+    <value>Comptes de placement</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_Subtitle" xml:space="preserve">
+    <value>Suivez vos comptes de placement enregistrés et non enregistrés ainsi que leurs avoirs.</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_SectionTitle" xml:space="preserve">
+    <value>Comptes de placement</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_Hint" xml:space="preserve">
+    <value>Ajoutez chaque compte de placement que vous détenez. Pour chaque compte, entrez une valeur totale ou listez les avoirs individuels.</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_Item" xml:space="preserve">
+    <value>Compte #{0}</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_AccountName" xml:space="preserve">
+    <value>Nom du compte</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_AccountType" xml:space="preserve">
+    <value>Type de compte</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_AdjustedCostBasis" xml:space="preserve">
+    <value>Prix de base rajusté</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_TotalValue" xml:space="preserve">
+    <value>Valeur totale actuelle</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_UseIndividualHoldings" xml:space="preserve">
+    <value>Saisir les avoirs individuels</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_AddAccount" xml:space="preserve">
+    <value>Ajouter un compte</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_Holdings_SectionLabel" xml:space="preserve">
+    <value>Avoirs</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_Holdings_AssetName" xml:space="preserve">
+    <value>Nom de l'avoir</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_Holdings_IsPubliclyTraded" xml:space="preserve">
+    <value>Coté en bourse</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_Holdings_CurrentValue" xml:space="preserve">
+    <value>Valeur actuelle</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_Holdings_TickerSymbol" xml:space="preserve">
+    <value>Symbole boursier</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_Holdings_AdjustedCostBasis" xml:space="preserve">
+    <value>Prix de base rajusté</value>
+  </data>
+  <data name="Assets_InvestmentAccounts_Holdings_AddHolding" xml:space="preserve">
+    <value>Ajouter un avoir</value>
+  </data>
+  <data name="Assets_PhysicalAssets_Title" xml:space="preserve">
+    <value>Actifs physiques</value>
+  </data>
+  <data name="Assets_PhysicalAssets_Subtitle" xml:space="preserve">
+    <value>Suivez la valeur de vos actifs physiques comme les véhicules, bijoux et objets de collection.</value>
+  </data>
+  <data name="Assets_PhysicalAssets_SectionTitle" xml:space="preserve">
+    <value>Actifs physiques</value>
+  </data>
+  <data name="Assets_PhysicalAssets_Hint" xml:space="preserve">
+    <value>Ajoutez chaque actif physique que vous possédez avec sa valeur estimée actuelle.</value>
+  </data>
+  <data name="Assets_PhysicalAssets_Item" xml:space="preserve">
+    <value>Actif #{0}</value>
+  </data>
+  <data name="Assets_PhysicalAssets_Name" xml:space="preserve">
+    <value>Nom de l'actif</value>
+  </data>
+  <data name="Assets_PhysicalAssets_AssetType" xml:space="preserve">
+    <value>Type d'actif</value>
+  </data>
+  <data name="Assets_PhysicalAssets_EstimatedValue" xml:space="preserve">
+    <value>Valeur estimée</value>
+  </data>
+  <data name="Assets_PhysicalAssets_AdjustedCostBasis" xml:space="preserve">
+    <value>Prix de base rajusté</value>
+  </data>
+  <data name="Assets_PhysicalAssets_IsPersonalProperty" xml:space="preserve">
+    <value>Bien personnel</value>
+  </data>
+  <data name="Assets_PhysicalAssets_IsRetirementAsset" xml:space="preserve">
+    <value>Considéré comme un actif de retraite</value>
+  </data>
+  <data name="Assets_PhysicalAssets_AddAsset" xml:space="preserve">
+    <value>Ajouter un actif</value>
+  </data>
+  <data name="Sidebar_Debt" xml:space="preserve">
+    <value>Dettes</value>
+  </data>
+  <data name="Sidebar_Debt_HomeMortgage" xml:space="preserve">
+    <value>Hypothèque principale</value>
+  </data>
+  <data name="Sidebar_Debt_InvestmentPropertyMortgage" xml:space="preserve">
+    <value>Immeuble de placement</value>
+  </data>
+  <data name="Sidebar_Debt_CarLoans" xml:space="preserve">
+    <value>Prêts auto</value>
+  </data>
+  <data name="Sidebar_Debt_StudentLoans" xml:space="preserve">
+    <value>Prêts étudiants</value>
+  </data>
+  <data name="Sidebar_Debt_MedicalDebt" xml:space="preserve">
+    <value>Dettes médicales</value>
+  </data>
+  <data name="Sidebar_Debt_PersonalLoans" xml:space="preserve">
+    <value>Personnel et autre</value>
+  </data>
+  <data name="Sidebar_Debt_CreditCards" xml:space="preserve">
+    <value>Cartes de crédit</value>
+  </data>
+  <data name="Debt_Next" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="Debt_Remove" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Debt_HomeMortgage_Title" xml:space="preserve">
+    <value>Hypothèque principale</value>
+  </data>
+  <data name="Debt_HomeMortgage_Subtitle" xml:space="preserve">
+    <value>Entrez les détails de l'hypothèque de votre résidence principale.</value>
+  </data>
+  <data name="Debt_HomeMortgage_SectionTitle" xml:space="preserve">
+    <value>Hypothèque principale</value>
+  </data>
+  <data name="Debt_HomeMortgage_Principal" xml:space="preserve">
+    <value>Solde du capital</value>
+  </data>
+  <data name="Debt_HomeMortgage_InterestRate" xml:space="preserve">
+    <value>Taux d'intérêt</value>
+  </data>
+  <data name="Debt_HomeMortgage_Frequency" xml:space="preserve">
+    <value>Fréquence de paiement</value>
+  </data>
+  <data name="Debt_HomeMortgage_TermInYears" xml:space="preserve">
+    <value>Période d'amortissement (années)</value>
+  </data>
+  <data name="Debt_InvestmentProperty_Title" xml:space="preserve">
+    <value>Hypothèques immobilières</value>
+  </data>
+  <data name="Debt_InvestmentProperty_Subtitle" xml:space="preserve">
+    <value>Suivez les hypothèques sur vos immeubles de placement.</value>
+  </data>
+  <data name="Debt_InvestmentProperty_SectionTitle" xml:space="preserve">
+    <value>Hypothèques immobilières</value>
+  </data>
+  <data name="Debt_InvestmentProperty_Hint" xml:space="preserve">
+    <value>Ajoutez chaque hypothèque immobilière que vous détenez.</value>
+  </data>
+  <data name="Debt_InvestmentProperty_Item" xml:space="preserve">
+    <value>Hypothèque #{0}</value>
+  </data>
+  <data name="Debt_InvestmentProperty_AddItem" xml:space="preserve">
+    <value>Ajouter une hypothèque</value>
+  </data>
+  <data name="Debt_InvestmentProperty_DefaultName" xml:space="preserve">
+    <value>Propriété de placement</value>
+  </data>
+  <data name="Debt_StudentLoans_Title" xml:space="preserve">
+    <value>Prêts étudiants</value>
+  </data>
+  <data name="Debt_StudentLoans_Subtitle" xml:space="preserve">
+    <value>Suivez vos soldes de prêts étudiants en cours.</value>
+  </data>
+  <data name="Debt_StudentLoans_SectionTitle" xml:space="preserve">
+    <value>Prêts étudiants</value>
+  </data>
+  <data name="Debt_StudentLoans_Hint" xml:space="preserve">
+    <value>Ajoutez chaque prêt étudiant que vous détenez.</value>
+  </data>
+  <data name="Debt_StudentLoans_Item" xml:space="preserve">
+    <value>Prêt #{0}</value>
+  </data>
+  <data name="Debt_StudentLoans_AddItem" xml:space="preserve">
+    <value>Ajouter un prêt</value>
+  </data>
+  <data name="Debt_MedicalDebt_Title" xml:space="preserve">
+    <value>Dettes médicales</value>
+  </data>
+  <data name="Debt_MedicalDebt_Subtitle" xml:space="preserve">
+    <value>Suivez vos dettes et factures médicales en cours.</value>
+  </data>
+  <data name="Debt_MedicalDebt_SectionTitle" xml:space="preserve">
+    <value>Dettes médicales</value>
+  </data>
+  <data name="Debt_MedicalDebt_Hint" xml:space="preserve">
+    <value>Ajoutez chaque dette médicale en cours.</value>
+  </data>
+  <data name="Debt_MedicalDebt_Item" xml:space="preserve">
+    <value>Dette #{0}</value>
+  </data>
+  <data name="Debt_MedicalDebt_AddItem" xml:space="preserve">
+    <value>Ajouter une dette</value>
+  </data>
+  <data name="Debt_PersonalLoans_Title" xml:space="preserve">
+    <value>Prêts personnels et autre</value>
+  </data>
+  <data name="Debt_PersonalLoans_Subtitle" xml:space="preserve">
+    <value>Suivez vos prêts personnels, marges de crédit, prêts auto et autres dettes.</value>
+  </data>
+  <data name="Debt_PersonalLoans_SectionTitle" xml:space="preserve">
+    <value>Prêts personnels et autres dettes</value>
+  </data>
+  <data name="Debt_PersonalLoans_Hint" xml:space="preserve">
+    <value>Ajoutez chaque prêt personnel ou autre dette que vous détenez.</value>
+  </data>
+  <data name="Debt_PersonalLoans_Item" xml:space="preserve">
+    <value>Prêt #{0}</value>
+  </data>
+  <data name="Debt_PersonalLoans_AddItem" xml:space="preserve">
+    <value>Ajouter un prêt</value>
+  </data>
+  <data name="Debt_PersonalLoans_DebtType" xml:space="preserve">
+    <value>Type de dette</value>
+  </data>
+  <data name="Debt_CreditCards_Title" xml:space="preserve">
+    <value>Cartes de crédit</value>
+  </data>
+  <data name="Debt_CreditCards_Subtitle" xml:space="preserve">
+    <value>Suivez vos soldes de cartes de crédit et taux d'intérêt.</value>
+  </data>
+  <data name="Debt_CreditCards_SectionTitle" xml:space="preserve">
+    <value>Cartes de crédit</value>
+  </data>
+  <data name="Debt_CreditCards_Hint" xml:space="preserve">
+    <value>Ajoutez chaque carte de crédit sur laquelle vous avez un solde.</value>
+  </data>
+  <data name="Debt_CreditCards_Item" xml:space="preserve">
+    <value>Carte #{0}</value>
+  </data>
+  <data name="Debt_CreditCards_AddItem" xml:space="preserve">
+    <value>Ajouter une carte</value>
+  </data>
+  <data name="Debt_Field_Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="Debt_Field_Balance" xml:space="preserve">
+    <value>Solde actuel</value>
+  </data>
+  <data name="Debt_Field_InterestRate" xml:space="preserve">
+    <value>Taux d'intérêt</value>
+  </data>
+  <data name="Debt_Field_Frequency" xml:space="preserve">
+    <value>Fréquence de capitalisation des intérêt</value>
+  </data>
+  <data name="Debt_Field_TermInYears" xml:space="preserve">
+    <value>Période d'amortissement (années)</value>
+  </data>
+  <data name="Debt_LinkedAsset" xml:space="preserve">
+    <value>Lié à :</value>
+  </data>
+  <data name="Debt_PrimaryResidence" xml:space="preserve">
+    <value>Résidence principale</value>
+  </data>
+  <data name="Debt_Standalone" xml:space="preserve">
+    <value>Autre (non lié à un actif)</value>
+  </data>
+  <data name="Debt_CarLoans_Title" xml:space="preserve">
+    <value>Prêts auto</value>
+  </data>
+  <data name="Debt_CarLoans_Subtitle" xml:space="preserve">
+    <value>Suivez les prêts en cours sur vos véhicules.</value>
+  </data>
+  <data name="Debt_CarLoans_SectionTitle" xml:space="preserve">
+    <value>Prêts auto</value>
+  </data>
+  <data name="Debt_CarLoans_Hint" xml:space="preserve">
+    <value>Ajoutez chaque prêt auto que vous détenez. Vous pouvez le lier à un véhicule ou l'ajouter indépendamment.</value>
+  </data>
+  <data name="Debt_CarLoans_Item" xml:space="preserve">
+    <value>Prêt #{0}</value>
+  </data>
+  <data name="Debt_CarLoans_AddItem" xml:space="preserve">
+    <value>Ajouter un prêt</value>
+  </data>
+  <data name="Debt_CarLoans_DefaultName" xml:space="preserve">
+    <value>Véhicule</value>
+  </data>
 
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       DÉPENSES — Champs communs
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <data name="Spending_Next" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="Spending_Remove" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Spending_Field_Name" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Spending_Field_Amount" xml:space="preserve">
+    <value>Montant</value>
+  </data>
+  <data name="Spending_Field_Expense" xml:space="preserve">
+    <value>Montant de la dépense</value>
+  </data>
+  <data name="Spending_Field_Frequency" xml:space="preserve">
+    <value>Fréquence</value>
+  </data>
+
+  <!-- Dépenses courantes -->
+  <data name="Spending_Living_Title" xml:space="preserve">
+    <value>Dépenses courantes</value>
+  </data>
+  <data name="Spending_Living_Subtitle" xml:space="preserve">
+    <value>Suivez vos coûts de vie quotidiens.</value>
+  </data>
+  <data name="Spending_Living_SectionTitle" xml:space="preserve">
+    <value>Dépenses courantes</value>
+  </data>
+  <data name="Spending_Living_RentOrMortgage" xml:space="preserve">
+    <value>Loyer ou hypothèque</value>
+  </data>
+  <data name="Spending_Living_Food" xml:space="preserve">
+    <value>Alimentation et épicerie</value>
+  </data>
+  <data name="Spending_Living_Utilities" xml:space="preserve">
+    <value>Services publics</value>
+  </data>
+  <data name="Spending_Living_Insurance" xml:space="preserve">
+    <value>Assurances</value>
+  </data>
+  <data name="Spending_Living_Gas" xml:space="preserve">
+    <value>Essence</value>
+  </data>
+  <data name="Spending_Living_HomeMaintenance" xml:space="preserve">
+    <value>Entretien domicile</value>
+  </data>
+  <data name="Spending_Living_Cellphone" xml:space="preserve">
+    <value>Téléphone cellulaire</value>
+  </data>
+  <data name="Spending_Living_HealthSpendings" xml:space="preserve">
+    <value>Dépenses de santé</value>
+  </data>
+  <data name="Spending_Living_OtherLivingExpenses" xml:space="preserve">
+    <value>Autres dépenses courantes</value>
+  </data>
+
+  <!-- Dépenses discrétionnaires -->
+  <data name="Spending_Discretionary_Title" xml:space="preserve">
+    <value>Dépenses discrétionnaires</value>
+  </data>
+  <data name="Spending_Discretionary_Subtitle" xml:space="preserve">
+    <value>Suivez vos dépenses de style de vie et de loisirs.</value>
+  </data>
+  <data name="Spending_Discretionary_SectionTitle" xml:space="preserve">
+    <value>Dépenses discrétionnaires</value>
+  </data>
+  <data name="Spending_Discretionary_GymMembership" xml:space="preserve">
+    <value>Abonnement gym</value>
+  </data>
+  <data name="Spending_Discretionary_Subscriptions" xml:space="preserve">
+    <value>Abonnements</value>
+  </data>
+  <data name="Spending_Discretionary_EatingOut" xml:space="preserve">
+    <value>Restaurants</value>
+  </data>
+  <data name="Spending_Discretionary_Entertainment" xml:space="preserve">
+    <value>Divertissements</value>
+  </data>
+  <data name="Spending_Discretionary_Travel" xml:space="preserve">
+    <value>Voyages</value>
+  </data>
+  <data name="Spending_Discretionary_CharitableDonations" xml:space="preserve">
+    <value>Dons caritatifs</value>
+  </data>
+  <data name="Spending_Discretionary_OtherDiscretionaryExpenses" xml:space="preserve">
+    <value>Autres dépenses discrétionnaires</value>
+  </data>
+
+  <!-- Remboursements de dettes -->
+  <data name="Spending_DebtRepayments_Title" xml:space="preserve">
+    <value>Remboursements de dettes</value>
+  </data>
+  <data name="Spending_DebtRepayments_Subtitle" xml:space="preserve">
+    <value>Suivez vos paiements sur vos dettes à chaque période.</value>
+  </data>
+  <data name="Spending_DebtRepayments_SectionTitle" xml:space="preserve">
+    <value>Remboursements de dettes</value>
+  </data>
+  <data name="Spending_DebtRepayments_Hint" xml:space="preserve">
+    <value>Une entrée de remboursement a été créée pour chacune de vos dettes. Ajoutez des remboursements supplémentaires ci-dessous.</value>
+  </data>
+  <data name="Spending_DebtRepayments_Item" xml:space="preserve">
+    <value>Remboursement #{0}</value>
+  </data>
+  <data name="Spending_DebtRepayments_AddItem" xml:space="preserve">
+    <value>Ajouter un remboursement</value>
+  </data>
+  <data name="Spending_DebtRepayments_DefaultName" xml:space="preserve">
+    <value>Remboursement de dette</value>
+  </data>
+
+  <!-- Dépenses liées aux actifs -->
+  <data name="Spending_AssetsExpenses_Title" xml:space="preserve">
+    <value>Dépenses liées aux actifs</value>
+  </data>
+  <data name="Spending_AssetsExpenses_Subtitle" xml:space="preserve">
+    <value>Suivez les coûts associés à vos actifs.</value>
+  </data>
+  <data name="Spending_AssetsExpenses_SectionTitle" xml:space="preserve">
+    <value>Dépenses liées aux actifs</value>
+  </data>
+  <data name="Spending_AssetsExpenses_Hint" xml:space="preserve">
+    <value>Une entrée de dépense a été créée pour chacun de vos actifs. Ajoutez des dépenses supplémentaires ci-dessous.</value>
+  </data>
+  <data name="Spending_AssetsExpenses_Item" xml:space="preserve">
+    <value>Dépense #{0}</value>
+  </data>
+  <data name="Spending_AssetsExpenses_AddItem" xml:space="preserve">
+    <value>Ajouter une dépense</value>
+  </data>
+  <data name="Spending_AssetsExpenses_DefaultName" xml:space="preserve">
+    <value>Dépense d'actif</value>
+  </data>
+  <data name="Spending_AssetsExpenses_Home" xml:space="preserve">
+    <value>Résidence principale</value>
+  </data>
+  <data name="Spending_AssetsExpenses_InvestmentProperty" xml:space="preserve">
+    <value>Immeuble de placement</value>
+  </data>
+  <data name="Spending_AssetsExpenses_InvestmentAccount" xml:space="preserve">
+    <value>Compte de placement</value>
+  </data>
+  <data name="Spending_AssetsExpenses_PhysicalAsset" xml:space="preserve">
+    <value>Actif physique</value>
+  </data>
+
+  <!-- Autres dépenses -->
+  <data name="Spending_Other_Title" xml:space="preserve">
+    <value>Autres dépenses</value>
+  </data>
+  <data name="Spending_Other_Subtitle" xml:space="preserve">
+    <value>Ajoutez toute dépense non couverte dans les catégories précédentes.</value>
+  </data>
+  <data name="Spending_Other_SectionTitle" xml:space="preserve">
+    <value>Autres dépenses</value>
+  </data>
+  <data name="Spending_Other_Hint" xml:space="preserve">
+    <value>Ajoutez les dépenses qui ne correspondent pas aux autres catégories.</value>
+  </data>
+  <data name="Spending_Other_Item" xml:space="preserve">
+    <value>Dépense #{0}</value>
+  </data>
+  <data name="Spending_Other_AddItem" xml:space="preserve">
+    <value>Ajouter une dépense</value>
+  </data>
+</root>

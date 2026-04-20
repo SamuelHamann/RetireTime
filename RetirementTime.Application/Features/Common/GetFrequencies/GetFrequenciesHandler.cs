@@ -14,7 +14,7 @@ public partial class GetFrequenciesHandler(
 
         try
         {
-            var frequencies = await repository.GetAllAsync();
+            var frequencies = await repository.GetFrequencies();
             
             var frequencyDtos = frequencies.Select(f => new FrequencyDto
             {

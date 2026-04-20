@@ -1,0 +1,314 @@
+.sidebar {
+    width: 240px;
+    min-width: 240px;
+    height: 100vh;
+    background: var(--ne-surface-low);
+    border-right: none;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+}
+
+.sidebar-header {
+    padding: 1.5rem 1.25rem 1.25rem 1.25rem;
+    border-bottom: none;
+    flex-shrink: 0;
+}
+
+/* Brand and subtitle styling now in dashboard.css shared styles */
+
+.sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0.5rem 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.sidebar-nav::-webkit-scrollbar { display: none; }
+
+.sidebar-nav-list { list-style: none; margin: 0; padding: 0; }
+.sidebar-nav-list li { margin: 1px 0; }
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.8rem 1.25rem;
+    border: none;
+    background: transparent;
+    color: var(--ne-secondary);
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-align: left;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    text-decoration: none;
+    position: relative;
+    opacity: 0.75;
+}
+
+.nav-item:hover {
+    background: var(--ne-surface-container);
+    color: var(--ne-on-surface);
+    opacity: 1;
+}
+
+.nav-item.active {
+    background: var(--ne-surface);
+    color: var(--ne-primary);
+    font-weight: 700;
+    opacity: 1;
+    border-left: none;
+    border-right: 3px solid var(--ne-primary);
+    border-radius: 0.5rem 0 0 0.5rem;
+    box-shadow: 0 2px 8px var(--ne-shadow-ambient);
+}
+
+.nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    color: inherit;
+}
+
+.nav-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.nav-item.active .nav-icon svg {
+    stroke-width: 2.5;
+}
+
+.nav-item-disabled {
+    opacity: 0.35 !important;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
+
+.nav-item-logout {
+    color: var(--ne-on-surface-muted);
+    opacity: 0.8;
+}
+
+.nav-item-logout:hover {
+    background: var(--ne-surface-container);
+    color: #BA1A1A;
+    opacity: 1;
+}
+
+/* New Scenario Button */
+.nav-item-new-scenario {
+    border: 1.5px dashed var(--ne-primary);
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--ne-primary);
+    font-weight: 600;
+    opacity: 1;
+    margin: 0.5rem 0.75rem;
+    width: calc(100% - 1.5rem);
+    justify-content: center;
+}
+
+.nav-item-new-scenario:hover {
+    background: var(--ne-primary-tint);
+    color: var(--ne-primary);
+}
+
+.nav-item-new-scenario .nav-icon {
+    color: var(--ne-primary);
+}
+
+/* Section Divider */
+.sidebar-section-divider {
+    height: 1px;
+    background: var(--ne-outline-variant);
+    margin: 0.5rem 1.25rem;
+    opacity: 0.3;
+}
+
+/* Expandable nav items */
+.nav-item-expandable {
+    position: relative;
+}
+
+.nav-label-active {
+    color: var(--ne-primary);
+    font-weight: 700;
+}
+
+.nav-chevron {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+}
+
+.nav-item-expandable.expanded .nav-chevron {
+    transform: rotate(180deg);
+}
+
+/* Submenu */
+.nav-submenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.nav-item-sub {
+    padding-left: 3.5rem;
+    font-size: 0.78rem;
+    opacity: 0.7;
+}
+
+.nav-item-sub:hover {
+    opacity: 1;
+}
+
+.nav-item-sub.active {
+    border-right: 3px solid var(--ne-primary);
+    border-radius: 0;
+}
+
+/* Sub-expandable (temp1) within submenu */
+.nav-item-sub-expandable {
+    position: relative;
+}
+
+.nav-item-sub-expandable .nav-chevron {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s ease;
+}
+
+.nav-item-sub-expandable.expanded .nav-chevron {
+    transform: rotate(180deg);
+}
+
+/* Sub-submenu */
+.nav-sub-submenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.nav-item-sub-sub {
+    padding-left: 4.5rem;
+    font-size: 0.75rem;
+    opacity: 0.65;
+}
+
+.nav-item-sub-sub:hover {
+    opacity: 1;
+}
+
+.nav-item-sub-sub.active {
+    border-right: 3px solid var(--ne-primary);
+    border-radius: 0;
+    opacity: 1;
+}
+
+.sidebar-footer {
+    padding: 0.75rem 0;
+    border-top: none;
+    box-shadow: 0 -1px 0 0 rgba(222, 192, 183, 0.4);
+}
+
+/* Income sub-sub-expandable (the "Income" row that has the chevron) */
+.nav-item-sub-sub-expandable {
+    position: relative;
+}
+
+.nav-item-sub-sub-expandable .nav-chevron {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s ease;
+}
+
+.nav-item-sub-sub-expandable.expanded .nav-chevron {
+    transform: rotate(180deg);
+}
+
+/* Income dot submenu list */
+.nav-income-submenu {
+    list-style: none;
+    margin: 0;
+    padding: 0.1rem 0 0.25rem 0;
+}
+
+/* Each income sub-page item */
+.nav-income-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.45rem 1.25rem 0.45rem 5rem;
+    border: none;
+    background: transparent;
+    color: var(--ne-on-surface);
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s ease, opacity 0.15s ease;
+    opacity: 0.75;
+    border-right: 3px solid transparent;
+}
+
+.nav-income-item:hover {
+    background: var(--ne-surface-container);
+    opacity: 1;
+    color: var(--ne-on-surface);
+}
+
+.nav-income-item.active {
+    color: var(--ne-primary);
+    opacity: 1;
+    font-weight: 700;
+    border-right: 3px solid var(--ne-primary);
+    background: var(--ne-primary-tint);
+    border-radius: 0.5rem 0 0 0.5rem;
+}
+
+/* Dot indicator */
+.nav-income-dot {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ne-primary);
+    background: transparent;
+    transition: background 0.15s ease;
+}
+
+.nav-income-dot.filled {
+    background: var(--ne-primary);
+}
+

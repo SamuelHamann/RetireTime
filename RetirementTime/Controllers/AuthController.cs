@@ -17,9 +17,8 @@ public class AuthController : ControllerBase
         [FromQuery] string? firstName,
         [FromQuery] int? roleId,
         [FromQuery] string? roleName,
-        [FromQuery] bool hasFinishedBeginnerGuide = false)
+        [FromQuery] bool hasCompletedIntro = false)
     {
-        // Validate required parameters
         if (userId <= 0)
         {
             return BadRequest("Invalid user ID");
@@ -30,20 +29,18 @@ public class AuthController : ControllerBase
             new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
             new Claim(ClaimTypes.GivenName, firstName ?? string.Empty),
             new Claim(ClaimTypes.Role, roleName ?? "User"),
-            new Claim("RoleId", (roleId ?? 1).ToString())
+            new Claim("RoleId", (roleId ?? 1).ToString()),
+            new Claim("HasCompletedIntro", hasCompletedIntro.ToString())
         };
 
         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         var principal = new ClaimsPrincipal(identity);
-        
+
         await HttpContext.SignInAsync(
             CookieAuthenticationDefaults.AuthenticationScheme,
             principal);
 
-        // Redirect based on whether the user has completed the beginner guide
-        return hasFinishedBeginnerGuide
-            ? Redirect("/home")
-            : Redirect("/beginner-guide/introduction");
+        return Redirect(hasCompletedIntro ? "/home" : "/onboarding");
     }
 
     [HttpGet("logout")]

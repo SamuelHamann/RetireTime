@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="RetirementTime.Application/RetirementTime.Application.csproj" />
+  <Project Path="RetirementTime.Domain.Tests/RetirementTime.Domain.Tests.csproj" Id="fd072567-7848-4971-b787-51e79a6a47d1" />
   <Project Path="RetirementTime.Domain\RetirementTime.Domain.csproj" />
   <Project Path="RetirementTime.Infrastructure/RetirementTime.Infrastructure.csproj" />
   <Project Path="RetirementTime\RetirementTime.csproj" />

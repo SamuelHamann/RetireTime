@@ -10,6 +10,7 @@ public class User
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
     public required bool IsActive { get; set; }
+    public bool HasCompletedIntro { get; set; }
     public required DateTime CreatedAt { get; set; }
     public required DateTime UpdatedAt { get; set; }
     

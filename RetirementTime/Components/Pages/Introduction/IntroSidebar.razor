@@ -1,0 +1,54 @@
+@using RetirementTime.Resources.Introduction
+@using RetirementTime.Resources.Common
+@inject IStringLocalizer<CommonResources> CommonLocalizer
+@inject IStringLocalizer<IntroResources> Localizer
+
+<aside class="intro-sidebar">
+    <div class="intro-sidebar-header">
+        <h2 class="intro-sidebar-brand">@CommonLocalizer["Sidebar_Brand"]</h2>
+        <span class="intro-sidebar-brand-sub">@CommonLocalizer["Sidebar_BrandSub_Onboarding"]</span>
+    </div>
+
+    <div class="intro-sidebar-section-header">
+        <p class="intro-sidebar-step">@string.Format(Localizer["Intro_StepOf"].Value, CurrentStep - 1, TotalSteps - 1)</p>
+    </div>
+
+    <nav class="intro-sidebar-nav">
+        @for (var i = 1; i <= TotalSteps; i++)
+        {
+            var step = i;
+
+            // Calculate states
+            var isSelected = IsStepSelected(step);
+            var isCompleted = IsStepCompleted(step);
+            var isAccessible = IsStepAccessible(step);
+
+            // Determine CSS class based on state priority
+            // Priority: Selected > Completed > Accessible > Pending
+            var cls = isSelected && isCompleted ? "intro-nav-item intro-nav-item--active intro-nav-item--completed"
+                    : isSelected ? "intro-nav-item intro-nav-item--active"
+                    : isCompleted ? "intro-nav-item intro-nav-item--completed"
+                    : isAccessible ? "intro-nav-item intro-nav-item--accessible"
+                    : "intro-nav-item intro-nav-item--pending";
+
+            <button class="@cls" @onclick="() => OnStepSelected.InvokeAsync(step)" disabled="@(!isAccessible)">
+                <span class="intro-nav-icon">
+                    @if (isCompleted && !isSelected)
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    }
+                    else if (isSelected && isCompleted)
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    }
+                    else
+                    {
+                        <span class="intro-nav-dot"></span>
+                    }
+                </span>
+                <span class="intro-nav-label">@StepNames[step - 1]</span>
+            </button>
+        }
+    </nav>
+</aside>
+

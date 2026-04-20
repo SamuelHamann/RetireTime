@@ -1,0 +1,88 @@
+@page "/scenario/{scenarioId:long}/settings"
+@layout DashboardLayout
+@rendermode InteractiveServer
+
+<div class="intro-step">
+    @if (LoadingService.ShowLoading)
+    {
+        <div class="intro-loading">
+            <p>Loading...</p>
+        </div>
+    }
+    else if (!_scenarioFound)
+    {
+        <div class="intro-error">
+            <p>Scenario not found.</p>
+        </div>
+    }
+    else if (!LoadingService.IsLoading)
+    {
+        <div class="step-header-animate">
+            <h1 class="font-headline text-5xl font-bold text-ne-primary mt-3 mb-2">Scenario Settings</h1>
+            <p class="font-body text-ne-on-surface-variant text-base leading-relaxed">Manage your scenario name and copy data from other scenarios.</p>
+        </div>
+
+        <div class="step-body-animate">
+            <div class="bg-ne-surface-low rounded-xl px-8 pb-8 pt-5 shadow-sm">
+                <EditForm Model="@_model" OnValidSubmit="HandleSave">
+                    <DataAnnotationsValidator />
+
+                    <div class="field-group">
+                        <label for="scenarioName" class="field-question">Scenario Name</label>
+                        <InputText id="scenarioName" @bind-Value="_model.ScenarioName" class="field-input" />
+                        <ValidationMessage For="@(() => _model.ScenarioName)" class="field-error" />
+                    </div>
+
+                    <div class="field-group">
+                        <label for="cloneFrom" class="field-question">Copy Data From Scenario (Optional)</label>
+                        <p class="field-sublabel">This will copy all data from the selected scenario into this one.</p>
+                        <div class="clone-field-wrapper @(_scenarioFullyCreated ? "clone-field-locked" : "")">
+                            <InputSelect id="cloneFrom" @bind-Value="_model.CloneFromScenarioId" class="field-select" disabled="@_scenarioFullyCreated">
+                                <option value="">-- Select Scenario to Copy --</option>
+                                @foreach (var scenario in _otherScenarios)
+                                {
+                                    <option value="@scenario.ScenarioId">@scenario.ScenarioName</option>
+                                }
+                            </InputSelect>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(_successMessage))
+                    {
+                        <div class="alert-success">@_successMessage</div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(_errorMessage))
+                    {
+                        <div class="alert-error">@_errorMessage</div>
+                    }
+
+                    <div class="intro-actions">
+                        <button type="button" class="btn-danger" @onclick="HandleDelete" disabled="@_isDeleting">
+                            @if (_isDeleting)
+                            {
+                                <span class="btn-label">Deleting...</span>
+                            }
+                            else
+                            {
+                                <span class="btn-label">Delete Scenario</span>
+                            }
+                        </button>
+
+                        <button type="submit" class="btn-next" disabled="@_isSaving">
+                            @if (_isSaving)
+                            {
+                                <span class="btn-label">Saving...</span>
+                            }
+                            else
+                            {
+                                <span class="btn-label">Save Changes</span>
+                                <span class="btn-arrow-icon">→</span>
+                            }
+                        </button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    }
+</div>

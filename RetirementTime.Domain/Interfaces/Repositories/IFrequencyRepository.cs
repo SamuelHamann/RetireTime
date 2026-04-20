@@ -4,6 +4,7 @@ namespace RetirementTime.Domain.Interfaces.Repositories;
 
 public interface IFrequencyRepository
 {
-    Task<List<Frequency>> GetAllAsync();
-    Task<Frequency?> GetByIdAsync(int id);
+    Task<List<Frequency>> GetFrequencies();
+    Task<Frequency?> GetById(int id);
 }
+

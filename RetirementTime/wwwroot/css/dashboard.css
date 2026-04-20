@@ -1,0 +1,1442 @@
+/* ============================================================
+   RetireTime — Dashboard Shared Styles
+   Tokens + reusable patterns for every dashboard page.
+   ============================================================ */
+
+/* ---- Design tokens (legacy aliases → NE vars) ------------ */
+:root {
+    --color-primary:        var(--ne-primary);
+    --color-primary-hover:  var(--ne-primary-dark);
+    --color-surface-page:   var(--ne-surface);
+    --color-surface-sidebar:var(--ne-surface-low);
+    --color-surface-card:   var(--ne-surface-white);
+    --color-nav-active-bg:  var(--ne-surface);
+    --color-nav-hover-bg:   var(--ne-surface-container);
+    --color-nav-active-bar: var(--ne-accent-bar);
+    --color-border:         var(--ne-border-tonal);
+    --color-border-light:   var(--ne-outline-variant);
+    --color-text-primary:   var(--ne-on-surface);
+    --color-text-secondary: var(--ne-on-surface-variant);
+    --color-text-muted:     var(--ne-on-surface-muted);
+    --color-text-faint:     var(--ne-on-surface-muted);
+}
+
+/* ---- Shared layout ---------------------------------------- */
+.dashboard-shell {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--ne-surface);
+}
+
+.dashboard-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--ne-surface);
+}
+
+.dashboard-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0.875rem 2rem;
+    background: #F8F3E9; /* surface-container-low */
+    border-bottom: none;
+    box-shadow: 0 1px 0 0 #E7E2D8;
+    flex-shrink: 0;
+}
+
+/* ---- Shared sidebar styles -------------------------------- */
+/* Common typography and spacing for all sidebars */
+.sidebar-brand,
+.intro-sidebar-brand {
+    margin: 0 0 0.25rem 0;
+    font-family: 'Newsreader', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ne-on-surface);
+    letter-spacing: -0.01em;
+}
+
+.sidebar-brand-sub,
+.intro-sidebar-brand-sub {
+    display: block;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ne-secondary);
+    margin-top: 0.1rem;
+}
+
+.topbar-greeting {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* ---- Page header ------------------------------------------ */
+.dashboard-page-content {
+    flex: 1;
+    padding: 0 3rem 2.5rem 3rem;
+}
+
+.page-header {
+    margin-bottom: 2rem;
+}
+
+.page-header-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0 0 0.25rem 0;
+    line-height: 1.25;
+}
+
+/* ---- Forms ----------------------------------------------- */
+/*
+  Reusable form primitives for all dashboard pages.
+
+  Structure:
+    <div class="form-card">
+      <div class="form-section">
+        <h2 class="form-section-title">Section</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Label <span class="form-required">*</span></label>
+            <input class="form-control" ... />
+            <span class="form-hint">Helper text</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-secondary">Cancel</button>
+        <button class="btn btn-primary">Save</button>
+      </div>
+    </div>
+*/
+
+.form-card {
+    background: var(--color-surface-card);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 860px;
+}
+
+.form-section {
+    margin-bottom: 2.5rem;
+}
+
+.form-section:last-of-type {
+    margin-bottom: 0;
+}
+
+.form-section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0 0 1.25rem 0;
+    padding-bottom: 0.625rem;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem 1.5rem;
+}
+
+.form-grid .form-group-full {
+    grid-column: 1 / -1;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.form-label {
+    font-size: 0.8375rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
+
+.form-required {
+    color: #ef4444;
+    margin-left: 0.2rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.5625rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--color-text-primary);
+    background: var(--color-surface-page);
+    border: 1px solid var(--color-border);
+    border-radius: 7px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    background: #fff;
+}
+
+.form-control::placeholder {
+    color: var(--color-text-faint);
+}
+
+.form-control[type="color"] {
+    padding: 0.25rem 0.375rem;
+    height: 2.375rem;
+    cursor: pointer;
+}
+
+.form-control[type="range"] {
+    padding: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    cursor: pointer;
+    accent-color: var(--color-primary);
+}
+
+.form-control[type="range"]:focus {
+    box-shadow: none;
+}
+
+select.form-control {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2.25rem;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-hint {
+    font-size: 0.775rem;
+    color: var(--color-text-muted);
+}
+
+/* Checkbox & Radio */
+.form-check-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+.form-check input[type="checkbox"],
+.form-check input[type="radio"] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* Toggle / Switch */
+.form-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+.form-toggle input[type="checkbox"] {
+    appearance: none;
+    width: 2.25rem;
+    height: 1.25rem;
+    background: var(--color-border);
+    border-radius: 99px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.form-toggle input[type="checkbox"]::after {
+    content: '';
+    position: absolute;
+    top: 0.175rem;
+    left: 0.175rem;
+    width: 0.875rem;
+    height: 0.875rem;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.form-toggle input[type="checkbox"]:checked {
+    background: var(--color-primary);
+}
+
+.form-toggle input[type="checkbox"]:checked::after {
+    transform: translateX(1rem);
+}
+
+/* File input */
+.form-file {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.form-file-input {
+    font-size: 0.8375rem;
+    color: var(--color-text-secondary);
+    padding: 0.5rem;
+    border: 1px dashed var(--color-border);
+    border-radius: 7px;
+    background: var(--color-surface-page);
+    cursor: pointer;
+    transition: border-color 0.15s;
+}
+
+.form-file-input:hover {
+    border-color: var(--color-primary);
+}
+
+/* Inline radio group (pill style) */
+.form-radio-pills {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.form-radio-pill input[type="radio"] {
+    display: none;
+}
+
+.form-radio-pill label {
+    padding: 0.4rem 1rem;
+    font-size: 0.8375rem;
+    font-weight: 500;
+    border: 1px solid var(--color-border);
+    border-radius: 99px;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    background: var(--color-surface-page);
+    transition: all 0.15s;
+    user-select: none;
+}
+
+.form-radio-pill input[type="radio"]:checked + label {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+}
+
+/* Range value display */
+.form-range-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.form-range-value {
+    font-size: 0.8375rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    min-width: 2.5rem;
+    text-align: right;
+}
+
+/* Divider */
+.form-divider {
+    border: none;
+    border-top: 1px solid var(--color-border-light);
+    margin: 2rem 0;
+}
+
+/* Actions */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border-light);
+    margin-top: 2rem;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5625rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 7px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+    justify-content: center;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+}
+
+.btn-secondary {
+    background: var(--color-surface-card);
+    border-color: var(--color-border);
+    color: var(--color-text-secondary);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: var(--color-surface-page);
+}
+
+/* ============================================================
+   Shared Form Elements from Introduction (Reusable)
+   These styles are shared between dashboard and onboarding
+   ============================================================ */
+
+/* ---- Step shell ------------------------------------------- */
+.intro-step { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 1rem; 
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    padding-top: 2.5rem;
+}
+
+/* ---- Subsections ------------------------------------------ */
+.assets-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-bottom: 1.75rem;
+}
+.assets-section:last-child { padding-bottom: 0; }
+
+.assets-section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Newsreader', serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    font-style: normal;
+    color: var(--ne-on-surface);
+    margin: 0.5rem 0;
+}
+
+.assets-section-title svg {
+    flex-shrink: 0;
+    color: var(--ne-primary);
+    width: 1.2rem;
+    height: 1.2rem;
+    position: relative;
+    top: -0.05em;
+}
+
+/* ---- Field group (intro-style) ----------------------------- */
+.field-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+
+.field-question {
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ne-on-surface-variant);
+}
+
+.field-sublabel {
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.85rem;
+    color: var(--ne-on-surface-muted);
+    margin-top: 0.25rem;
+}
+
+.field-row { display: flex; gap: 1rem; }
+.field-row-item { flex: 1; display: flex; flex-direction: column; gap: 0.25rem; }
+
+/* ---- Inputs (intro-style) ---------------------------------- */
+.field-input {
+    width: 100%;
+    padding: 0.8rem 1.1rem;
+    border-radius: 0.75rem;
+    border: none;
+    background-color: #ffffff;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.92rem;
+    color: var(--ne-on-surface);
+    outline: none;
+    transition: none;
+    box-sizing: border-box;
+}
+
+.field-input:focus { 
+    background-color: #ffffff; 
+    outline: none;
+}
+
+.field-input--date { max-width: 220px; }
+.field-input--number { max-width: 120px; }
+.field-input--number::-webkit-outer-spin-button,
+.field-input--number::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.field-input--number { -moz-appearance: textfield; }
+
+.field-select {
+    width: 100%;
+    max-width: 340px;
+    padding: 0.8rem 1.1rem;
+    border: none;
+    border-radius: 0.75rem;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.92rem;
+    color: var(--ne-on-surface);
+    background: #ffffff;
+    outline: none;
+    cursor: pointer;
+    transition: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a6e65' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.1rem center;
+    padding-right: 2.5rem;
+    box-sizing: border-box;
+}
+.field-select:focus { background-color: #ffffff; }
+
+.field-select:disabled {
+    background-color: var(--ne-surface-container);
+    color: var(--ne-on-surface-muted);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.field-error {
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.75rem;
+    color: #ba1a1a;
+    margin-top: 0.25rem;
+}
+
+/* ---- Checklist -------------------------------------------- */
+.checklist { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.25rem; }
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.92rem;
+    color: var(--ne-on-surface);
+    padding: 0.65rem 0.9rem;
+    border-radius: 0.5rem;
+    border: none;
+    background: #ffffff;
+    transition: background-color 0.15s ease;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+}
+.checklist-item:hover { background-color: #f0f0f0; }
+
+.checklist-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 0.5rem;
+    border: 2px solid var(--ne-secondary);
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.35s ease;
+    pointer-events: none;
+}
+.checklist-item:has(input[type="checkbox"]:checked)::before { clip-path: inset(0 0% 0 0); }
+.checklist-item:has(input[type="checkbox"]:checked) {
+    background-color: #eef1f5;
+    transition: background-color 0.15s ease 0s;
+}
+.checklist-item:has(input[type="checkbox"]:checked):hover {
+    background-color: #e2e7ee;
+    transition: background-color 0.15s ease 0s;
+}
+
+.checklist-item input[type="checkbox"] {
+    position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none;
+}
+
+.checklist-item .checkbox-custom {
+    flex-shrink: 0;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 4px;
+    border: 2px solid var(--ne-on-surface-muted);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease 0.25s, border-color 0.2s ease 0.25s, transform 0.15s ease;
+    position: relative;
+    overflow: hidden;
+}
+.checklist-item .checkbox-custom::after {
+    content: '';
+    width: 0.35rem;
+    height: 0.6rem;
+    border-right: 2.5px solid #ffffff;
+    border-bottom: 2.5px solid #ffffff;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s;
+}
+.checklist-item input[type="checkbox"]:checked + .checkbox-custom {
+    background-color: var(--ne-secondary);
+    border-color: var(--ne-secondary);
+    animation: checkbox-pop 0.2s ease 0.3s both;
+}
+.checklist-item input[type="checkbox"]:checked + .checkbox-custom::after {
+    transform: rotate(45deg) scale(1);
+}
+@keyframes checkbox-pop {
+    0%   { transform: scale(1.15); }
+    50%  { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+/* ---- NE Design System Field Primitives -------------------- */
+.ne-field { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.ne-label {
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ne-on-surface-variant);
+}
+
+.ne-input {
+    width: 100%;
+    padding: 0.8rem 1.1rem;
+    border-radius: 0.75rem;
+    border: none;
+    background-color: #ffffff;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.92rem;
+    color: var(--ne-on-surface);
+    outline: none;
+    transition: none;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input[type="date"].ne-input,
+input[type="email"].ne-input,
+input[type="text"].ne-input,
+input[type="number"].ne-input {
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    color-scheme: light;
+}
+
+.ne-input:focus,
+input[type="date"].ne-input:focus,
+input[type="email"].ne-input:focus,
+input[type="text"].ne-input:focus,
+input[type="number"].ne-input:focus { 
+    background-color: #ffffff; 
+    outline: none; 
+}
+
+input[type="number"].ne-input::-webkit-outer-spin-button,
+input[type="number"].ne-input::-webkit-inner-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+input[type="number"].ne-input { -moz-appearance: textfield; }
+
+.ne-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a6e65' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+}
+.ne-select:focus { background-color: var(--ne-focus-bg); }
+
+.ne-error { 
+    font-family: 'Inter', 'Manrope', sans-serif; 
+    font-size: 0.75rem; 
+    color: #ba1a1a; 
+    margin-top: 0.1rem; 
+}
+
+/* ---- Toggle rows ------------------------------------------ */
+.ne-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(222, 192, 183, 0.2);
+}
+.ne-toggle-row:last-child { border-bottom: none; }
+
+.ne-toggle-title {
+    display: block;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--ne-on-surface);
+}
+.ne-toggle-hint {
+    display: block;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.78rem;
+    color: var(--ne-on-surface-muted);
+    margin-top: 0.2rem;
+}
+
+/* ---- Option button group ---------------------------------- */
+.ne-option-btn {
+    padding: 0.55rem 1rem;
+    border-radius: 0.5rem;
+    border: 1.5px solid var(--ne-secondary);
+    background: #ffffff;
+    color: var(--ne-on-surface);
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.ne-option-btn:hover {
+    background: var(--ne-surface-container);
+    border-color: var(--ne-secondary);
+}
+
+.ne-option-btn--active {
+    background: var(--ne-secondary);
+    border-color: var(--ne-secondary);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(51, 65, 85, 0.22);
+}
+
+.ne-option-btn--active:hover {
+    background: var(--ne-secondary-hover);
+    border-color: var(--ne-secondary-hover);
+}
+
+/* ---- Navigation actions (Next/Back/Finish buttons) -------- */
+.intro-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2.5rem;
+}
+
+.btn-back,
+.btn-next,
+.btn-finish {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.75rem;
+    border-radius: 0.375rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    white-space: nowrap;
+}
+
+.btn-back:active,
+.btn-next:active,
+.btn-finish:active {
+    transform: scale(0.98);
+}
+
+.btn-back:disabled,
+.btn-next:disabled,
+.btn-finish:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.btn-arrow-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+    transition: transform 0.2s ease;
+}
+
+.btn-back:hover .btn-arrow-icon  { transform: translateX(-3px); }
+.btn-next:hover .btn-arrow-icon,
+.btn-finish:hover .btn-arrow-icon { transform: translateX(3px); }
+
+.btn-back {
+    background-color: transparent;
+    color: var(--ne-secondary);
+}
+.btn-back:hover {
+    background-color: var(--ne-surface-container);
+    color: var(--ne-on-surface);
+}
+
+.btn-next,
+.btn-finish {
+    background-color: var(--ne-primary);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(154, 52, 18, 0.25);
+    margin-left: auto;
+}
+.btn-next:hover,
+.btn-finish:hover {
+    background-color: var(--ne-primary-dark);
+    box-shadow: 0 6px 18px rgba(154, 52, 18, 0.35);
+}
+
+.btn-label {
+    font-family: 'Manrope', sans-serif;
+}
+
+/* ---- Loading and error states ----------------------------- */
+.intro-loading {
+    text-align: center;
+    padding: 3rem;
+}
+
+.intro-loading p {
+    color: var(--ne-on-surface-variant);
+    font-family: 'Inter', 'Manrope', sans-serif;
+}
+
+.intro-error {
+    text-align: center;
+    padding: 3rem;
+}
+
+.intro-error p {
+    color: #c62828;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-weight: 600;
+}
+    gap: 0.375rem;
+    padding: 0.5625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 7px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: #fff;
+    border-color: var(--color-primary);
+}
+
+.btn-primary:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+}
+
+.btn-secondary {
+    background: var(--color-surface-card);
+    color: var(--color-text-secondary);
+    border-color: var(--color-border);
+}
+
+.btn-secondary:hover {
+    background: var(--color-surface-page);
+    border-color: var(--color-text-muted);
+}
+
+.btn-danger {
+    background: #fff;
+    color: #ef4444;
+    border-color: #fca5a5;
+}
+
+.btn-danger:hover {
+    background: #fef2f2;
+    border-color: #ef4444;
+}
+
+/* Animated delete button */
+.btn-delete {
+    position: relative;
+    overflow: hidden;
+    min-width: 7.5rem;
+}
+
+.btn-delete-label,
+.btn-delete-x {
+    display: block;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.25s ease;
+}
+
+.btn-delete-label {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-delete-x {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ef4444;
+    opacity: 0;
+    transform: translateY(8px) scale(0.7);
+}
+
+.btn-delete:hover .btn-delete-label {
+    opacity: 0;
+    transform: translateY(-8px);
+}
+
+.btn-delete:hover .btn-delete-x {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+@media (max-width: 640px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-card {
+        padding: 1.25rem;
+    }
+}
+
+/* ---- Additional page components --------------------------- */
+.page-header-subtitle {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.content-card {
+    background: var(--color-surface-card);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 860px;
+}
+
+.field-group {
+    margin-bottom: 1.5rem;
+}
+
+.field-group:last-child {
+    margin-bottom: 0;
+}
+
+.field-label {
+    display: block;
+    font-size: 0.8375rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.field-hint {
+    font-size: 0.775rem;
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.field-input {
+    width: 100%;
+    padding: 0.5625rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--color-text-primary);
+    background: var(--color-surface-page);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-sizing: border-box;
+}
+
+.field-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    background: #fff;
+}
+
+.field-select {
+    width: 100%;
+    padding: 0.5625rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--color-text-primary);
+    background: var(--color-surface-page);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.15s;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2.25rem;
+    box-sizing: border-box;
+}
+
+.field-select:focus {
+    border-color: var(--color-primary);
+}
+
+.field-error {
+    font-size: 0.775rem;
+    color: #ef4444;
+    margin-top: 0.25rem;
+}
+
+.alert-success {
+    padding: 0.75rem 1rem;
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    border-radius: 7px;
+    color: #166534;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.alert-error {
+    padding: 0.75rem 1rem;
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-radius: 7px;
+    color: #991b1b;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.intro-error {
+    padding: 1rem;
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-radius: 7px;
+    color: #991b1b;
+    text-align: center;
+}
+
+.loading-indicator {
+    padding: 2rem;
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-size: 0.9375rem;
+    animation: fadeIn 0.2s ease-in;
+}
+
+.loading-indicator p {
+    margin: 0;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.content-fade-in {
+    animation: fadeIn 0.25s ease-in;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* ============================================================
+   Income / Financial Profile — Dynamic List Primitives
+   Reusable for income, spending, and other financial list pages.
+   ============================================================ */
+
+.income-section-header {
+    margin-bottom: 0.5rem;
+}
+
+.income-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.income-item-card {
+    background: var(--ne-surface-low);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+}
+
+.income-item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.875rem;
+    border-bottom: 1px solid var(--ne-outline-variant);
+}
+
+.income-item-number {
+    font-family: 'Newsreader', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ne-on-surface);
+}
+
+.income-remove-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #ba1a1a;
+    background: transparent;
+    border: 1.5px solid rgba(186, 26, 26, 0.3);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    line-height: 1;
+}
+
+.income-remove-btn:hover {
+    background: rgba(186, 26, 26, 0.06);
+    border-color: rgba(186, 26, 26, 0.55);
+}
+
+/* Spending pages – one row per expense field: [amount] [frequency] */
+.spending-field-row {
+    display: contents;
+}
+
+.income-fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 1.5rem;
+}
+
+.income-fields-grid .field-group {
+    margin-bottom: 0;
+}
+
+.income-field-full {
+    grid-column: 1 / -1;
+}
+
+.income-subsection {
+    grid-column: 1 / -1;
+    margin-top: 0.25rem;
+    padding-top: 1.125rem;
+    border-top: 1px solid rgba(222, 192, 183, 0.3);
+}
+
+.income-subsection-label {
+    display: block;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ne-on-surface-variant);
+    margin-bottom: 0.875rem;
+}
+
+.income-other-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    margin-bottom: 0.875rem;
+}
+
+.income-other-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 0.75rem;
+    align-items: end;
+    background: var(--ne-surface-white);
+    border-radius: 0.5rem;
+    padding: 0.875rem 1rem;
+    background-color: var(--ne-surface-low);
+}
+
+.income-other-item .field-group {
+    margin-bottom: 0;
+    min-width: 0;
+}
+
+.income-remove-cell {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 0.125rem;
+}
+
+.income-add-sub-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.875rem;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ne-secondary);
+    background: transparent;
+    border: 1.5px dashed rgba(51, 65, 85, 0.45);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.income-add-sub-btn:hover {
+    background: var(--ne-surface-container);
+    border-color: var(--ne-secondary);
+}
+
+.income-add-main-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.875rem 1rem;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ne-primary);
+    background: transparent;
+    border: 2px dashed rgba(154, 52, 18, 0.35);
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    margin-top: 0.75rem;
+}
+
+.income-add-main-btn:hover {
+    background: var(--ne-primary-tint);
+    border-color: var(--ne-primary);
+}
+
+/* ---- Income page field overrides -------------------------- */
+/* White, borderless inputs and selects inside income item cards and standalone form grids */
+.income-item-card .field-input,
+.income-fields-grid .field-input,
+.income-item-card .field-select,
+.income-fields-grid .field-select {
+    background-color: #ffffff;
+    border: none;
+    box-shadow: none;
+    border-radius: 0.75rem;
+}
+
+.income-item-card .field-input:focus,
+.income-fields-grid .field-input:focus,
+.income-item-card .field-select:focus,
+.income-fields-grid .field-select:focus {
+    background-color: #ffffff;
+    outline: none;
+}
+
+/* ---- Money input ------------------------------------------ */
+/* Dollar-sign prefix via wrapper ::before, no spinner arrows  */
+/* Usage: <div class="money-input-wrapper"><input class="field-input money-input" .../></div> */
+
+/* Global: remove spinner arrows from ALL number inputs in the dashboard */
+.dashboard-body input[type="number"]::-webkit-outer-spin-button,
+.dashboard-body input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.dashboard-body input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+.money-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.money-input-wrapper::before {
+    content: '$';
+    position: absolute;
+    left: 0.875rem;
+    color: var(--ne-on-surface-muted);
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+}
+
+.money-input {
+    width: 100%;
+    padding-left: 1.75rem !important;
+    -moz-appearance: textfield;
+}
+
+.money-input::-webkit-outer-spin-button,
+.money-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* ---- Percent input ---------------------------------------- */
+/* Percent-sign suffix via wrapper ::after, no spinner arrows  */
+/* Usage: <div class="percent-input-wrapper"><input class="field-input percent-input" .../></div> */
+.percent-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.percent-input-wrapper::after {
+    content: '%';
+    position: absolute;
+    right: 0.875rem;
+    color: var(--ne-on-surface-muted);
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    pointer-events: none;
+    user-select: none;
+}
+
+.percent-input {
+    width: 100%;
+    padding-right: 1.75rem !important;
+    -moz-appearance: textfield;
+}
+
+.percent-input::-webkit-outer-spin-button,
+.percent-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* ---- Income page animations ------------------------------- */
+/* Faster fade-in scoped to .dashboard-body to avoid overriding intro pages */
+@keyframes income-fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.dashboard-body .step-header-animate {
+    animation: income-fade-in 0.3s ease both;
+}
+
+.dashboard-body .step-body-animate {
+    animation: income-fade-in 0.3s ease 0.25s both;
+}
+
+/* Next button appears after the body has fully settled (0.25s delay + 0.3s duration) */
+.dashboard-body .income-next-row {
+    animation: income-fade-in 0.3s ease 0.55s both;
+}
+
+/* ---- Debt: asset-context banner (home mortgage) -------------------- */
+.debt-asset-context {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--ne-primary-tint);
+    border-left: 3px solid var(--ne-primary);
+    border-radius: 0.5rem;
+    padding: 0.625rem 0.875rem;
+    margin-bottom: 1.25rem;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.875rem;
+    color: var(--ne-on-surface);
+}
+.debt-asset-context svg {
+    width: 1rem; height: 1rem;
+    stroke: var(--ne-primary);s
+    flex-shrink: 0;
+}
+.debt-asset-context-value {
+    margin-left: auto;
+    font-weight: 600;
+    color: var(--ne-primary);
+}
+
+/* ---- Debt: asset-group card (investment property / car loan pages) -- */
+.debt-asset-group {
+    border: 1px solid var(--ne-outline-variant);
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem 1rem;
+    margin-bottom: 1.25rem;
+    background: var(--ne-surface-container);
+}
+.debt-asset-group-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ne-on-surface);
+    margin-bottom: 0.875rem;
+}
+.debt-asset-group-header svg {
+    width: 1rem; height: 1rem;
+    stroke: var(--ne-primary);
+    flex-shrink: 0;
+}
+.debt-asset-group--standalone { background: var(--ne-surface-low); }
+.debt-asset-group-header--standalone { color: var(--ne-on-surface-variant); }
+.debt-asset-group-header--standalone svg { stroke: var(--ne-on-surface-muted); }

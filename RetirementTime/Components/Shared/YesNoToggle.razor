@@ -1,14 +1,9 @@
-@* Reusable Yes/No Toggle Button Component *@
-<div class="yes-no-toggle">
-    <button type="button" 
-            class="toggle-option toggle-yes @GetYesClass()" 
-            @onclick="SelectYes">
-        @YesLabel
-    </button>
-    <button type="button" 
-            class="toggle-option toggle-no @GetNoClass()" 
-            @onclick="SelectNo">
-        @NoLabel
-    </button>
-</div>
+@* Reusable pill toggle switch *@
+<button type="button"
+        class="ne-pill-toggle @(Value ? "ne-pill-toggle--on" : "")"
+        @onclick="Toggle"
+        aria-checked="@Value.ToString().ToLower()"
+        role="switch">
+    <span class="ne-pill-toggle__thumb"></span>
+</button>
 

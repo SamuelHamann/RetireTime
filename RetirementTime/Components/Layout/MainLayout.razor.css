@@ -2,10 +2,22 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
 }
 
 main {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .sidebar {
@@ -13,13 +25,16 @@ main {
 }
 
 .top-row {
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #d6d5d5;
+    background-color: var(--color-surface-sidebar);
+    border-bottom: 1px solid var(--color-border);
     justify-content: flex-end;
     height: 3.5rem;
     display: flex;
     align-items: center;
     gap: 1rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
     .top-row ::deep a, .top-row ::deep .btn-link {
@@ -38,7 +53,7 @@ main {
     }
 
     .top-row .user-greeting {
-        color: #333;
+        color: var(--color-text-secondary);
         font-weight: 500;
         margin-right: 0.5rem;
     }
@@ -53,7 +68,7 @@ main {
     }
 
     .top-row .logout-link:hover {
-        background-color: #f5f5f5;
+        background-color: var(--color-nav-hover-bg);
         color: #c9302c;
     }
 

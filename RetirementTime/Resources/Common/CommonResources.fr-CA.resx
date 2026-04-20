@@ -19,4 +19,26 @@
     <data name="NotFound_Message" xml:space="preserve">
         <value>Désolé, le contenu que vous recherchez n'existe pas.</value>
     </data>
+
+    <!-- Sidebar -->
+    <data name="Sidebar_Brand" xml:space="preserve">
+        <value>Nest Egg</value>
+    </data>
+    <data name="Sidebar_BrandSub_Onboarding" xml:space="preserve">
+        <value>Démarrage</value>
+    </data>
+    <data name="Sidebar_BrandSub_Dashboard" xml:space="preserve">
+        <value>Tableau de bord</value>
+    </data>
+
+    <!-- Top navigation -->
+    <data name="Nav_Dashboard" xml:space="preserve">
+        <value>Tableau de bord</value>
+    </data>
+    <data name="Nav_Introduction" xml:space="preserve">
+        <value>Introduction</value>
+    </data>
+    <data name="Nav_Onboarding" xml:space="preserve">
+        <value>Démarrage</value>
+    </data>
 </root>
