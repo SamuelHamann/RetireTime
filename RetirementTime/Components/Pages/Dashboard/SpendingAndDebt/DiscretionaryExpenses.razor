@@ -26,6 +26,28 @@
             }
             else
             {
+                <div class="discretionary-toggle-row">
+                    <span class="field-question">@Localizer["Spending_Discretionary_UseGroupedEntry"]</span>
+                    <button class="grouped-toggle @(_model.UseGroupedEntry ? "grouped-toggle--active" : "")"
+                            @onclick="async () => { _model.UseGroupedEntry = !_model.UseGroupedEntry; await Save(); }">
+                        <span class="grouped-toggle__option @(!_model.UseGroupedEntry ? "grouped-toggle__option--selected" : "")">
+                            @Localizer["Spending_Discretionary_Detailed"]
+                        </span>
+                        <span class="grouped-toggle__option @(_model.UseGroupedEntry ? "grouped-toggle__option--selected" : "")">
+                            @Localizer["Spending_Discretionary_Grouped"]
+                        </span>
+                    </button>
+                </div>
+
+                @if (_model.UseGroupedEntry)
+                {
+                    <div class="income-fields-grid">
+                        @RenderAmountFrequencyRow("Spending_Discretionary_GroupedAmount", _model.GroupedAmount, _model.GroupedFrequencyId,
+                            v => { _model.GroupedAmount = v; }, f => { _model.GroupedFrequencyId = f; })
+                    </div>
+                }
+                else
+                {
                 <div class="income-fields-grid">
                     @RenderAmountFrequencyRow("Spending_Discretionary_GymMembership", _model.GymMembership, _model.GymMembershipFrequencyId,
                         v => { _model.GymMembership = v; }, f => { _model.GymMembershipFrequencyId = f; })
@@ -42,6 +64,7 @@
                     @RenderAmountFrequencyRow("Spending_Discretionary_OtherDiscretionaryExpenses", _model.OtherDiscretionaryExpenses, _model.OtherDiscretionaryExpensesFrequencyId,
                         v => { _model.OtherDiscretionaryExpenses = v; }, f => { _model.OtherDiscretionaryExpensesFrequencyId = f; })
                 </div>
+                }
             }
         </div>
     </div>
@@ -65,7 +88,7 @@
                     <input type="number" class="field-input money-input"
                            value="@amount"
                            @onchange="async e => { onAmountChange(e.Value is string s && decimal.TryParse(s, out var v) ? v : null); await Save(); }"
-                           min="0" step="0.01" />
+                            />
                 </div>
             </div>
             <div class="field-group">

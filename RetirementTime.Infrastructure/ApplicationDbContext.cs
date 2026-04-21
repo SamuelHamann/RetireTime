@@ -1550,6 +1550,10 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.OtherDiscretionaryExpenses).HasColumnType("numeric(18,2)");
             entity.Property(e => e.OtherDiscretionaryExpensesFrequencyId).IsRequired();
 
+            entity.Property(e => e.UseGroupedEntry).IsRequired().HasDefaultValue(false);
+            entity.Property(e => e.GroupedAmount).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.GroupedFrequencyId).IsRequired();
+
             entity.Property(e => e.CreatedAt).IsRequired().HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
             entity.Property(e => e.UpdatedAt).IsRequired().HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
 
@@ -1561,6 +1565,7 @@ public class ApplicationDbContext : DbContext
             entity.HasOne(e => e.TravelFrequency).WithMany().HasForeignKey(e => e.TravelFrequencyId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(e => e.CharitableDonationsFrequency).WithMany().HasForeignKey(e => e.CharitableDonationsFrequencyId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(e => e.OtherDiscretionaryExpensesFrequency).WithMany().HasForeignKey(e => e.OtherDiscretionaryExpensesFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.GroupedFrequency).WithMany().HasForeignKey(e => e.GroupedFrequencyId).OnDelete(DeleteBehavior.Restrict);
 
             entity.HasIndex(e => e.ScenarioId);
         });

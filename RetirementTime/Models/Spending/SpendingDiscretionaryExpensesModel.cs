@@ -18,4 +18,9 @@ public class SpendingDiscretionaryExpensesModel
     public int CharitableDonationsFrequencyId { get; set; } = (int)FrequencyEnum.Annually;
     public decimal? OtherDiscretionaryExpenses { get; set; }
     public int OtherDiscretionaryExpensesFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
+
+    // Grouped entry mode
+    public bool UseGroupedEntry { get; set; }
+    public decimal? GroupedAmount { get; set; }
+    public int GroupedFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
 }

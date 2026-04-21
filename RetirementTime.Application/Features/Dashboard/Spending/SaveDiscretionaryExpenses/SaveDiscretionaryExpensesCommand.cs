@@ -21,4 +21,8 @@ public record SaveDiscretionaryExpensesCommand : IRequest<BaseResult>
     public int CharitableDonationsFrequencyId { get; init; }
     public decimal? OtherDiscretionaryExpenses { get; init; }
     public int OtherDiscretionaryExpensesFrequencyId { get; init; }
+
+    public bool UseGroupedEntry { get; init; }
+    public decimal? GroupedAmount { get; init; }
+    public int GroupedFrequencyId { get; init; }
 }

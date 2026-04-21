@@ -33,6 +33,9 @@ public partial class SaveDiscretionaryExpensesHandler(
                 CharitableDonationsFrequencyId     = request.CharitableDonationsFrequencyId,
                 OtherDiscretionaryExpenses         = request.OtherDiscretionaryExpenses,
                 OtherDiscretionaryExpensesFrequencyId = request.OtherDiscretionaryExpensesFrequencyId,
+                UseGroupedEntry                    = request.UseGroupedEntry,
+                GroupedAmount                      = request.GroupedAmount,
+                GroupedFrequencyId                 = request.GroupedFrequencyId,
             };
 
             await repository.UpsertDiscretionaryExpensesAsync(entity);
