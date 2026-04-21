@@ -52,6 +52,9 @@ public partial class DiscretionaryExpenses : ComponentBase
             _model.CharitableDonationsFrequencyId        = e.CharitableDonationsFrequencyId;
             _model.OtherDiscretionaryExpenses            = e.OtherDiscretionaryExpenses;
             _model.OtherDiscretionaryExpensesFrequencyId = e.OtherDiscretionaryExpensesFrequencyId;
+            _model.UseGroupedEntry                       = e.UseGroupedEntry;
+            _model.GroupedAmount                         = e.GroupedAmount;
+            _model.GroupedFrequencyId                    = e.GroupedFrequencyId;
         }
 
         _isLoading = false;
@@ -77,6 +80,9 @@ public partial class DiscretionaryExpenses : ComponentBase
             CharitableDonationsFrequencyId     = _model.CharitableDonationsFrequencyId,
             OtherDiscretionaryExpenses         = _model.OtherDiscretionaryExpenses,
             OtherDiscretionaryExpensesFrequencyId = _model.OtherDiscretionaryExpensesFrequencyId,
+            UseGroupedEntry                    = _model.UseGroupedEntry,
+            GroupedAmount                      = _model.GroupedAmount,
+            GroupedFrequencyId                 = _model.GroupedFrequencyId,
         });
     }
 

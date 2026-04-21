@@ -85,6 +85,9 @@ public class SpendingRepository(ApplicationDbContext context) : ISpendingReposit
         existing.CharitableDonationsFrequencyId        = expenses.CharitableDonationsFrequencyId;
         existing.OtherDiscretionaryExpenses            = expenses.OtherDiscretionaryExpenses;
         existing.OtherDiscretionaryExpensesFrequencyId = expenses.OtherDiscretionaryExpensesFrequencyId;
+        existing.UseGroupedEntry                       = expenses.UseGroupedEntry;
+        existing.GroupedAmount                         = expenses.GroupedAmount;
+        existing.GroupedFrequencyId                    = expenses.GroupedFrequencyId;
         existing.UpdatedAt                             = DateTime.UtcNow;
         await context.SaveChangesAsync();
         return existing;

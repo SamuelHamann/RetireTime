@@ -28,6 +28,11 @@ public class SpendingDiscretionaryExpenses
     public decimal? OtherDiscretionaryExpenses { get; set; }
     public int OtherDiscretionaryExpensesFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
 
+    // Grouped entry mode
+    public bool UseGroupedEntry { get; set; }
+    public decimal? GroupedAmount { get; set; }
+    public int GroupedFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
+
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 
@@ -40,4 +45,5 @@ public class SpendingDiscretionaryExpenses
     public Frequency TravelFrequency { get; set; } = null!;
     public Frequency CharitableDonationsFrequency { get; set; } = null!;
     public Frequency OtherDiscretionaryExpensesFrequency { get; set; } = null!;
+    public Frequency GroupedFrequency { get; set; } = null!;
 }

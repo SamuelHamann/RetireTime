@@ -1022,6 +1022,18 @@
   <data name="Spending_Discretionary_OtherDiscretionaryExpenses" xml:space="preserve">
     <value>Other Discretionary Expenses</value>
   </data>
+  <data name="Spending_Discretionary_UseGroupedEntry" xml:space="preserve">
+    <value>Entry mode</value>
+  </data>
+  <data name="Spending_Discretionary_Detailed" xml:space="preserve">
+    <value>Detailed</value>
+  </data>
+  <data name="Spending_Discretionary_Grouped" xml:space="preserve">
+    <value>Grouped</value>
+  </data>
+  <data name="Spending_Discretionary_GroupedAmount" xml:space="preserve">
+    <value>Total Discretionary Expenses</value>
+  </data>
 
   <!-- Debt Repayments -->
   <data name="Spending_DebtRepayments_Title" xml:space="preserve">
