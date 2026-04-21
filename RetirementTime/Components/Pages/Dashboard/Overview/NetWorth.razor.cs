@@ -6,7 +6,7 @@ using RetirementTime.Application.Features.Dashboard.NetWorth.GetNetWorth;
 using RetirementTime.Resources.Dashboard;
 using RetirementTime.Services;
 
-namespace RetirementTime.Components.Pages.Dashboard;
+namespace RetirementTime.Components.Pages.Dashboard.Overview;
 
 public partial class NetWorth : ComponentBase
 {

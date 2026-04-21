@@ -35,6 +35,7 @@ public static class DependencyInjection
         services.AddScoped<IOnboardingDebtRepository, OnboardingDebtRepository>();
         services.AddScoped<IOnboardingEmploymentRepository, OnboardingEmploymentRepository>();
         services.AddScoped<IDashboardScenarioRepository, DashboardScenarioRepository>();
+        services.AddScoped<IDashboardAssumptionsRepository, DashboardAssumptionsRepository>();
         services.AddScoped<IEmploymentIncomeRepository, EmploymentIncomeRepository>();
         services.AddScoped<ISelfEmploymentIncomeRepository, SelfEmploymentIncomeRepository>();
         services.AddScoped<IPensionDefinedBenefitsRepository, PensionDefinedBenefitsRepository>();

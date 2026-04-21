@@ -54,32 +54,7 @@
                                     </li>
                                     @if (scenario.ScenarioFullyCreated)
                                     {
-                                        <li>
-                                            @{
-                                                var isScenarioOverviewExpanded = _expandedScenarioOverview.Contains(scenario.ScenarioId);
-                                            }
-                                            <button class="nav-item nav-item-sub nav-item-sub-expandable @(isScenarioOverviewExpanded ? "expanded" : "")"
-                                                    @onclick="@(() => ToggleScenarioOverview(scenario.ScenarioId))">
-                                                <span class="nav-label @(_activeScenarioId == scenario.ScenarioId && _activeView == "net-worth" ? "nav-label-active" : "")">@DashboardLocalizer["Sidebar_ScenarioOverview"]</span>
-                                                <span class="nav-chevron">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        <polyline points="6 9 12 15 18 9"/>
-                                                    </svg>
-                                                </span>
-                                            </button>
-                                            @if (isScenarioOverviewExpanded)
-                                            {
-                                                <ul class="nav-sub-submenu">
-                                                    <li>
-                                                        <button class="nav-item nav-item-sub-sub @IsActive($"scenario_{scenario.ScenarioId}_net-worth")"
-                                                                @onclick="@(() => Navigation.NavigateTo($"/scenario/{scenario.ScenarioId}/net-worth", forceLoad: false))">
-                                                            <span class="nav-label">@DashboardLocalizer["Sidebar_NetWorth"]</span>
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                            }
-                                        </li>
-                                var isTemp1Expanded = _expendedIncomeAssets.Contains(scenario.ScenarioId);
+                                        var isTemp1Expanded = _expendedIncomeAssets.Contains(scenario.ScenarioId);
                                 <li>
                                     <button class="nav-item nav-item-sub nav-item-sub-expandable @(isTemp1Expanded ? "expanded" : "")"
                                             @onclick="@(() => ToggleTemp1(scenario.ScenarioId))">
@@ -249,7 +224,39 @@
                                                         </ul>
                                     }
                                 </li>
-                            }
+
+                                        <li>
+                                            @{
+                                                var isScenarioOverviewExpanded = _expandedScenarioOverview.Contains(scenario.ScenarioId);
+                                            }
+                                            <button class="nav-item nav-item-sub nav-item-sub-expandable @(isScenarioOverviewExpanded ? "expanded" : "")"
+                                                    @onclick="@(() => ToggleScenarioOverview(scenario.ScenarioId))">
+                                                <span class="nav-label @(_activeScenarioId == scenario.ScenarioId && (_activeView == "net-worth" || _activeView == "cashflow") ? "nav-label-active" : "")">@DashboardLocalizer["Sidebar_ScenarioOverview"]</span>
+                                                <span class="nav-chevron">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <polyline points="6 9 12 15 18 9"/>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                            @if (isScenarioOverviewExpanded)
+                                            {
+                                                <ul class="nav-sub-submenu">
+                                                    <li>
+                                                        <button class="nav-item nav-item-sub-sub @IsActive($"scenario_{scenario.ScenarioId}_net-worth")"
+                                                                @onclick="@(() => Navigation.NavigateTo($"/scenario/{scenario.ScenarioId}/net-worth", forceLoad: false))">
+                                                            <span class="nav-label">@DashboardLocalizer["Sidebar_NetWorth"]</span>
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button class="nav-item nav-item-sub-sub @IsActive($"scenario_{scenario.ScenarioId}_cashflow")"
+                                                                @onclick="@(() => Navigation.NavigateTo($"/scenario/{scenario.ScenarioId}/cashflow", forceLoad: false))">
+                                                            <span class="nav-label">@DashboardLocalizer["Sidebar_Cashflow"]</span>
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            }
+                                        </li>
+                                    }
                         </ul>
                     }
                 </li>

@@ -477,6 +477,41 @@ public class ApplicationDbContext : DbContext
             entity.HasIndex(e => e.UserId);
         });
 
+        modelBuilder.Entity<DashboardAssumptions>(entity =>
+        {
+            entity.ToTable("dashboard_assumptions");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.YearlyInflationRate).IsRequired().HasColumnType("numeric(5,2)");
+            entity.Property(e => e.YearlyPropertyAppreciation).IsRequired().HasColumnType("numeric(5,2)");
+            entity.Property(e => e.StockAllocation).IsRequired().HasColumnType("numeric(5,2)");
+            entity.Property(e => e.StockYearlyReturn).IsRequired().HasColumnType("numeric(5,2)");
+            entity.Property(e => e.StockYearlyDividend).IsRequired().HasColumnType("numeric(5,2)");
+            entity.Property(e => e.StockCanadianAllocation).IsRequired().HasColumnType("numeric(5,2)");
+            entity.Property(e => e.StockForeignAllocation).IsRequired().HasColumnType("numeric(5,2)");
+            entity.Property(e => e.StockFees).IsRequired().HasColumnType("numeric(5,2)");
+            entity.Property(e => e.BondAllocation).IsRequired().HasColumnType("numeric(5,2)");
+            entity.Property(e => e.BondYearlyReturn).IsRequired().HasColumnType("numeric(5,2)");
+            entity.Property(e => e.BondFees).IsRequired().HasColumnType("numeric(5,2)");
+            entity.Property(e => e.CashAllocation).IsRequired().HasColumnType("numeric(5,2)");
+            entity.Property(e => e.CashYearlyReturn).IsRequired().HasColumnType("numeric(5,2)");
+
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.Scenario)
+                .WithMany()
+                .HasForeignKey(e => e.ScenarioId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasIndex(e => e.ScenarioId).IsUnique();
+        });
+
         modelBuilder.Entity<EmploymentIncome>(entity =>
         {
             entity.ToTable("dashboard_income_employment_income");
@@ -1780,6 +1815,7 @@ public class ApplicationDbContext : DbContext
 
     // Dashboard
     public DbSet<DashboardScenario> DashboardScenarios { get; set; }
+    public DbSet<DashboardAssumptions> DashboardAssumptions { get; set; }
 
     // Dashboard — Income
     public DbSet<EmploymentIncome> EmploymentIncomes { get; set; }

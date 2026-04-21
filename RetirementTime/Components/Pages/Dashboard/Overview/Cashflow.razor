@@ -1,0 +1,19 @@
+@page "/scenario/{scenarioId:long}/cashflow"
+@layout DashboardLayout
+@rendermode InteractiveServer
+@using RetirementTime.Resources.Dashboard
+@inject IStringLocalizer<DashboardResources> DashboardLocalizer
+
+<div class="step-header-animate">
+    <h1 class="font-headline text-5xl text-ne-primary tracking-tight mb-3">
+        @DashboardLocalizer["Sidebar_Cashflow"]
+    </h1>
+    <p class="font-body text-ne-on-surface-variant text-base leading-relaxed">
+        Coming soon.
+    </p>
+</div>
+
+@code {
+    [Parameter] public long ScenarioId { get; set; }
+}
+
