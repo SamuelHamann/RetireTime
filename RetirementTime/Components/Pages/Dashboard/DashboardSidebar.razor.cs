@@ -121,8 +121,8 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
                 if (financialProfileViews.Contains(_activeView))
                     _expendedIncomeAssets.Add(scenarioId);
 
-                // Auto-expand Scenario Overview for net-worth view
-                if (_activeView == "net-worth")
+                // Auto-expand Scenario Overview for net-worth or cashflow view
+                if (_activeView == "net-worth" || _activeView == "cashflow")
                     _expandedScenarioOverview.Add(scenarioId);
                 // Handle income sub-view: /scenario/{id}/income/{subview}
                 if (_activeView == "income" && parts.Length >= 4)

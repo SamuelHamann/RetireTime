@@ -2,7 +2,9 @@ using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using RetirementTime.Application.Features.Dashboard.DeleteScenario;
+using RetirementTime.Application.Features.Dashboard.GetAssumptions;
 using RetirementTime.Application.Features.Dashboard.GetScenarios;
+using RetirementTime.Application.Features.Dashboard.SaveAssumptions;
 using RetirementTime.Application.Features.Dashboard.UpdateScenario;
 using RetirementTime.Models.Dashboard;
 using RetirementTime.Services;
@@ -20,13 +22,17 @@ public partial class ScenarioSettings : ComponentBase, IDisposable
     [Parameter] public long ScenarioId { get; set; }
 
     private ScenarioSettingsModel _model = new();
+    private AssumptionsModel _assumptionsModel = new();
     private List<Application.Features.Dashboard.Common.ScenarioDto> _otherScenarios = [];
     private bool _isSaving = false;
     private bool _isDeleting = false;
+    private bool _isSavingAssumptions = false;
     private bool _scenarioFound = true;
     private bool _scenarioFullyCreated = false;
     private string? _successMessage;
     private string? _errorMessage;
+    private string? _assumptionsSuccessMessage;
+    private string? _assumptionsErrorMessage;
     private long _userId;
 
     protected override async Task OnInitializedAsync()
@@ -76,6 +82,9 @@ public partial class ScenarioSettings : ComponentBase, IDisposable
                 _model.ScenarioName = scenario.ScenarioName;
                 _scenarioFullyCreated = scenario.ScenarioFullyCreated;
                 _scenarioFound = true;
+
+                if (_scenarioFullyCreated)
+                    await LoadAssumptions();
             }
             else
             {
@@ -123,11 +132,20 @@ public partial class ScenarioSettings : ComponentBase, IDisposable
 
             
 
+            _scenarioFullyCreated = true;
+            _successMessage = null;
+
+            if (isFirstSave)
+            {
+                await LoadAssumptions();
+                StateHasChanged();
+                return;
+            }
+
             // Handle cloning if selected (must check before clearing)
-            if (!string.IsNullOrEmpty(_model.CloneFromScenarioId) && _scenarioFullyCreated == false)
+            if (!string.IsNullOrEmpty(_model.CloneFromScenarioId))
             {
                 // TODO: Implement clone functionality when we have scenario data
-                // For now, just show a message
                 _successMessage = "Scenario name updated! Cloning feature coming soon.";
             }
             else
@@ -135,12 +153,6 @@ public partial class ScenarioSettings : ComponentBase, IDisposable
                 _successMessage = "Scenario settings saved successfully!";
             }
 
-            if (isFirstSave)
-            {
-                Navigation.NavigateTo($"/scenario/{ScenarioId}/income", forceLoad: false);
-                return;
-            }
-            _scenarioFullyCreated = true;
 
         }
         catch (Exception)
@@ -150,6 +162,73 @@ public partial class ScenarioSettings : ComponentBase, IDisposable
         finally
         {
             _isSaving = false;
+        }
+    }
+
+    private async Task LoadAssumptions()
+    {
+        var result = await Mediator.Send(new GetAssumptionsQuery { ScenarioId = ScenarioId });
+        if (result.Success && result.Assumptions != null)
+        {
+            var a = result.Assumptions;
+            _assumptionsModel.YearlyInflationRate = a.YearlyInflationRate;
+            _assumptionsModel.YearlyPropertyAppreciation = a.YearlyPropertyAppreciation;
+            _assumptionsModel.StockAllocation = a.StockAllocation;
+            _assumptionsModel.StockYearlyReturn = a.StockYearlyReturn;
+            _assumptionsModel.StockYearlyDividend = a.StockYearlyDividend;
+            _assumptionsModel.StockCanadianAllocation = a.StockCanadianAllocation;
+            _assumptionsModel.StockForeignAllocation = a.StockForeignAllocation;
+            _assumptionsModel.StockFees = a.StockFees;
+            _assumptionsModel.BondAllocation = a.BondAllocation;
+            _assumptionsModel.BondYearlyReturn = a.BondYearlyReturn;
+            _assumptionsModel.BondFees = a.BondFees;
+            _assumptionsModel.CashAllocation = a.CashAllocation;
+            _assumptionsModel.CashYearlyReturn = a.CashYearlyReturn;
+        }
+    }
+
+    private async Task HandleSaveAssumptions()
+    {
+        _assumptionsSuccessMessage = null;
+        _assumptionsErrorMessage = null;
+
+        try
+        {
+            var command = new SaveAssumptionsCommand
+            {
+                ScenarioId = ScenarioId,
+                YearlyInflationRate = _assumptionsModel.YearlyInflationRate,
+                YearlyPropertyAppreciation = _assumptionsModel.YearlyPropertyAppreciation,
+                StockAllocation = _assumptionsModel.StockAllocation,
+                StockYearlyReturn = _assumptionsModel.StockYearlyReturn,
+                StockYearlyDividend = _assumptionsModel.StockYearlyDividend,
+                StockCanadianAllocation = _assumptionsModel.StockCanadianAllocation,
+                StockForeignAllocation = _assumptionsModel.StockForeignAllocation,
+                StockFees = _assumptionsModel.StockFees,
+                BondAllocation = _assumptionsModel.BondAllocation,
+                BondYearlyReturn = _assumptionsModel.BondYearlyReturn,
+                BondFees = _assumptionsModel.BondFees,
+                CashAllocation = _assumptionsModel.CashAllocation,
+                CashYearlyReturn = _assumptionsModel.CashYearlyReturn,
+            };
+
+            var result = await Mediator.Send(command);
+
+            if (result.Success)
+            {
+                _assumptionsSuccessMessage = "Saved";
+                StateHasChanged();
+                await Task.Delay(2000);
+                _assumptionsSuccessMessage = null;
+            }
+            else
+            {
+                _assumptionsErrorMessage = result.ErrorMessage ?? "Failed to save assumptions.";
+            }
+        }
+        catch (Exception)
+        {
+            _assumptionsErrorMessage = "An error occurred while saving assumptions.";
         }
     }
 

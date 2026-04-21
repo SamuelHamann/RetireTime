@@ -237,6 +237,12 @@ namespace RetirementTime.Resources.Dashboard {
             }
         }
         
+        public static string Sidebar_Cashflow {
+            get {
+                return ResourceManager.GetString("Sidebar_Cashflow", resourceCulture);
+            }
+        }
+        
         public static string NetWorth_Title {
             get {
                 return ResourceManager.GetString("NetWorth_Title", resourceCulture);

@@ -213,6 +213,9 @@
   <data name="Sidebar_ScenarioOverview" xml:space="preserve">
     <value>Aperçu du scénario</value>
   </data>
+  <data name="Sidebar_Cashflow" xml:space="preserve">
+    <value>Flux de trésorerie</value>
+  </data>
   <data name="NetWorth_Title" xml:space="preserve">
     <value>Valeur nette</value>
   </data>

@@ -23,13 +23,13 @@
         </div>
 
         <div class="step-body-animate">
-            <div class="bg-ne-surface-low rounded-xl px-8 pb-8 pt-5 shadow-sm">
+            <div class="bg-ne-surface-low rounded-xl px-8 pb-8 pt-5 shadow-sm mb-6">
                 <EditForm Model="@_model" OnValidSubmit="HandleSave">
                     <DataAnnotationsValidator />
 
                     <div class="field-group">
                         <label for="scenarioName" class="field-question">Scenario Name</label>
-                        <InputText id="scenarioName" @bind-Value="_model.ScenarioName" class="field-input" />
+                        <input id="scenarioName" type="text" class="field-input" @bind="_model.ScenarioName" />
                         <ValidationMessage For="@(() => _model.ScenarioName)" class="field-error" />
                     </div>
 
@@ -83,6 +83,141 @@
                     </div>
                 </EditForm>
             </div>
+
+            <!-- Assumptions Section -->
+            @if (_scenarioFullyCreated)
+            {
+            <div class="bg-ne-surface-low rounded-xl px-8 pb-8 pt-5 shadow-sm">
+                <h2 class="font-headline text-2xl text-ne-primary mb-1">Assumptions</h2>
+                <p class="font-body text-ne-on-surface-variant text-sm mb-5 leading-relaxed">These values are used to calculate and project your retirement outcomes.</p>
+
+                <EditForm Model="@_assumptionsModel">
+                    <DataAnnotationsValidator />
+
+                    <!-- General -->
+                    <h3 class="assumptions-section-title">General</h3>
+                    <div class="field-row">
+                        <div class="field-row-item">
+                            <label class="field-question">Yearly Inflation Rate</label>
+                            <div class="percent-input-wrapper">
+                                <input type="number" class="field-input percent-input" @bind="_assumptionsModel.YearlyInflationRate" @bind:after="HandleSaveAssumptions" min="0" max="100" step="0.01" />
+                            </div>
+                            <ValidationMessage For="@(() => _assumptionsModel.YearlyInflationRate)" class="field-error" />
+                        </div>
+                        <div class="field-row-item">
+                            <label class="field-question">Yearly Property Appreciation</label>
+                            <div class="percent-input-wrapper">
+                                <input type="number" class="field-input percent-input" @bind="_assumptionsModel.YearlyPropertyAppreciation" @bind:after="HandleSaveAssumptions" min="0" max="100" step="0.01" />
+                            </div>
+                            <ValidationMessage For="@(() => _assumptionsModel.YearlyPropertyAppreciation)" class="field-error" />
+                        </div>
+                    </div>
+
+                    <!-- Stocks -->
+                    <h3 class="assumptions-section-title mt-6">Stocks</h3>
+                    <div class="field-row">
+                        <div class="field-row-item field-group">
+                            <label class="field-question">Allocation</label>
+                            <div class="percent-input-wrapper">
+                                <input type="number" class="field-input percent-input" @bind="_assumptionsModel.StockAllocation" @bind:after="HandleSaveAssumptions" min="0" max="100" step="0.01" />
+                            </div>
+                            <ValidationMessage For="@(() => _assumptionsModel.StockAllocation)" class="field-error" />
+                        </div>
+                        <div class="field-row-item">
+                            <label class="field-question">Yearly Return</label>
+                            <div class="percent-input-wrapper">
+                                <input type="number" class="field-input percent-input" @bind="_assumptionsModel.StockYearlyReturn" @bind:after="HandleSaveAssumptions" min="0" max="100" step="0.01" />
+                            </div>
+                            <ValidationMessage For="@(() => _assumptionsModel.StockYearlyReturn)" class="field-error" />
+                        </div>
+                        <div class="field-row-item">
+                            <label class="field-question">Yearly Dividend</label>
+                            <div class="percent-input-wrapper">
+                                <input type="number" class="field-input percent-input" @bind="_assumptionsModel.StockYearlyDividend" @bind:after="HandleSaveAssumptions" min="0" max="100" step="0.01" />
+                            </div>
+                            <ValidationMessage For="@(() => _assumptionsModel.StockYearlyDividend)" class="field-error" />
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-row-item">
+                            <label class="field-question">Canadian Stock Allocation</label>
+                            <div class="percent-input-wrapper">
+                                <input type="number" class="field-input percent-input" @bind="_assumptionsModel.StockCanadianAllocation" @bind:after="HandleSaveAssumptions" min="0" max="100" step="0.01" />
+                            </div>
+                            <ValidationMessage For="@(() => _assumptionsModel.StockCanadianAllocation)" class="field-error" />
+                        </div>
+                        <div class="field-row-item">
+                            <label class="field-question">Foreign Stock Allocation</label>
+                            <div class="percent-input-wrapper">
+                                <input type="number" class="field-input percent-input" @bind="_assumptionsModel.StockForeignAllocation" @bind:after="HandleSaveAssumptions" min="0" max="100" step="0.01" />
+                            </div>
+                            <ValidationMessage For="@(() => _assumptionsModel.StockForeignAllocation)" class="field-error" />
+                        </div>
+                        <div class="field-row-item">
+                            <label class="field-question">Fees</label>
+                            <div class="percent-input-wrapper">
+                                <input type="number" class="field-input percent-input" @bind="_assumptionsModel.StockFees" @bind:after="HandleSaveAssumptions" min="0" max="100" step="0.01" />
+                            </div>
+                            <ValidationMessage For="@(() => _assumptionsModel.StockFees)" class="field-error" />
+                        </div>
+                    </div>
+
+                    <!-- Bonds -->
+                    <h3 class="assumptions-section-title mt-6">Bonds</h3>
+                    <div class="field-row">
+                        <div class="field-row-item">
+                            <label class="field-question">Allocation</label>
+                            <div class="percent-input-wrapper">
+                                <input type="number" class="field-input percent-input" @bind="_assumptionsModel.BondAllocation" @bind:after="HandleSaveAssumptions" min="0" max="100" step="0.01" />
+                            </div>
+                            <ValidationMessage For="@(() => _assumptionsModel.BondAllocation)" class="field-error" />
+                        </div>
+                        <div class="field-row-item">
+                            <label class="field-question">Yearly Return</label>
+                            <div class="percent-input-wrapper">
+                                <input type="number" class="field-input percent-input" @bind="_assumptionsModel.BondYearlyReturn" @bind:after="HandleSaveAssumptions" min="0" max="100" step="0.01" />
+                            </div>
+                            <ValidationMessage For="@(() => _assumptionsModel.BondYearlyReturn)" class="field-error" />
+                        </div>
+                        <div class="field-row-item">
+                            <label class="field-question">Fees</label>
+                            <div class="percent-input-wrapper">
+                                <input type="number" class="field-input percent-input" @bind="_assumptionsModel.BondFees" @bind:after="HandleSaveAssumptions" min="0" max="100" step="0.01" />
+                            </div>
+                            <ValidationMessage For="@(() => _assumptionsModel.BondFees)" class="field-error" />
+                        </div>
+                    </div>
+
+                    <!-- Cash -->
+                    <h3 class="assumptions-section-title mt-6">Cash</h3>
+                    <div class="field-row">
+                        <div class="field-row-item">
+                            <label class="field-question">Allocation</label>
+                            <div class="percent-input-wrapper">
+                                <input type="number" class="field-input percent-input" @bind="_assumptionsModel.CashAllocation" @bind:after="HandleSaveAssumptions" min="0" max="100" step="0.01" />
+                            </div>
+                            <ValidationMessage For="@(() => _assumptionsModel.CashAllocation)" class="field-error" />
+                        </div>
+                        <div class="field-row-item">
+                            <label class="field-question">Yearly Return</label>
+                            <div class="percent-input-wrapper">
+                                <input type="number" class="field-input percent-input" @bind="_assumptionsModel.CashYearlyReturn" @bind:after="HandleSaveAssumptions" min="0" max="100" step="0.01" />
+                            </div>
+                            <ValidationMessage For="@(() => _assumptionsModel.CashYearlyReturn)" class="field-error" />
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(_assumptionsSuccessMessage))
+                    {
+                        <div class="alert-success mt-4">@_assumptionsSuccessMessage</div>
+                    }
+                    @if (!string.IsNullOrEmpty(_assumptionsErrorMessage))
+                    {
+                        <div class="alert-error mt-4">@_assumptionsErrorMessage</div>
+                    }
+                </EditForm>
+            </div>
+            }
         </div>
     }
 </div>

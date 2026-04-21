@@ -1,15 +1,4 @@
-/* Use intro-style classes - they're already defined in introduction.css which is loaded globally */
-
-/* Override dashboard.css duplicate rule that sets inputs to warm-cream */
-.field-input {
-    background-color: #ffffff !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.field-input:focus {
-    background-color: #ffffff !important;
-}
+/* Inputs inherit styles from dashboard.css (.field-input, .percent-input-wrapper, .percent-input) */
 
 /* Faster animations for scenario settings (quicker than onboarding) */
 @keyframes scenario-fade-in {
@@ -135,4 +124,16 @@
 
 .clone-field-wrapper.clone-field-locked:hover::after {
     opacity: 1;
+}
+
+/* Assumptions section sub-headings */
+.assumptions-section-title {
+    font-family: 'Newsreader', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ne-secondary);
+    letter-spacing: -0.01em;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--ne-outline-variant);
 }
