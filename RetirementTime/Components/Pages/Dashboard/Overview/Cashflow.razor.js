@@ -122,15 +122,13 @@ export function renderBarChart(containerId, yearlyCashFlows, labelIncome, labelE
     const container = document.getElementById(containerId);
     if (!container || !yearlyCashFlows || yearlyCashFlows.length === 0) return;
 
-    // Load echarts dynamically if not already loaded
     function doRender() {
         const ec = window.echarts;
         if (!ec) return;
 
-        const ages = yearlyCashFlows.map(d => d.year);
-        const incomes = yearlyCashFlows.map(d => Math.round(d.totalIncome));
+        const ages     = yearlyCashFlows.map(d => d.year);
+        const incomes  = yearlyCashFlows.map(d => Math.round(d.totalIncome));
         const expenses = yearlyCashFlows.map(d => Math.round(d.totalExpenses));
-        const savings = yearlyCashFlows.map(d => Math.max(0, Math.round(d.totalIncome - d.totalExpenses)));
 
         const chart = ec.init(container, null, { renderer: 'svg' });
 
@@ -147,7 +145,7 @@ export function renderBarChart(containerId, yearlyCashFlows, labelIncome, labelE
                 }
             },
             legend: {
-                data: [labelExpenses, labelSavings],
+                data: [labelIncome, labelExpenses],
                 textStyle: { fontFamily: 'Inter, Manrope, sans-serif', fontSize: 13 }
             },
             grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
@@ -167,21 +165,21 @@ export function renderBarChart(containerId, yearlyCashFlows, labelIncome, labelE
                     formatter: v => '$' + (v >= 1000 ? (v / 1000).toFixed(0) + 'k' : v)
                 }
             }],
-            color: ['#9A3412', '#334155', '#6aa84f'],
+            color: ['#9A3412', '#334155'],
             series: [
+                {
+                    name: labelIncome,
+                    type: 'bar',
+                    emphasis: { focus: 'series' },
+                    data: incomes,
+                    barMaxWidth: 20
+                },
                 {
                     name: labelExpenses,
                     type: 'bar',
-                    stack: 'cashflow',
                     emphasis: { focus: 'series' },
-                    data: expenses
-                },
-                {
-                    name: labelSavings,
-                    type: 'bar',
-                    stack: 'cashflow',
-                    emphasis: { focus: 'series' },
-                    data: savings
+                    data: expenses,
+                    barMaxWidth: 20
                 }
             ]
         });

@@ -41,6 +41,8 @@ public class SpendingRepository(ApplicationDbContext context) : ISpendingReposit
         existing.GasFrequencyId              = expenses.GasFrequencyId;
         existing.HomeMaintenance             = expenses.HomeMaintenance;
         existing.HomeMaintenanceFrequencyId  = expenses.HomeMaintenanceFrequencyId;
+        existing.PropertyTax                 = expenses.PropertyTax;
+        existing.PropertyTaxFrequencyId      = expenses.PropertyTaxFrequencyId;
         existing.Cellphone                   = expenses.Cellphone;
         existing.CellphoneFrequencyId        = expenses.CellphoneFrequencyId;
         existing.HealthSpendings             = expenses.HealthSpendings;

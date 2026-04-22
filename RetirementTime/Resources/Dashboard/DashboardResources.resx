@@ -231,6 +231,12 @@
   <data name="Cashflow_Label_OtherIncome" xml:space="preserve">
     <value>Other Income</value>
   </data>
+  <data name="Cashflow_Label_RealEstateIncome" xml:space="preserve">
+    <value>Real Estate Income</value>
+  </data>
+  <data name="Cashflow_Label_OtherPersistingIncome" xml:space="preserve">
+    <value>Other Persisting Income</value>
+  </data>
   <data name="Cashflow_Label_TotalIncome" xml:space="preserve">
     <value>Total Income</value>
   </data>
@@ -630,6 +636,74 @@
   <data name="Income_Other_AddIncome" xml:space="preserve">
     <value>Add Income / Benefit</value>
   </data>
+
+  <!-- Persisting Income — Real Estate -->
+  <data name="Sidebar_Income_PersistingIncome" xml:space="preserve">
+    <value>Persisting Income</value>
+  </data>
+  <data name="Sidebar_Income_RealEstateIncome" xml:space="preserve">
+    <value>Real Estate Income</value>
+  </data>
+  <data name="Sidebar_Income_OtherPersistingIncome" xml:space="preserve">
+    <value>Other Persisting Income</value>
+  </data>
+  <data name="Income_RealEstate_Title" xml:space="preserve">
+    <value>Real Estate Income</value>
+  </data>
+  <data name="Income_RealEstate_Subtitle" xml:space="preserve">
+    <value>Track the rental income from your investment properties.</value>
+  </data>
+  <data name="Income_RealEstate_SectionTitle" xml:space="preserve">
+    <value>Investment Property Income</value>
+  </data>
+  <data name="Income_RealEstate_Hint" xml:space="preserve">
+    <value>One entry is created for each of your investment properties. Enter the expected rental income for each.</value>
+  </data>
+  <data name="Income_RealEstate_Item" xml:space="preserve">
+    <value>Property #{0}</value>
+  </data>
+  <data name="Income_RealEstate_PropertyName" xml:space="preserve">
+    <value>Property Name</value>
+  </data>
+  <data name="Income_RealEstate_Amount" xml:space="preserve">
+    <value>Annual Rental Income</value>
+  </data>
+  <data name="Income_RealEstate_NoProperties" xml:space="preserve">
+    <value>No investment properties found. Add properties in the Assets section first.</value>
+  </data>
+
+  <!-- Persisting Income — Other -->
+  <data name="Income_OtherPersisting_Title" xml:space="preserve">
+    <value>Other Persisting Income</value>
+  </data>
+  <data name="Income_OtherPersisting_Subtitle" xml:space="preserve">
+    <value>Track any other income that will continue into retirement such as royalties, annuities, or other recurring income.</value>
+  </data>
+  <data name="Income_OtherPersisting_SectionTitle" xml:space="preserve">
+    <value>Other Persisting Income</value>
+  </data>
+  <data name="Income_OtherPersisting_Hint" xml:space="preserve">
+    <value>Add income streams that will persist into retirement.</value>
+  </data>
+  <data name="Income_OtherPersisting_Item" xml:space="preserve">
+    <value>Income #{0}</value>
+  </data>
+  <data name="Income_OtherPersisting_Name" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Income_OtherPersisting_Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="Income_OtherPersisting_Frequency" xml:space="preserve">
+    <value>Frequency</value>
+  </data>
+  <data name="Income_OtherPersisting_Taxable" xml:space="preserve">
+    <value>Taxable</value>
+  </data>
+  <data name="Income_OtherPersisting_AddIncome" xml:space="preserve">
+    <value>Add Persisting Income</value>
+  </data>
+
   <data name="Sidebar_Assets" xml:space="preserve">
     <value>Assets</value>
   </data>
@@ -1034,6 +1108,9 @@
   </data>
   <data name="Spending_Living_HomeMaintenance" xml:space="preserve">
     <value>Home Maintenance</value>
+  </data>
+  <data name="Spending_Living_PropertyTax" xml:space="preserve">
+    <value>Property Tax</value>
   </data>
   <data name="Spending_Living_Cellphone" xml:space="preserve">
     <value>Cellphone</value>

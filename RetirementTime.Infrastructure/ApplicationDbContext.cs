@@ -988,17 +988,18 @@ public class ApplicationDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(200);
             
-            entity.Property(e => e.Amount)
-                .IsRequired()
-                .HasColumnType("numeric(18,2)");
+            entity.Property(e => e.InvestmentPropertyId);
             
+            entity.Property(e => e.Amount)
+                .HasColumnType("numeric(18,2)");
+
             entity.Property(e => e.CreatedAt)
                 .IsRequired()
                 .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
             entity.Property(e => e.UpdatedAt)
                 .IsRequired()
                 .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-            
+
             entity.HasOne(e => e.Scenario)
                 .WithMany()
                 .HasForeignKey(e => e.ScenarioId)
@@ -1007,179 +1008,12 @@ public class ApplicationDbContext : DbContext
                 .WithMany()
                 .HasForeignKey(e => e.FrequencyId)
                 .OnDelete(DeleteBehavior.Restrict);
-        });
-
-        modelBuilder.Entity<PostRetirementSelfEmployment>(entity =>
-        {
-            entity.ToTable("dashboard_persistent_income_self_employment");
-            entity.HasKey(e => e.Id);
-
-            entity.Property(e => e.Name)
-                .IsRequired()
-                .HasMaxLength(200);
-
-            entity.Property(e => e.NetSalary)
-                .HasColumnType("numeric(18,2)");
-            entity.Property(e => e.NetSalaryFrequencyId)
-                .IsRequired();
-
-            entity.Property(e => e.GrossSalary)
-                .HasColumnType("numeric(18,2)");
-            entity.Property(e => e.GrossSalaryFrequencyId)
-                .IsRequired();
-
-            entity.Property(e => e.GrossDividends)
-                .HasColumnType("numeric(18,2)");
-            entity.Property(e => e.GrossDividendsFrequencyId)
-                .IsRequired();
-
-            entity.Property(e => e.NetDividends)
-                .HasColumnType("numeric(18,2)");
-            entity.Property(e => e.NetDividendsFrequencyId)
-                .IsRequired();
-
-            entity.Property(e => e.CreatedAt)
-                .IsRequired()
-                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-            entity.Property(e => e.UpdatedAt)
-                .IsRequired()
-                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-
-            entity.HasOne(e => e.Scenario)
+            entity.HasOne(e => e.InvestmentProperty)
                 .WithMany()
-                .HasForeignKey(e => e.ScenarioId)
-                .OnDelete(DeleteBehavior.Cascade);
-            entity.HasOne(e => e.GrossSalaryFrequency)
-                .WithMany()
-                .HasForeignKey(e => e.GrossSalaryFrequencyId)
-                .OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(e => e.NetSalaryFrequency)
-                .WithMany()
-                .HasForeignKey(e => e.NetSalaryFrequencyId)
-                .OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(e => e.GrossDividendsFrequency)
-                .WithMany()
-                .HasForeignKey(e => e.GrossDividendsFrequencyId)
-                .OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(e => e.NetDividendsFrequency)
-                .WithMany()
-                .HasForeignKey(e => e.NetDividendsFrequencyId)
-                .OnDelete(DeleteBehavior.Restrict);
-        });
+                .HasForeignKey(e => e.InvestmentPropertyId)
+                .OnDelete(DeleteBehavior.SetNull);
 
-        modelBuilder.Entity<PostRetirementEmployment>(entity =>
-        {
-            entity.ToTable("dashboard_persistent_income_employment");
-            entity.HasKey(e => e.Id);
-
-            entity.Property(e => e.EmployerName)
-                .IsRequired()
-                .HasMaxLength(200);
-
-            entity.Property(e => e.GrossSalary)
-                .HasColumnType("numeric(18,2)");
-            entity.Property(e => e.GrossSalaryFrequencyId)
-                .IsRequired();
-
-            entity.Property(e => e.NetSalary)
-                .HasColumnType("numeric(18,2)");
-            entity.Property(e => e.NetSalaryFrequencyId)
-                .IsRequired();
-
-            entity.Property(e => e.GrossCommissions)
-                .HasColumnType("numeric(18,2)");
-            entity.Property(e => e.GrossCommissionsFrequencyId)
-                .IsRequired();
-
-            entity.Property(e => e.NetCommissions)
-                .HasColumnType("numeric(18,2)");
-            entity.Property(e => e.NetCommissionsFrequencyId)
-                .IsRequired();
-
-            entity.Property(e => e.GrossBonus)
-                .HasColumnType("numeric(18,2)");
-            entity.Property(e => e.GrossBonusFrequencyId)
-                .IsRequired();
-
-            entity.Property(e => e.NetBonus)
-                .HasColumnType("numeric(18,2)");
-            entity.Property(e => e.NetBonusFrequencyId)
-                .IsRequired();
-
-            entity.Property(e => e.PensionContributions)
-                .HasColumnType("numeric(18,2)");
-            entity.Property(e => e.PensionContributionFrequencyId)
-                .IsRequired();
-
-            entity.Property(e => e.TaxDeductions)
-                .HasColumnType("numeric(18,2)");
-            entity.Property(e => e.TaxDeductionFrequencyId)
-                .IsRequired();
-
-            entity.Property(e => e.CppDeductions)
-                .HasColumnType("numeric(18,2)");
-            entity.Property(e => e.CppDeductionFrequencyId)
-                .IsRequired();
-
-            entity.Property(e => e.OtherDeductions)
-                .HasColumnType("numeric(18,2)");
-            entity.Property(e => e.OtherDeductionFrequencyId)
-                .IsRequired();
-
-            entity.Property(e => e.CreatedAt)
-                .IsRequired()
-                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-
-            entity.Property(e => e.UpdatedAt)
-                .IsRequired()
-                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-            
-            entity.HasOne(e => e.GrossSalaryFrequency)
-                .WithMany()
-                .HasForeignKey(e => e.GrossSalaryFrequencyId)
-                .OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(e => e.NetSalaryFrequency)
-                .WithMany()
-                .HasForeignKey(e => e.NetSalaryFrequencyId)
-                .OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(e => e.GrossCommissionsFrequency)
-                .WithMany()
-                .HasForeignKey(e => e.GrossCommissionsFrequencyId)
-                .OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(e => e.NetCommissionsFrequency)
-                .WithMany()
-                .HasForeignKey(e => e.NetCommissionsFrequencyId)
-                .OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(e => e.GrossBonusFrequency)
-                .WithMany()
-                .HasForeignKey(e => e.GrossBonusFrequencyId)
-                .OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(e => e.NetBonusFrequency)
-                .WithMany()
-                .HasForeignKey(e => e.NetBonusFrequencyId)
-                .OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(e => e.PensionContributionFrequency)
-                .WithMany()
-                .HasForeignKey(e => e.PensionContributionFrequencyId)
-                .OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(e => e.TaxDeductionFrequency)
-                .WithMany()
-                .HasForeignKey(e => e.TaxDeductionFrequencyId)
-                .OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(e => e.CppDeductionFrequency)
-                .WithMany()
-                .HasForeignKey(e => e.CppDeductionFrequencyId)
-                .OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(e => e.OtherDeductionFrequency)
-                .WithMany()
-                .HasForeignKey(e => e.OtherDeductionFrequencyId)
-                .OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(e => e.Scenario)
-                .WithMany()
-                .HasForeignKey(e => e.ScenarioId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            entity.HasIndex(e => e.ScenarioId);
+            entity.HasIndex(e => e.InvestmentPropertyId);
         });
 
         modelBuilder.Entity<OtherPersistingIncome>(entity =>
@@ -1541,6 +1375,8 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.GasFrequencyId).IsRequired();
             entity.Property(e => e.HomeMaintenance).HasColumnType("numeric(18,2)");
             entity.Property(e => e.HomeMaintenanceFrequencyId).IsRequired();
+            entity.Property(e => e.PropertyTax).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.PropertyTaxFrequencyId).IsRequired();
             entity.Property(e => e.Cellphone).HasColumnType("numeric(18,2)");
             entity.Property(e => e.CellphoneFrequencyId).IsRequired();
             entity.Property(e => e.HealthSpendings).HasColumnType("numeric(18,2)");
@@ -1558,6 +1394,7 @@ public class ApplicationDbContext : DbContext
             entity.HasOne(e => e.InsuranceFrequency).WithMany().HasForeignKey(e => e.InsuranceFrequencyId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(e => e.GasFrequency).WithMany().HasForeignKey(e => e.GasFrequencyId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(e => e.HomeMaintenanceFrequency).WithMany().HasForeignKey(e => e.HomeMaintenanceFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.PropertyTaxFrequency).WithMany().HasForeignKey(e => e.PropertyTaxFrequencyId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(e => e.CellphoneFrequency).WithMany().HasForeignKey(e => e.CellphoneFrequencyId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(e => e.HealthSpendingsFrequency).WithMany().HasForeignKey(e => e.HealthSpendingsFrequencyId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(e => e.OtherLivingExpensesFrequency).WithMany().HasForeignKey(e => e.OtherLivingExpensesFrequencyId).OnDelete(DeleteBehavior.Restrict);
@@ -1831,8 +1668,6 @@ public class ApplicationDbContext : DbContext
     public DbSet<RealEstateIncome> RealEstateIncomes { get; set; }
 
     // Dashboard — Persisting Income (post-retirement)
-    public DbSet<PostRetirementSelfEmployment> PostRetirementSelfEmployments { get; set; }
-    public DbSet<PostRetirementEmployment> PostRetirementEmployments { get; set; }
     public DbSet<OtherPersistingIncome> OtherPersistingIncomes { get; set; }
 
     // Dashboard — Assets

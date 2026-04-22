@@ -33,6 +33,7 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
     private HashSet<long> _expandedDebtSubMenu = [];
     private HashSet<long> _expandedSpendingSubMenu = [];
     private HashSet<long> _expandedScenarioOverview = [];
+    private HashSet<long> _expandedPersistingIncomeSubMenu = [];
     private int _lastRefreshTrigger = -1;
     private bool _isCreatingScenario;
 
@@ -129,6 +130,10 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
                 {
                     _activeIncomeSubView = parts[3];
                     _expandedIncomeSubMenu.Add(scenarioId);
+
+                    // Auto-expand persisting income sub-menu when on those sub-views
+                    if (_activeIncomeSubView == "real-estate-income" || _activeIncomeSubView == "other-persisting-income")
+                        _expandedPersistingIncomeSubMenu.Add(scenarioId);
                 }
                 else if (_activeView == "income" && parts.Length == 3)
                 {
@@ -353,8 +358,15 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
     [
         "employment", "self-employment", "defined-benefits",
         "defined-contribution", "group-rrsp", "defined-profit-sharing",
-        "share-purchase-plan", "oas-cpp", "other"
+        "share-purchase-plan", "oas-cpp", "other",
+        "real-estate-income", "other-persisting-income"
     ];
+
+    private void TogglePersistingIncomeSubMenu(long scenarioId)
+    {
+        if (!_expandedPersistingIncomeSubMenu.Add(scenarioId))
+            _expandedPersistingIncomeSubMenu.Remove(scenarioId);
+    }
 
     public void NavigateNextIncomeStep()
     {

@@ -273,6 +273,18 @@ namespace RetirementTime.Resources.Dashboard {
             }
         }
         
+        public static string Cashflow_Label_RealEstateIncome {
+            get {
+                return ResourceManager.GetString("Cashflow_Label_RealEstateIncome", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Label_OtherPersistingIncome {
+            get {
+                return ResourceManager.GetString("Cashflow_Label_OtherPersistingIncome", resourceCulture);
+            }
+        }
+        
         public static string Cashflow_Label_TotalIncome {
             get {
                 return ResourceManager.GetString("Cashflow_Label_TotalIncome", resourceCulture);
@@ -1071,6 +1083,132 @@ namespace RetirementTime.Resources.Dashboard {
             }
         }
         
+        public static string Sidebar_Income_PersistingIncome {
+            get {
+                return ResourceManager.GetString("Sidebar_Income_PersistingIncome", resourceCulture);
+            }
+        }
+        
+        public static string Sidebar_Income_RealEstateIncome {
+            get {
+                return ResourceManager.GetString("Sidebar_Income_RealEstateIncome", resourceCulture);
+            }
+        }
+        
+        public static string Sidebar_Income_OtherPersistingIncome {
+            get {
+                return ResourceManager.GetString("Sidebar_Income_OtherPersistingIncome", resourceCulture);
+            }
+        }
+        
+        public static string Income_RealEstate_Title {
+            get {
+                return ResourceManager.GetString("Income_RealEstate_Title", resourceCulture);
+            }
+        }
+        
+        public static string Income_RealEstate_Subtitle {
+            get {
+                return ResourceManager.GetString("Income_RealEstate_Subtitle", resourceCulture);
+            }
+        }
+        
+        public static string Income_RealEstate_SectionTitle {
+            get {
+                return ResourceManager.GetString("Income_RealEstate_SectionTitle", resourceCulture);
+            }
+        }
+        
+        public static string Income_RealEstate_Hint {
+            get {
+                return ResourceManager.GetString("Income_RealEstate_Hint", resourceCulture);
+            }
+        }
+        
+        public static string Income_RealEstate_Item {
+            get {
+                return ResourceManager.GetString("Income_RealEstate_Item", resourceCulture);
+            }
+        }
+        
+        public static string Income_RealEstate_PropertyName {
+            get {
+                return ResourceManager.GetString("Income_RealEstate_PropertyName", resourceCulture);
+            }
+        }
+        
+        public static string Income_RealEstate_Amount {
+            get {
+                return ResourceManager.GetString("Income_RealEstate_Amount", resourceCulture);
+            }
+        }
+        
+        public static string Income_RealEstate_NoProperties {
+            get {
+                return ResourceManager.GetString("Income_RealEstate_NoProperties", resourceCulture);
+            }
+        }
+        
+        public static string Income_OtherPersisting_Title {
+            get {
+                return ResourceManager.GetString("Income_OtherPersisting_Title", resourceCulture);
+            }
+        }
+        
+        public static string Income_OtherPersisting_Subtitle {
+            get {
+                return ResourceManager.GetString("Income_OtherPersisting_Subtitle", resourceCulture);
+            }
+        }
+        
+        public static string Income_OtherPersisting_SectionTitle {
+            get {
+                return ResourceManager.GetString("Income_OtherPersisting_SectionTitle", resourceCulture);
+            }
+        }
+        
+        public static string Income_OtherPersisting_Hint {
+            get {
+                return ResourceManager.GetString("Income_OtherPersisting_Hint", resourceCulture);
+            }
+        }
+        
+        public static string Income_OtherPersisting_Item {
+            get {
+                return ResourceManager.GetString("Income_OtherPersisting_Item", resourceCulture);
+            }
+        }
+        
+        public static string Income_OtherPersisting_Name {
+            get {
+                return ResourceManager.GetString("Income_OtherPersisting_Name", resourceCulture);
+            }
+        }
+        
+        public static string Income_OtherPersisting_Amount {
+            get {
+                return ResourceManager.GetString("Income_OtherPersisting_Amount", resourceCulture);
+            }
+        }
+        
+        public static string Income_OtherPersisting_Frequency {
+            get {
+                return ResourceManager.GetString("Income_OtherPersisting_Frequency", resourceCulture);
+            }
+        }
+        
+        public static string Income_OtherPersisting_Taxable {
+            get {
+                return ResourceManager.GetString("Income_OtherPersisting_Taxable", resourceCulture);
+            }
+        }
+        
+        public static string Income_OtherPersisting_AddIncome {
+            get {
+                return ResourceManager.GetString("Income_OtherPersisting_AddIncome", resourceCulture);
+            }
+        }
+        
         public static string Sidebar_Assets {
             get {
                 return ResourceManager.GetString("Sidebar_Assets", resourceCulture);
@@ -1866,6 +2004,12 @@ namespace RetirementTime.Resources.Dashboard {
         public static string Spending_Living_HomeMaintenance {
             get {
                 return ResourceManager.GetString("Spending_Living_HomeMaintenance", resourceCulture);
+            }
+        }
+        
+        public static string Spending_Living_PropertyTax {
+            get {
+                return ResourceManager.GetString("Spending_Living_PropertyTax", resourceCulture);
             }
         }
         

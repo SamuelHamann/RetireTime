@@ -19,6 +19,8 @@ public record SaveLivingExpensesCommand : IRequest<BaseResult>
     public int GasFrequencyId { get; init; }
     public decimal? HomeMaintenance { get; init; }
     public int HomeMaintenanceFrequencyId { get; init; }
+    public decimal? PropertyTax { get; init; }
+    public int PropertyTaxFrequencyId { get; init; }
     public decimal? Cellphone { get; init; }
     public int CellphoneFrequencyId { get; init; }
     public decimal? HealthSpendings { get; init; }

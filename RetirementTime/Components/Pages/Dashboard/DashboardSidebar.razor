@@ -58,7 +58,7 @@
                                 <li>
                                     <button class="nav-item nav-item-sub nav-item-sub-expandable @(isTemp1Expanded ? "expanded" : "")"
                                             @onclick="@(() => ToggleTemp1(scenario.ScenarioId))">
-                                        <span class="nav-label @(_activeScenarioId == scenario.ScenarioId && (_activeView == "income" || _activeView == "spending" || _activeView == "assets" || _activeView == "debt") ? "nav-label-active" : "")">@DashboardLocalizer["Sidebar_FinancialProfile"]</span>
+                                        <span class="nav-label @(_activeScenarioId == scenario.ScenarioId && (_activeView == "income" || _activeView == "spending" || _activeView == "assets" || _activeView == "debt" || (_activeView == "income" && (_activeIncomeSubView == "real-estate-income" || _activeIncomeSubView == "other-persisting-income"))) ? "nav-label-active" : "")">@DashboardLocalizer["Sidebar_FinancialProfile"]</span>
                                         <span class="nav-chevron">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                 <polyline points="6 9 12 15 18 9"/>
@@ -170,6 +170,41 @@
                                                                             ("share-purchase-plan",  "Sidebar_Income_SharePurchasePlan"),
                                                                             ("oas-cpp",              "Sidebar_Income_OasCpp"),
                                                                             ("other",                "Sidebar_Income_Other"),
+                                                                        })
+                                                                        {
+                                                                            var isSubActive = IsIncomeSubActive(scenario.ScenarioId, subView) == "active";
+                                                                            <li>
+                                                                                <button class="nav-item nav-income-item @(isSubActive ? "active" : "")"
+                                                                                        @onclick="@(() => NavigateToIncomeSubPage(scenario.ScenarioId, subView))">
+                                                                                    <span class="nav-income-dot @(isSubActive ? "filled" : "")"></span>
+                                                                                    <span class="nav-label">@DashboardLocalizer[labelKey]</span>
+                                                                                </button>
+                                                                            </li>
+                                                                        }
+                                                                    </ul>
+                                                                }
+                                                            </li>
+                                                            <li>
+                                                                @{
+                                                                    var isPersistingExpanded = _expandedPersistingIncomeSubMenu.Contains(scenario.ScenarioId);
+                                                                    var isPersistingActive = _activeScenarioId == scenario.ScenarioId && (_activeIncomeSubView == "real-estate-income" || _activeIncomeSubView == "other-persisting-income");
+                                                                }
+                                                                <button class="nav-item nav-item-sub-sub nav-item-sub-sub-expandable @(isPersistingExpanded ? "expanded" : "")"
+                                                                        @onclick="@(() => TogglePersistingIncomeSubMenu(scenario.ScenarioId))">
+                                                                    <span class="nav-label @(isPersistingActive ? "nav-label-active" : "")">@DashboardLocalizer["Sidebar_Income_PersistingIncome"]</span>
+                                                                    <span class="nav-chevron">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                            <polyline points="6 9 12 15 18 9"/>
+                                                                        </svg>
+                                                                    </span>
+                                                                </button>
+                                                                @if (isPersistingExpanded)
+                                                                {
+                                                                    <ul class="nav-income-submenu">
+                                                                        @foreach (var (subView, labelKey) in new (string, string)[]
+                                                                        {
+                                                                            ("real-estate-income",      "Sidebar_Income_RealEstateIncome"),
+                                                                            ("other-persisting-income", "Sidebar_Income_OtherPersistingIncome"),
                                                                         })
                                                                         {
                                                                             var isSubActive = IsIncomeSubActive(scenario.ScenarioId, subView) == "active";

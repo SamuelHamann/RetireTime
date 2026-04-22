@@ -186,6 +186,69 @@
   <data name="Sidebar_Income_Other" xml:space="preserve">
     <value>Autre</value>
   </data>
+  <data name="Sidebar_Income_PersistingIncome" xml:space="preserve">
+    <value>Revenus persistants</value>
+  </data>
+  <data name="Sidebar_Income_RealEstateIncome" xml:space="preserve">
+    <value>Revenus immobiliers</value>
+  </data>
+  <data name="Sidebar_Income_OtherPersistingIncome" xml:space="preserve">
+    <value>Autres revenus persistants</value>
+  </data>
+  <data name="Income_RealEstate_Title" xml:space="preserve">
+    <value>Revenus immobiliers</value>
+  </data>
+  <data name="Income_RealEstate_Subtitle" xml:space="preserve">
+    <value>Suivez les revenus locatifs de vos propriétés d'investissement.</value>
+  </data>
+  <data name="Income_RealEstate_SectionTitle" xml:space="preserve">
+    <value>Revenus des propriétés d'investissement</value>
+  </data>
+  <data name="Income_RealEstate_Hint" xml:space="preserve">
+    <value>Une entrée est créée pour chaque propriété d'investissement. Entrez le revenu locatif prévu pour chacune.</value>
+  </data>
+  <data name="Income_RealEstate_Item" xml:space="preserve">
+    <value>Propriété #{0}</value>
+  </data>
+  <data name="Income_RealEstate_PropertyName" xml:space="preserve">
+    <value>Nom de la propriété</value>
+  </data>
+  <data name="Income_RealEstate_Amount" xml:space="preserve">
+    <value>Revenu locatif annuel</value>
+  </data>
+  <data name="Income_RealEstate_NoProperties" xml:space="preserve">
+    <value>Aucune propriété d'investissement trouvée. Ajoutez des propriétés dans la section Actifs d'abord.</value>
+  </data>
+  <data name="Income_OtherPersisting_Title" xml:space="preserve">
+    <value>Autres revenus persistants</value>
+  </data>
+  <data name="Income_OtherPersisting_Subtitle" xml:space="preserve">
+    <value>Suivez tout autre revenu qui se poursuivra à la retraite, comme les redevances, les rentes ou autres revenus récurrents.</value>
+  </data>
+  <data name="Income_OtherPersisting_SectionTitle" xml:space="preserve">
+    <value>Autres revenus persistants</value>
+  </data>
+  <data name="Income_OtherPersisting_Hint" xml:space="preserve">
+    <value>Ajoutez les sources de revenus qui persisteront à la retraite.</value>
+  </data>
+  <data name="Income_OtherPersisting_Item" xml:space="preserve">
+    <value>Revenu #{0}</value>
+  </data>
+  <data name="Income_OtherPersisting_Name" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Income_OtherPersisting_Amount" xml:space="preserve">
+    <value>Montant</value>
+  </data>
+  <data name="Income_OtherPersisting_Frequency" xml:space="preserve">
+    <value>Fréquence</value>
+  </data>
+  <data name="Income_OtherPersisting_Taxable" xml:space="preserve">
+    <value>Imposable</value>
+  </data>
+  <data name="Income_OtherPersisting_AddIncome" xml:space="preserve">
+    <value>Ajouter un revenu persistant</value>
+  </data>
   <data name="Sidebar_Spending" xml:space="preserve">
     <value>Dépenses</value>
   </data>
@@ -230,6 +293,12 @@
   </data>
   <data name="Cashflow_Label_OtherIncome" xml:space="preserve">
     <value>Autres revenus</value>
+  </data>
+  <data name="Cashflow_Label_RealEstateIncome" xml:space="preserve">
+    <value>Revenus immobiliers</value>
+  </data>
+  <data name="Cashflow_Label_OtherPersistingIncome" xml:space="preserve">
+    <value>Autres revenus persistants</value>
   </data>
   <data name="Cashflow_Label_TotalIncome" xml:space="preserve">
     <value>Revenu total</value>
@@ -1034,6 +1103,9 @@
   </data>
   <data name="Spending_Living_HomeMaintenance" xml:space="preserve">
     <value>Entretien domicile</value>
+  </data>
+  <data name="Spending_Living_PropertyTax" xml:space="preserve">
+    <value>Taxe foncière</value>
   </data>
   <data name="Spending_Living_Cellphone" xml:space="preserve">
     <value>Téléphone cellulaire</value>

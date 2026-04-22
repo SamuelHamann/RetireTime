@@ -16,6 +16,8 @@ public class SpendingLivingExpensesModel
     public int GasFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
     public decimal? HomeMaintenance { get; set; }
     public int HomeMaintenanceFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
+    public decimal? PropertyTax { get; set; }
+    public int PropertyTaxFrequencyId { get; set; } = (int)FrequencyEnum.Annually;
     public decimal? Cellphone { get; set; }
     public int CellphoneFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
     public decimal? HealthSpendings { get; set; }

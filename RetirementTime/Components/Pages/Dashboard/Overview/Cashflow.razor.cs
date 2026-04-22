@@ -38,6 +38,8 @@ public partial class Cashflow : ComponentBase, IAsyncDisposable
             Label_SelfEmployment         = Localizer["Cashflow_Label_SelfEmployment"],
             Label_DefinedBenefits        = Localizer["Cashflow_Label_DefinedBenefits"],
             Label_OtherIncome            = Localizer["Cashflow_Label_OtherIncome"],
+            Label_RealEstateIncome       = Localizer["Cashflow_Label_RealEstateIncome"],
+            Label_OtherPersistingIncome  = Localizer["Cashflow_Label_OtherPersistingIncome"],
             Label_TotalIncome            = Localizer["Cashflow_Label_TotalIncome"],
             Label_LivingExpenses         = Localizer["Cashflow_Label_LivingExpenses"],
             Label_DiscretionaryExpenses  = Localizer["Cashflow_Label_DiscretionaryExpenses"],

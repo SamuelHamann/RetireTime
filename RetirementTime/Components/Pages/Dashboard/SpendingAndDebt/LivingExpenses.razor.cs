@@ -50,6 +50,8 @@ public partial class LivingExpenses : ComponentBase
             _model.GasFrequencyId                 = e.GasFrequencyId;
             _model.HomeMaintenance                = e.HomeMaintenance;
             _model.HomeMaintenanceFrequencyId     = e.HomeMaintenanceFrequencyId;
+            _model.PropertyTax                    = e.PropertyTax;
+            _model.PropertyTaxFrequencyId         = e.PropertyTaxFrequencyId;
             _model.Cellphone                      = e.Cellphone;
             _model.CellphoneFrequencyId           = e.CellphoneFrequencyId;
             _model.HealthSpendings                = e.HealthSpendings;
@@ -79,6 +81,8 @@ public partial class LivingExpenses : ComponentBase
             GasFrequencyId                 = _model.GasFrequencyId,
             HomeMaintenance                = _model.HomeMaintenance,
             HomeMaintenanceFrequencyId     = _model.HomeMaintenanceFrequencyId,
+            PropertyTax                    = _model.PropertyTax,
+            PropertyTaxFrequencyId         = _model.PropertyTaxFrequencyId,
             Cellphone                      = _model.Cellphone,
             CellphoneFrequencyId           = _model.CellphoneFrequencyId,
             HealthSpendings                = _model.HealthSpendings,

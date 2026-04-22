@@ -31,6 +31,8 @@ public partial class SaveLivingExpensesHandler(
                 GasFrequencyId                 = request.GasFrequencyId,
                 HomeMaintenance                = request.HomeMaintenance,
                 HomeMaintenanceFrequencyId     = request.HomeMaintenanceFrequencyId,
+                PropertyTax                    = request.PropertyTax,
+                PropertyTaxFrequencyId         = request.PropertyTaxFrequencyId,
                 Cellphone                      = request.Cellphone,
                 CellphoneFrequencyId           = request.CellphoneFrequencyId,
                 HealthSpendings                = request.HealthSpendings,

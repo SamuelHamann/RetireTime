@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RetirementTime.Infrastructure;
@@ -11,9 +12,11 @@ using RetirementTime.Infrastructure;
 namespace RetirementTime.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260422190019_MakeRealEstateIncomeAmountNullable")]
+    partial class MakeRealEstateIncomeAmountNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1696,12 +1699,6 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Property<int>("OtherLivingExpensesFrequencyId")
                         .HasColumnType("integer");
 
-                    b.Property<decimal?>("PropertyTax")
-                        .HasColumnType("numeric(18,2)");
-
-                    b.Property<int>("PropertyTaxFrequencyId")
-                        .HasColumnType("integer");
-
                     b.Property<decimal?>("RentOrMortgage")
                         .HasColumnType("numeric(18,2)");
 
@@ -1737,8 +1734,6 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.HasIndex("InsuranceFrequencyId");
 
                     b.HasIndex("OtherLivingExpensesFrequencyId");
-
-                    b.HasIndex("PropertyTaxFrequencyId");
 
                     b.HasIndex("RentOrMortgageFrequencyId");
 
@@ -3176,12 +3171,6 @@ namespace RetirementTime.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("RetirementTime.Domain.Entities.Common.Frequency", "PropertyTaxFrequency")
-                        .WithMany()
-                        .HasForeignKey("PropertyTaxFrequencyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("RetirementTime.Domain.Entities.Common.Frequency", "RentOrMortgageFrequency")
                         .WithMany()
                         .HasForeignKey("RentOrMortgageFrequencyId")
@@ -3213,8 +3202,6 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Navigation("InsuranceFrequency");
 
                     b.Navigation("OtherLivingExpensesFrequency");
-
-                    b.Navigation("PropertyTaxFrequency");
 
                     b.Navigation("RentOrMortgageFrequency");
 

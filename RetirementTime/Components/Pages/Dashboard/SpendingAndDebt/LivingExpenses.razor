@@ -38,6 +38,8 @@
                         v => { _model.Gas = v; }, f => { _model.GasFrequencyId = f; })
                     @RenderAmountFrequencyRow("Spending_Living_HomeMaintenance", _model.HomeMaintenance, _model.HomeMaintenanceFrequencyId,
                         v => { _model.HomeMaintenance = v; }, f => { _model.HomeMaintenanceFrequencyId = f; })
+                    @RenderAmountFrequencyRow("Spending_Living_PropertyTax", _model.PropertyTax, _model.PropertyTaxFrequencyId,
+                        v => { _model.PropertyTax = v; }, f => { _model.PropertyTaxFrequencyId = f; })
                     @RenderAmountFrequencyRow("Spending_Living_Cellphone", _model.Cellphone, _model.CellphoneFrequencyId,
                         v => { _model.Cellphone = v; }, f => { _model.CellphoneFrequencyId = f; })
                     @RenderAmountFrequencyRow("Spending_Living_HealthSpendings", _model.HealthSpendings, _model.HealthSpendingsFrequencyId,

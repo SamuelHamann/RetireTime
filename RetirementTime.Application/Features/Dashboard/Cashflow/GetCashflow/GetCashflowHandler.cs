@@ -10,6 +10,8 @@ public partial class GetCashflowHandler(
     ISelfEmploymentIncomeRepository selfEmploymentIncomeRepository,
     IPensionDefinedBenefitsRepository pensionDefinedBenefitsRepository,
     IOtherIncomeOrBenefitsRepository otherIncomeOrBenefitsRepository,
+    IRealEstateIncomeRepository realEstateIncomeRepository,
+    IOtherPersistingIncomeRepository otherPersistingIncomeRepository,
     ISpendingRepository spendingRepository,
     IOnboardingPersonalInfoRepository onboardingPersonalInfoRepository,
     IOnboardingEmploymentRepository onboardingEmploymentRepository,
@@ -31,10 +33,12 @@ public partial class GetCashflowHandler(
 
             // ── Income ───────────────────────────────────────────────────────
 
-            var employments     = await employmentIncomeRepository.GetByScenarioIdAsync(request.ScenarioId);
-            var selfEmployments = await selfEmploymentIncomeRepository.GetByScenarioIdAsync(request.ScenarioId);
-            var pensions        = await pensionDefinedBenefitsRepository.GetByScenarioIdAsync(request.ScenarioId);
-            var otherIncomes    = await otherIncomeOrBenefitsRepository.GetByScenarioIdAsync(request.ScenarioId);
+            var employments          = await employmentIncomeRepository.GetByScenarioIdAsync(request.ScenarioId);
+            var selfEmployments      = await selfEmploymentIncomeRepository.GetByScenarioIdAsync(request.ScenarioId);
+            var pensions             = await pensionDefinedBenefitsRepository.GetByScenarioIdAsync(request.ScenarioId);
+            var otherIncomes         = await otherIncomeOrBenefitsRepository.GetByScenarioIdAsync(request.ScenarioId);
+            var realEstateIncomes    = await realEstateIncomeRepository.GetByScenarioIdAsync(request.ScenarioId);
+            var otherPersistingIncomes = await otherPersistingIncomeRepository.GetByScenarioIdAsync(request.ScenarioId);
 
             decimal employmentTotal = employments.Sum(e =>
                 ToAnnual(e.NetSalary, e.NetSalaryFrequencyId, frequencies) +
@@ -51,15 +55,22 @@ public partial class GetCashflowHandler(
             decimal otherIncomeTotal = otherIncomes.Sum(e =>
                 ToAnnual(e.Amount, e.FrequencyId ?? (int)FrequencyEnum.Annually, frequencies));
 
-            decimal totalIncome = employmentTotal + selfEmploymentTotal + pensionTotal + otherIncomeTotal;
+            decimal realEstateIncomeTotal = realEstateIncomes.Sum(e =>
+                ToAnnual(e.Amount, e.FrequencyId ?? (int)FrequencyEnum.Annually, frequencies));
+
+            decimal otherPersistingIncomeTotal = otherPersistingIncomes.Sum(e =>
+                ToAnnual(e.Amount, e.FrequencyId, frequencies));
+
+            decimal totalIncome = employmentTotal + selfEmploymentTotal + pensionTotal + otherIncomeTotal
+                                  + realEstateIncomeTotal + otherPersistingIncomeTotal;
 
             // ── Expenses ─────────────────────────────────────────────────────
 
-            var living       = await spendingRepository.GetLivingExpensesAsync(request.ScenarioId);
-            var discretionary = await spendingRepository.GetDiscretionaryExpensesAsync(request.ScenarioId);
-            var debtRepayments = await spendingRepository.GetDebtRepaymentsAsync(request.ScenarioId);
-            var assetsExpenses = await spendingRepository.GetAssetsExpensesAsync(request.ScenarioId);
-            var otherExpenses  = await spendingRepository.GetOtherExpensesAsync(request.ScenarioId);
+            var living            = await spendingRepository.GetLivingExpensesAsync(request.ScenarioId);
+            var discretionary     = await spendingRepository.GetDiscretionaryExpensesAsync(request.ScenarioId);
+            var debtRepayments    = await spendingRepository.GetDebtRepaymentsAsync(request.ScenarioId);
+            var assetsExpenses    = await spendingRepository.GetAssetsExpensesAsync(request.ScenarioId);
+            var otherExpenses     = await spendingRepository.GetOtherExpensesAsync(request.ScenarioId);
 
             decimal livingTotal = living == null ? 0m :
                 ToAnnual(living.RentOrMortgage, living.RentOrMortgageFrequencyId, frequencies) +
@@ -68,6 +79,7 @@ public partial class GetCashflowHandler(
                 ToAnnual(living.Insurance, living.InsuranceFrequencyId, frequencies) +
                 ToAnnual(living.Gas, living.GasFrequencyId, frequencies) +
                 ToAnnual(living.HomeMaintenance, living.HomeMaintenanceFrequencyId, frequencies) +
+                ToAnnual(living.PropertyTax, living.PropertyTaxFrequencyId, frequencies) +
                 ToAnnual(living.Cellphone, living.CellphoneFrequencyId, frequencies) +
                 ToAnnual(living.HealthSpendings, living.HealthSpendingsFrequencyId, frequencies) +
                 ToAnnual(living.OtherLivingExpenses, living.OtherLivingExpensesFrequencyId, frequencies);
@@ -95,7 +107,6 @@ public partial class GetCashflowHandler(
             var nodes = new List<CashflowNodeDto>();
             var links = new List<CashflowLinkDto>();
 
-            // Only include nodes/links with non-zero values
             void AddIncomeSource(string label, decimal amount)
             {
                 if (amount <= 0) return;
@@ -110,10 +121,12 @@ public partial class GetCashflowHandler(
                 links.Add(new CashflowLinkDto { Source = request.Label_TotalExpenses, Target = label, Value = amount });
             }
 
-            AddIncomeSource(request.Label_Employment,     employmentTotal);
-            AddIncomeSource(request.Label_SelfEmployment, selfEmploymentTotal);
-            AddIncomeSource(request.Label_DefinedBenefits, pensionTotal);
-            AddIncomeSource(request.Label_OtherIncome,    otherIncomeTotal);
+            AddIncomeSource(request.Label_Employment,            employmentTotal);
+            AddIncomeSource(request.Label_SelfEmployment,        selfEmploymentTotal);
+            AddIncomeSource(request.Label_DefinedBenefits,       pensionTotal);
+            AddIncomeSource(request.Label_OtherIncome,           otherIncomeTotal);
+            AddIncomeSource(request.Label_RealEstateIncome,      realEstateIncomeTotal);
+            AddIncomeSource(request.Label_OtherPersistingIncome, otherPersistingIncomeTotal);
 
             nodes.Add(new CashflowNodeDto { Name = request.Label_TotalIncome, Category = "income" });
 
@@ -129,56 +142,68 @@ public partial class GetCashflowHandler(
                 links.Add(new CashflowLinkDto { Source = request.Label_TotalIncome, Target = request.Label_Savings, Value = savings });
             }
 
-            AddExpenseCategory(request.Label_LivingExpenses,      livingTotal);
-            AddExpenseCategory(request.Label_DiscretionaryExpenses, discretionaryTotal);
-            AddExpenseCategory(request.Label_DebtRepayments,       debtTotal);
-            AddExpenseCategory(request.Label_AssetsExpenses,       assetsTotal);
-            AddExpenseCategory(request.Label_OtherExpenses,        otherExpTotal);
+            AddExpenseCategory(request.Label_LivingExpenses,          livingTotal);
+            AddExpenseCategory(request.Label_DiscretionaryExpenses,    discretionaryTotal);
+            AddExpenseCategory(request.Label_DebtRepayments,           debtTotal);
+            AddExpenseCategory(request.Label_AssetsExpenses,           assetsTotal);
+            AddExpenseCategory(request.Label_OtherExpenses,            otherExpTotal);
+
+            // ── Yearly projection ─────────────────────────────────────────────
 
             var assumptions = await assumptionsRepository.GetByScenarioIdAsync(request.ScenarioId);
 
-            var mortgageExpense = living == null ? 0m : ToAnnual(living.RentOrMortgage, living.RentOrMortgageFrequencyId, frequencies);
-            var currentSalary = employmentTotal;
-            var currentOtherIncome = totalIncome - currentSalary;
-            // Non-mortgage, non-debt expenses that grow with inflation
+            var mortgageExpense  = living == null ? 0m : ToAnnual(living.RentOrMortgage, living.RentOrMortgageFrequencyId, frequencies);
+            var currentSalary    = employmentTotal;
+            var currentOtherIncome = otherIncomeTotal + pensionTotal + selfEmploymentTotal;
             var inflationExpenses = livingTotal - mortgageExpense + discretionaryTotal + assetsTotal + otherExpTotal;
-            // Debt repayments stay fixed
             var fixedDebtExpenses = debtTotal;
 
-            var inflationRate = assumptions != null ? assumptions.YearlyInflationRate / 100m : 0.02m;
+            var inflationRate   = assumptions != null ? assumptions.YearlyInflationRate / 100m : 0.02m;
             var salaryRaiseRate = assumptions != null ? assumptions.AnnualSalaryRaise / 100m : 0.0275m;
-            var lifeExpectancy = assumptions != null ? assumptions.LifeExpectancy : 90;
-            var retirementAge = onboardingEmployment?.PlannedRetirementAge;
+            var lifeExpectancy  = assumptions != null ? assumptions.LifeExpectancy : 90;
+            var retirementAge   = onboardingEmployment?.PlannedRetirementAge;
+            var currentAge      = CalculateAge(personalInfo.DateOfBirth);
 
-            var currentAge = CalculateAge(personalInfo.DateOfBirth);
             var yearlyCashFlows = new List<YearlyCashFlowDto>();
 
-            var salary = currentSalary;
-            var otherIncome = currentOtherIncome;
-            var varExpenses = inflationExpenses;
+            var salary              = currentSalary;
+            var otherIncome         = currentOtherIncome;
+            var varExpenses         = inflationExpenses;
+            // Persisting income trackers — real estate grows with inflation, other stays fixed
+            var realEstateIncome    = realEstateIncomeTotal;
+            var fixedPersistingIncome = otherPersistingIncomeTotal;
 
             for (var age = currentAge; age <= lifeExpectancy; age++)
             {
                 var isRetired = retirementAge.HasValue && age >= retirementAge.Value;
-                var incomeThisYear = (isRetired ? 0m : salary) + otherIncome;
+
+                var incomeThisYear = (isRetired ? 0m : salary)
+                                     + otherIncome
+                                     + realEstateIncome
+                                     + fixedPersistingIncome;
 
                 yearlyCashFlows.Add(new YearlyCashFlowDto
                 {
-                    Year = age,
-                    TotalIncome = incomeThisYear,
+                    Year          = age,
+                    TotalIncome   = incomeThisYear,
                     TotalExpenses = varExpenses + mortgageExpense + fixedDebtExpenses
                 });
 
                 if (!isRetired)
                     salary *= (1m + salaryRaiseRate - inflationRate);
+
+                varExpenses       *= (1m + inflationRate);
+                // Real estate income grows with inflation every year (including retirement)
+                realEstateIncome  *= (1m + inflationRate);
+                // Other persisting income stays flat
             }
-            
+
             LogSuccessfullyCompleted(logger, request.ScenarioId);
 
             return new GetCashflowResult
             {
-                Success = true,
-                Data = new CashflowSankeyDto { Nodes = nodes, Links = links },
+                Success         = true,
+                Data            = new CashflowSankeyDto { Nodes = nodes, Links = links },
                 YearlyCashFlows = yearlyCashFlows
             };
         }
@@ -187,8 +212,8 @@ public partial class GetCashflowHandler(
             LogErrorOccurred(logger, ex.Message, request.ScenarioId);
             return new GetCashflowResult
             {
-                Success = false,
-                ErrorMessage = "An error occurred while loading cashflow data. Please try again later."
+                Success       = false,
+                ErrorMessage  = "An error occurred while loading cashflow data. Please try again later."
             };
         }
     }
@@ -214,4 +239,3 @@ public partial class GetCashflowHandler(
     [LoggerMessage(LogLevel.Error, "Error occurred while getting cashflow for ScenarioId: {ScenarioId} | Exception: {Exception}")]
     static partial void LogErrorOccurred(ILogger<GetCashflowHandler> logger, string Exception, long ScenarioId);
 }
-

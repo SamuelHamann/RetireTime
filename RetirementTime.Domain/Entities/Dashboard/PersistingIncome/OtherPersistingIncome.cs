@@ -8,7 +8,7 @@ public class OtherPersistingIncome
     public long ScenarioId { get; set; }
     public string Name { get; set; } = string.Empty;
     public decimal? Amount { get; set; }
-    public int? FrequencyId { get; set; } = (int)FrequencyEnum.Annually;
+    public int FrequencyId { get; set; } = (int)FrequencyEnum.Annually;
     public bool Taxable { get; set; } = true;
     
     public DateTime CreatedAt { get; set; }
@@ -16,5 +16,5 @@ public class OtherPersistingIncome
     
     // Navigation properties
     public DashboardScenario Scenario { get; set; } = null!;
-    public Frequency? Frequency { get; set; }
+    public Frequency Frequency { get; set; } = null!;
 }

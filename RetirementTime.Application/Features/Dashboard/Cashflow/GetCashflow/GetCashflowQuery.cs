@@ -11,6 +11,8 @@ public record GetCashflowQuery : IRequest<GetCashflowResult>
     public required string Label_SelfEmployment { get; init; }
     public required string Label_DefinedBenefits { get; init; }
     public required string Label_OtherIncome { get; init; }
+    public required string Label_RealEstateIncome { get; init; }
+    public required string Label_OtherPersistingIncome { get; init; }
     public required string Label_TotalIncome { get; init; }
     public required string Label_LivingExpenses { get; init; }
     public required string Label_DiscretionaryExpenses { get; init; }
