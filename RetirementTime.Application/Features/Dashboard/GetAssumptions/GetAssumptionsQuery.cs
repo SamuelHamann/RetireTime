@@ -19,6 +19,9 @@ public record AssumptionsDto
     public long Id { get; init; }
     public decimal YearlyInflationRate { get; init; }
     public decimal YearlyPropertyAppreciation { get; init; }
+    public decimal YearlyHouseMaintenance { get; init; }
+    public decimal AnnualSalaryRaise { get; init; }
+    public int LifeExpectancy { get; init; }
     public decimal StockAllocation { get; init; }
     public decimal StockYearlyReturn { get; init; }
     public decimal StockYearlyDividend { get; init; }

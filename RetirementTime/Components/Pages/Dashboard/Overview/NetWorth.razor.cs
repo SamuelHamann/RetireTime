@@ -59,7 +59,7 @@ public partial class NetWorth : ComponentBase
     private NetWorthDebtModel? GetDebtFor(long assetId, string assetType) =>
         _netWorth?.Debts.FirstOrDefault(d => d.AgainstAssetId == assetId && d.AgainstAssetType == assetType);
 
-    private static readonly (string Month, int Pct)[] _chartBars =
+    private static readonly (string Month, int Pct)[] ChartBars =
     [
         ("JAN", 40), ("FEB", 45), ("MAR", 42), ("APR", 55), ("MAY", 65),
         ("JUN", 72), ("JUL", 85), ("AUG", 80), ("SEP", 88), ("OCT", 92),

@@ -216,6 +216,57 @@
   <data name="Sidebar_Cashflow" xml:space="preserve">
     <value>Flux de trésorerie</value>
   </data>
+  <data name="Cashflow_Label_Employment" xml:space="preserve">
+    <value>Emploi</value>
+  </data>
+  <data name="Cashflow_Label_SelfEmployment" xml:space="preserve">
+    <value>Travail autonome</value>
+  </data>
+  <data name="Cashflow_Label_DefinedBenefits" xml:space="preserve">
+    <value>Retraite</value>
+  </data>
+  <data name="Cashflow_Label_OasCpp" xml:space="preserve">
+    <value>SV / RPC</value>
+  </data>
+  <data name="Cashflow_Label_OtherIncome" xml:space="preserve">
+    <value>Autres revenus</value>
+  </data>
+  <data name="Cashflow_Label_TotalIncome" xml:space="preserve">
+    <value>Revenu total</value>
+  </data>
+  <data name="Cashflow_Label_LivingExpenses" xml:space="preserve">
+    <value>Dépenses courantes</value>
+  </data>
+  <data name="Cashflow_Label_DiscretionaryExpenses" xml:space="preserve">
+    <value>Dépenses discrétionnaires</value>
+  </data>
+  <data name="Cashflow_Label_DebtRepayments" xml:space="preserve">
+    <value>Remboursements de dettes</value>
+  </data>
+  <data name="Cashflow_Label_AssetsExpenses" xml:space="preserve">
+    <value>Dépenses d'actifs</value>
+  </data>
+  <data name="Cashflow_Label_OtherExpenses" xml:space="preserve">
+    <value>Autres dépenses</value>
+  </data>
+  <data name="Cashflow_Label_TotalExpenses" xml:space="preserve">
+    <value>Dépenses totales</value>
+  </data>
+  <data name="Cashflow_Label_Savings" xml:space="preserve">
+    <value>Épargne</value>
+  </data>
+  <data name="Cashflow_Toggle_Yearly" xml:space="preserve">
+    <value>Annuel</value>
+  </data>
+  <data name="Cashflow_Toggle_Monthly" xml:space="preserve">
+    <value>Mensuel</value>
+  </data>
+  <data name="Cashflow_Title_Current" xml:space="preserve">
+    <value>Flux de trésorerie actuel</value>
+  </data>
+  <data name="Cashflow_Title_OverTime" xml:space="preserve">
+    <value>Flux de trésorerie dans le temps</value>
+  </data>
   <data name="NetWorth_Title" xml:space="preserve">
     <value>Valeur nette</value>
   </data>

@@ -23,6 +23,9 @@ public partial class SaveAssumptionsHandler(
 
             assumptions.YearlyInflationRate = request.YearlyInflationRate;
             assumptions.YearlyPropertyAppreciation = request.YearlyPropertyAppreciation;
+            assumptions.YearlyHouseMaintenance = request.YearlyHouseMaintenance;
+            assumptions.AnnualSalaryRaise = request.AnnualSalaryRaise;
+            assumptions.LifeExpectancy = request.LifeExpectancy;
             assumptions.StockAllocation = request.StockAllocation;
             assumptions.StockYearlyReturn = request.StockYearlyReturn;
             assumptions.StockYearlyDividend = request.StockYearlyDividend;

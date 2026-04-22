@@ -173,6 +173,9 @@ public partial class ScenarioSettings : ComponentBase, IDisposable
             var a = result.Assumptions;
             _assumptionsModel.YearlyInflationRate = a.YearlyInflationRate;
             _assumptionsModel.YearlyPropertyAppreciation = a.YearlyPropertyAppreciation;
+            _assumptionsModel.YearlyHouseMaintenance = a.YearlyHouseMaintenance;
+            _assumptionsModel.AnnualSalaryRaise = a.AnnualSalaryRaise;
+            _assumptionsModel.LifeExpectancy = a.LifeExpectancy;
             _assumptionsModel.StockAllocation = a.StockAllocation;
             _assumptionsModel.StockYearlyReturn = a.StockYearlyReturn;
             _assumptionsModel.StockYearlyDividend = a.StockYearlyDividend;
@@ -199,6 +202,9 @@ public partial class ScenarioSettings : ComponentBase, IDisposable
                 ScenarioId = ScenarioId,
                 YearlyInflationRate = _assumptionsModel.YearlyInflationRate,
                 YearlyPropertyAppreciation = _assumptionsModel.YearlyPropertyAppreciation,
+                YearlyHouseMaintenance = _assumptionsModel.YearlyHouseMaintenance,
+                AnnualSalaryRaise = _assumptionsModel.AnnualSalaryRaise,
+                LifeExpectancy = _assumptionsModel.LifeExpectancy,
                 StockAllocation = _assumptionsModel.StockAllocation,
                 StockYearlyReturn = _assumptionsModel.StockYearlyReturn,
                 StockYearlyDividend = _assumptionsModel.StockYearlyDividend,

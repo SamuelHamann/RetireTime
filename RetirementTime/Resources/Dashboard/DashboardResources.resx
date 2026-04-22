@@ -216,6 +216,57 @@
   <data name="Sidebar_Cashflow" xml:space="preserve">
     <value>Cashflow</value>
   </data>
+  <data name="Cashflow_Label_Employment" xml:space="preserve">
+    <value>Employment</value>
+  </data>
+  <data name="Cashflow_Label_SelfEmployment" xml:space="preserve">
+    <value>Self-Employment</value>
+  </data>
+  <data name="Cashflow_Label_DefinedBenefits" xml:space="preserve">
+    <value>Pension</value>
+  </data>
+  <data name="Cashflow_Label_OasCpp" xml:space="preserve">
+    <value>OAS / CPP</value>
+  </data>
+  <data name="Cashflow_Label_OtherIncome" xml:space="preserve">
+    <value>Other Income</value>
+  </data>
+  <data name="Cashflow_Label_TotalIncome" xml:space="preserve">
+    <value>Total Income</value>
+  </data>
+  <data name="Cashflow_Label_LivingExpenses" xml:space="preserve">
+    <value>Living Expenses</value>
+  </data>
+  <data name="Cashflow_Label_DiscretionaryExpenses" xml:space="preserve">
+    <value>Discretionary</value>
+  </data>
+  <data name="Cashflow_Label_DebtRepayments" xml:space="preserve">
+    <value>Debt Repayments</value>
+  </data>
+  <data name="Cashflow_Label_AssetsExpenses" xml:space="preserve">
+    <value>Asset Expenses</value>
+  </data>
+  <data name="Cashflow_Label_OtherExpenses" xml:space="preserve">
+    <value>Other Expenses</value>
+  </data>
+  <data name="Cashflow_Label_TotalExpenses" xml:space="preserve">
+    <value>Total Expenses</value>
+  </data>
+  <data name="Cashflow_Label_Savings" xml:space="preserve">
+    <value>Savings</value>
+  </data>
+  <data name="Cashflow_Toggle_Yearly" xml:space="preserve">
+    <value>Yearly</value>
+  </data>
+  <data name="Cashflow_Toggle_Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="Cashflow_Title_Current" xml:space="preserve">
+    <value>Current Cashflow</value>
+  </data>
+  <data name="Cashflow_Title_OverTime" xml:space="preserve">
+    <value>Cashflow Over Time</value>
+  </data>
   <data name="NetWorth_Title" xml:space="preserve">
     <value>Net Worth</value>
   </data>

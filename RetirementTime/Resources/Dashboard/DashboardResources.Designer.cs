@@ -243,6 +243,108 @@ namespace RetirementTime.Resources.Dashboard {
             }
         }
         
+        public static string Cashflow_Label_Employment {
+            get {
+                return ResourceManager.GetString("Cashflow_Label_Employment", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Label_SelfEmployment {
+            get {
+                return ResourceManager.GetString("Cashflow_Label_SelfEmployment", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Label_DefinedBenefits {
+            get {
+                return ResourceManager.GetString("Cashflow_Label_DefinedBenefits", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Label_OasCpp {
+            get {
+                return ResourceManager.GetString("Cashflow_Label_OasCpp", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Label_OtherIncome {
+            get {
+                return ResourceManager.GetString("Cashflow_Label_OtherIncome", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Label_TotalIncome {
+            get {
+                return ResourceManager.GetString("Cashflow_Label_TotalIncome", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Label_LivingExpenses {
+            get {
+                return ResourceManager.GetString("Cashflow_Label_LivingExpenses", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Label_DiscretionaryExpenses {
+            get {
+                return ResourceManager.GetString("Cashflow_Label_DiscretionaryExpenses", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Label_DebtRepayments {
+            get {
+                return ResourceManager.GetString("Cashflow_Label_DebtRepayments", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Label_AssetsExpenses {
+            get {
+                return ResourceManager.GetString("Cashflow_Label_AssetsExpenses", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Label_OtherExpenses {
+            get {
+                return ResourceManager.GetString("Cashflow_Label_OtherExpenses", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Label_TotalExpenses {
+            get {
+                return ResourceManager.GetString("Cashflow_Label_TotalExpenses", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Label_Savings {
+            get {
+                return ResourceManager.GetString("Cashflow_Label_Savings", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Toggle_Yearly {
+            get {
+                return ResourceManager.GetString("Cashflow_Toggle_Yearly", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Toggle_Monthly {
+            get {
+                return ResourceManager.GetString("Cashflow_Toggle_Monthly", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Title_Current {
+            get {
+                return ResourceManager.GetString("Cashflow_Title_Current", resourceCulture);
+            }
+        }
+        
+        public static string Cashflow_Title_OverTime {
+            get {
+                return ResourceManager.GetString("Cashflow_Title_OverTime", resourceCulture);
+            }
+        }
+        
         public static string NetWorth_Title {
             get {
                 return ResourceManager.GetString("NetWorth_Title", resourceCulture);

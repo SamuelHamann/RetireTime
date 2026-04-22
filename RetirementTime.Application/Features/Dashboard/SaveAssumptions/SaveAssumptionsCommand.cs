@@ -7,6 +7,9 @@ public record SaveAssumptionsCommand : IRequest<SaveAssumptionsResult>
     public required long ScenarioId { get; init; }
     public required decimal YearlyInflationRate { get; init; }
     public required decimal YearlyPropertyAppreciation { get; init; }
+    public required decimal YearlyHouseMaintenance { get; init; }
+    public required decimal AnnualSalaryRaise { get; init; }
+    public required int LifeExpectancy { get; init; }
     public required decimal StockAllocation { get; init; }
     public required decimal StockYearlyReturn { get; init; }
     public required decimal StockYearlyDividend { get; init; }
