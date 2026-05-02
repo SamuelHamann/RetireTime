@@ -187,7 +187,7 @@
     <value>Other</value>
   </data>
   <data name="Sidebar_Spending" xml:space="preserve">
-    <value>Spending</value>
+    <value>Expenses</value>
   </data>
   <data name="Sidebar_Spending_LivingExpenses" xml:space="preserve">
     <value>Living Expenses</value>
@@ -203,6 +203,57 @@
   </data>
   <data name="Sidebar_Spending_OtherExpenses" xml:space="preserve">
     <value>Other Expenses</value>
+  </data>
+  <data name="Sidebar_RetirementSpending" xml:space="preserve">
+    <value>Retirement Expenses</value>
+  </data>
+  <data name="Sidebar_RetirementSpending_New" xml:space="preserve">
+    <value>+ New Retirement Expenses</value>
+  </data>
+  <data name="Sidebar_RetirementSpending_AgeLabel" xml:space="preserve">
+    <value>Expenses from {0} to {1}</value>
+  </data>
+  <data name="RetirementSpending_Title" xml:space="preserve">
+    <value>Retirement Spending</value>
+  </data>
+  <data name="RetirementSpending_Subtitle" xml:space="preserve">
+    <value>Define a spending snapshot for a specific period of your retirement.</value>
+  </data>
+  <data name="RetirementSpending_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="RetirementSpending_AgeFrom" xml:space="preserve">
+    <value>Age From</value>
+  </data>
+  <data name="RetirementSpending_AgeTo" xml:space="preserve">
+    <value>Age To</value>
+  </data>
+  <data name="RetirementSpending_CloneFrom" xml:space="preserve">
+    <value>Clone From</value>
+  </data>
+  <data name="RetirementSpending_CloneFromNone" xml:space="preserve">
+    <value>— None (start blank) —</value>
+  </data>
+  <data name="RetirementSpending_CloneFromCurrent" xml:space="preserve">
+    <value>Current Spending</value>
+  </data>
+  <data name="RetirementSpending_CloneFromLocked" xml:space="preserve">
+    <value>Clone source cannot be changed after the first save.</value>
+  </data>
+  <data name="RetirementSpending_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="RetirementSpending_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="RetirementSpending_SavedSuccess" xml:space="preserve">
+    <value>Saved successfully.</value>
+  </data>
+  <data name="RetirementSpending_SaveError" xml:space="preserve">
+    <value>An error occurred while saving. Please try again.</value>
+  </data>
+  <data name="RetirementSpending_DeleteError" xml:space="preserve">
+    <value>An error occurred while deleting. Please try again.</value>
   </data>
   <data name="Sidebar_NewScenario" xml:space="preserve">
     <value>New Scenario</value>
@@ -320,6 +371,9 @@
   </data>
   <data name="NetWorth_Col_DebtAgainst" xml:space="preserve">
     <value>Debt Against</value>
+  </data>
+  <data name="NetWorth_Col_RealValue" xml:space="preserve">
+    <value>Net Value</value>
   </data>
   <data name="NetWorth_Type_Home" xml:space="preserve">
     <value>Real Estate</value>

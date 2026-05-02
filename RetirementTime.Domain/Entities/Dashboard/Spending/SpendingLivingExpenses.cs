@@ -6,6 +6,7 @@ public class SpendingLivingExpenses
 {
     public long Id { get; set; }
     public long ScenarioId { get; set; }
+    public long? RetirementSpendingId { get; set; }
 
     public decimal? RentOrMortgage { get; set; }
     public int RentOrMortgageFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
@@ -42,6 +43,7 @@ public class SpendingLivingExpenses
 
     // Navigation properties
     public DashboardScenario Scenario { get; set; } = null!;
+    public RetirementSpending? RetirementSpending { get; set; }
     public Frequency RentOrMortgageFrequency { get; set; } = null!;
     public Frequency FoodFrequency { get; set; } = null!;
     public Frequency UtilitiesFrequency { get; set; } = null!;

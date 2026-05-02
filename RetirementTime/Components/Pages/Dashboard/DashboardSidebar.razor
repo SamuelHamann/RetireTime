@@ -256,6 +256,44 @@
                                                                     </ul>
                                                                 }
                                                             </li>
+                                                            <li>
+                                                                @{
+                                                                    var isRetirementSpendingExpanded = _expandedRetirementSpendingSubMenu.Contains(scenario.ScenarioId);
+                                                                    var retirementSpendingItems = _retirementSpendings.TryGetValue(scenario.ScenarioId, out var rsItems) ? rsItems : [];
+                                                                }
+                                                                <button class="nav-item nav-item-sub-sub nav-item-sub-sub-expandable @(isRetirementSpendingExpanded ? "expanded" : "")"
+                                                                        @onclick="@(() => ToggleRetirementSpendingSubMenu(scenario.ScenarioId))">
+                                                                    <span class="nav-label @(_activeScenarioId == scenario.ScenarioId && _activeView == "retirement-spending" ? "nav-label-active" : "")">@DashboardLocalizer["Sidebar_RetirementSpending"]</span>
+                                                                    <span class="nav-chevron">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                            <polyline points="6 9 12 15 18 9"/>
+                                                                        </svg>
+                                                                    </span>
+                                                                </button>
+                                                                @if (isRetirementSpendingExpanded)
+                                                                {
+                                                                    <ul class="nav-income-submenu">
+                                                                        @foreach (var rs in retirementSpendingItems)
+                                                                        {
+                                                                            var isRsActive = IsRetirementSpendingActive(scenario.ScenarioId, rs.Id);
+                                                                            <li>
+                                                                                <button class="nav-item nav-income-item @(isRsActive ? "active" : "")"
+                                                                                        @onclick="@(() => Navigation.NavigateTo($"/scenario/{scenario.ScenarioId}/retirement-spending/{rs.Id}/settings", forceLoad: false))">
+                                                                                    <span class="nav-income-dot @(isRsActive ? "filled" : "")"></span>
+                                                                                    <span class="nav-label">@string.Format(DashboardLocalizer["Sidebar_RetirementSpending_AgeLabel"].Value, rs.AgeFrom, rs.AgeTo)</span>
+                                                                                </button>
+                                                                            </li>
+                                                                        }
+                                                                        <li>
+                                                                            <button class="nav-item nav-item-new-retirement-expense"
+                                                                                    @onclick="@(() => OnNewRetirementSpendingClick(scenario.ScenarioId))"
+                                                                                    disabled="@_isCreatingRetirementSpending">
+                                                                                <span class="nav-label">@DashboardLocalizer["Sidebar_RetirementSpending_New"]</span>
+                                                                            </button>
+                                                                        </li>
+                                                                    </ul>
+                                                                }
+                                                            </li>
                                                         </ul>
                                     }
                                 </li>

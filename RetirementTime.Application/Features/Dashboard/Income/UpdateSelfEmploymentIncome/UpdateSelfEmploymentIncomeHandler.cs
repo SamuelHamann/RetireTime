@@ -21,9 +21,13 @@ public partial class UpdateSelfEmploymentIncomeHandler(
                 Id = request.Id,
                 Name = request.Name,
                 GrossSalary = request.GrossSalary,
+                GrossSalaryFrequencyId = request.GrossSalaryFrequencyId,
                 NetSalary = request.NetSalary,
+                NetSalaryFrequencyId = request.NetSalaryFrequencyId,
                 GrossDividends = request.GrossDividends,
-                NetDividends = request.NetDividends
+                GrossDividendsFrequencyId = request.GrossDividendsFrequencyId,
+                NetDividends = request.NetDividends,
+                NetDividendsFrequencyId = request.NetDividendsFrequencyId
             };
 
             var success = await selfEmploymentIncomeRepository.UpdateAsync(selfEmployment);

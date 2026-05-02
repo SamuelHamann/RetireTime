@@ -31,11 +31,17 @@ public class EmploymentIncomeRepository(ApplicationDbContext context) : IEmploym
 
         existing.EmployerName = employmentIncome.EmployerName;
         existing.GrossSalary = employmentIncome.GrossSalary;
+        existing.GrossSalaryFrequencyId = employmentIncome.GrossSalaryFrequencyId;
         existing.NetSalary = employmentIncome.NetSalary;
+        existing.NetSalaryFrequencyId = employmentIncome.NetSalaryFrequencyId;
         existing.GrossCommissions = employmentIncome.GrossCommissions;
+        existing.GrossCommissionsFrequencyId = employmentIncome.GrossCommissionsFrequencyId;
         existing.NetCommissions = employmentIncome.NetCommissions;
+        existing.NetCommissionsFrequencyId = employmentIncome.NetCommissionsFrequencyId;
         existing.GrossBonus = employmentIncome.GrossBonus;
+        existing.GrossBonusFrequencyId = employmentIncome.GrossBonusFrequencyId;
         existing.NetBonus = employmentIncome.NetBonus;
+        existing.NetBonusFrequencyId = employmentIncome.NetBonusFrequencyId;
         existing.UpdatedAt = DateTime.UtcNow;
 
         return await context.SaveChangesAsync() > 0;
@@ -70,7 +76,9 @@ public class EmploymentIncomeRepository(ApplicationDbContext context) : IEmploym
 
         existing.Name = otherIncome.Name;
         existing.Gross = otherIncome.Gross;
+        existing.GrossFrequencyId = otherIncome.GrossFrequencyId;
         existing.Net = otherIncome.Net;
+        existing.NetFrequencyId = otherIncome.NetFrequencyId;
         existing.UpdatedAt = DateTime.UtcNow;
 
         return await context.SaveChangesAsync() > 0;

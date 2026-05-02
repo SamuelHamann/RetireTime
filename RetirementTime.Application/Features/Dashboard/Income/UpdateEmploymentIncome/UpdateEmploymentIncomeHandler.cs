@@ -21,11 +21,17 @@ public partial class UpdateEmploymentIncomeHandler(
                 Id = request.Id,
                 EmployerName = request.EmployerName,
                 GrossSalary = request.GrossSalary,
+                GrossSalaryFrequencyId = request.GrossSalaryFrequencyId,
                 NetSalary = request.NetSalary,
+                NetSalaryFrequencyId = request.NetSalaryFrequencyId,
                 GrossCommissions = request.GrossCommissions,
+                GrossCommissionsFrequencyId = request.GrossCommissionsFrequencyId,
                 NetCommissions = request.NetCommissions,
+                NetCommissionsFrequencyId = request.NetCommissionsFrequencyId,
                 GrossBonus = request.GrossBonus,
-                NetBonus = request.NetBonus
+                GrossBonusFrequencyId = request.GrossBonusFrequencyId,
+                NetBonus = request.NetBonus,
+                NetBonusFrequencyId = request.NetBonusFrequencyId
             };
 
             var success = await employmentIncomeRepository.UpdateAsync(employment);

@@ -54,6 +54,7 @@ public static class DependencyInjection
         services.AddScoped<ISpendingRepository, SpendingRepository>();
         services.AddScoped<IRealEstateIncomeRepository, RealEstateIncomeRepository>();
         services.AddScoped<IOtherPersistingIncomeRepository, OtherPersistingIncomeRepository>();
+        services.AddScoped<IRetirementSpendingRepository, RetirementSpendingRepository>();
 
         return services;
     }

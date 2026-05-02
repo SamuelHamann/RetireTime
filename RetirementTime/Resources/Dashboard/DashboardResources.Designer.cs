@@ -219,6 +219,108 @@ namespace RetirementTime.Resources.Dashboard {
             }
         }
         
+        public static string Sidebar_RetirementSpending {
+            get {
+                return ResourceManager.GetString("Sidebar_RetirementSpending", resourceCulture);
+            }
+        }
+        
+        public static string Sidebar_RetirementSpending_New {
+            get {
+                return ResourceManager.GetString("Sidebar_RetirementSpending_New", resourceCulture);
+            }
+        }
+        
+        public static string Sidebar_RetirementSpending_AgeLabel {
+            get {
+                return ResourceManager.GetString("Sidebar_RetirementSpending_AgeLabel", resourceCulture);
+            }
+        }
+        
+        public static string RetirementSpending_Title {
+            get {
+                return ResourceManager.GetString("RetirementSpending_Title", resourceCulture);
+            }
+        }
+        
+        public static string RetirementSpending_Subtitle {
+            get {
+                return ResourceManager.GetString("RetirementSpending_Subtitle", resourceCulture);
+            }
+        }
+        
+        public static string RetirementSpending_Name {
+            get {
+                return ResourceManager.GetString("RetirementSpending_Name", resourceCulture);
+            }
+        }
+        
+        public static string RetirementSpending_AgeFrom {
+            get {
+                return ResourceManager.GetString("RetirementSpending_AgeFrom", resourceCulture);
+            }
+        }
+        
+        public static string RetirementSpending_AgeTo {
+            get {
+                return ResourceManager.GetString("RetirementSpending_AgeTo", resourceCulture);
+            }
+        }
+        
+        public static string RetirementSpending_CloneFrom {
+            get {
+                return ResourceManager.GetString("RetirementSpending_CloneFrom", resourceCulture);
+            }
+        }
+        
+        public static string RetirementSpending_CloneFromNone {
+            get {
+                return ResourceManager.GetString("RetirementSpending_CloneFromNone", resourceCulture);
+            }
+        }
+        
+        public static string RetirementSpending_CloneFromCurrent {
+            get {
+                return ResourceManager.GetString("RetirementSpending_CloneFromCurrent", resourceCulture);
+            }
+        }
+        
+        public static string RetirementSpending_CloneFromLocked {
+            get {
+                return ResourceManager.GetString("RetirementSpending_CloneFromLocked", resourceCulture);
+            }
+        }
+        
+        public static string RetirementSpending_Save {
+            get {
+                return ResourceManager.GetString("RetirementSpending_Save", resourceCulture);
+            }
+        }
+        
+        public static string RetirementSpending_Delete {
+            get {
+                return ResourceManager.GetString("RetirementSpending_Delete", resourceCulture);
+            }
+        }
+        
+        public static string RetirementSpending_SavedSuccess {
+            get {
+                return ResourceManager.GetString("RetirementSpending_SavedSuccess", resourceCulture);
+            }
+        }
+        
+        public static string RetirementSpending_SaveError {
+            get {
+                return ResourceManager.GetString("RetirementSpending_SaveError", resourceCulture);
+            }
+        }
+        
+        public static string RetirementSpending_DeleteError {
+            get {
+                return ResourceManager.GetString("RetirementSpending_DeleteError", resourceCulture);
+            }
+        }
+        
         public static string Sidebar_NewScenario {
             get {
                 return ResourceManager.GetString("Sidebar_NewScenario", resourceCulture);
@@ -450,6 +552,12 @@ namespace RetirementTime.Resources.Dashboard {
         public static string NetWorth_Col_DebtAgainst {
             get {
                 return ResourceManager.GetString("NetWorth_Col_DebtAgainst", resourceCulture);
+            }
+        }
+        
+        public static string NetWorth_Col_RealValue {
+            get {
+                return ResourceManager.GetString("NetWorth_Col_RealValue", resourceCulture);
             }
         }
         

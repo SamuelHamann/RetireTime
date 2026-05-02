@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using RetirementTime.Application.Features.Dashboard.CreateScenario;
 using RetirementTime.Application.Features.Dashboard.GetScenarios;
+using RetirementTime.Application.Features.Dashboard.RetirementSpending.CreateRetirementSpending;
+using RetirementTime.Application.Features.Dashboard.RetirementSpending.GetRetirementSpendings;
 using RetirementTime.Resources.Common;
 using RetirementTime.Resources.Dashboard;
 using RetirementTime.Services;
@@ -34,6 +36,10 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
     private HashSet<long> _expandedSpendingSubMenu = [];
     private HashSet<long> _expandedScenarioOverview = [];
     private HashSet<long> _expandedPersistingIncomeSubMenu = [];
+    private HashSet<long> _expandedRetirementSpendingSubMenu = [];
+    // key = scenarioId, value = list of retirement spendings
+    private Dictionary<long, List<RetirementSpendingDto>> _retirementSpendings = [];
+    private bool _isCreatingRetirementSpending;
     private int _lastRefreshTrigger = -1;
     private bool _isCreatingScenario;
 
@@ -83,12 +89,24 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
         // If we were on a scenario page and now we're on /home, reload scenarios
         if (previousPath.Contains("scenario/") && !currentPath.Contains("scenario/"))
         {
-            _ = ReloadScenariosAsync();
+            _ = InvokeAsync(ReloadScenariosAsync);
         }
         // Reload when leaving settings so a newly fully-created scenario is reflected
         else if (previousPath.Contains("/settings") && currentPath.StartsWith("scenario/") && !currentPath.Contains("settings"))
         {
-            _ = ReloadScenariosAsync();
+            _ = InvokeAsync(ReloadScenariosAsync);
+        }
+        // Reload retirement spendings when saving/deleting (navigating away from retirement-spending page)
+        else if (previousPath.Contains("/retirement-spending/") && !currentPath.Contains("/retirement-spending/"))
+        {
+            _ = InvokeAsync(ReloadScenariosAsync);
+        }
+        else if (previousPath.Contains("/retirement-spending/") && currentPath.Contains("/retirement-spending/"))
+        {
+            // Navigating between retirement spending items — reload the list for the scenario
+            var parts = currentPath.Split('/');
+            if (parts.Length >= 2 && long.TryParse(parts[1], out var sid))
+                _ = InvokeAsync(() => ReloadRetirementSpendingsAsync(sid));
         }
 
         InvokeAsync(StateHasChanged);
@@ -97,6 +115,13 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
     private async Task ReloadScenariosAsync()
     {
         await LoadScenarios();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task ReloadRetirementSpendingsAsync(long scenarioId)
+    {
+        var items = await Mediator.Send(new GetRetirementSpendingsQuery(scenarioId));
+        _retirementSpendings[scenarioId] = items;
         await InvokeAsync(StateHasChanged);
     }
 
@@ -125,6 +150,10 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
                 // Auto-expand Scenario Overview for net-worth or cashflow view
                 if (_activeView == "net-worth" || _activeView == "cashflow")
                     _expandedScenarioOverview.Add(scenarioId);
+
+                // Auto-expand Retirement Spending section
+                if (_activeView == "retirement-spending")
+                    _expandedRetirementSpendingSubMenu.Add(scenarioId);
                 // Handle income sub-view: /scenario/{id}/income/{subview}
                 if (_activeView == "income" && parts.Length >= 4)
                 {
@@ -212,6 +241,12 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
         if (result.Success)
         {
             _scenarios = result.Scenarios;
+            // Load retirement spendings for each fully-created scenario
+            foreach (var scenario in _scenarios.Where(s => s.ScenarioFullyCreated))
+            {
+                var items = await Mediator.Send(new GetRetirementSpendingsQuery(scenario.ScenarioId));
+                _retirementSpendings[scenario.ScenarioId] = items;
+            }
         }
     }
 
@@ -366,6 +401,40 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
     {
         if (!_expandedPersistingIncomeSubMenu.Add(scenarioId))
             _expandedPersistingIncomeSubMenu.Remove(scenarioId);
+    }
+
+    private void ToggleRetirementSpendingSubMenu(long scenarioId)
+    {
+        if (!_expandedRetirementSpendingSubMenu.Add(scenarioId))
+            _expandedRetirementSpendingSubMenu.Remove(scenarioId);
+    }
+
+    private async Task OnNewRetirementSpendingClick(long scenarioId)
+    {
+        if (_isCreatingRetirementSpending) return;
+        _isCreatingRetirementSpending = true;
+        try
+        {
+            var result = await Mediator.Send(new CreateRetirementSpendingCommand(scenarioId));
+            if (result.Success)
+            {
+                // Refresh list and expand the section
+                var items = await Mediator.Send(new GetRetirementSpendingsQuery(scenarioId));
+                _retirementSpendings[scenarioId] = items;
+                _expandedRetirementSpendingSubMenu.Add(scenarioId);
+                Navigation.NavigateTo($"/scenario/{scenarioId}/retirement-spending/{result.RetirementSpendingId}/settings", forceLoad: false);
+            }
+        }
+        finally
+        {
+            _isCreatingRetirementSpending = false;
+        }
+    }
+
+    private bool IsRetirementSpendingActive(long scenarioId, long itemId)
+    {
+        var path = Navigation.ToBaseRelativePath(Navigation.Uri);
+        return path == $"scenario/{scenarioId}/retirement-spending/{itemId}/settings";
     }
 
     public void NavigateNextIncomeStep()

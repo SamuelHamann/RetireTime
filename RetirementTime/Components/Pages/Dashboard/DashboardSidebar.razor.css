@@ -130,6 +130,34 @@
     color: var(--ne-primary);
 }
 
+/* New Retirement Expense Button */
+.nav-item-new-retirement-expense {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 1rem);
+    margin: 0.35rem 0.5rem;
+    padding: 0.3rem 0.75rem;
+    border: 1.5px dashed var(--ne-primary);
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--ne-primary);
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.nav-item-new-retirement-expense:hover {
+    background: var(--ne-primary-tint);
+}
+
+.nav-item-new-retirement-expense:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 /* Section Divider */
 .sidebar-section-divider {
     height: 1px;

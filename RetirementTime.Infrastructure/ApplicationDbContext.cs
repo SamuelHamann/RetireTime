@@ -919,19 +919,14 @@ public class ApplicationDbContext : DbContext
             entity.HasKey(e => e.Id);
             
             entity.Property(e => e.IncomeLastYear)
-                .IsRequired()
                 .HasColumnType("numeric(18,2)");
             entity.Property(e => e.Income2YearsAgo)
-                .IsRequired()
                 .HasColumnType("numeric(18,2)");
             entity.Property(e => e.Income3YearsAgo)
-                .IsRequired()
                 .HasColumnType("numeric(18,2)");
             entity.Property(e => e.Income4YearsAgo)
-                .IsRequired()
                 .HasColumnType("numeric(18,2)");
             entity.Property(e => e.Income5YearsAgo)
-                .IsRequired()
                 .HasColumnType("numeric(18,2)");
             
             entity.Property(e => e.CreatedAt)
@@ -1360,8 +1355,7 @@ public class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<SpendingLivingExpenses>(entity =>
         {
-            entity.ToTable("dashboard_spending_living_expenses");
-            entity.HasKey(e => e.Id);
+            entity.ToTable("dashboard_spending_living_expenses");            entity.HasKey(e => e.Id);
 
             entity.Property(e => e.RentOrMortgage).HasColumnType("numeric(18,2)");
             entity.Property(e => e.RentOrMortgageFrequencyId).IsRequired();
@@ -1398,6 +1392,7 @@ public class ApplicationDbContext : DbContext
             entity.HasOne(e => e.CellphoneFrequency).WithMany().HasForeignKey(e => e.CellphoneFrequencyId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(e => e.HealthSpendingsFrequency).WithMany().HasForeignKey(e => e.HealthSpendingsFrequencyId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(e => e.OtherLivingExpensesFrequency).WithMany().HasForeignKey(e => e.OtherLivingExpensesFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.RetirementSpending).WithMany().HasForeignKey(e => e.RetirementSpendingId).OnDelete(DeleteBehavior.SetNull);
 
             entity.HasIndex(e => e.ScenarioId);
         });
@@ -1438,6 +1433,7 @@ public class ApplicationDbContext : DbContext
             entity.HasOne(e => e.CharitableDonationsFrequency).WithMany().HasForeignKey(e => e.CharitableDonationsFrequencyId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(e => e.OtherDiscretionaryExpensesFrequency).WithMany().HasForeignKey(e => e.OtherDiscretionaryExpensesFrequencyId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(e => e.GroupedFrequency).WithMany().HasForeignKey(e => e.GroupedFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.RetirementSpending).WithMany().HasForeignKey(e => e.RetirementSpendingId).OnDelete(DeleteBehavior.SetNull);
 
             entity.HasIndex(e => e.ScenarioId);
         });
@@ -1458,6 +1454,7 @@ public class ApplicationDbContext : DbContext
             entity.HasOne(e => e.Scenario).WithMany().HasForeignKey(e => e.ScenarioId).OnDelete(DeleteBehavior.Cascade);
             entity.HasOne(e => e.Frequency).WithMany().HasForeignKey(e => e.FrequencyId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(e => e.GenericDebt).WithMany().HasForeignKey(e => e.GenericDebtId).OnDelete(DeleteBehavior.SetNull);
+            entity.HasOne(e => e.RetirementSpending).WithMany().HasForeignKey(e => e.RetirementSpendingId).OnDelete(DeleteBehavior.SetNull);
 
             entity.HasIndex(e => e.ScenarioId);
             entity.HasIndex(e => e.GenericDebtId);
@@ -1485,6 +1482,7 @@ public class ApplicationDbContext : DbContext
             entity.HasOne(e => e.AssetsInvestmentProperty).WithMany().HasForeignKey(e => e.AssetsInvestmentPropertyId).OnDelete(DeleteBehavior.SetNull);
             entity.HasOne(e => e.AssetsInvestmentAccount).WithMany().HasForeignKey(e => e.AssetsInvestmentAccountId).OnDelete(DeleteBehavior.SetNull);
             entity.HasOne(e => e.AssetsPhysicalAsset).WithMany().HasForeignKey(e => e.AssetsPhysicalAssetId).OnDelete(DeleteBehavior.SetNull);
+            entity.HasOne(e => e.RetirementSpending).WithMany().HasForeignKey(e => e.RetirementSpendingId).OnDelete(DeleteBehavior.SetNull);
 
             entity.HasIndex(e => e.ScenarioId);
             entity.HasIndex(e => e.AssetsHomeId);
@@ -1507,6 +1505,25 @@ public class ApplicationDbContext : DbContext
 
             entity.HasOne(e => e.Scenario).WithMany().HasForeignKey(e => e.ScenarioId).OnDelete(DeleteBehavior.Cascade);
             entity.HasOne(e => e.Frequency).WithMany().HasForeignKey(e => e.FrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.RetirementSpending).WithMany().HasForeignKey(e => e.RetirementSpendingId).OnDelete(DeleteBehavior.SetNull);
+
+            entity.HasIndex(e => e.ScenarioId);
+        });
+
+        modelBuilder.Entity<RetirementSpending>(entity =>
+        {
+            entity.ToTable("dashboard_retirement_spending");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.AgeFrom).IsRequired();
+            entity.Property(e => e.AgeTo).IsRequired();
+            entity.Property(e => e.IsFullyCreated).IsRequired().HasDefaultValue(false);
+
+            entity.Property(e => e.CreatedAt).IsRequired().HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt).IsRequired().HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.Scenario).WithMany().HasForeignKey(e => e.ScenarioId).OnDelete(DeleteBehavior.Cascade);
 
             entity.HasIndex(e => e.ScenarioId);
         });
@@ -1690,5 +1707,6 @@ public class ApplicationDbContext : DbContext
     public DbSet<SpendingDebtRepayment> SpendingDebtRepayments { get; set; }
     public DbSet<SpendingAssetsExpense> SpendingAssetsExpenses { get; set; }
     public DbSet<SpendingOtherExpense> SpendingOtherExpenses { get; set; }
+    public DbSet<RetirementSpending> RetirementSpendings { get; set; }
 
 }

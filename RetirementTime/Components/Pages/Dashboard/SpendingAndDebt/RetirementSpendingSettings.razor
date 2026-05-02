@@ -1,0 +1,72 @@
+@page "/scenario/{scenarioId:long}/retirement-spending/{retirementSpendingId:long}/settings"
+@layout DashboardLayout
+@rendermode InteractiveServer
+
+@using RetirementTime.Models.Spending
+@using RetirementTime.Resources.Dashboard
+
+<div class="intro-step">
+    <div class="step-header-animate">
+        <h1 class="font-headline text-5xl font-bold text-ne-primary mt-3 mb-2">@Localizer["RetirementSpending_Title"]</h1>
+        <p class="font-body text-ne-on-surface-variant text-base leading-relaxed">@Localizer["RetirementSpending_Subtitle"]</p>
+    </div>
+
+    <div class="step-body-animate">
+        @if (_isLoading)
+        {
+            <div class="intro-loading"><p>Loading...</p></div>
+        }
+        else
+        {
+            <div class="bg-ne-surface-low rounded-xl px-8 pb-8 pt-5 shadow-sm">
+                <div class="income-fields-grid">
+
+                    <div class="field-group">
+                        <label class="field-question">@Localizer["RetirementSpending_AgeFrom"]</label>
+                        <input type="number" class="field-input" @bind="_model.AgeFrom" min="0" max="120" />
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-question">@Localizer["RetirementSpending_AgeTo"]</label>
+                        <input type="number" class="field-input" @bind="_model.AgeTo" min="0" max="120" />
+                    </div>
+
+                    <div class="field-group income-field-full">
+                        <label class="field-question">@Localizer["RetirementSpending_CloneFrom"]</label>
+                        <select class="field-select" @bind="_model.CloneFromId" disabled="@_model.IsFullyCreated">
+                            <option value="">@Localizer["RetirementSpending_CloneFromNone"]</option>
+                            <option value="-1">@Localizer["RetirementSpending_CloneFromCurrent"]</option>
+                            @foreach (var other in _otherSpendings)
+                            {
+                                <option value="@other.Id">@other.Name (@other.AgeFrom – @other.AgeTo)</option>
+                            }
+                        </select>
+                        @if (_model.IsFullyCreated)
+                        {
+                            <p class="field-sublabel mt-1">@Localizer["RetirementSpending_CloneFromLocked"]</p>
+                        }
+                    </div>
+
+                </div>
+
+                @if (!string.IsNullOrEmpty(_successMessage))
+                {
+                    <div class="alert-success mt-4">@_successMessage</div>
+                }
+                @if (!string.IsNullOrEmpty(_errorMessage))
+                {
+                    <div class="alert-error mt-4">@_errorMessage</div>
+                }
+
+                <div class="intro-actions mt-6" style="display:flex; gap:1rem;">
+                    <button class="btn-primary-action" @onclick="Save" disabled="@_isSaving">
+                        @Localizer["RetirementSpending_Save"]
+                    </button>
+                    <button class="btn-danger" @onclick="Delete" disabled="@_isDeleting">
+                        @Localizer["RetirementSpending_Delete"]
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

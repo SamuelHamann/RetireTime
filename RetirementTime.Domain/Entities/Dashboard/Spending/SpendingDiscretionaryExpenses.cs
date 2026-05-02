@@ -6,6 +6,7 @@ public class SpendingDiscretionaryExpenses
 {
     public long Id { get; set; }
     public long ScenarioId { get; set; }
+    public long? RetirementSpendingId { get; set; }
 
     public decimal? GymMembership { get; set; }
     public int GymMembershipFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
@@ -38,6 +39,7 @@ public class SpendingDiscretionaryExpenses
 
     // Navigation properties
     public DashboardScenario Scenario { get; set; } = null!;
+    public RetirementSpending? RetirementSpending { get; set; }
     public Frequency GymMembershipFrequency { get; set; } = null!;
     public Frequency SubscriptionsFrequency { get; set; } = null!;
     public Frequency EatingOutFrequency { get; set; } = null!;

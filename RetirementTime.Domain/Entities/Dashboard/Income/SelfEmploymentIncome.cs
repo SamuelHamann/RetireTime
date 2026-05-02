@@ -8,9 +8,9 @@ public class SelfEmploymentIncome
     public long ScenarioId { get; set; }
     public string Name { get; set; } = string.Empty;
     public decimal? NetSalary { get; set; }
-    public int NetSalaryFrequencyId { get; set; } = (int)FrequencyEnum.Annually;
+    public int NetSalaryFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
     public decimal? GrossSalary { get; set; }
-    public int GrossSalaryFrequencyId { get; set; } = (int)FrequencyEnum.Annually;
+    public int GrossSalaryFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
     public decimal? GrossDividends { get; set; }
     public int GrossDividendsFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
     public decimal? NetDividends { get; set; }

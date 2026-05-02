@@ -11,5 +11,5 @@ public record SaveOasCppIncomeCommand : IRequest<BaseResult>
     public decimal? Income3YearsAgo { get; init; }
     public decimal? Income4YearsAgo { get; init; }
     public decimal? Income5YearsAgo { get; init; }
-    public int YearsSpentInCanada { get; init; }
+    public int? YearsSpentInCanada { get; init; }
 }

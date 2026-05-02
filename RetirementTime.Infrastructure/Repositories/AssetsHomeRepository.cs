@@ -19,6 +19,7 @@ public class AssetsHomeRepository(ApplicationDbContext context) : IAssetsHomeRep
 
         if (existing == null)
         {
+            home.PurchaseDate = DateTime.SpecifyKind(home.PurchaseDate, DateTimeKind.Utc);
             home.CreatedAt = DateTime.UtcNow;
             home.UpdatedAt = DateTime.UtcNow;
             context.AssetsHomes.Add(home);
@@ -26,7 +27,7 @@ public class AssetsHomeRepository(ApplicationDbContext context) : IAssetsHomeRep
             return home;
         }
 
-        existing.PurchaseDate = home.PurchaseDate;
+        existing.PurchaseDate = DateTime.SpecifyKind(home.PurchaseDate, DateTimeKind.Utc);
         existing.HomeValue = home.HomeValue;
         existing.PurchasePrice = home.PurchasePrice;
         existing.UpdatedAt = DateTime.UtcNow;
