@@ -15,7 +15,7 @@ public partial class GetSelfEmploymentIncomesHandler(
 
         try
         {
-            var items = await selfEmploymentIncomeRepository.GetByScenarioIdAsync(request.ScenarioId);
+            var items = await selfEmploymentIncomeRepository.GetByScenarioIdAsync(request.ScenarioId, request.TimelineId);
 
             LogSuccessfullyCompleted(logger, items.Count, request.ScenarioId);
 

@@ -6,7 +6,7 @@ using RetirementTime.Domain.Interfaces.Repositories;
 namespace RetirementTime.Application.Features.Dashboard.RetirementSpending.DeleteRetirementSpending;
 
 public partial class DeleteRetirementSpendingHandler(
-    IRetirementSpendingRepository repository,
+    IRetirementTimelineRepository repository,
     ILogger<DeleteRetirementSpendingHandler> logger) : IRequestHandler<DeleteRetirementSpendingCommand, BaseResult>
 {
     public async Task<BaseResult> Handle(DeleteRetirementSpendingCommand request, CancellationToken cancellationToken)

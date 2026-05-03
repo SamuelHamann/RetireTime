@@ -19,6 +19,7 @@ public partial class SaveOasCppIncomeHandler(
             var income = new OasCppIncome
             {
                 ScenarioId = request.ScenarioId,
+                RetirementTimelineId = request.TimelineId,
                 IncomeLastYear = request.IncomeLastYear,
                 Income2YearsAgo = request.Income2YearsAgo,
                 Income3YearsAgo = request.Income3YearsAgo,

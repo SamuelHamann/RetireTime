@@ -6,11 +6,11 @@ namespace RetirementTime.Infrastructure.Repositories;
 
 public class EmploymentIncomeRepository(ApplicationDbContext context) : IEmploymentIncomeRepository
 {
-    public async Task<List<EmploymentIncome>> GetByScenarioIdAsync(long scenarioId)
+    public async Task<List<EmploymentIncome>> GetByScenarioIdAsync(long scenarioId, long timelineId)
     {
         return await context.EmploymentIncomes
             .Include(e => e.OtherIncomes)
-            .Where(e => e.ScenarioId == scenarioId)
+            .Where(e => e.ScenarioId == scenarioId && e.RetirementTimelineId == timelineId)
             .OrderBy(e => e.CreatedAt)
             .ToListAsync();
     }

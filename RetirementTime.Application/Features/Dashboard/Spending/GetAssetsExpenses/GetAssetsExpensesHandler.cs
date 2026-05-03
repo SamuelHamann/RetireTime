@@ -23,7 +23,7 @@ public partial class GetAssetsExpensesHandler(
         LogStartingGet(logger, request.ScenarioId);
         try
         {
-            var expenses            = await spendingRepository.GetAssetsExpensesAsync(request.ScenarioId);
+            var expenses            = await spendingRepository.GetAssetsExpensesAsync(request.ScenarioId, request.TimelineId);
             var home                = await homeRepository.GetByScenarioIdAsync(request.ScenarioId);
             var investmentProps     = await investmentPropertyRepository.GetByScenarioIdAsync(request.ScenarioId);
             var investmentAccounts  = await investmentAccountRepository.GetByScenarioIdAsync(request.ScenarioId);
@@ -55,6 +55,7 @@ public partial class GetAssetsExpensesHandler(
             var item = new SpendingAssetsExpense
             {
                 ScenarioId                  = request.ScenarioId,
+                RetirementTimelineId        = request.TimelineId,
                 Name                        = string.Empty,
                 FrequencyId                 = (int)FrequencyEnum.Monthly,
                 AssetsHomeId                = request.AssetsHomeId,

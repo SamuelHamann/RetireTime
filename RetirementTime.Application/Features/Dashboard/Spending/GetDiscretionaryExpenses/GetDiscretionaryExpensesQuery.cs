@@ -4,7 +4,7 @@ using RetirementTime.Domain.Entities.Dashboard.Spending;
 
 namespace RetirementTime.Application.Features.Dashboard.Spending.GetDiscretionaryExpenses;
 
-public record GetDiscretionaryExpensesQuery(long ScenarioId) : IRequest<GetDiscretionaryExpensesResult>;
+public record GetDiscretionaryExpensesQuery(long ScenarioId, long TimelineId) : IRequest<GetDiscretionaryExpensesResult>;
 
 public record GetDiscretionaryExpensesResult
 {

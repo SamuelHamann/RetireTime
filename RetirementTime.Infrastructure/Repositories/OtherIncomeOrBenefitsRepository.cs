@@ -6,10 +6,10 @@ namespace RetirementTime.Infrastructure.Repositories;
 
 public class OtherIncomeOrBenefitsRepository(ApplicationDbContext context) : IOtherIncomeOrBenefitsRepository
 {
-    public async Task<List<OtherIncomeOrBenefits>> GetByScenarioIdAsync(long scenarioId)
+    public async Task<List<OtherIncomeOrBenefits>> GetByScenarioIdAsync(long scenarioId, long timelineId)
     {
         return await context.OtherIncomeOrBenefits
-            .Where(e => e.ScenarioId == scenarioId)
+            .Where(e => e.ScenarioId == scenarioId && e.RetirementTimelineId == timelineId)
             .OrderBy(e => e.CreatedAt)
             .ToListAsync();
     }

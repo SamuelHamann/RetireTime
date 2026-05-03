@@ -782,6 +782,9 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Property<decimal?>("PercentOfSalaryEmployer")
                         .HasColumnType("numeric(5,2)");
 
+                    b.Property<long?>("RetirementTimelineId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("ScenarioId")
                         .HasColumnType("bigint");
 
@@ -791,6 +794,8 @@ namespace RetirementTime.Infrastructure.Migrations
                         .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RetirementTimelineId");
 
                     b.HasIndex("ScenarioId");
 
@@ -869,6 +874,9 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Property<decimal?>("PensionContributions")
                         .HasColumnType("numeric(18,2)");
 
+                    b.Property<long?>("RetirementTimelineId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("ScenarioId")
                         .HasColumnType("bigint");
 
@@ -906,6 +914,8 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.HasIndex("PensionContributionFrequencyId");
 
+                    b.HasIndex("RetirementTimelineId");
+
                     b.HasIndex("ScenarioId");
 
                     b.HasIndex("TaxDeductionFrequencyId");
@@ -939,6 +949,9 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Property<decimal?>("PercentOfSalaryEmployer")
                         .HasColumnType("numeric(5,2)");
 
+                    b.Property<long?>("RetirementTimelineId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("ScenarioId")
                         .HasColumnType("bigint");
 
@@ -948,6 +961,8 @@ namespace RetirementTime.Infrastructure.Migrations
                         .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RetirementTimelineId");
 
                     b.HasIndex("ScenarioId");
 
@@ -982,6 +997,9 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Property<decimal?>("IncomeLastYear")
                         .HasColumnType("numeric(18,2)");
 
+                    b.Property<long?>("RetirementTimelineId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("ScenarioId")
                         .HasColumnType("bigint");
 
@@ -994,6 +1012,8 @@ namespace RetirementTime.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RetirementTimelineId");
 
                     b.HasIndex("ScenarioId");
 
@@ -1073,6 +1093,9 @@ namespace RetirementTime.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
+                    b.Property<long?>("RetirementTimelineId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("ScenarioId")
                         .HasColumnType("bigint");
 
@@ -1084,6 +1107,8 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FrequencyId");
+
+                    b.HasIndex("RetirementTimelineId");
 
                     b.HasIndex("ScenarioId");
 
@@ -1126,6 +1151,9 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Property<int>("PercentSurvivorBenefits")
                         .HasColumnType("integer");
 
+                    b.Property<long?>("RetirementTimelineId")
+                        .HasColumnType("bigint");
+
                     b.Property<decimal?>("RrspAdjustment")
                         .HasColumnType("numeric(18,2)");
 
@@ -1148,6 +1176,8 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.HasIndex("BenefitsPost65FrequencyId");
 
                     b.HasIndex("BenefitsPre65FrequencyId");
+
+                    b.HasIndex("RetirementTimelineId");
 
                     b.HasIndex("RrspAdjustmentFrequencyId");
 
@@ -1180,6 +1210,9 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Property<decimal?>("PercentOfSalaryEmployer")
                         .HasColumnType("numeric(5,2)");
 
+                    b.Property<long?>("RetirementTimelineId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("ScenarioId")
                         .HasColumnType("bigint");
 
@@ -1189,6 +1222,8 @@ namespace RetirementTime.Infrastructure.Migrations
                         .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RetirementTimelineId");
 
                     b.HasIndex("ScenarioId");
 
@@ -1237,6 +1272,9 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Property<int>("NetSalaryFrequencyId")
                         .HasColumnType("integer");
 
+                    b.Property<long?>("RetirementTimelineId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("ScenarioId")
                         .HasColumnType("bigint");
 
@@ -1254,6 +1292,8 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.HasIndex("NetDividendsFrequencyId");
 
                     b.HasIndex("NetSalaryFrequencyId");
+
+                    b.HasIndex("RetirementTimelineId");
 
                     b.HasIndex("ScenarioId");
 
@@ -1290,6 +1330,9 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Property<int>("PurchaseFrequencyId")
                         .HasColumnType("integer");
 
+                    b.Property<long?>("RetirementTimelineId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("ScenarioId")
                         .HasColumnType("bigint");
 
@@ -1306,6 +1349,8 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.HasIndex("EmployerMatchFrequencyId");
 
                     b.HasIndex("PurchaseFrequencyId");
+
+                    b.HasIndex("RetirementTimelineId");
 
                     b.HasIndex("ScenarioId");
 
@@ -1347,97 +1392,7 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.ToTable("dashboard_net_worth_history", (string)null);
                 });
 
-            modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.PersistingIncome.OtherPersistingIncome", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<decimal?>("Amount")
-                        .HasColumnType("numeric(18,2)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-
-                    b.Property<int>("FrequencyId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<long>("ScenarioId")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("Taxable")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FrequencyId");
-
-                    b.HasIndex("ScenarioId");
-
-                    b.ToTable("dashboard_persistent_income_other", (string)null);
-                });
-
-            modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.PersistingIncome.RealEstateIncome", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<decimal?>("Amount")
-                        .HasColumnType("numeric(18,2)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-
-                    b.Property<int?>("FrequencyId")
-                        .HasColumnType("integer");
-
-                    b.Property<long?>("InvestmentPropertyId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("PropertyName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<long>("ScenarioId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FrequencyId");
-
-                    b.HasIndex("InvestmentPropertyId");
-
-                    b.HasIndex("ScenarioId");
-
-                    b.ToTable("dashboard_income_real_estate", (string)null);
-                });
-
-            modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementSpending", b =>
+            modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1469,6 +1424,11 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Property<long>("ScenarioId")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("TimelineType")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(2);
+
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
@@ -1478,7 +1438,7 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.HasIndex("ScenarioId");
 
-                    b.ToTable("dashboard_retirement_spending", (string)null);
+                    b.ToTable("dashboard_retirement_timeline", (string)null);
                 });
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Spending.SpendingAssetsExpense", b =>
@@ -1517,7 +1477,7 @@ namespace RetirementTime.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<long?>("RetirementSpendingId")
+                    b.Property<long?>("RetirementTimelineId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("ScenarioId")
@@ -1540,7 +1500,7 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.HasIndex("FrequencyId");
 
-                    b.HasIndex("RetirementSpendingId");
+                    b.HasIndex("RetirementTimelineId");
 
                     b.HasIndex("ScenarioId");
 
@@ -1574,7 +1534,7 @@ namespace RetirementTime.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<long?>("RetirementSpendingId")
+                    b.Property<long?>("RetirementTimelineId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("ScenarioId")
@@ -1591,7 +1551,7 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.HasIndex("GenericDebtId");
 
-                    b.HasIndex("RetirementSpendingId");
+                    b.HasIndex("RetirementTimelineId");
 
                     b.HasIndex("ScenarioId");
 
@@ -1647,7 +1607,7 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Property<int>("OtherDiscretionaryExpensesFrequencyId")
                         .HasColumnType("integer");
 
-                    b.Property<long?>("RetirementSpendingId")
+                    b.Property<long?>("RetirementTimelineId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("ScenarioId")
@@ -1689,7 +1649,7 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.HasIndex("OtherDiscretionaryExpensesFrequencyId");
 
-                    b.HasIndex("RetirementSpendingId");
+                    b.HasIndex("RetirementTimelineId");
 
                     b.HasIndex("ScenarioId");
 
@@ -1698,6 +1658,52 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.HasIndex("TravelFrequencyId");
 
                     b.ToTable("dashboard_spending_discretionary_expenses", (string)null);
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Spending.SpendingInvestmentExpense", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal?>("Amount")
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.Property<int>("FrequencyId")
+                        .HasColumnType("integer");
+
+                    b.Property<long?>("InvestmentAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("RetirementTimelineId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ScenarioId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FrequencyId");
+
+                    b.HasIndex("InvestmentAccountId");
+
+                    b.HasIndex("RetirementTimelineId");
+
+                    b.HasIndex("ScenarioId");
+
+                    b.ToTable("dashboard_spending_investment_expenses", (string)null);
                 });
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Spending.SpendingLivingExpenses", b =>
@@ -1767,7 +1773,7 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Property<int>("RentOrMortgageFrequencyId")
                         .HasColumnType("integer");
 
-                    b.Property<long?>("RetirementSpendingId")
+                    b.Property<long?>("RetirementTimelineId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("ScenarioId")
@@ -1804,7 +1810,7 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.HasIndex("RentOrMortgageFrequencyId");
 
-                    b.HasIndex("RetirementSpendingId");
+                    b.HasIndex("RetirementTimelineId");
 
                     b.HasIndex("ScenarioId");
 
@@ -1837,7 +1843,7 @@ namespace RetirementTime.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<long?>("RetirementSpendingId")
+                    b.Property<long?>("RetirementTimelineId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("ScenarioId")
@@ -1852,7 +1858,7 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.HasIndex("FrequencyId");
 
-                    b.HasIndex("RetirementSpendingId");
+                    b.HasIndex("RetirementTimelineId");
 
                     b.HasIndex("ScenarioId");
 
@@ -2698,11 +2704,17 @@ namespace RetirementTime.Infrastructure.Migrations
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Income.DefinedProfitSharing", b =>
                 {
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", "RetirementTimeline")
+                        .WithMany()
+                        .HasForeignKey("RetirementTimelineId");
+
                     b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
                         .WithMany()
                         .HasForeignKey("ScenarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("RetirementTimeline");
 
                     b.Navigation("Scenario");
                 });
@@ -2765,6 +2777,10 @@ namespace RetirementTime.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", "RetirementTimeline")
+                        .WithMany()
+                        .HasForeignKey("RetirementTimelineId");
+
                     b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
                         .WithMany()
                         .HasForeignKey("ScenarioId")
@@ -2795,6 +2811,8 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.Navigation("PensionContributionFrequency");
 
+                    b.Navigation("RetirementTimeline");
+
                     b.Navigation("Scenario");
 
                     b.Navigation("TaxDeductionFrequency");
@@ -2802,22 +2820,34 @@ namespace RetirementTime.Infrastructure.Migrations
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Income.GroupRrsp", b =>
                 {
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", "RetirementTimeline")
+                        .WithMany()
+                        .HasForeignKey("RetirementTimelineId");
+
                     b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
                         .WithMany()
                         .HasForeignKey("ScenarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("RetirementTimeline");
 
                     b.Navigation("Scenario");
                 });
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Income.OasCppIncome", b =>
                 {
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", "RetirementTimeline")
+                        .WithMany()
+                        .HasForeignKey("RetirementTimelineId");
+
                     b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
                         .WithMany()
                         .HasForeignKey("ScenarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("RetirementTimeline");
 
                     b.Navigation("Scenario");
                 });
@@ -2858,6 +2888,11 @@ namespace RetirementTime.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", "RetirementTimeline")
+                        .WithMany()
+                        .HasForeignKey("RetirementTimelineId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
                         .WithMany()
                         .HasForeignKey("ScenarioId")
@@ -2865,6 +2900,8 @@ namespace RetirementTime.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Frequency");
+
+                    b.Navigation("RetirementTimeline");
 
                     b.Navigation("Scenario");
                 });
@@ -2884,6 +2921,10 @@ namespace RetirementTime.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_dashboard_income_pension_defined_benefits_common_frequenci~1");
 
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", "RetirementTimeline")
+                        .WithMany()
+                        .HasForeignKey("RetirementTimelineId");
+
                     b.HasOne("RetirementTime.Domain.Entities.Common.Frequency", "RrspAdjustmentFrequency")
                         .WithMany()
                         .HasForeignKey("RrspAdjustmentFrequencyId")
@@ -2901,6 +2942,8 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.Navigation("BenefitsPre65Frequency");
 
+                    b.Navigation("RetirementTimeline");
+
                     b.Navigation("RrspAdjustmentFrequency");
 
                     b.Navigation("Scenario");
@@ -2908,11 +2951,17 @@ namespace RetirementTime.Infrastructure.Migrations
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Income.PensionDefinedContribution", b =>
                 {
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", "RetirementTimeline")
+                        .WithMany()
+                        .HasForeignKey("RetirementTimelineId");
+
                     b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
                         .WithMany()
                         .HasForeignKey("ScenarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("RetirementTimeline");
 
                     b.Navigation("Scenario");
                 });
@@ -2946,6 +2995,10 @@ namespace RetirementTime.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_dashboard_income_self_employment_income_common_frequencies~3");
 
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", "RetirementTimeline")
+                        .WithMany()
+                        .HasForeignKey("RetirementTimelineId");
+
                     b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
                         .WithMany()
                         .HasForeignKey("ScenarioId")
@@ -2959,6 +3012,8 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Navigation("NetDividendsFrequency");
 
                     b.Navigation("NetSalaryFrequency");
+
+                    b.Navigation("RetirementTimeline");
 
                     b.Navigation("Scenario");
                 });
@@ -2977,6 +3032,10 @@ namespace RetirementTime.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", "RetirementTimeline")
+                        .WithMany()
+                        .HasForeignKey("RetirementTimelineId");
+
                     b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
                         .WithMany()
                         .HasForeignKey("ScenarioId")
@@ -2986,6 +3045,8 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Navigation("EmployerMatchFrequency");
 
                     b.Navigation("PurchaseFrequency");
+
+                    b.Navigation("RetirementTimeline");
 
                     b.Navigation("Scenario");
                 });
@@ -3001,51 +3062,7 @@ namespace RetirementTime.Infrastructure.Migrations
                     b.Navigation("Scenario");
                 });
 
-            modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.PersistingIncome.OtherPersistingIncome", b =>
-                {
-                    b.HasOne("RetirementTime.Domain.Entities.Common.Frequency", "Frequency")
-                        .WithMany()
-                        .HasForeignKey("FrequencyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
-                        .WithMany()
-                        .HasForeignKey("ScenarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Frequency");
-
-                    b.Navigation("Scenario");
-                });
-
-            modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.PersistingIncome.RealEstateIncome", b =>
-                {
-                    b.HasOne("RetirementTime.Domain.Entities.Common.Frequency", "Frequency")
-                        .WithMany()
-                        .HasForeignKey("FrequencyId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Asset.AssetsInvestmentProperty", "InvestmentProperty")
-                        .WithMany()
-                        .HasForeignKey("InvestmentPropertyId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
-                        .WithMany()
-                        .HasForeignKey("ScenarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Frequency");
-
-                    b.Navigation("InvestmentProperty");
-
-                    b.Navigation("Scenario");
-                });
-
-            modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementSpending", b =>
+            modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", b =>
                 {
                     b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
                         .WithMany()
@@ -3085,10 +3102,10 @@ namespace RetirementTime.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementSpending", "RetirementSpending")
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", "RetirementTimeline")
                         .WithMany()
-                        .HasForeignKey("RetirementSpendingId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("RetirementTimelineId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
                         .WithMany()
@@ -3106,7 +3123,7 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.Navigation("Frequency");
 
-                    b.Navigation("RetirementSpending");
+                    b.Navigation("RetirementTimeline");
 
                     b.Navigation("Scenario");
                 });
@@ -3124,10 +3141,10 @@ namespace RetirementTime.Infrastructure.Migrations
                         .HasForeignKey("GenericDebtId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementSpending", "RetirementSpending")
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", "RetirementTimeline")
                         .WithMany()
-                        .HasForeignKey("RetirementSpendingId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("RetirementTimelineId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
                         .WithMany()
@@ -3139,7 +3156,7 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.Navigation("GenericDebt");
 
-                    b.Navigation("RetirementSpending");
+                    b.Navigation("RetirementTimeline");
 
                     b.Navigation("Scenario");
                 });
@@ -3187,10 +3204,10 @@ namespace RetirementTime.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_dashboard_spending_discretionary_expenses_common_frequenci~5");
 
-                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementSpending", "RetirementSpending")
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", "RetirementTimeline")
                         .WithMany()
-                        .HasForeignKey("RetirementSpendingId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("RetirementTimelineId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
                         .WithMany()
@@ -3224,13 +3241,46 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.Navigation("OtherDiscretionaryExpensesFrequency");
 
-                    b.Navigation("RetirementSpending");
+                    b.Navigation("RetirementTimeline");
 
                     b.Navigation("Scenario");
 
                     b.Navigation("SubscriptionsFrequency");
 
                     b.Navigation("TravelFrequency");
+                });
+
+            modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Spending.SpendingInvestmentExpense", b =>
+                {
+                    b.HasOne("RetirementTime.Domain.Entities.Common.Frequency", "Frequency")
+                        .WithMany()
+                        .HasForeignKey("FrequencyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Asset.AssetsInvestmentAccount", "InvestmentAccount")
+                        .WithMany()
+                        .HasForeignKey("InvestmentAccountId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", "RetirementTimeline")
+                        .WithMany()
+                        .HasForeignKey("RetirementTimelineId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
+                        .WithMany()
+                        .HasForeignKey("ScenarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Frequency");
+
+                    b.Navigation("InvestmentAccount");
+
+                    b.Navigation("RetirementTimeline");
+
+                    b.Navigation("Scenario");
                 });
 
             modelBuilder.Entity("RetirementTime.Domain.Entities.Dashboard.Spending.SpendingLivingExpenses", b =>
@@ -3289,10 +3339,10 @@ namespace RetirementTime.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementSpending", "RetirementSpending")
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", "RetirementTimeline")
                         .WithMany()
-                        .HasForeignKey("RetirementSpendingId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("RetirementTimelineId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
                         .WithMany()
@@ -3324,7 +3374,7 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.Navigation("RentOrMortgageFrequency");
 
-                    b.Navigation("RetirementSpending");
+                    b.Navigation("RetirementTimeline");
 
                     b.Navigation("Scenario");
 
@@ -3339,10 +3389,10 @@ namespace RetirementTime.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementSpending", "RetirementSpending")
+                    b.HasOne("RetirementTime.Domain.Entities.Dashboard.Spending.RetirementTimeline", "RetirementTimeline")
                         .WithMany()
-                        .HasForeignKey("RetirementSpendingId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("RetirementTimelineId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RetirementTime.Domain.Entities.Dashboard.DashboardScenario", "Scenario")
                         .WithMany()
@@ -3352,7 +3402,7 @@ namespace RetirementTime.Infrastructure.Migrations
 
                     b.Navigation("Frequency");
 
-                    b.Navigation("RetirementSpending");
+                    b.Navigation("RetirementTimeline");
 
                     b.Navigation("Scenario");
                 });

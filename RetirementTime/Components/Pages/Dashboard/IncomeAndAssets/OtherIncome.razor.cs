@@ -21,6 +21,7 @@ public partial class OtherIncome : ComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long TimelineId { get; set; }
 
     private bool _isLoading = true;
     private List<OtherIncomeOrBenefitsItemModel> _incomeItems = [];
@@ -32,7 +33,7 @@ public partial class OtherIncome : ComponentBase
         var authenticatedUser = await AuthService.GetAuthenticatedUserAsync(AuthenticationState);
         if (authenticatedUser == null) { Navigation.NavigateTo("/"); return; }
 
-        var items = await Mediator.Send(new GetOtherIncomeOrBenefitsQuery(ScenarioId));
+        var items = await Mediator.Send(new GetOtherIncomeOrBenefitsQuery(ScenarioId, TimelineId));
         _incomeItems = items.Select(e => new OtherIncomeOrBenefitsItemModel { Id = e.Id, Name = e.Name, Amount = e.Amount }).ToList();
         _isLoading = false;
         StateHasChanged();
@@ -40,7 +41,7 @@ public partial class OtherIncome : ComponentBase
 
     private async Task AddIncome()
     {
-        var result = await Mediator.Send(new CreateOtherIncomeOrBenefitsCommand(ScenarioId));
+        var result = await Mediator.Send(new CreateOtherIncomeOrBenefitsCommand(ScenarioId, TimelineId));
         if (result.Success) _incomeItems.Add(new OtherIncomeOrBenefitsItemModel { Id = result.IncomeId });
     }
 

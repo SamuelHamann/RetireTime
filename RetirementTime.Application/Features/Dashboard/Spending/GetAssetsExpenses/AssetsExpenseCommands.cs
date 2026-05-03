@@ -6,7 +6,7 @@ using RetirementTime.Domain.Entities.Dashboard.Spending;
 
 namespace RetirementTime.Application.Features.Dashboard.Spending.GetAssetsExpenses;
 
-public record GetAssetsExpensesQuery(long ScenarioId) : IRequest<GetAssetsExpensesResult>;
+public record GetAssetsExpensesQuery(long ScenarioId, long TimelineId) : IRequest<GetAssetsExpensesResult>;
 
 public record GetAssetsExpensesResult
 {
@@ -20,6 +20,7 @@ public record GetAssetsExpensesResult
 
 public record CreateAssetsExpenseCommand(
     long ScenarioId,
+    long TimelineId,
     long? AssetsHomeId = null,
     long? AssetsInvestmentPropertyId = null,
     long? AssetsInvestmentAccountId = null,

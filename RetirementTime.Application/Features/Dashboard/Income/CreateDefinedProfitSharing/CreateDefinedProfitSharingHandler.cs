@@ -15,7 +15,7 @@ public partial class CreateDefinedProfitSharingHandler(
 
         try
         {
-            var plan = new DefinedProfitSharing { ScenarioId = request.ScenarioId };
+            var plan = new DefinedProfitSharing { ScenarioId = request.ScenarioId, RetirementTimelineId = request.TimelineId };
             var created = await repository.CreateAsync(plan);
 
             LogSuccessfullyCompleted(logger, created.Id, request.ScenarioId);

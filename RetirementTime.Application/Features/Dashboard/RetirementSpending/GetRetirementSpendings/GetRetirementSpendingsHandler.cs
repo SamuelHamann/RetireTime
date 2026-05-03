@@ -5,7 +5,7 @@ using RetirementTime.Domain.Interfaces.Repositories;
 namespace RetirementTime.Application.Features.Dashboard.RetirementSpending.GetRetirementSpendings;
 
 public partial class GetRetirementSpendingsHandler(
-    IRetirementSpendingRepository repository,
+    IRetirementTimelineRepository repository,
     ILogger<GetRetirementSpendingsHandler> logger) : IRequestHandler<GetRetirementSpendingsQuery, List<RetirementSpendingDto>>
 {
     public async Task<List<RetirementSpendingDto>> Handle(GetRetirementSpendingsQuery request, CancellationToken cancellationToken)
@@ -21,6 +21,7 @@ public partial class GetRetirementSpendingsHandler(
                 Name           = e.Name,
                 AgeFrom        = e.AgeFrom,
                 AgeTo          = e.AgeTo,
+                TimelineType   = e.TimelineType,
                 IsFullyCreated = e.IsFullyCreated
             }).ToList();
         }

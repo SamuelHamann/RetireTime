@@ -11,6 +11,7 @@ public class AssetsInvestmentAccountRepository(ApplicationDbContext context) : I
     {
         return await context.AssetsInvestmentAccounts
             .Include(e => e.Holdings)
+            .Include(e => e.AccountType)
             .Where(e => e.ScenarioId == scenarioId)
             .OrderBy(e => e.CreatedAt)
             .ToListAsync();

@@ -15,7 +15,7 @@ public partial class GetPensionDefinedBenefitsHandler(
 
         try
         {
-            var items = await repository.GetByScenarioIdAsync(request.ScenarioId);
+            var items = await repository.GetByScenarioIdAsync(request.ScenarioId, request.TimelineId);
             LogSuccessfullyCompleted(logger, items.Count, request.ScenarioId);
             return items;
         }

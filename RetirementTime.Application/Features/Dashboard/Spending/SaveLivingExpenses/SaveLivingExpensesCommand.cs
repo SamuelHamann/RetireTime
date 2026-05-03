@@ -6,6 +6,7 @@ namespace RetirementTime.Application.Features.Dashboard.Spending.SaveLivingExpen
 public record SaveLivingExpensesCommand : IRequest<BaseResult>
 {
     public long ScenarioId { get; init; }
+    public long TimelineId { get; init; }
 
     public decimal? RentOrMortgage { get; init; }
     public int RentOrMortgageFrequencyId { get; init; }

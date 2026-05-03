@@ -186,6 +186,54 @@
   <data name="Sidebar_Income_Other" xml:space="preserve">
     <value>Autre</value>
   </data>
+  <data name="Sidebar_Income_NewTimeline" xml:space="preserve">
+    <value>+ Nouvelle période de revenus</value>
+  </data>
+  <data name="Sidebar_Income_TimelineLabel" xml:space="preserve">
+    <value>Âges {0} – {1}</value>
+  </data>
+  <data name="Sidebar_Income_Settings" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="IncomeTimeline_Title" xml:space="preserve">
+    <value>Période de revenus</value>
+  </data>
+  <data name="IncomeTimeline_Subtitle" xml:space="preserve">
+    <value>Définissez la plage d'âge pour cette période de revenus et copiez optionnellement les revenus d'une période existante.</value>
+  </data>
+  <data name="IncomeTimeline_AgeFrom" xml:space="preserve">
+    <value>Âge de début</value>
+  </data>
+  <data name="IncomeTimeline_AgeTo" xml:space="preserve">
+    <value>Âge de fin</value>
+  </data>
+  <data name="IncomeTimeline_CloneFrom" xml:space="preserve">
+    <value>Copier les revenus de</value>
+  </data>
+  <data name="IncomeTimeline_CloneFromNone" xml:space="preserve">
+    <value>— Aucun —</value>
+  </data>
+  <data name="IncomeTimeline_CloneFromLocked" xml:space="preserve">
+    <value>La source de copie ne peut pas être modifiée après l'enregistrement.</value>
+  </data>
+  <data name="IncomeTimeline_Save" xml:space="preserve">
+    <value>Enregistrer &amp; Continuer</value>
+  </data>
+  <data name="IncomeTimeline_Saving" xml:space="preserve">
+    <value>Enregistrement…</value>
+  </data>
+  <data name="IncomeTimeline_Delete" xml:space="preserve">
+    <value>Supprimer la période</value>
+  </data>
+  <data name="IncomeTimeline_Deleting" xml:space="preserve">
+    <value>Suppression…</value>
+  </data>
+  <data name="IncomeTimeline_SaveError" xml:space="preserve">
+    <value>Une erreur s'est produite lors de l'enregistrement. Veuillez réessayer.</value>
+  </data>
+  <data name="IncomeTimeline_DeleteError" xml:space="preserve">
+    <value>Une erreur s'est produite lors de la suppression. Veuillez réessayer.</value>
+  </data>
   <data name="Sidebar_Income_PersistingIncome" xml:space="preserve">
     <value>Revenus persistants</value>
   </data>
@@ -266,6 +314,78 @@
   </data>
   <data name="Sidebar_Spending_OtherExpenses" xml:space="preserve">
     <value>Autres dépenses</value>
+  </data>
+  <data name="Sidebar_Spending_InvestmentExpenses" xml:space="preserve">
+    <value>Dépenses d'investissement</value>
+  </data>
+  <data name="Sidebar_Spending_NewTimeline" xml:space="preserve">
+    <value>+ Nouvelle période de dépenses</value>
+  </data>
+  <data name="Sidebar_Spending_TimelineLabel" xml:space="preserve">
+    <value>Âges {0} – {1}</value>
+  </data>
+  <data name="ExpenseTimeline_Title" xml:space="preserve">
+    <value>Période de dépenses</value>
+  </data>
+  <data name="ExpenseTimeline_Subtitle" xml:space="preserve">
+    <value>Définissez la tranche d'âge de cette période de dépenses et clonez éventuellement les dépenses d'une période existante.</value>
+  </data>
+  <data name="ExpenseTimeline_AgeFrom" xml:space="preserve">
+    <value>Âge de début</value>
+  </data>
+  <data name="ExpenseTimeline_AgeTo" xml:space="preserve">
+    <value>Âge de fin</value>
+  </data>
+  <data name="ExpenseTimeline_CloneFrom" xml:space="preserve">
+    <value>Cloner les dépenses depuis</value>
+  </data>
+  <data name="ExpenseTimeline_CloneFromNone" xml:space="preserve">
+    <value>— Aucun —</value>
+  </data>
+  <data name="ExpenseTimeline_CloneFromLocked" xml:space="preserve">
+    <value>La source de clonage ne peut pas être modifiée après la sauvegarde.</value>
+  </data>
+  <data name="ExpenseTimeline_Save" xml:space="preserve">
+    <value>Enregistrer et continuer</value>
+  </data>
+  <data name="ExpenseTimeline_Saving" xml:space="preserve">
+    <value>Enregistrement…</value>
+  </data>
+  <data name="ExpenseTimeline_Delete" xml:space="preserve">
+    <value>Supprimer la période</value>
+  </data>
+  <data name="ExpenseTimeline_SaveError" xml:space="preserve">
+    <value>Une erreur est survenue lors de la sauvegarde. Veuillez réessayer.</value>
+  </data>
+  <data name="ExpenseTimeline_DeleteError" xml:space="preserve">
+    <value>Une erreur est survenue lors de la suppression. Veuillez réessayer.</value>
+  </data>
+  <data name="Sidebar_RetirementSpending_Settings" xml:space="preserve">
+    <value>Paramètres de la période</value>
+  </data>
+  <data name="Spending_Investment_Title" xml:space="preserve">
+    <value>Dépenses d'investissement</value>
+  </data>
+  <data name="Spending_Investment_Subtitle" xml:space="preserve">
+    <value>Suivez les frais de gestion et autres coûts liés à vos comptes d'investissement.</value>
+  </data>
+  <data name="Spending_Investment_SectionTitle" xml:space="preserve">
+    <value>Dépenses d'investissement</value>
+  </data>
+  <data name="Spending_Investment_Hint" xml:space="preserve">
+    <value>Ajoutez toute dépense récurrente liée à vos comptes d'investissement, comme les frais de gestion.</value>
+  </data>
+  <data name="Spending_Investment_AddItem" xml:space="preserve">
+    <value>Ajouter une dépense d'investissement</value>
+  </data>
+  <data name="Spending_Investment_Item" xml:space="preserve">
+    <value>Dépense d'investissement {0}</value>
+  </data>
+  <data name="Spending_Investment_Account" xml:space="preserve">
+    <value>Compte</value>
+  </data>
+  <data name="Spending_Investment_AccountPlaceholder" xml:space="preserve">
+    <value>— Sélectionner un compte —</value>
   </data>
   <data name="Sidebar_RetirementSpending" xml:space="preserve">
     <value>Dépenses à la retraite</value>

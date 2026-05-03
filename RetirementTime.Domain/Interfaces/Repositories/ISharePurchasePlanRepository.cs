@@ -4,7 +4,7 @@ namespace RetirementTime.Domain.Interfaces.Repositories;
 
 public interface ISharePurchasePlanRepository
 {
-    Task<List<SharePurchasePlan>> GetByScenarioIdAsync(long scenarioId);
+    Task<List<SharePurchasePlan>> GetByScenarioIdAsync(long scenarioId, long timelineId);
     Task<SharePurchasePlan> CreateAsync(SharePurchasePlan plan);
     Task<bool> UpdateAsync(SharePurchasePlan plan);
     Task<bool> DeleteAsync(long planId);

@@ -27,9 +27,9 @@ public partial class Employment : ComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long TimelineId { get; set; }
 
     private long _userId;
-
     private bool _isLoading = true;
     private List<EmploymentItemModel> _employmentItems = [];
     private List<FrequencyDto> _frequencies = [];
@@ -44,7 +44,7 @@ public partial class Employment : ComponentBase
         _userId = authenticatedUser.UserId;
 
         _frequencies = await Mediator.Send(new GetFrequenciesQuery());
-        var employments = await Mediator.Send(new GetEmploymentIncomesQuery(ScenarioId));
+        var employments = await Mediator.Send(new GetEmploymentIncomesQuery(ScenarioId, TimelineId));
 
         _employmentItems = employments.Select(e => new EmploymentItemModel
         {
@@ -80,7 +80,7 @@ public partial class Employment : ComponentBase
 
     private async Task AddEmployment()
     {
-        var result = await Mediator.Send(new CreateEmploymentIncomeCommand(ScenarioId, _userId));
+        var result = await Mediator.Send(new CreateEmploymentIncomeCommand(ScenarioId, _userId, TimelineId));
         if (result.Success)
         {
             _employmentItems.Add(new EmploymentItemModel { Id = result.EmploymentIncomeId });

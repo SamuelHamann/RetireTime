@@ -3,7 +3,7 @@ using RetirementTime.Application.Common;
 
 namespace RetirementTime.Application.Features.Dashboard.Income.CreateOtherIncomeOrBenefits;
 
-public record CreateOtherIncomeOrBenefitsCommand(long ScenarioId) : IRequest<CreateOtherIncomeOrBenefitsResult>;
+public record CreateOtherIncomeOrBenefitsCommand(long ScenarioId, long TimelineId) : IRequest<CreateOtherIncomeOrBenefitsResult>;
 
 public record CreateOtherIncomeOrBenefitsResult : BaseResult
 {

@@ -19,6 +19,7 @@ public partial class SaveLivingExpensesHandler(
             var entity = new SpendingLivingExpenses
             {
                 ScenarioId                     = request.ScenarioId,
+                RetirementTimelineId           = request.TimelineId,
                 RentOrMortgage                 = request.RentOrMortgage,
                 RentOrMortgageFrequencyId      = request.RentOrMortgageFrequencyId,
                 Food                           = request.Food,

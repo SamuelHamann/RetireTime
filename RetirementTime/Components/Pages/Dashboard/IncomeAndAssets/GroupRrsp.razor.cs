@@ -22,6 +22,7 @@ public partial class GroupRrsp : ComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long TimelineId { get; set; }
 
     private bool _isLoading = true;
     private List<GroupRrspItemModel> _planItems = [];
@@ -33,7 +34,7 @@ public partial class GroupRrsp : ComponentBase
         var authenticatedUser = await AuthService.GetAuthenticatedUserAsync(AuthenticationState);
         if (authenticatedUser == null) { Navigation.NavigateTo("/"); return; }
 
-        var items = await Mediator.Send(new GetGroupRrspQuery(ScenarioId));
+        var items = await Mediator.Send(new GetGroupRrspQuery(ScenarioId, TimelineId));
         _planItems = items.Select(e => new GroupRrspItemModel { Id = e.Id, Name = e.Name, PercentOfSalaryEmployee = e.PercentOfSalaryEmployee, PercentOfSalaryEmployer = e.PercentOfSalaryEmployer }).ToList();
         _isLoading = false;
         StateHasChanged();
@@ -41,7 +42,7 @@ public partial class GroupRrsp : ComponentBase
 
     private async Task AddPlan()
     {
-        var result = await Mediator.Send(new CreateGroupRrspCommand(ScenarioId));
+        var result = await Mediator.Send(new CreateGroupRrspCommand(ScenarioId, TimelineId));
         if (result.Success) _planItems.Add(new GroupRrspItemModel { Id = result.PlanId });
     }
 

@@ -15,7 +15,7 @@ public partial class CreatePensionDefinedContributionHandler(
 
         try
         {
-            var plan = new PensionDefinedContribution { ScenarioId = request.ScenarioId };
+            var plan = new PensionDefinedContribution { ScenarioId = request.ScenarioId, RetirementTimelineId = request.TimelineId };
             var created = await repository.CreateAsync(plan);
 
             LogSuccessfullyCompleted(logger, created.Id, request.ScenarioId);

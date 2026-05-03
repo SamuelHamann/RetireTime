@@ -58,7 +58,7 @@
                                 <li>
                                     <button class="nav-item nav-item-sub nav-item-sub-expandable @(isTemp1Expanded ? "expanded" : "")"
                                             @onclick="@(() => ToggleTemp1(scenario.ScenarioId))">
-                                        <span class="nav-label @(_activeScenarioId == scenario.ScenarioId && (_activeView == "income" || _activeView == "spending" || _activeView == "assets" || _activeView == "debt" || (_activeView == "income" && (_activeIncomeSubView == "real-estate-income" || _activeIncomeSubView == "other-persisting-income"))) ? "nav-label-active" : "")">@DashboardLocalizer["Sidebar_FinancialProfile"]</span>
+                                        <span class="nav-label @(_activeScenarioId == scenario.ScenarioId && (_activeView == "income" || _activeView == "spending" || _activeView == "assets" || _activeView == "debt") ? "nav-label-active" : "")">@DashboardLocalizer["Sidebar_FinancialProfile"]</span>
                                         <span class="nav-chevron">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                 <polyline points="6 9 12 15 18 9"/>
@@ -159,63 +159,68 @@
                                                                 @if (isIncomeExpanded)
                                                                 {
                                                                     <ul class="nav-income-submenu">
-                                                                        @foreach (var (subView, labelKey) in new (string, string)[]
+                                                                        @{
+                                                                            var incomeTimelineItems = _incomeTimelines.TryGetValue(scenario.ScenarioId, out var itItems) ? itItems : [];
+                                                                        }
+                                                                        @foreach (var timeline in incomeTimelineItems)
                                                                         {
-                                                                            ("employment",           "Sidebar_Income_Employment"),
-                                                                            ("self-employment",      "Sidebar_Income_SelfEmployment"),
-                                                                            ("defined-benefits",     "Sidebar_Income_DefinedBenefits"),
-                                                                            ("defined-contribution", "Sidebar_Income_DefinedContribution"),
-                                                                            ("group-rrsp",           "Sidebar_Income_GroupRrsp"),
-                                                                            ("defined-profit-sharing","Sidebar_Income_DefinedProfitSharing"),
-                                                                            ("share-purchase-plan",  "Sidebar_Income_SharePurchasePlan"),
-                                                                            ("oas-cpp",              "Sidebar_Income_OasCpp"),
-                                                                            ("other",                "Sidebar_Income_Other"),
-                                                                        })
-                                                                        {
-                                                                            var isSubActive = IsIncomeSubActive(scenario.ScenarioId, subView) == "active";
+                                                                            var isItemExpanded = _expandedIncomeTimelineItems.TryGetValue(scenario.ScenarioId, out var expandedSet) && expandedSet.Contains(timeline.Id);
+                                                                            var isSettingsActive = IsIncomeTimelineSettingsActive(scenario.ScenarioId, timeline.Id);
                                                                             <li>
-                                                                                <button class="nav-item nav-income-item @(isSubActive ? "active" : "")"
-                                                                                        @onclick="@(() => NavigateToIncomeSubPage(scenario.ScenarioId, subView))">
-                                                                                    <span class="nav-income-dot @(isSubActive ? "filled" : "")"></span>
-                                                                                    <span class="nav-label">@DashboardLocalizer[labelKey]</span>
+                                                                                <button class="nav-item nav-income-item nav-item-sub-sub-expandable @(isItemExpanded ? "expanded" : "") @(isSettingsActive ? "active" : "")"
+                                                                                        @onclick="@(() => { if (timeline.IsFullyCreated) ToggleIncomeTimelineItem(scenario.ScenarioId, timeline.Id); else Navigation.NavigateTo($"/scenario/{scenario.ScenarioId}/income/timeline/{timeline.Id}/settings", forceLoad: false); })">
+                                                                                    <span class="nav-income-dot @(isSettingsActive ? "filled" : "")"></span>
+                                                                                    <span class="nav-label">@string.Format(DashboardLocalizer["Sidebar_Income_TimelineLabel"].Value, timeline.AgeFrom, timeline.AgeTo)</span>
+                                                                                    @if (timeline.IsFullyCreated)
+                                                                                    {
+                                                                                        <span class="nav-chevron">
+                                                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                <polyline points="6 9 12 15 18 9"/>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                    }
                                                                                 </button>
+                                                                                @if (timeline.IsFullyCreated && isItemExpanded)
+                                                                                {
+                                                                                    <ul class="nav-income-submenu">
+                                                                                        <li>
+                                                                                            <button class="nav-item nav-income-item @(isSettingsActive ? "active" : "")"
+                                                                                                    @onclick="@(() => Navigation.NavigateTo($"/scenario/{scenario.ScenarioId}/income/timeline/{timeline.Id}/settings", forceLoad: false))">
+                                                                                                <span class="nav-income-dot @(isSettingsActive ? "filled" : "")"></span>
+                                                                                                <span class="nav-label">@DashboardLocalizer["Sidebar_Income_Settings"]</span>
+                                                                                            </button>
+                                                                                        </li>
+                                                                                        @foreach (var (subView, labelKey) in new (string, string)[]
+                                                                                        {
+                                                                                            ("employment",            "Sidebar_Income_Employment"),
+                                                                                            ("self-employment",       "Sidebar_Income_SelfEmployment"),
+                                                                                            ("defined-benefits",      "Sidebar_Income_DefinedBenefits"),
+                                                                                            ("defined-contribution",  "Sidebar_Income_DefinedContribution"),
+                                                                                            ("group-rrsp",            "Sidebar_Income_GroupRrsp"),
+                                                                                            ("defined-profit-sharing","Sidebar_Income_DefinedProfitSharing"),
+                                                                                            ("share-purchase-plan",   "Sidebar_Income_SharePurchasePlan"),
+                                                                                            ("oas-cpp",               "Sidebar_Income_OasCpp"),
+                                                                                            ("other",                 "Sidebar_Income_Other"),
+                                                                                        })
+                                                                                        {
+                                                                                            var isSubActive = IsIncomeTimelineSubActive(scenario.ScenarioId, timeline.Id, subView);
+                                                                                            <li>
+                                                                                                <button class="nav-item nav-income-item @(isSubActive ? "active" : "")"
+                                                                                                        @onclick="@(() => NavigateToIncomeSubPage(scenario.ScenarioId, timeline.Id, subView))">
+                                                                                                    <span class="nav-income-dot @(isSubActive ? "filled" : "")"></span>
+                                                                                                    <span class="nav-label">@DashboardLocalizer[labelKey]</span>
+                                                                                                </button>
+                                                                                            </li>
+                                                                                        }
+                                                                                    </ul>
+                                                                                }
                                                                             </li>
                                                                         }
-                                                                    </ul>
-                                                                }
-                                                            </li>
-                                                            <li>
-                                                                @{
-                                                                    var isPersistingExpanded = _expandedPersistingIncomeSubMenu.Contains(scenario.ScenarioId);
-                                                                    var isPersistingActive = _activeScenarioId == scenario.ScenarioId && (_activeIncomeSubView == "real-estate-income" || _activeIncomeSubView == "other-persisting-income");
-                                                                }
-                                                                <button class="nav-item nav-item-sub-sub nav-item-sub-sub-expandable @(isPersistingExpanded ? "expanded" : "")"
-                                                                        @onclick="@(() => TogglePersistingIncomeSubMenu(scenario.ScenarioId))">
-                                                                    <span class="nav-label @(isPersistingActive ? "nav-label-active" : "")">@DashboardLocalizer["Sidebar_Income_PersistingIncome"]</span>
-                                                                    <span class="nav-chevron">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                                            <polyline points="6 9 12 15 18 9"/>
-                                                                        </svg>
-                                                                    </span>
-                                                                </button>
-                                                                @if (isPersistingExpanded)
-                                                                {
-                                                                    <ul class="nav-income-submenu">
-                                                                        @foreach (var (subView, labelKey) in new (string, string)[]
-                                                                        {
-                                                                            ("real-estate-income",      "Sidebar_Income_RealEstateIncome"),
-                                                                            ("other-persisting-income", "Sidebar_Income_OtherPersistingIncome"),
-                                                                        })
-                                                                        {
-                                                                            var isSubActive = IsIncomeSubActive(scenario.ScenarioId, subView) == "active";
-                                                                            <li>
-                                                                                <button class="nav-item nav-income-item @(isSubActive ? "active" : "")"
-                                                                                        @onclick="@(() => NavigateToIncomeSubPage(scenario.ScenarioId, subView))">
-                                                                                    <span class="nav-income-dot @(isSubActive ? "filled" : "")"></span>
-                                                                                    <span class="nav-label">@DashboardLocalizer[labelKey]</span>
-                                                                                </button>
-                                                                            </li>
-                                                                        }
+                                                                        <li>
+                                                                            <button class="nav-item nav-new-timeline-btn" @onclick="@(() => OnNewIncomeTimelineClick(scenario.ScenarioId))" disabled="@_isCreatingIncomeTimeline">
+                                                                                <span class="nav-label">@DashboardLocalizer["Sidebar_Income_NewTimeline"]</span>
+                                                                            </button>
+                                                                        </li>
                                                                     </ul>
                                                                 }
                                                             </li>
@@ -235,63 +240,70 @@
                                                                 @if (isSpendingExpanded)
                                                                 {
                                                                     <ul class="nav-income-submenu">
-                                                                        @foreach (var (subView, labelKey) in new (string, string)[]
+                                                                        @{
+                                                                            var expenseTimelineItems = _expenseTimelines.TryGetValue(scenario.ScenarioId, out var etItems) ? etItems : [];
+                                                                        }
+                                                                        @foreach (var timeline in expenseTimelineItems)
                                                                         {
-                                                                            ("living-expenses",        "Sidebar_Spending_LivingExpenses"),
-                                                                            ("discretionary-expenses", "Sidebar_Spending_DiscretionaryExpenses"),
-                                                                            ("debt-repayments",        "Sidebar_Spending_DebtRepayments"),
-                                                                            ("assets-expenses",        "Sidebar_Spending_AssetsExpenses"),
-                                                                            ("other-expenses",         "Sidebar_Spending_OtherExpenses"),
-                                                                        })
-                                                                        {
-                                                                            var isSubActive = IsSpendingSubActive(scenario.ScenarioId, subView) == "active";
+                                                                            var isItemExpanded = _expandedExpenseTimelineItems.TryGetValue(scenario.ScenarioId, out var expandedSet) && expandedSet.Contains(timeline.Id);
+                                                                            var isSettingsActive = IsExpenseTimelineSettingsActive(scenario.ScenarioId, timeline.Id);
                                                                             <li>
-                                                                                <button class="nav-item nav-income-item @(isSubActive ? "active" : "")"
-                                                                                        @onclick="@(() => NavigateToSpendingSubPage(scenario.ScenarioId, subView))">
-                                                                                    <span class="nav-income-dot @(isSubActive ? "filled" : "")"></span>
-                                                                                    <span class="nav-label">@DashboardLocalizer[labelKey]</span>
+                                                                                <button class="nav-item nav-income-item nav-item-sub-sub-expandable @(isItemExpanded ? "expanded" : "") @(isSettingsActive ? "active" : "")"
+                                                                                        @onclick="@(() => { if (timeline.IsFullyCreated) ToggleExpenseTimelineItem(scenario.ScenarioId, timeline.Id); else Navigation.NavigateTo($"/scenario/{scenario.ScenarioId}/spending/timeline/{timeline.Id}/settings", forceLoad: false); })">
+                                                                                    <span class="nav-income-dot @(isSettingsActive ? "filled" : "")"></span>
+                                                                                    <span class="nav-label">@string.Format(DashboardLocalizer["Sidebar_Spending_TimelineLabel"].Value, timeline.AgeFrom, timeline.AgeTo)</span>
+                                                                                    @if (timeline.IsFullyCreated)
+                                                                                    {
+                                                                                        <span class="nav-chevron">
+                                                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                <polyline points="6 9 12 15 18 9"/>
+                                                                                            </svg>
+                                                                                        </span>
+                                                                                    }
                                                                                 </button>
+                                                                                @if (timeline.IsFullyCreated && isItemExpanded)
+                                                                                {
+                                                                                    <ul class="nav-income-submenu">
+                                                                                        <li>
+                                                                                            <button class="nav-item nav-income-item @(isSettingsActive ? "active" : "")"
+                                                                                                    @onclick="@(() => Navigation.NavigateTo($"/scenario/{scenario.ScenarioId}/spending/timeline/{timeline.Id}/settings", forceLoad: false))">
+                                                                                                <span class="nav-income-dot @(isSettingsActive ? "filled" : "")"></span>
+                                                                                                <span class="nav-label">@DashboardLocalizer["Sidebar_RetirementSpending_Settings"]</span>
+                                                                                            </button>
+                                                                                        </li>
+                                                                                        @foreach (var (subView2, labelKey2) in new (string, string)[]
+                                                                                        {
+                                                                                            ("living-expenses",        "Sidebar_Spending_LivingExpenses"),
+                                                                                            ("discretionary-expenses", "Sidebar_Spending_DiscretionaryExpenses"),
+                                                                                            ("debt-repayments",        "Sidebar_Spending_DebtRepayments"),
+                                                                                            ("assets-expenses",        "Sidebar_Spending_AssetsExpenses"),
+                                                                                            ("investment-expenses",    "Sidebar_Spending_InvestmentExpenses"),
+                                                                                            ("other-expenses",         "Sidebar_Spending_OtherExpenses"),
+                                                                                        })
+                                                                                        {
+                                                                                            var isSubActive2 = IsExpenseTimelineSubActive(scenario.ScenarioId, timeline.Id, subView2);
+                                                                                            <li>
+                                                                                                <button class="nav-item nav-income-item @(isSubActive2 ? "active" : "")"
+                                                                                                        @onclick="@(() => Navigation.NavigateTo($"/scenario/{scenario.ScenarioId}/spending/timeline/{timeline.Id}/{subView2}", forceLoad: false))">
+                                                                                                    <span class="nav-income-dot @(isSubActive2 ? "filled" : "")"></span>
+                                                                                                    <span class="nav-label">@DashboardLocalizer[labelKey2]</span>
+                                                                                                </button>
+                                                                                            </li>
+                                                                                        }
+                                                                                    </ul>
+                                                                                }
                                                                             </li>
                                                                         }
-                                                                    </ul>
-                                                                }
-                                                            </li>
-                                                            <li>
-                                                                @{
-                                                                    var isRetirementSpendingExpanded = _expandedRetirementSpendingSubMenu.Contains(scenario.ScenarioId);
-                                                                    var retirementSpendingItems = _retirementSpendings.TryGetValue(scenario.ScenarioId, out var rsItems) ? rsItems : [];
-                                                                }
-                                                                <button class="nav-item nav-item-sub-sub nav-item-sub-sub-expandable @(isRetirementSpendingExpanded ? "expanded" : "")"
-                                                                        @onclick="@(() => ToggleRetirementSpendingSubMenu(scenario.ScenarioId))">
-                                                                    <span class="nav-label @(_activeScenarioId == scenario.ScenarioId && _activeView == "retirement-spending" ? "nav-label-active" : "")">@DashboardLocalizer["Sidebar_RetirementSpending"]</span>
-                                                                    <span class="nav-chevron">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                                            <polyline points="6 9 12 15 18 9"/>
-                                                                        </svg>
-                                                                    </span>
-                                                                </button>
-                                                                @if (isRetirementSpendingExpanded)
-                                                                {
-                                                                    <ul class="nav-income-submenu">
-                                                                        @foreach (var rs in retirementSpendingItems)
-                                                                        {
-                                                                            var isRsActive = IsRetirementSpendingActive(scenario.ScenarioId, rs.Id);
-                                                                            <li>
-                                                                                <button class="nav-item nav-income-item @(isRsActive ? "active" : "")"
-                                                                                        @onclick="@(() => Navigation.NavigateTo($"/scenario/{scenario.ScenarioId}/retirement-spending/{rs.Id}/settings", forceLoad: false))">
-                                                                                    <span class="nav-income-dot @(isRsActive ? "filled" : "")"></span>
-                                                                                    <span class="nav-label">@string.Format(DashboardLocalizer["Sidebar_RetirementSpending_AgeLabel"].Value, rs.AgeFrom, rs.AgeTo)</span>
-                                                                                </button>
-                                                                            </li>
-                                                                        }
+
                                                                         <li>
-                                                                            <button class="nav-item nav-item-new-retirement-expense"
-                                                                                    @onclick="@(() => OnNewRetirementSpendingClick(scenario.ScenarioId))"
-                                                                                    disabled="@_isCreatingRetirementSpending">
-                                                                                <span class="nav-label">@DashboardLocalizer["Sidebar_RetirementSpending_New"]</span>
+                                                                            <button class="nav-item nav-income-item nav-item-new-expense-timeline"
+                                                                                    @onclick="@(() => OnNewExpenseTimelineClick(scenario.ScenarioId))"
+                                                                                    disabled="@_isCreatingExpenseTimeline">
+                                                                                <span class="nav-income-dot" style="border-style: dashed;"></span>
+                                                                                <span class="nav-label">@DashboardLocalizer["Sidebar_Spending_NewTimeline"]</span>
                                                                             </button>
                                                                         </li>
-                                                                    </ul>
+                                                                        </ul>
                                                                 }
                                                             </li>
                                                         </ul>

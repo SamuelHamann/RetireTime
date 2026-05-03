@@ -158,6 +158,24 @@
     cursor: not-allowed;
 }
 
+/* New Expense Timeline Button — inline like other income items */
+.nav-item-new-expense-timeline {
+    color: var(--ne-primary);
+    opacity: 1;
+    font-style: italic;
+}
+
+.nav-item-new-expense-timeline:hover {
+    background: var(--ne-primary-tint);
+    color: var(--ne-primary);
+    opacity: 1;
+}
+
+.nav-item-new-expense-timeline:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
 /* Section Divider */
 .sidebar-section-divider {
     height: 1px;

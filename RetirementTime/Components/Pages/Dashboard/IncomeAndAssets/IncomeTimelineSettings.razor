@@ -1,0 +1,72 @@
+@page "/scenario/{scenarioId:long}/income/timeline/{timelineId:long}/settings"
+@layout DashboardLayout
+@rendermode InteractiveServer
+
+@using RetirementTime.Models.Spending
+@using RetirementTime.Resources.Dashboard
+
+<div class="intro-step">
+    <div class="step-header-animate">
+        <h1 class="font-headline text-5xl font-bold text-ne-primary mt-3 mb-2">@Localizer["IncomeTimeline_Title"]</h1>
+        <p class="font-body text-ne-on-surface-variant text-base leading-relaxed">@Localizer["IncomeTimeline_Subtitle"]</p>
+    </div>
+
+    <div class="step-body-animate">
+        @if (_isLoading)
+        {
+            <div class="intro-loading"><p>Loading...</p></div>
+        }
+        else
+        {
+            <div class="bg-ne-surface-low rounded-xl px-8 pb-8 pt-5 shadow-sm">
+                <div class="income-fields-grid">
+
+                    <div class="field-group">
+                        <label class="field-question">@Localizer["IncomeTimeline_AgeFrom"]</label>
+                        <input type="number" class="field-input" @bind="_model.AgeFrom" min="0" max="120" />
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-question">@Localizer["IncomeTimeline_AgeTo"]</label>
+                        <input type="number" class="field-input" @bind="_model.AgeTo" min="0" max="120" />
+                    </div>
+
+                    <div class="field-group income-field-full">
+                        <label class="field-question">@Localizer["IncomeTimeline_CloneFrom"]</label>
+                        <select class="field-select" @bind="_model.CloneFromId" disabled="@_model.IsFullyCreated">
+                            <option value="">@Localizer["IncomeTimeline_CloneFromNone"]</option>
+                            @foreach (var other in _otherTimelines)
+                            {
+                                <option value="@other.Id">@other.Name (@other.AgeFrom – @other.AgeTo)</option>
+                            }
+                        </select>
+                        @if (_model.IsFullyCreated)
+                        {
+                            <p class="field-sublabel mt-1">@Localizer["IncomeTimeline_CloneFromLocked"]</p>
+                        }
+                    </div>
+
+                </div>
+
+                @if (!string.IsNullOrEmpty(_errorMessage))
+                {
+                    <p class="field-error mt-3">@_errorMessage</p>
+                }
+
+                <div class="income-actions mt-6">
+                    <button class="btn-primary" @onclick="Save" disabled="@_isSaving">
+                        @(_isSaving ? Localizer["IncomeTimeline_Saving"] : Localizer["IncomeTimeline_Save"])
+                    </button>
+
+                    @if (_model.IsFullyCreated)
+                    {
+                        <button class="btn-danger ml-3" @onclick="Delete" disabled="@_isDeleting">
+                            @(_isDeleting ? Localizer["IncomeTimeline_Deleting"] : Localizer["IncomeTimeline_Delete"])
+                        </button>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

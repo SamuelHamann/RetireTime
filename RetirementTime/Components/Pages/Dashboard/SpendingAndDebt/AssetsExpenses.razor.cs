@@ -20,6 +20,7 @@ public partial class AssetsExpenses : ComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long TimelineId { get; set; }
 
     private bool _isLoading = true;
     private List<SpendingAssetsExpenseItemModel> _linkedItems = [];
@@ -33,7 +34,7 @@ public partial class AssetsExpenses : ComponentBase
         var authenticatedUser = await AuthService.GetAuthenticatedUserAsync(AuthenticationState);
         if (authenticatedUser == null) { Navigation.NavigateTo("/"); return; }
 
-        var result = await Mediator.Send(new GetAssetsExpensesQuery(ScenarioId));
+        var result = await Mediator.Send(new GetAssetsExpensesQuery(ScenarioId, TimelineId));
         _frequencies = result.Frequencies;
         var existing = result.Expenses;
 
@@ -86,7 +87,7 @@ public partial class AssetsExpenses : ComponentBase
         if (found == null)
         {
             var created = await Mediator.Send(new CreateAssetsExpenseCommand(
-                ScenarioId, homeId, propId, accountId, physicalId));
+                ScenarioId, TimelineId, homeId, propId, accountId, physicalId));
             if (created.Success)
                 _linkedItems.Add(new SpendingAssetsExpenseItemModel
                 {
@@ -132,7 +133,7 @@ public partial class AssetsExpenses : ComponentBase
 
     private async Task AddStandalone()
     {
-        var result = await Mediator.Send(new CreateAssetsExpenseCommand(ScenarioId));
+        var result = await Mediator.Send(new CreateAssetsExpenseCommand(ScenarioId, TimelineId));
         if (result.Success)
             _standaloneItems.Add(new SpendingAssetsExpenseItemModel
             {

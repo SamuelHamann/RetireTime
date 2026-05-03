@@ -183,6 +183,102 @@ namespace RetirementTime.Resources.Dashboard {
             }
         }
         
+        public static string Sidebar_Income_NewTimeline {
+            get {
+                return ResourceManager.GetString("Sidebar_Income_NewTimeline", resourceCulture);
+            }
+        }
+        
+        public static string Sidebar_Income_TimelineLabel {
+            get {
+                return ResourceManager.GetString("Sidebar_Income_TimelineLabel", resourceCulture);
+            }
+        }
+        
+        public static string Sidebar_Income_Settings {
+            get {
+                return ResourceManager.GetString("Sidebar_Income_Settings", resourceCulture);
+            }
+        }
+        
+        public static string IncomeTimeline_Title {
+            get {
+                return ResourceManager.GetString("IncomeTimeline_Title", resourceCulture);
+            }
+        }
+        
+        public static string IncomeTimeline_Subtitle {
+            get {
+                return ResourceManager.GetString("IncomeTimeline_Subtitle", resourceCulture);
+            }
+        }
+        
+        public static string IncomeTimeline_AgeFrom {
+            get {
+                return ResourceManager.GetString("IncomeTimeline_AgeFrom", resourceCulture);
+            }
+        }
+        
+        public static string IncomeTimeline_AgeTo {
+            get {
+                return ResourceManager.GetString("IncomeTimeline_AgeTo", resourceCulture);
+            }
+        }
+        
+        public static string IncomeTimeline_CloneFrom {
+            get {
+                return ResourceManager.GetString("IncomeTimeline_CloneFrom", resourceCulture);
+            }
+        }
+        
+        public static string IncomeTimeline_CloneFromNone {
+            get {
+                return ResourceManager.GetString("IncomeTimeline_CloneFromNone", resourceCulture);
+            }
+        }
+        
+        public static string IncomeTimeline_CloneFromLocked {
+            get {
+                return ResourceManager.GetString("IncomeTimeline_CloneFromLocked", resourceCulture);
+            }
+        }
+        
+        public static string IncomeTimeline_Save {
+            get {
+                return ResourceManager.GetString("IncomeTimeline_Save", resourceCulture);
+            }
+        }
+        
+        public static string IncomeTimeline_Saving {
+            get {
+                return ResourceManager.GetString("IncomeTimeline_Saving", resourceCulture);
+            }
+        }
+        
+        public static string IncomeTimeline_Delete {
+            get {
+                return ResourceManager.GetString("IncomeTimeline_Delete", resourceCulture);
+            }
+        }
+        
+        public static string IncomeTimeline_Deleting {
+            get {
+                return ResourceManager.GetString("IncomeTimeline_Deleting", resourceCulture);
+            }
+        }
+        
+        public static string IncomeTimeline_SaveError {
+            get {
+                return ResourceManager.GetString("IncomeTimeline_SaveError", resourceCulture);
+            }
+        }
+        
+        public static string IncomeTimeline_DeleteError {
+            get {
+                return ResourceManager.GetString("IncomeTimeline_DeleteError", resourceCulture);
+            }
+        }
+        
         public static string Sidebar_Spending {
             get {
                 return ResourceManager.GetString("Sidebar_Spending", resourceCulture);
@@ -219,6 +315,144 @@ namespace RetirementTime.Resources.Dashboard {
             }
         }
         
+        public static string Sidebar_Spending_InvestmentExpenses {
+            get {
+                return ResourceManager.GetString("Sidebar_Spending_InvestmentExpenses", resourceCulture);
+            }
+        }
+        
+        public static string Sidebar_Spending_NewTimeline {
+            get {
+                return ResourceManager.GetString("Sidebar_Spending_NewTimeline", resourceCulture);
+            }
+        }
+        
+        public static string Sidebar_Spending_TimelineLabel {
+            get {
+                return ResourceManager.GetString("Sidebar_Spending_TimelineLabel", resourceCulture);
+            }
+        }
+        
+        public static string ExpenseTimeline_Title {
+            get {
+                return ResourceManager.GetString("ExpenseTimeline_Title", resourceCulture);
+            }
+        }
+        
+        public static string ExpenseTimeline_Subtitle {
+            get {
+                return ResourceManager.GetString("ExpenseTimeline_Subtitle", resourceCulture);
+            }
+        }
+        
+        public static string ExpenseTimeline_AgeFrom {
+            get {
+                return ResourceManager.GetString("ExpenseTimeline_AgeFrom", resourceCulture);
+            }
+        }
+        
+        public static string ExpenseTimeline_AgeTo {
+            get {
+                return ResourceManager.GetString("ExpenseTimeline_AgeTo", resourceCulture);
+            }
+        }
+        
+        public static string ExpenseTimeline_CloneFrom {
+            get {
+                return ResourceManager.GetString("ExpenseTimeline_CloneFrom", resourceCulture);
+            }
+        }
+        
+        public static string ExpenseTimeline_CloneFromNone {
+            get {
+                return ResourceManager.GetString("ExpenseTimeline_CloneFromNone", resourceCulture);
+            }
+        }
+        
+        public static string ExpenseTimeline_CloneFromLocked {
+            get {
+                return ResourceManager.GetString("ExpenseTimeline_CloneFromLocked", resourceCulture);
+            }
+        }
+        
+        public static string ExpenseTimeline_Save {
+            get {
+                return ResourceManager.GetString("ExpenseTimeline_Save", resourceCulture);
+            }
+        }
+        
+        public static string ExpenseTimeline_Saving {
+            get {
+                return ResourceManager.GetString("ExpenseTimeline_Saving", resourceCulture);
+            }
+        }
+        
+        public static string ExpenseTimeline_Delete {
+            get {
+                return ResourceManager.GetString("ExpenseTimeline_Delete", resourceCulture);
+            }
+        }
+        
+        public static string ExpenseTimeline_SaveError {
+            get {
+                return ResourceManager.GetString("ExpenseTimeline_SaveError", resourceCulture);
+            }
+        }
+        
+        public static string ExpenseTimeline_DeleteError {
+            get {
+                return ResourceManager.GetString("ExpenseTimeline_DeleteError", resourceCulture);
+            }
+        }
+        
+        public static string Spending_Investment_Title {
+            get {
+                return ResourceManager.GetString("Spending_Investment_Title", resourceCulture);
+            }
+        }
+        
+        public static string Spending_Investment_Subtitle {
+            get {
+                return ResourceManager.GetString("Spending_Investment_Subtitle", resourceCulture);
+            }
+        }
+        
+        public static string Spending_Investment_SectionTitle {
+            get {
+                return ResourceManager.GetString("Spending_Investment_SectionTitle", resourceCulture);
+            }
+        }
+        
+        public static string Spending_Investment_Hint {
+            get {
+                return ResourceManager.GetString("Spending_Investment_Hint", resourceCulture);
+            }
+        }
+        
+        public static string Spending_Investment_AddItem {
+            get {
+                return ResourceManager.GetString("Spending_Investment_AddItem", resourceCulture);
+            }
+        }
+        
+        public static string Spending_Investment_Item {
+            get {
+                return ResourceManager.GetString("Spending_Investment_Item", resourceCulture);
+            }
+        }
+        
+        public static string Spending_Investment_Account {
+            get {
+                return ResourceManager.GetString("Spending_Investment_Account", resourceCulture);
+            }
+        }
+        
+        public static string Spending_Investment_AccountPlaceholder {
+            get {
+                return ResourceManager.GetString("Spending_Investment_AccountPlaceholder", resourceCulture);
+            }
+        }
+        
         public static string Sidebar_RetirementSpending {
             get {
                 return ResourceManager.GetString("Sidebar_RetirementSpending", resourceCulture);
@@ -234,6 +468,12 @@ namespace RetirementTime.Resources.Dashboard {
         public static string Sidebar_RetirementSpending_AgeLabel {
             get {
                 return ResourceManager.GetString("Sidebar_RetirementSpending_AgeLabel", resourceCulture);
+            }
+        }
+        
+        public static string Sidebar_RetirementSpending_Settings {
+            get {
+                return ResourceManager.GetString("Sidebar_RetirementSpending_Settings", resourceCulture);
             }
         }
         

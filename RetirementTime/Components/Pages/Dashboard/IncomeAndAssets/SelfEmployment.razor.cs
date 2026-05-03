@@ -23,6 +23,7 @@ public partial class SelfEmployment : ComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long TimelineId { get; set; }
 
     private bool _isLoading = true;
     private List<SelfEmploymentItemModel> _selfEmploymentItems = [];
@@ -40,7 +41,7 @@ public partial class SelfEmployment : ComponentBase
         }
 
         _frequencies = await Mediator.Send(new GetFrequenciesQuery());
-        var items = await Mediator.Send(new GetSelfEmploymentIncomesQuery(ScenarioId));
+        var items = await Mediator.Send(new GetSelfEmploymentIncomesQuery(ScenarioId, TimelineId));
 
         _selfEmploymentItems = items.Select(e => new SelfEmploymentItemModel
         {
@@ -62,7 +63,7 @@ public partial class SelfEmployment : ComponentBase
 
     private async Task AddSelfEmployment()
     {
-        var result = await Mediator.Send(new CreateSelfEmploymentIncomeCommand(ScenarioId));
+        var result = await Mediator.Send(new CreateSelfEmploymentIncomeCommand(ScenarioId, TimelineId));
         if (result.Success)
         {
             _selfEmploymentItems.Add(new SelfEmploymentItemModel { Id = result.SelfEmploymentIncomeId });

@@ -14,7 +14,7 @@ public partial class GetLivingExpensesHandler(
 
         try
         {
-            var expenses    = await repository.GetLivingExpensesAsync(request.ScenarioId);
+            var expenses    = await repository.GetLivingExpensesAsync(request.ScenarioId, request.TimelineId);
             var frequencies = await repository.GetFrequenciesAsync();
 
             LogSuccessfullyCompleted(logger, request.ScenarioId);

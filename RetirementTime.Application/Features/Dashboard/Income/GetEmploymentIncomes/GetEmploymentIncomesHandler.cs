@@ -15,7 +15,7 @@ public partial class GetEmploymentIncomesHandler(
 
         try
         {
-            var items = await employmentIncomeRepository.GetByScenarioIdAsync(request.ScenarioId);
+            var items = await employmentIncomeRepository.GetByScenarioIdAsync(request.ScenarioId, request.TimelineId);
 
             LogSuccessfullyCompleted(logger, items.Count, request.ScenarioId);
 

@@ -20,7 +20,7 @@ public partial class GetDebtRepaymentsHandler(
         LogStartingGet(logger, request.ScenarioId);
         try
         {
-            var repayments  = await spendingRepository.GetDebtRepaymentsAsync(request.ScenarioId);
+            var repayments  = await spendingRepository.GetDebtRepaymentsAsync(request.ScenarioId, request.TimelineId);
             var debts       = await debtRepository.GetAllByScenarioIdAsync(request.ScenarioId);
             var frequencies = await spendingRepository.GetFrequenciesAsync();
             LogSuccessGet(logger, request.ScenarioId);
@@ -39,10 +39,11 @@ public partial class GetDebtRepaymentsHandler(
         {
             var item = new SpendingDebtRepayment
             {
-                ScenarioId   = request.ScenarioId,
-                GenericDebtId = request.GenericDebtId,
-                Name         = string.Empty,
-                FrequencyId  = (int)FrequencyEnum.Monthly,
+                ScenarioId           = request.ScenarioId,
+                RetirementTimelineId = request.TimelineId,
+                GenericDebtId        = request.GenericDebtId,
+                Name                 = string.Empty,
+                FrequencyId          = (int)FrequencyEnum.Monthly,
             };
             var created = await spendingRepository.CreateDebtRepaymentAsync(item);
             return new CreateSpendingItemResult { Success = true, ItemId = created.Id };

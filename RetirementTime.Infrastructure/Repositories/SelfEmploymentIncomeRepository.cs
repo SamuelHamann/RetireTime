@@ -6,10 +6,10 @@ namespace RetirementTime.Infrastructure.Repositories;
 
 public class SelfEmploymentIncomeRepository(ApplicationDbContext context) : ISelfEmploymentIncomeRepository
 {
-    public async Task<List<SelfEmploymentIncome>> GetByScenarioIdAsync(long scenarioId)
+    public async Task<List<SelfEmploymentIncome>> GetByScenarioIdAsync(long scenarioId, long timelineId)
     {
         return await context.SelfEmploymentIncomes
-            .Where(e => e.ScenarioId == scenarioId)
+            .Where(e => e.ScenarioId == scenarioId && e.RetirementTimelineId == timelineId)
             .OrderBy(e => e.CreatedAt)
             .ToListAsync();
     }

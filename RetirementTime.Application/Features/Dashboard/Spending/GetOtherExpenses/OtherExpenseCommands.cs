@@ -5,15 +5,14 @@ using RetirementTime.Domain.Entities.Dashboard.Spending;
 
 namespace RetirementTime.Application.Features.Dashboard.Spending.GetOtherExpenses;
 
-public record GetOtherExpensesQuery(long ScenarioId) : IRequest<GetOtherExpensesResult>;
-
+public record GetOtherExpensesQuery(long ScenarioId, long TimelineId) : IRequest<GetOtherExpensesResult>;
 public record GetOtherExpensesResult
 {
     public List<SpendingOtherExpense> Expenses { get; init; } = [];
     public List<Frequency> Frequencies { get; init; } = [];
 }
 
-public record CreateOtherExpenseCommand(long ScenarioId) : IRequest<CreateSpendingItemResult>;
+public record CreateOtherExpenseCommand(long ScenarioId, long TimelineId) : IRequest<CreateSpendingItemResult>;
 
 public record UpdateOtherExpenseCommand : IRequest<BaseResult>
 {

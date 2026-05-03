@@ -1,4 +1,5 @@
 using RetirementTime.Domain.Entities.Common;
+using RetirementTime.Domain.Entities.Dashboard.Spending;
 
 namespace RetirementTime.Domain.Entities.Dashboard.Income;
 
@@ -7,6 +8,7 @@ public class EmploymentIncome
     public long Id { get; set; }
     public long ScenarioId { get; set; }
     public long UserId { get; set; }
+    public long? RetirementTimelineId { get; set; }
     public string EmployerName { get; set; } = string.Empty;
     public decimal? GrossSalary { get; set; }
     public int GrossSalaryFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
@@ -45,4 +47,5 @@ public class EmploymentIncome
     public Frequency CppDeductionFrequency { get; set; } = null!;
     public Frequency OtherDeductionFrequency { get; set; } = null!;
     public DashboardScenario Scenario { get; set; } = null!;
+    public RetirementTimeline? RetirementTimeline { get; set; }
 }

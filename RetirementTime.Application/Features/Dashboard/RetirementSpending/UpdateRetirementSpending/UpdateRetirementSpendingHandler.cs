@@ -6,7 +6,7 @@ using RetirementTime.Domain.Interfaces.Repositories;
 namespace RetirementTime.Application.Features.Dashboard.RetirementSpending.UpdateRetirementSpending;
 
 public partial class UpdateRetirementSpendingHandler(
-    IRetirementSpendingRepository repository,
+    IRetirementTimelineRepository repository,
     ILogger<UpdateRetirementSpendingHandler> logger) : IRequestHandler<UpdateRetirementSpendingCommand, BaseResult>
 {
     public async Task<BaseResult> Handle(UpdateRetirementSpendingCommand request, CancellationToken cancellationToken)
@@ -14,7 +14,6 @@ public partial class UpdateRetirementSpendingHandler(
         LogStartingHandler(logger, request.Id);
         try
         {
-            // Validate: no overlap with other retirement spendings in the same scenario
             var siblings = await repository.GetByScenarioIdAsync(request.ScenarioId);
             var overlapping = siblings.FirstOrDefault(e =>
                 e.Id != request.Id &&
@@ -26,16 +25,17 @@ public partial class UpdateRetirementSpendingHandler(
                 return new BaseResult
                 {
                     Success      = false,
-                    ErrorMessage = $"Age range {request.AgeFrom}–{request.AgeTo} overlaps with an existing retirement expense ({overlapping.AgeFrom}–{overlapping.AgeTo})."
+                    ErrorMessage = $"Age range {request.AgeFrom}–{request.AgeTo} overlaps with an existing retirement timeline ({overlapping.AgeFrom}–{overlapping.AgeTo})."
                 };
             }
 
-            var entity = new Domain.Entities.Dashboard.Spending.RetirementSpending
+            var entity = new Domain.Entities.Dashboard.Spending.RetirementTimeline
             {
                 Id             = request.Id,
                 Name           = request.Name,
                 AgeFrom        = request.AgeFrom,
                 AgeTo          = request.AgeTo,
+                TimelineType   = request.TimelineType,
                 IsFullyCreated = request.IsFullyCreated
             };
             await repository.UpdateAsync(entity);

@@ -15,7 +15,7 @@ public partial class GetOasCppIncomeHandler(
 
         try
         {
-            var item = await repository.GetByScenarioIdAsync(request.ScenarioId);
+            var item = await repository.GetByScenarioIdAsync(request.ScenarioId, request.TimelineId);
             LogSuccessfullyCompleted(logger, request.ScenarioId);
             return item;
         }

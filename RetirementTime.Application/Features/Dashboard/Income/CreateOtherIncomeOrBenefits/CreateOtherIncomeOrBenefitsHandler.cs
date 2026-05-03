@@ -15,7 +15,7 @@ public partial class CreateOtherIncomeOrBenefitsHandler(
 
         try
         {
-            var income = new OtherIncomeOrBenefits { ScenarioId = request.ScenarioId };
+            var income = new OtherIncomeOrBenefits { ScenarioId = request.ScenarioId, RetirementTimelineId = request.TimelineId };
             var created = await repository.CreateAsync(income);
 
             LogSuccessfullyCompleted(logger, created.Id, request.ScenarioId);

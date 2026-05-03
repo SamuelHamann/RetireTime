@@ -22,6 +22,7 @@ public partial class SharePurchasePlan : ComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long TimelineId { get; set; }
 
     private bool _isLoading = true;
     private List<SharePurchasePlanItemModel> _planItems = [];
@@ -33,7 +34,7 @@ public partial class SharePurchasePlan : ComponentBase
         var authenticatedUser = await AuthService.GetAuthenticatedUserAsync(AuthenticationState);
         if (authenticatedUser == null) { Navigation.NavigateTo("/"); return; }
 
-        var items = await Mediator.Send(new GetSharePurchasePlanQuery(ScenarioId));
+        var items = await Mediator.Send(new GetSharePurchasePlanQuery(ScenarioId, TimelineId));
         _planItems = items.Select(e => new SharePurchasePlanItemModel { Id = e.Id, Name = e.Name, PercentOfSalaryEmployee = e.PercentOfSalaryEmployee, PercentOfSalaryEmployer = e.PercentOfSalaryEmployer, UseFlatAmountInsteadOfPercent = e.UseFlatAmountInsteadOfPercent }).ToList();
         _isLoading = false;
         StateHasChanged();
@@ -41,7 +42,7 @@ public partial class SharePurchasePlan : ComponentBase
 
     private async Task AddPlan()
     {
-        var result = await Mediator.Send(new CreateSharePurchasePlanCommand(ScenarioId));
+        var result = await Mediator.Send(new CreateSharePurchasePlanCommand(ScenarioId, TimelineId));
         if (result.Success) _planItems.Add(new SharePurchasePlanItemModel { Id = result.PlanId });
     }
 
