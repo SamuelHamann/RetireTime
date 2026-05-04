@@ -20,6 +20,7 @@ public static class DependencyInjection
         services.AddRepositories();
         services.AddScoped<INetWorthSnapshotService, NetWorthSnapshotService>();
         services.AddScoped<INetWorthCalculationService, NetWorthCalculationService>();
+        services.AddScoped<ICashflowCalculationService, CashflowCalculationService>();
 
         return services;
     }
