@@ -1,5 +1,6 @@
 using RetirementTime.Domain.Entities.Common;
 using RetirementTime.Domain.Entities.Dashboard;
+using RetirementTime.Domain.Entities.Dashboard.Debt;
 using RetirementTime.Domain.Entities.Dashboard.Income;
 using RetirementTime.Domain.Entities.Dashboard.Spending;
 
@@ -24,6 +25,7 @@ public class CashflowTimelineData
     public List<SpendingDebtRepayment> DebtRepayments { get; set; } = [];
     public List<SpendingAssetsExpense> AssetsExpenses { get; set; } = [];
     public List<SpendingOtherExpense> OtherExpenses { get; set; } = [];
+    public List<SpendingInvestmentExpense> InvestmentExpenses { get; set; } = [];
 }
 
 /// <summary>
@@ -61,6 +63,7 @@ public interface ICashflowCalculationService
         List<CashflowTimelineData> expenseTimelines,
         List<Frequency> frequencies,
         DashboardAssumptions assumptions,
+        List<GenericDebt> debts,
         int currentAge,
         int retirementAge,
         int lifeExpectancy);

@@ -8,8 +8,10 @@ public record SaveLivingExpensesCommand : IRequest<BaseResult>
     public long ScenarioId { get; init; }
     public long TimelineId { get; init; }
 
-    public decimal? RentOrMortgage { get; init; }
-    public int RentOrMortgageFrequencyId { get; init; }
+    public decimal? Rent { get; init; }
+    public int? RentFrequencyId { get; init; }
+    public decimal? Mortgage { get; init; }
+    public int? MortgageFrequencyId { get; init; }
     public decimal? Food { get; init; }
     public int FoodFrequencyId { get; init; }
     public decimal? Utilities { get; init; }

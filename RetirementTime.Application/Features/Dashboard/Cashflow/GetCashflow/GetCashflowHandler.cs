@@ -19,6 +19,7 @@ public partial class GetCashflowHandler(
     IOnboardingEmploymentRepository onboardingEmploymentRepository,
     IDashboardScenarioRepository scenarioRepository,
     IDashboardAssumptionsRepository assumptionsRepository,
+    IGenericDebtRepository debtRepository,
     ICashflowCalculationService cashflowCalculationService,
     ILogger<GetCashflowHandler> logger) : IRequestHandler<GetCashflowQuery, GetCashflowResult>
 {
@@ -82,15 +83,20 @@ public partial class GetCashflowHandler(
                     DebtRepayments        = await spendingRepository.GetDebtRepaymentsAsync(request.ScenarioId, timeline.Id),
                     AssetsExpenses        = await spendingRepository.GetAssetsExpensesAsync(request.ScenarioId, timeline.Id),
                     OtherExpenses         = await spendingRepository.GetOtherExpensesAsync(request.ScenarioId, timeline.Id),
+                    InvestmentExpenses    = await spendingRepository.GetInvestmentExpensesAsync(request.ScenarioId, timeline.Id),
                 });
             }
 
-            // ── 7. Delegate calculations to the Domain service ────────────────
+            // ── 7. Debts linked to spending repayments ────────────────────────
+            var debts = await debtRepository.GetAllByScenarioIdAsync(request.ScenarioId);
+
+            // ── 8. Delegate calculations to the Domain service ────────────────
             var timelineTotals = cashflowCalculationService.CalculateTimelineTotals(
                 incomeTimelineData,
                 expenseTimelineData,
                 frequencies,
                 assumptions!,
+                debts,
                 currentAge ?? 0,
                 retirementAge ?? 0,
                 lifeExpectancy ?? 0);

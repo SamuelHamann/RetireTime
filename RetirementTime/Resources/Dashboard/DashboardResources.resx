@@ -811,6 +811,38 @@
     <value>Add Income / Benefit</value>
   </data>
 
+  <!-- Property Income -->
+  <data name="Sidebar_Income_PropertyIncome" xml:space="preserve">
+    <value>Property Income</value>
+  </data>
+  <data name="Income_PropertyIncome_Title" xml:space="preserve">
+    <value>Property Income</value>
+  </data>
+  <data name="Income_PropertyIncome_Subtitle" xml:space="preserve">
+    <value>Enter the rental income you receive from your investment properties.</value>
+  </data>
+  <data name="Income_PropertyIncome_SectionTitle" xml:space="preserve">
+    <value>Property Income</value>
+  </data>
+  <data name="Income_PropertyIncome_Hint" xml:space="preserve">
+    <value>Your investment properties are pre-filled below. You can also add additional property income manually.</value>
+  </data>
+  <data name="Income_PropertyIncome_Item" xml:space="preserve">
+    <value>Property {0}</value>
+  </data>
+  <data name="Income_PropertyIncome_Name" xml:space="preserve">
+    <value>Property Name</value>
+  </data>
+  <data name="Income_PropertyIncome_Amount" xml:space="preserve">
+    <value>Income Amount</value>
+  </data>
+  <data name="Income_PropertyIncome_Frequency" xml:space="preserve">
+    <value>Frequency</value>
+  </data>
+  <data name="Income_PropertyIncome_AddIncome" xml:space="preserve">
+    <value>Add Property Income</value>
+  </data>
+
   <!-- Persisting Income — Real Estate -->
   <data name="Sidebar_Income_PersistingIncome" xml:space="preserve">
     <value>Persisting Income</value>
@@ -1265,8 +1297,11 @@
   <data name="Spending_Living_SectionTitle" xml:space="preserve">
     <value>Living Expenses</value>
   </data>
-  <data name="Spending_Living_RentOrMortgage" xml:space="preserve">
-    <value>Rent or Mortgage</value>
+  <data name="Spending_Living_Rent" xml:space="preserve">
+    <value>Rent</value>
+  </data>
+  <data name="Spending_Living_Mortgage" xml:space="preserve">
+    <value>Mortgage</value>
   </data>
   <data name="Spending_Living_Food" xml:space="preserve">
     <value>Food &amp; Groceries</value>

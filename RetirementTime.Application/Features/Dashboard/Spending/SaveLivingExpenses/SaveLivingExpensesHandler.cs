@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using RetirementTime.Application.Common;
+using RetirementTime.Domain.Entities.Common;
 using RetirementTime.Domain.Entities.Dashboard.Spending;
 using RetirementTime.Domain.Interfaces.Repositories;
 
@@ -20,8 +21,10 @@ public partial class SaveLivingExpensesHandler(
             {
                 ScenarioId                     = request.ScenarioId,
                 RetirementTimelineId           = request.TimelineId,
-                RentOrMortgage                 = request.RentOrMortgage,
-                RentOrMortgageFrequencyId      = request.RentOrMortgageFrequencyId,
+                Rent                           = request.Rent,
+                RentFrequencyId                = request.Rent.HasValue ? (request.RentFrequencyId ?? (int)FrequencyEnum.Monthly) : null,
+                Mortgage                       = request.Mortgage,
+                MortgageFrequencyId            = request.Mortgage.HasValue ? (request.MortgageFrequencyId ?? (int)FrequencyEnum.Monthly) : null,
                 Food                           = request.Food,
                 FoodFrequencyId                = request.FoodFrequencyId,
                 Utilities                      = request.Utilities,

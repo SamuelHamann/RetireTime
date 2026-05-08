@@ -977,6 +977,49 @@ public class ApplicationDbContext : DbContext
                 .OnDelete(DeleteBehavior.Cascade);
         });
 
+        modelBuilder.Entity<PropertyIncome>(entity =>
+        {
+            entity.ToTable("dashboard_income_property_income");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(e => e.Amount)
+                .HasColumnType("numeric(18,2)");
+
+            entity.Property(e => e.FrequencyId)
+                .IsRequired();
+
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+
+            entity.HasOne(e => e.Scenario)
+                .WithMany()
+                .HasForeignKey(e => e.ScenarioId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.RetirementTimeline)
+                .WithMany()
+                .HasForeignKey(e => e.RetirementTimelineId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.InvestmentProperty)
+                .WithMany()
+                .HasForeignKey(e => e.InvestmentPropertyId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            entity.HasOne(e => e.Frequency)
+                .WithMany()
+                .HasForeignKey(e => e.FrequencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
         modelBuilder.Entity<AssetsHome>(entity =>
         {
             entity.ToTable("dashboard_assets_home");
@@ -1290,8 +1333,10 @@ public class ApplicationDbContext : DbContext
             entity.ToTable("dashboard_spending_living_expenses");            
             entity.HasKey(e => e.Id);
 
-            entity.Property(e => e.RentOrMortgage).HasColumnType("numeric(18,2)");
-            entity.Property(e => e.RentOrMortgageFrequencyId).IsRequired();
+            entity.Property(e => e.Rent).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.RentFrequencyId).IsRequired(false);
+            entity.Property(e => e.Mortgage).HasColumnType("numeric(18,2)");
+            entity.Property(e => e.MortgageFrequencyId).IsRequired(false);
             entity.Property(e => e.Food).HasColumnType("numeric(18,2)");
             entity.Property(e => e.FoodFrequencyId).IsRequired();
             entity.Property(e => e.Utilities).HasColumnType("numeric(18,2)");
@@ -1315,7 +1360,8 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.UpdatedAt).IsRequired().HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
 
             entity.HasOne(e => e.Scenario).WithMany().HasForeignKey(e => e.ScenarioId).OnDelete(DeleteBehavior.Cascade);
-            entity.HasOne(e => e.RentOrMortgageFrequency).WithMany().HasForeignKey(e => e.RentOrMortgageFrequencyId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.RentFrequency).WithMany().HasForeignKey(e => e.RentFrequencyId).IsRequired(false).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.MortgageFrequency).WithMany().HasForeignKey(e => e.MortgageFrequencyId).IsRequired(false).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(e => e.FoodFrequency).WithMany().HasForeignKey(e => e.FoodFrequencyId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(e => e.UtilitiesFrequency).WithMany().HasForeignKey(e => e.UtilitiesFrequencyId).OnDelete(DeleteBehavior.Restrict);
             entity.HasOne(e => e.InsuranceFrequency).WithMany().HasForeignKey(e => e.InsuranceFrequencyId).OnDelete(DeleteBehavior.Restrict);
@@ -1636,6 +1682,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<SharePurchasePlan> SharePurchasePlans { get; set; }
     public DbSet<OasCppIncome> OasCppIncomes { get; set; }
     public DbSet<OtherIncomeOrBenefits> OtherIncomeOrBenefits { get; set; }
+    public DbSet<PropertyIncome> PropertyIncomes { get; set; }
 
     // Dashboard — Assets
     public DbSet<AssetsHome> AssetsHomes { get; set; }

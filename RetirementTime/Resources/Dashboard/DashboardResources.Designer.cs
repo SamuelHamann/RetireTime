@@ -1431,6 +1431,66 @@ namespace RetirementTime.Resources.Dashboard {
             }
         }
         
+        public static string Sidebar_Income_PropertyIncome {
+            get {
+                return ResourceManager.GetString("Sidebar_Income_PropertyIncome", resourceCulture);
+            }
+        }
+        
+        public static string Income_PropertyIncome_Title {
+            get {
+                return ResourceManager.GetString("Income_PropertyIncome_Title", resourceCulture);
+            }
+        }
+        
+        public static string Income_PropertyIncome_Subtitle {
+            get {
+                return ResourceManager.GetString("Income_PropertyIncome_Subtitle", resourceCulture);
+            }
+        }
+        
+        public static string Income_PropertyIncome_SectionTitle {
+            get {
+                return ResourceManager.GetString("Income_PropertyIncome_SectionTitle", resourceCulture);
+            }
+        }
+        
+        public static string Income_PropertyIncome_Hint {
+            get {
+                return ResourceManager.GetString("Income_PropertyIncome_Hint", resourceCulture);
+            }
+        }
+        
+        public static string Income_PropertyIncome_Item {
+            get {
+                return ResourceManager.GetString("Income_PropertyIncome_Item", resourceCulture);
+            }
+        }
+        
+        public static string Income_PropertyIncome_Name {
+            get {
+                return ResourceManager.GetString("Income_PropertyIncome_Name", resourceCulture);
+            }
+        }
+        
+        public static string Income_PropertyIncome_Amount {
+            get {
+                return ResourceManager.GetString("Income_PropertyIncome_Amount", resourceCulture);
+            }
+        }
+        
+        public static string Income_PropertyIncome_Frequency {
+            get {
+                return ResourceManager.GetString("Income_PropertyIncome_Frequency", resourceCulture);
+            }
+        }
+        
+        public static string Income_PropertyIncome_AddIncome {
+            get {
+                return ResourceManager.GetString("Income_PropertyIncome_AddIncome", resourceCulture);
+            }
+        }
+        
         public static string Sidebar_Income_PersistingIncome {
             get {
                 return ResourceManager.GetString("Sidebar_Income_PersistingIncome", resourceCulture);
@@ -2319,9 +2379,15 @@ namespace RetirementTime.Resources.Dashboard {
             }
         }
         
-        public static string Spending_Living_RentOrMortgage {
+        public static string Spending_Living_Rent {
             get {
-                return ResourceManager.GetString("Spending_Living_RentOrMortgage", resourceCulture);
+                return ResourceManager.GetString("Spending_Living_Rent", resourceCulture);
+            }
+        }
+        
+        public static string Spending_Living_Mortgage {
+            get {
+                return ResourceManager.GetString("Spending_Living_Mortgage", resourceCulture);
             }
         }
         

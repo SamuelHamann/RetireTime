@@ -29,8 +29,10 @@ public class SpendingRepository(ApplicationDbContext context) : ISpendingReposit
             return expenses;
         }
 
-        existing.RentOrMortgage = expenses.RentOrMortgage;
-        existing.RentOrMortgageFrequencyId = expenses.RentOrMortgageFrequencyId;
+        existing.Rent = expenses.Rent;
+        existing.RentFrequencyId = expenses.RentFrequencyId;
+        existing.Mortgage = expenses.Mortgage;
+        existing.MortgageFrequencyId = expenses.MortgageFrequencyId;
         existing.Food = expenses.Food;
         existing.FoodFrequencyId = expenses.FoodFrequencyId;
         existing.Utilities = expenses.Utilities;
@@ -282,7 +284,8 @@ public class SpendingRepository(ApplicationDbContext context) : ISpendingReposit
             ? new SpendingLivingExpenses
             {
                 ScenarioId = scenarioId, RetirementTimelineId = targetTimelineId,
-                RentOrMortgage = sourceLiving.RentOrMortgage, RentOrMortgageFrequencyId = sourceLiving.RentOrMortgageFrequencyId,
+                Rent = sourceLiving.Rent, RentFrequencyId = sourceLiving.RentFrequencyId,
+                Mortgage = sourceLiving.Mortgage, MortgageFrequencyId = sourceLiving.MortgageFrequencyId,
                 Food = sourceLiving.Food, FoodFrequencyId = sourceLiving.FoodFrequencyId,
                 Utilities = sourceLiving.Utilities, UtilitiesFrequencyId = sourceLiving.UtilitiesFrequencyId,
                 Insurance = sourceLiving.Insurance, InsuranceFrequencyId = sourceLiving.InsuranceFrequencyId,

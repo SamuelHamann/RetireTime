@@ -4,8 +4,10 @@ namespace RetirementTime.Models.Spending;
 
 public class SpendingLivingExpensesModel
 {
-    public decimal? RentOrMortgage { get; set; }
-    public int RentOrMortgageFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
+    public decimal? Rent { get; set; }
+    public int? RentFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
+    public decimal? Mortgage { get; set; }
+    public int? MortgageFrequencyId { get; set; }
     public decimal? Food { get; set; }
     public int FoodFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
     public decimal? Utilities { get; set; }

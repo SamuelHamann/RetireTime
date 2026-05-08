@@ -26,8 +26,10 @@
             else
             {
                 <div class="income-fields-grid">
-                    @RenderAmountFrequencyRow("Spending_Living_RentOrMortgage", _model.RentOrMortgage, _model.RentOrMortgageFrequencyId,
-                        v => { _model.RentOrMortgage = v; }, f => { _model.RentOrMortgageFrequencyId = f; })
+                    @RenderNullableAmountFrequencyRow("Spending_Living_Rent", _model.Rent, _model.RentFrequencyId,
+                        v => { _model.Rent = v; }, f => { _model.RentFrequencyId = f; })
+                    @RenderNullableAmountFrequencyRow("Spending_Living_Mortgage", _model.Mortgage, _model.MortgageFrequencyId,
+                        v => { _model.Mortgage = v; }, f => { _model.MortgageFrequencyId = f; })
                     @RenderAmountFrequencyRow("Spending_Living_Food", _model.Food, _model.FoodFrequencyId,
                         v => { _model.Food = v; }, f => { _model.FoodFrequencyId = f; })
                     @RenderAmountFrequencyRow("Spending_Living_Utilities", _model.Utilities, _model.UtilitiesFrequencyId,
@@ -78,6 +80,31 @@
                 <select class="field-select"
                         value="@frequencyId"
                         @onchange="async e => { if (int.TryParse(e.Value?.ToString(), out var v)) { onFrequencyChange(v); await Save(); } }">
+                    @foreach (var f in _frequencies)
+                    {
+                        <option value="@f.Id">@f.Name</option>
+                    }
+                </select>
+            </div>
+        </div>;
+
+    private RenderFragment RenderNullableAmountFrequencyRow(string labelKey, decimal? amount, int? frequencyId,
+        Action<decimal?> onAmountChange, Action<int?> onFrequencyChange) =>
+        @<div class="spending-field-row">
+            <div class="field-group">
+                <label class="field-question">@Localizer[labelKey]</label>
+                <div class="money-input-wrapper">
+                    <input type="number" class="field-input money-input"
+                           value="@amount"
+                           @onchange="async e => { onAmountChange(e.Value is string s && decimal.TryParse(s, out var v) ? v : null); await Save(); }"
+                            />
+                </div>
+            </div>
+            <div class="field-group">
+                <label class="field-question">@Localizer["Spending_Field_Frequency"]</label>
+                <select class="field-select"
+                        value="@(frequencyId?.ToString() ?? "")"
+                        @onchange="async e => { onFrequencyChange(int.TryParse(e.Value?.ToString(), out var v) ? v : null); await Save(); }">
                     @foreach (var f in _frequencies)
                     {
                         <option value="@f.Id">@f.Name</option>

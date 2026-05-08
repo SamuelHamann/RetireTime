@@ -39,8 +39,10 @@ public partial class LivingExpenses : ComponentBase
 
         if (result.Expenses is { } e)
         {
-            _model.RentOrMortgage                 = e.RentOrMortgage;
-            _model.RentOrMortgageFrequencyId      = e.RentOrMortgageFrequencyId;
+            _model.Rent                           = e.Rent;
+            _model.RentFrequencyId                = e.RentFrequencyId;
+            _model.Mortgage                       = e.Mortgage;
+            _model.MortgageFrequencyId            = e.MortgageFrequencyId;
             _model.Food                           = e.Food;
             _model.FoodFrequencyId                = e.FoodFrequencyId;
             _model.Utilities                      = e.Utilities;
@@ -71,8 +73,10 @@ public partial class LivingExpenses : ComponentBase
         {
             ScenarioId                     = ScenarioId,
             TimelineId                     = TimelineId,
-            RentOrMortgage                 = _model.RentOrMortgage,
-            RentOrMortgageFrequencyId      = _model.RentOrMortgageFrequencyId,
+            Rent                           = _model.Rent,
+            RentFrequencyId                = _model.RentFrequencyId,
+            Mortgage                       = _model.Mortgage,
+            MortgageFrequencyId            = _model.MortgageFrequencyId,
             Food                           = _model.Food,
             FoodFrequencyId                = _model.FoodFrequencyId,
             Utilities                      = _model.Utilities,

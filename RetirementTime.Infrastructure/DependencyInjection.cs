@@ -46,6 +46,7 @@ public static class DependencyInjection
         services.AddScoped<ISharePurchasePlanRepository, SharePurchasePlanRepository>();
         services.AddScoped<IOasCppIncomeRepository, OasCppIncomeRepository>();
         services.AddScoped<IOtherIncomeOrBenefitsRepository, OtherIncomeOrBenefitsRepository>();
+        services.AddScoped<IPropertyIncomeRepository, PropertyIncomeRepository>();
         services.AddScoped<IAssetsHomeRepository, AssetsHomeRepository>();
         services.AddScoped<IAssetsInvestmentPropertyRepository, AssetsInvestmentPropertyRepository>();
         services.AddScoped<IAssetsInvestmentAccountRepository, AssetsInvestmentAccountRepository>();

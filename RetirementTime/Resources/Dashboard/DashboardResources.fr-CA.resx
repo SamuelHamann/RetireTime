@@ -876,6 +876,36 @@
   <data name="Income_Other_AddIncome" xml:space="preserve">
     <value>Ajouter un revenu / prestation</value>
   </data>
+  <data name="Sidebar_Income_PropertyIncome" xml:space="preserve">
+    <value>Revenus locatifs</value>
+  </data>
+  <data name="Income_PropertyIncome_Title" xml:space="preserve">
+    <value>Revenus locatifs</value>
+  </data>
+  <data name="Income_PropertyIncome_Subtitle" xml:space="preserve">
+    <value>Entrez les revenus de location que vous percevez de vos propriétés d'investissement.</value>
+  </data>
+  <data name="Income_PropertyIncome_SectionTitle" xml:space="preserve">
+    <value>Revenus locatifs</value>
+  </data>
+  <data name="Income_PropertyIncome_Hint" xml:space="preserve">
+    <value>Vos propriétés d'investissement sont préremplies ci-dessous. Vous pouvez également ajouter des revenus supplémentaires manuellement.</value>
+  </data>
+  <data name="Income_PropertyIncome_Item" xml:space="preserve">
+    <value>Propriété {0}</value>
+  </data>
+  <data name="Income_PropertyIncome_Name" xml:space="preserve">
+    <value>Nom de la propriété</value>
+  </data>
+  <data name="Income_PropertyIncome_Amount" xml:space="preserve">
+    <value>Montant du revenu</value>
+  </data>
+  <data name="Income_PropertyIncome_Frequency" xml:space="preserve">
+    <value>Fréquence</value>
+  </data>
+  <data name="Income_PropertyIncome_AddIncome" xml:space="preserve">
+    <value>Ajouter un revenu locatif</value>
+  </data>
   <data name="Sidebar_Assets" xml:space="preserve">
     <value>Actifs</value>
   </data>
@@ -1263,8 +1293,11 @@
   <data name="Spending_Living_SectionTitle" xml:space="preserve">
     <value>Dépenses courantes</value>
   </data>
-  <data name="Spending_Living_RentOrMortgage" xml:space="preserve">
-    <value>Loyer ou hypothèque</value>
+  <data name="Spending_Living_Rent" xml:space="preserve">
+    <value>Loyer</value>
+  </data>
+  <data name="Spending_Living_Mortgage" xml:space="preserve">
+    <value>Hypothèque</value>
   </data>
   <data name="Spending_Living_Food" xml:space="preserve">
     <value>Alimentation et épicerie</value>
