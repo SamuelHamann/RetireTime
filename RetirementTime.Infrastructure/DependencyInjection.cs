@@ -55,6 +55,7 @@ public static class DependencyInjection
         services.AddScoped<INetWorthHistoryRepository, NetWorthHistoryRepository>();
         services.AddScoped<ISpendingRepository, SpendingRepository>();
         services.AddScoped<IRetirementTimelineRepository, RetirementTimelineRepository>();
+        services.AddScoped<IOasConstantsRepository, OasConstantsRepository>();
 
         return services;
     }

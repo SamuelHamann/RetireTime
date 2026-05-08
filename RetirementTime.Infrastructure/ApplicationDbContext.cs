@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RetirementTime.Domain.Entities;
+using RetirementTime.Domain.Entities.Common;
 using RetirementTime.Domain.Entities.Dashboard;
 using RetirementTime.Domain.Entities.Dashboard.Income;
 using RetirementTime.Domain.Entities.Dashboard.Debt;
@@ -1281,13 +1282,55 @@ public class ApplicationDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict);
         });
 
+        modelBuilder.Entity<OasConstants>(entity =>
+        {
+            entity.ToTable("oas_constants");
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.PeriodLabel)
+                .IsRequired()
+                .HasMaxLength(20);
+            entity.Property(e => e.MonthlyRate65To74)
+                .IsRequired()
+                .HasColumnType("numeric(10,4)");
+            entity.Property(e => e.MonthlyRate75Plus)
+                .IsRequired()
+                .HasColumnType("numeric(10,4)");
+            entity.Property(e => e.ClawbackThreshold)
+                .IsRequired()
+                .HasColumnType("numeric(12,2)");
+            entity.Property(e => e.EliminationThreshold65To74)
+                .IsRequired()
+                .HasColumnType("numeric(12,2)");
+            entity.Property(e => e.EliminationThreshold75Plus)
+                .IsRequired()
+                .HasColumnType("numeric(12,2)");
+            entity.Property(e => e.DeferralRatePerMonth)
+                .IsRequired()
+                .HasColumnType("numeric(6,4)");
+            entity.Property(e => e.MinResidencyYears)
+                .IsRequired();
+            entity.Property(e => e.FullResidencyYears)
+                .IsRequired();
+            entity.Property(e => e.StandardStartAge)
+                .IsRequired();
+            entity.Property(e => e.MaxDeferralAge)
+                .IsRequired();
+            entity.Property(e => e.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            entity.Property(e => e.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+        });
+
+        SeedOasConstantsData(modelBuilder);
+
         modelBuilder.Entity<NetWorthHistory>(entity =>
         {
             entity.ToTable("dashboard_net_worth_history");
             entity.HasKey(e => e.Id);
             entity.Property(e => e.DateOfSnapShot)
-                .IsRequired();
-            entity.Property(e => e.Debts)
                 .IsRequired();
             entity.Property(e => e.Assets)
                 .IsRequired();
@@ -1641,12 +1684,40 @@ public class ApplicationDbContext : DbContext
         );
     }
 
+    /// <summary>
+    /// Seeds the OAS constants table with the January 2026 government-published rates.
+    /// Update this row (or insert a new one) whenever CRA publishes revised figures.
+    /// </summary>
+    private static void SeedOasConstantsData(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<OasConstants>().HasData(
+            new OasConstants
+            {
+                Id                        = 1,
+                PeriodLabel               = "2026-Q1",
+                MonthlyRate65To74         = 742.31m,
+                MonthlyRate75Plus         = 816.54m,
+                ClawbackThreshold         = 90_997m,
+                EliminationThreshold65To74 = 152_062m,
+                EliminationThreshold75Plus = 157_490m,
+                DeferralRatePerMonth       = 0.006m,
+                MinResidencyYears          = 10,
+                FullResidencyYears         = 40,
+                StandardStartAge           = 65,
+                MaxDeferralAge             = 70,
+                CreatedAt                  = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                UpdatedAt                  = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            }
+        );
+    }
+
     // Reference data
     public DbSet<Role> Roles { get; set; }
     public DbSet<Language> Languages { get; set; }
     public DbSet<Frequency> Frequencies { get; set; }
     public DbSet<PhysicalAssetType> PhysicalAssetTypes { get; set; }
     public DbSet<AccountType> AccountTypes { get; set; }
+    public DbSet<OasConstants> OasConstants { get; set; }
 
     // Location
     public DbSet<Country> Countries { get; set; }

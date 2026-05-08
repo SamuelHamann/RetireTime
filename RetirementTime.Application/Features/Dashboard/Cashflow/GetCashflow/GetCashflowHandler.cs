@@ -5,7 +5,6 @@ using RetirementTime.Domain.Entities.Dashboard.Income;
 using RetirementTime.Domain.Entities.Dashboard.Spending;
 using RetirementTime.Domain.Interfaces.Repositories;
 using RetirementTime.Domain.Interfaces.Services;
-
 namespace RetirementTime.Application.Features.Dashboard.Cashflow.GetCashflow;
 
 public partial class GetCashflowHandler(
@@ -13,6 +12,7 @@ public partial class GetCashflowHandler(
     ISelfEmploymentIncomeRepository selfEmploymentIncomeRepository,
     IPensionDefinedBenefitsRepository pensionDefinedBenefitsRepository,
     IOtherIncomeOrBenefitsRepository otherIncomeOrBenefitsRepository,
+    IPropertyIncomeRepository propertyIncomeRepository,
     ISpendingRepository spendingRepository,
     IRetirementTimelineRepository timelineRepository,
     IOnboardingPersonalInfoRepository onboardingPersonalInfoRepository,
@@ -20,6 +20,9 @@ public partial class GetCashflowHandler(
     IDashboardScenarioRepository scenarioRepository,
     IDashboardAssumptionsRepository assumptionsRepository,
     IGenericDebtRepository debtRepository,
+    IAssetsHomeRepository assetsHomeRepository,
+    IAssetsInvestmentPropertyRepository assetsInvestmentPropertyRepository,
+    IOasConstantsRepository oasConstantsRepository,
     ICashflowCalculationService cashflowCalculationService,
     ILogger<GetCashflowHandler> logger) : IRequestHandler<GetCashflowQuery, GetCashflowResult>
 {
@@ -63,11 +66,12 @@ public partial class GetCashflowHandler(
             {
                 incomeTimelineData.Add(new CashflowTimelineData
                 {
-                    Timeline             = timeline,
-                    EmploymentIncomes    = await employmentIncomeRepository.GetByScenarioIdAsync(request.ScenarioId, timeline.Id),
-                    SelfEmploymentIncomes = await selfEmploymentIncomeRepository.GetByScenarioIdAsync(request.ScenarioId, timeline.Id),
+                    Timeline               = timeline,
+                    EmploymentIncomes      = await employmentIncomeRepository.GetByScenarioIdAsync(request.ScenarioId, timeline.Id),
+                    SelfEmploymentIncomes  = await selfEmploymentIncomeRepository.GetByScenarioIdAsync(request.ScenarioId, timeline.Id),
                     PensionDefinedBenefits = await pensionDefinedBenefitsRepository.GetByScenarioIdAsync(request.ScenarioId, timeline.Id),
-                    OtherIncomes         = await otherIncomeOrBenefitsRepository.GetByScenarioIdAsync(request.ScenarioId, timeline.Id),
+                    OtherIncomes           = await otherIncomeOrBenefitsRepository.GetByScenarioIdAsync(request.ScenarioId, timeline.Id),
+                    PropertyIncomes        = await propertyIncomeRepository.GetByScenarioIdAsync(request.ScenarioId, timeline.Id),
                 });
             }
 
@@ -90,13 +94,23 @@ public partial class GetCashflowHandler(
             // ── 7. Debts linked to spending repayments ────────────────────────
             var debts = await debtRepository.GetAllByScenarioIdAsync(request.ScenarioId);
 
-            // ── 8. Delegate calculations to the Domain service ────────────────
+            // ── 8. Property assets ────────────────────────────────────────────
+            var home                 = await assetsHomeRepository.GetByScenarioIdAsync(request.ScenarioId);
+            var investmentProperties = await assetsInvestmentPropertyRepository.GetByScenarioIdAsync(request.ScenarioId);
+
+            // ── 9. OAS constants (government-published rates) ─────────────────
+            var oasConstants = await oasConstantsRepository.GetLatestAsync();
+
+            // ── 10. Delegate calculations to the Domain service ───────────────
             var timelineTotals = cashflowCalculationService.CalculateTimelineTotals(
                 incomeTimelineData,
                 expenseTimelineData,
                 frequencies,
                 assumptions!,
                 debts,
+                home,
+                investmentProperties,
+                oasConstants,
                 currentAge ?? 0,
                 retirementAge ?? 0,
                 lifeExpectancy ?? 0);

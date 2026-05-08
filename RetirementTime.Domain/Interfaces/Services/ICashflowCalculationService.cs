@@ -1,5 +1,6 @@
 using RetirementTime.Domain.Entities.Common;
 using RetirementTime.Domain.Entities.Dashboard;
+using RetirementTime.Domain.Entities.Dashboard.Asset;
 using RetirementTime.Domain.Entities.Dashboard.Debt;
 using RetirementTime.Domain.Entities.Dashboard.Income;
 using RetirementTime.Domain.Entities.Dashboard.Spending;
@@ -18,6 +19,7 @@ public class CashflowTimelineData
     public List<SelfEmploymentIncome> SelfEmploymentIncomes { get; set; } = [];
     public List<PensionDefinedBenefits> PensionDefinedBenefits { get; set; } = [];
     public List<OtherIncomeOrBenefits> OtherIncomes { get; set; } = [];
+    public List<PropertyIncome> PropertyIncomes { get; set; } = [];
 
     // Expenses
     public SpendingLivingExpenses? LivingExpenses { get; set; }
@@ -38,9 +40,10 @@ public class CashflowTimelineTotals
     // Income totals (annual)
     public decimal EmploymentIncome { get; set; }
     public decimal SelfEmploymentIncome { get; set; }
+    public decimal PropertyIncome { get; set; }
     public decimal DefinedBenefitsPension { get; set; }
     public decimal OtherIncome { get; set; }
-    public decimal TotalIncome => EmploymentIncome + SelfEmploymentIncome + DefinedBenefitsPension + OtherIncome;
+    public decimal TotalIncome => EmploymentIncome + SelfEmploymentIncome + PropertyIncome + DefinedBenefitsPension + OtherIncome;
 
     // Expense totals (annual)
     public decimal LivingExpenses { get; set; }
@@ -48,7 +51,8 @@ public class CashflowTimelineTotals
     public decimal DebtRepayments { get; set; }
     public decimal AssetsExpenses { get; set; }
     public decimal OtherExpenses { get; set; }
-    public decimal TotalExpenses => LivingExpenses + DiscretionaryExpenses + DebtRepayments + AssetsExpenses + OtherExpenses;
+    public decimal PropertyMaintenanceExpenses { get; set; }
+    public decimal TotalExpenses => LivingExpenses + DiscretionaryExpenses + DebtRepayments + AssetsExpenses + OtherExpenses + PropertyMaintenanceExpenses;
 
     public decimal NetCashflow => TotalIncome - TotalExpenses;
 }
@@ -64,6 +68,9 @@ public interface ICashflowCalculationService
         List<Frequency> frequencies,
         DashboardAssumptions assumptions,
         List<GenericDebt> debts,
+        AssetsHome? home,
+        List<AssetsInvestmentProperty> investmentProperties,
+        OasConstants? oasConstants,
         int currentAge,
         int retirementAge,
         int lifeExpectancy);

@@ -8,6 +8,14 @@ namespace RetirementTime.Domain.Services;
 
 public class NetWorthCalculationService : INetWorthCalculationService
 {
+    /// <summary>
+    /// Calculates a net worth snapshot for the given scenario by aggregating all asset
+    /// and debt values into a <see cref="NetWorthHistory"/> record. Assets are broken down
+    /// into: primary residence, investment properties, investment accounts (individual
+    /// holdings or total value), and physical assets. Debts are taken directly from the
+    /// provided <see cref="GenericDebt"/> list. The resulting record stores serialised
+    /// JSON breakdowns alongside the total asset and total debt figures.
+    /// </summary>
     public NetWorthHistory Calculate(
         long scenarioId,
         AssetsHome? home,
