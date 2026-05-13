@@ -34,10 +34,6 @@ public partial class GetDebtRepaymentsHandler(
                 .ToList();
             var allRepayments = await spendingRepository.GetAllDebtRepaymentsForScenarioAsync(request.ScenarioId);
 
-            // Current timeline's AgeFrom for payoff-age display in UI
-            var currentTimeline = allTimelines.FirstOrDefault(t => t.Id == request.TimelineId);
-            var timelineAgeFrom = currentTimeline?.AgeFrom ?? 0;
-
             // Build a frequency lookup (id → payments per year)
             var freqLookup = frequencies.ToDictionary(f => f.Id, f => f.FrequencyPerYear);
 
@@ -60,7 +56,6 @@ public partial class GetDebtRepaymentsHandler(
                 Debts                   = debts,
                 Frequencies             = frequencies,
                 YearlyBalancesByDebtId  = yearlyBalances,
-                TimelineAgeFrom         = timelineAgeFrom,
             };
         }
         catch (Exception ex)

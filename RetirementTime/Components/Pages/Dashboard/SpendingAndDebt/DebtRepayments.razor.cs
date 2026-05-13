@@ -55,7 +55,6 @@ public partial class DebtRepayments : ComponentBase
                         Name            = debt.Name,
                         FrequencyId     = (int)FrequencyEnum.Monthly,
                         YearlyBalances  = [],
-                        TimelineAgeFrom = result.TimelineAgeFrom,
                     });
                 }
             }
@@ -70,7 +69,6 @@ public partial class DebtRepayments : ComponentBase
                     Amount          = existing.Amount,
                     FrequencyId     = existing.FrequencyId,
                     YearlyBalances  = yearlyBalances ?? [],
-                    TimelineAgeFrom = result.TimelineAgeFrom,
                 });
             }
         }

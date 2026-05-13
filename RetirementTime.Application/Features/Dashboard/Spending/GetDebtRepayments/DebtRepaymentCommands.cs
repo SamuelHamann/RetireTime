@@ -17,10 +17,6 @@ public record GetDebtRepaymentsResult
     /// Keyed by GenericDebt.Id — yearly balance schedule per debt (empty = no payment entered or debt already paid).
     /// </summary>
     public Dictionary<long, List<DebtYearlyBalance>> YearlyBalancesByDebtId { get; init; } = [];
-    /// <summary>
-    /// The starting age of this timeline. Payoff ages are represented by <see cref="DebtYearlyBalance.Age"/>.
-    /// </summary>
-    public int TimelineAgeFrom { get; init; }
 }
 
 public record CreateDebtRepaymentCommand(long ScenarioId, long TimelineId, long? GenericDebtId = null) : IRequest<CreateSpendingItemResult>;

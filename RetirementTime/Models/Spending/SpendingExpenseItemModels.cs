@@ -11,7 +11,6 @@ public class SpendingDebtRepaymentItemModel
     public decimal? Amount { get; set; }
     public int FrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
     public List<DebtYearlyBalance> YearlyBalances { get; set; } = [];
-    public int TimelineAgeFrom { get; set; }
 }
 
 public class SpendingAssetsExpenseItemModel
