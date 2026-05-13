@@ -4,12 +4,16 @@ using RetirementTime.Application.Common;
 using RetirementTime.Domain.Entities.Common;
 using RetirementTime.Domain.Entities.Dashboard.Spending;
 using RetirementTime.Domain.Interfaces.Repositories;
+using RetirementTime.Domain.Interfaces.Services;
+using RetirementTime.Domain.Services;
 
 namespace RetirementTime.Application.Features.Dashboard.Spending.GetDebtRepayments;
 
 public partial class GetDebtRepaymentsHandler(
     ISpendingRepository spendingRepository,
     IGenericDebtRepository debtRepository,
+    IRetirementTimelineRepository timelineRepository,
+    IDebtPayoffCalculationService payoffService,
     ILogger<GetDebtRepaymentsHandler> logger) : IRequestHandler<GetDebtRepaymentsQuery, GetDebtRepaymentsResult>,
                                                 IRequestHandler<CreateDebtRepaymentCommand, CreateSpendingItemResult>,
                                                 IRequestHandler<UpdateDebtRepaymentCommand, BaseResult>,
@@ -23,14 +27,73 @@ public partial class GetDebtRepaymentsHandler(
             var repayments  = await spendingRepository.GetDebtRepaymentsAsync(request.ScenarioId, request.TimelineId);
             var debts       = await debtRepository.GetAllByScenarioIdAsync(request.ScenarioId);
             var frequencies = await spendingRepository.GetFrequenciesAsync();
+
+            // Get all fully-created expense timelines ordered by AgeFrom to build payment segments
+            var allTimelines = (await timelineRepository.GetByScenarioIdAsync(request.ScenarioId))
+                .Where(t => t.IsFullyCreated && t.TimelineType == RetirementTimelineTypeEnum.Expenses)
+                .ToList();
+            var allRepayments = await spendingRepository.GetAllDebtRepaymentsForScenarioAsync(request.ScenarioId);
+
+            // Build a frequency lookup (id → payments per year)
+            var freqLookup = frequencies.ToDictionary(f => f.Id, f => f.FrequencyPerYear);
+
+            // Compute yearly balance schedule for each linked debt
+            var yearlyBalances = new Dictionary<long, List<DebtYearlyBalance>>();
+            foreach (var debt in debts.Where(d => d.Balance is > 0))
+            {
+                var segments = BuildPaymentSegments(debt.Id, allTimelines, allRepayments, freqLookup);
+                var schedule = payoffService.CalculateYearlyBalances(
+                    debt.Balance ?? 0,
+                    debt.InterestRate ?? 0,
+                    segments);
+                yearlyBalances[debt.Id] = schedule;
+            }
+
             LogSuccessGet(logger, request.ScenarioId);
-            return new GetDebtRepaymentsResult { Repayments = repayments, Debts = debts, Frequencies = frequencies };
+            return new GetDebtRepaymentsResult
+            {
+                Repayments              = repayments,
+                Debts                   = debts,
+                Frequencies             = frequencies,
+                YearlyBalancesByDebtId  = yearlyBalances,
+            };
         }
         catch (Exception ex)
         {
             LogError(logger, ex.Message, request.ScenarioId);
             return new GetDebtRepaymentsResult();
         }
+    }
+
+    /// <summary>
+    /// Builds an ordered list of payment segments for a given debt across all timelines.
+    /// Each segment spans one timeline (AgeFrom→AgeTo) and carries the annual payment
+    /// amount entered for that timeline/debt combination.
+    /// </summary>
+    private static List<DebtPaymentSegment> BuildPaymentSegments(
+        long debtId,
+        List<RetirementTimeline> timelines,
+        List<SpendingDebtRepayment> allRepayments,
+        Dictionary<int, int> freqLookup)
+    {
+        var segments = new List<DebtPaymentSegment>();
+
+        foreach (var tl in timelines.OrderBy(t => t.AgeFrom))
+        {
+            var repayment = allRepayments.FirstOrDefault(r =>
+                r.RetirementTimelineId == tl.Id && r.GenericDebtId == debtId);
+
+            decimal annualPayment = 0;
+            if (repayment?.Amount is > 0)
+            {
+                var paymentsPerYear = freqLookup.GetValueOrDefault(repayment.FrequencyId, 12);
+                annualPayment       = repayment.Amount.Value * paymentsPerYear;
+            }
+
+            segments.Add(new DebtPaymentSegment(tl.AgeFrom, tl.AgeTo, annualPayment));
+        }
+
+        return segments;
     }
 
     public async Task<CreateSpendingItemResult> Handle(CreateDebtRepaymentCommand request, CancellationToken cancellationToken)

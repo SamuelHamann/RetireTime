@@ -1,4 +1,5 @@
 using RetirementTime.Domain.Entities.Common;
+using RetirementTime.Domain.Services;
 
 namespace RetirementTime.Models.Spending;
 
@@ -9,6 +10,7 @@ public class SpendingDebtRepaymentItemModel
     public string Name { get; set; } = string.Empty;
     public decimal? Amount { get; set; }
     public int FrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
+    public List<DebtYearlyBalance> YearlyBalances { get; set; } = [];
 }
 
 public class SpendingAssetsExpenseItemModel

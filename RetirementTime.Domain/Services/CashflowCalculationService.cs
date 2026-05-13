@@ -68,11 +68,13 @@ public class CashflowCalculationService : ICashflowCalculationService
             var otherExpensesTotal         = CalculateOtherExpenses(expenseTimeline?.OtherExpenses, inflationRate, yearIndex, frequencies);
             var assetsExpensesTotal        = CalculateAssetsExpenses(expenseTimeline?.AssetsExpenses, inflationRate, yearIndex, frequencies);
             var investmentExpensesTotal    = CalculateInvestmentExpenses(expenseTimeline?.InvestmentExpenses, inflationRate, yearIndex, frequencies);
+            
             var currentPropertyValue       = CalculatePropertyValues(home, investmentProperties, assumptions.YearlyPropertyAppreciation / 100m, inflationRate, yearIndex);
             var propertyMaintenanceTotal   = CalculatePropertyMaintenanceExpenses(currentPropertyValue, assumptions.YearlyHouseMaintenance);
 
             // Calculate income with assumptions applied
             var salaryRaiseRate           = assumptions.AnnualSalaryRaise / 100m;
+            
             var employmentIncomeTotal     = CalculateEmploymentIncome(incomeTimeline?.EmploymentIncomes, salaryRaiseRate, inflationRate, yearIndex, frequencies);
             var selfEmploymentIncomeTotal = CalculateSelfEmploymentIncome(incomeTimeline?.SelfEmploymentIncomes, salaryRaiseRate, inflationRate, yearIndex, frequencies);
             var propertyIncomeTotal       = CalculatePropertyIncome(incomeTimeline?.PropertyIncomes, inflationRate, yearIndex, frequencies);
@@ -212,9 +214,11 @@ public class CashflowCalculationService : ICashflowCalculationService
 
     /// <summary>
     /// Calculates the total debt repayment amount for the current year across all debts.
-    /// For each repayment entry the payment is capped at the remaining balance to avoid
-    /// overpayment. After payments are applied, each debt with a positive remaining balance
-    /// is grown by its annual interest rate, rolling the balance forward into the next year.
+    /// Interest is accrued on each outstanding balance first, then scheduled payments are
+    /// applied. Payments are capped at the outstanding (post-interest) balance so no excess
+    /// is counted as an expense. Once a debt is fully paid off it is ignored in subsequent
+    /// years even if a repayment entry still exists in the timeline. Debt repayment entries
+    /// without an associated debt are not subject to balance tracking.
     /// </summary>
     private static decimal CalculateDebtRepayments(
         List<DebtRepaymentEntry> repayments,
@@ -223,6 +227,17 @@ public class CashflowCalculationService : ICashflowCalculationService
     {
         var totalThisYear = 0m;
 
+        // Step 1: Accrue interest on every debt that still carries a balance
+        foreach (var debt in debts)
+        {
+            var remaining = remainingBalances.GetValueOrDefault(debt.Id);
+            if (remaining <= 0) continue;
+
+            var interestRate = (debt.InterestRate ?? 0m) / 100m;
+            remainingBalances[debt.Id] = remaining * (1 + interestRate);
+        }
+
+        // Step 2: Apply payments against the interest-accrued balances
         foreach (var repayment in repayments)
         {
             var debt = debts.FirstOrDefault(d => d.Id == repayment.GenericDebtId);
@@ -237,15 +252,6 @@ public class CashflowCalculationService : ICashflowCalculationService
             totalThisYear             += paidThisYear;
         }
 
-        // Grow each debt that still has a balance by its annual interest rate
-        foreach (var debt in debts)
-        {
-            var remaining    = remainingBalances.GetValueOrDefault(debt.Id);
-            if (remaining <= 0) continue;
-
-            var interestRate = (debt.InterestRate ?? 0m) / 100m;
-            remainingBalances[debt.Id] *= 1 + interestRate;
-        }
 
         return totalThisYear;
     }

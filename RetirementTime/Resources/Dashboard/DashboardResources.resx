@@ -1397,6 +1397,12 @@
   <data name="Spending_DebtRepayments_DefaultName" xml:space="preserve">
     <value>Debt Repayment</value>
   </data>
+  <data name="Spending_DebtRepayments_PayoffAt" xml:space="preserve">
+    <value>Paid off around age</value>
+  </data>
+  <data name="Spending_DebtRepayments_PayoffUnknown" xml:space="preserve">
+    <value>Payment may not cover interest — debt may not be paid off</value>
+  </data>
 
   <!-- Assets Expenses -->
   <data name="Spending_AssetsExpenses_Title" xml:space="preserve">

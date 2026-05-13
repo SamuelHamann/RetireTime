@@ -142,6 +142,44 @@ public static class FinancialMathHelper
 
         return fvPrincipal + fvContributions;
     }
+
+    /// <summary>
+    /// Calculates the remaining loan balance after <paramref name="paymentsMade"/> periodic payments
+    /// using the standard amortization formula:
+    /// <code>B = A·(1+r)^n − P·((1+r)^n − 1) / r</code>
+    /// Where A = original principal, r = rate per period, n = payments made, P = periodic payment.
+    /// Returns 0 when the result is negative (debt fully paid off).
+    /// </summary>
+    /// <param name="originalPrincipal">Original loan amount (A).</param>
+    /// <param name="ratePerPeriod">Interest rate per payment period (e.g. annual rate / 12 for monthly).</param>
+    /// <param name="paymentsMade">Number of payments already made (n).</param>
+    /// <param name="periodicPayment">Fixed payment amount per period (P).</param>
+    /// <returns>Remaining balance, floored at zero.</returns>
+    public static decimal RemainingLoanBalance(
+        decimal originalPrincipal,
+        decimal ratePerPeriod,
+        int     paymentsMade,
+        decimal periodicPayment)
+    {
+        if (originalPrincipal <= 0) return 0m;
+        if (paymentsMade <= 0)      return originalPrincipal;
+
+        if (ratePerPeriod == 0)
+        {
+            // No interest — simple subtraction
+            var remaining = originalPrincipal - periodicPayment * paymentsMade;
+            return Math.Max(0m, remaining);
+        }
+
+        var r          = ratePerPeriod;
+        var n          = paymentsMade;
+        var growthFactor = (decimal)Math.Pow((double)(1 + r), n);
+
+        var balance = originalPrincipal * growthFactor
+                      - periodicPayment * (growthFactor - 1m) / r;
+
+        return Math.Max(0m, balance);
+    }
 }
 
 /// <summary>

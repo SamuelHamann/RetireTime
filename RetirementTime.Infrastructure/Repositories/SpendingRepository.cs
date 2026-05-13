@@ -105,6 +105,13 @@ public class SpendingRepository(ApplicationDbContext context) : ISpendingReposit
             .OrderBy(e => e.CreatedAt)
             .ToListAsync();
 
+    public async Task<List<SpendingDebtRepayment>> GetAllDebtRepaymentsForScenarioAsync(long scenarioId) =>
+        await context.SpendingDebtRepayments
+            .Where(e => e.ScenarioId == scenarioId && e.GenericDebtId != null)
+            .OrderBy(e => e.RetirementTimelineId)
+            .ThenBy(e => e.CreatedAt)
+            .ToListAsync();
+
     public async Task<SpendingDebtRepayment> CreateDebtRepaymentAsync(SpendingDebtRepayment item)
     {
         item.CreatedAt = DateTime.UtcNow;

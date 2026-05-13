@@ -50,22 +50,25 @@ public partial class DebtRepayments : ComponentBase
                 {
                     _linkedItems.Add(new SpendingDebtRepaymentItemModel
                     {
-                        Id           = created.ItemId,
-                        GenericDebtId = debt.Id,
-                        Name         = debt.Name,
-                        FrequencyId  = (int)FrequencyEnum.Monthly,
+                        Id              = created.ItemId,
+                        GenericDebtId   = debt.Id,
+                        Name            = debt.Name,
+                        FrequencyId     = (int)FrequencyEnum.Monthly,
+                        YearlyBalances  = [],
                     });
                 }
             }
             else
             {
+                result.YearlyBalancesByDebtId.TryGetValue(debt.Id, out var yearlyBalances);
                 _linkedItems.Add(new SpendingDebtRepaymentItemModel
                 {
-                    Id           = existing.Id,
-                    GenericDebtId = existing.GenericDebtId,
-                    Name         = debt.Name,
-                    Amount       = existing.Amount,
-                    FrequencyId  = existing.FrequencyId,
+                    Id              = existing.Id,
+                    GenericDebtId   = existing.GenericDebtId,
+                    Name            = debt.Name,
+                    Amount          = existing.Amount,
+                    FrequencyId     = existing.FrequencyId,
+                    YearlyBalances  = yearlyBalances ?? [],
                 });
             }
         }
@@ -88,12 +91,20 @@ public partial class DebtRepayments : ComponentBase
     {
         await Mediator.Send(new UpdateDebtRepaymentCommand
         {
-            Id           = item.Id,
-            Name         = item.Name,
-            Amount       = item.Amount,
-            FrequencyId  = item.FrequencyId,
+            Id            = item.Id,
+            Name          = item.Name,
+            Amount        = item.Amount,
+            FrequencyId   = item.FrequencyId,
             GenericDebtId = item.GenericDebtId,
         });
+
+        // Refresh yearly balance schedule for this item after the payment changes
+        if (item.GenericDebtId.HasValue)
+        {
+            var refreshed = await Mediator.Send(new GetDebtRepaymentsQuery(ScenarioId, TimelineId));
+            if (refreshed.YearlyBalancesByDebtId.TryGetValue(item.GenericDebtId.Value, out var balances))
+                item.YearlyBalances = balances;
+        }
     }
 
     private async Task AddStandalone()
