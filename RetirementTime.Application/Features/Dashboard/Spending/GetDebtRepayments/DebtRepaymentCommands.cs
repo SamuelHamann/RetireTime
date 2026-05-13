@@ -18,7 +18,7 @@ public record GetDebtRepaymentsResult
     /// </summary>
     public Dictionary<long, List<DebtYearlyBalance>> YearlyBalancesByDebtId { get; init; } = [];
     /// <summary>
-    /// The starting age of this timeline, used by the UI to compute the payoff age.
+    /// The starting age of this timeline. Payoff ages are represented by <see cref="DebtYearlyBalance.Age"/>.
     /// </summary>
     public int TimelineAgeFrom { get; init; }
 }
