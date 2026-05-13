@@ -53,6 +53,24 @@
                                 </select>
                             </div>
                         </div>
+                        @if (item.Amount is > 0)
+                        {
+                            <div class="debt-payoff-info">
+                                @{
+                                    var paidOffEntry = item.YearlyBalances.FirstOrDefault(b => b.RemainingBalance <= 0);
+                                }
+                                @if (paidOffEntry is not null)
+                                {
+                                    <span class="debt-payoff-badge debt-payoff-badge--ok">
+                                        @Localizer["Spending_DebtRepayments_PayoffAt"] @paidOffEntry.Age
+                                    </span>
+                                }
+                                else if (item.YearlyBalances.Count > 0)
+                                {
+                                    <span class="debt-payoff-badge debt-payoff-badge--warn">@Localizer["Spending_DebtRepayments_PayoffUnknown"]</span>
+                                }
+                            </div>
+                        }
                     </div>
                 }
 

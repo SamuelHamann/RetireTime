@@ -17,6 +17,7 @@ public interface ISpendingRepository
 
     // Debt Repayments (list)
     Task<List<SpendingDebtRepayment>> GetDebtRepaymentsAsync(long scenarioId, long timelineId);
+    Task<List<SpendingDebtRepayment>> GetAllDebtRepaymentsForScenarioAsync(long scenarioId);
     Task<SpendingDebtRepayment> CreateDebtRepaymentAsync(SpendingDebtRepayment item);
     Task<bool> UpdateDebtRepaymentAsync(SpendingDebtRepayment item);
     Task<bool> DeleteDebtRepaymentAsync(long id);

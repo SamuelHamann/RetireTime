@@ -1393,6 +1393,12 @@
   <data name="Spending_DebtRepayments_DefaultName" xml:space="preserve">
     <value>Remboursement de dette</value>
   </data>
+  <data name="Spending_DebtRepayments_PayoffAt" xml:space="preserve">
+    <value>Remboursé vers l'âge de</value>
+  </data>
+  <data name="Spending_DebtRepayments_PayoffUnknown" xml:space="preserve">
+    <value>Le paiement pourrait ne pas couvrir les intérêts — la dette pourrait ne pas être remboursée</value>
+  </data>
 
   <!-- Dépenses liées aux actifs -->
   <data name="Spending_AssetsExpenses_Title" xml:space="preserve">

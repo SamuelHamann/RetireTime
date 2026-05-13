@@ -1,1 +1,36 @@
 /* Shared spending page styles live in wwwroot/css/dashboard.css */
+
+/* ── Debt payoff info strip ──────────────────────────────────────────────── */
+.debt-payoff-info {
+    padding: 0.5rem 0 0.25rem;
+    display: flex;
+    align-items: center;
+}
+
+.debt-payoff-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Inter', 'Manrope', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 0.3rem 0.75rem;
+    border-radius: 9999px;
+}
+
+.debt-payoff-badge--ok {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.debt-payoff-badge--warn {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.debt-payoff-duration {
+    font-weight: 400;
+    opacity: 0.75;
+}
+

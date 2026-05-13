@@ -2571,6 +2571,18 @@ namespace RetirementTime.Resources.Dashboard {
             }
         }
         
+        public static string Spending_DebtRepayments_PayoffAt {
+            get {
+                return ResourceManager.GetString("Spending_DebtRepayments_PayoffAt", resourceCulture);
+            }
+        }
+        
+        public static string Spending_DebtRepayments_PayoffUnknown {
+            get {
+                return ResourceManager.GetString("Spending_DebtRepayments_PayoffUnknown", resourceCulture);
+            }
+        }
+        
         public static string Spending_AssetsExpenses_Title {
             get {
                 return ResourceManager.GetString("Spending_AssetsExpenses_Title", resourceCulture);

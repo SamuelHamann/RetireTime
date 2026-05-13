@@ -21,6 +21,7 @@ public static class DependencyInjection
         services.AddScoped<INetWorthSnapshotService, NetWorthSnapshotService>();
         services.AddScoped<INetWorthCalculationService, NetWorthCalculationService>();
         services.AddScoped<ICashflowCalculationService, CashflowCalculationService>();
+        services.AddScoped<IDebtPayoffCalculationService, DebtPayoffCalculationService>();
 
         return services;
     }
