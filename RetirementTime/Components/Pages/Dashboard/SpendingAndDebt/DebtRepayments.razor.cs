@@ -20,6 +20,7 @@ public partial class DebtRepayments : ComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long TimelineId { get; set; }
 
     private bool _isLoading = true;
     private List<SpendingDebtRepaymentItemModel> _linkedItems = [];
@@ -33,7 +34,7 @@ public partial class DebtRepayments : ComponentBase
         var authenticatedUser = await AuthService.GetAuthenticatedUserAsync(AuthenticationState);
         if (authenticatedUser == null) { Navigation.NavigateTo("/"); return; }
 
-        var result = await Mediator.Send(new GetDebtRepaymentsQuery(ScenarioId));
+        var result = await Mediator.Send(new GetDebtRepaymentsQuery(ScenarioId, TimelineId));
         _frequencies = result.Frequencies;
 
         var existingRepayments = result.Repayments;
@@ -44,7 +45,7 @@ public partial class DebtRepayments : ComponentBase
             var existing = existingRepayments.FirstOrDefault(r => r.GenericDebtId == debt.Id);
             if (existing == null)
             {
-                var created = await Mediator.Send(new CreateDebtRepaymentCommand(ScenarioId, debt.Id));
+                var created = await Mediator.Send(new CreateDebtRepaymentCommand(ScenarioId, TimelineId, debt.Id));
                 if (created.Success)
                 {
                     _linkedItems.Add(new SpendingDebtRepaymentItemModel
@@ -97,7 +98,7 @@ public partial class DebtRepayments : ComponentBase
 
     private async Task AddStandalone()
     {
-        var result = await Mediator.Send(new CreateDebtRepaymentCommand(ScenarioId));
+        var result = await Mediator.Send(new CreateDebtRepaymentCommand(ScenarioId, TimelineId));
         if (result.Success)
             _standaloneItems.Add(new SpendingDebtRepaymentItemModel
             {

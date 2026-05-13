@@ -6,10 +6,10 @@ namespace RetirementTime.Infrastructure.Repositories;
 
 public class DefinedProfitSharingRepository(ApplicationDbContext context) : IDefinedProfitSharingRepository
 {
-    public async Task<List<DefinedProfitSharing>> GetByScenarioIdAsync(long scenarioId)
+    public async Task<List<DefinedProfitSharing>> GetByScenarioIdAsync(long scenarioId, long timelineId)
     {
         return await context.DefinedProfitSharings
-            .Where(e => e.ScenarioId == scenarioId)
+            .Where(e => e.ScenarioId == scenarioId && e.RetirementTimelineId == timelineId)
             .OrderBy(e => e.CreatedAt)
             .ToListAsync();
     }

@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
+using RetirementTime.Application.Features.Common.GetFrequencies;
 using RetirementTime.Application.Features.Dashboard.Income.CreateEmploymentIncome;
 using RetirementTime.Application.Features.Dashboard.Income.CreateOtherIncome;
 using RetirementTime.Application.Features.Dashboard.Income.DeleteEmploymentIncome;
@@ -26,43 +27,49 @@ public partial class Employment : ComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long TimelineId { get; set; }
 
     private long _userId;
-
     private bool _isLoading = true;
     private List<EmploymentItemModel> _employmentItems = [];
+    private List<FrequencyDto> _frequencies = [];
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender) return;
 
         var authenticatedUser = await AuthService.GetAuthenticatedUserAsync(AuthenticationState);
-        if (authenticatedUser == null)
-        {
-            Navigation.NavigateTo("/");
-            return;
-        }
+        if (authenticatedUser == null) { Navigation.NavigateTo("/"); return; }
 
         _userId = authenticatedUser.UserId;
 
-        var employments = await Mediator.Send(new GetEmploymentIncomesQuery(ScenarioId));
+        _frequencies = await Mediator.Send(new GetFrequenciesQuery());
+        var employments = await Mediator.Send(new GetEmploymentIncomesQuery(ScenarioId, TimelineId));
 
         _employmentItems = employments.Select(e => new EmploymentItemModel
         {
             Id = e.Id,
             EmployerName = e.EmployerName,
             GrossSalary = e.GrossSalary,
+            GrossSalaryFrequencyId = e.GrossSalaryFrequencyId,
             NetSalary = e.NetSalary,
+            NetSalaryFrequencyId = e.NetSalaryFrequencyId,
             GrossCommissions = e.GrossCommissions,
+            GrossCommissionsFrequencyId = e.GrossCommissionsFrequencyId,
             NetCommissions = e.NetCommissions,
+            NetCommissionsFrequencyId = e.NetCommissionsFrequencyId,
             GrossBonus = e.GrossBonus,
+            GrossBonusFrequencyId = e.GrossBonusFrequencyId,
             NetBonus = e.NetBonus,
+            NetBonusFrequencyId = e.NetBonusFrequencyId,
             OtherIncomes = e.OtherIncomes.Select(o => new OtherEmploymentIncomeItemModel
             {
                 Id = o.Id,
                 Name = o.Name,
                 Gross = o.Gross,
-                Net = o.Net
+                GrossFrequencyId = o.GrossFrequencyId,
+                Net = o.Net,
+                NetFrequencyId = o.NetFrequencyId
             }).ToList()
         }).ToList();
 
@@ -73,7 +80,7 @@ public partial class Employment : ComponentBase
 
     private async Task AddEmployment()
     {
-        var result = await Mediator.Send(new CreateEmploymentIncomeCommand(ScenarioId, _userId));
+        var result = await Mediator.Send(new CreateEmploymentIncomeCommand(ScenarioId, _userId, TimelineId));
         if (result.Success)
         {
             _employmentItems.Add(new EmploymentItemModel { Id = result.EmploymentIncomeId });
@@ -110,11 +117,17 @@ public partial class Employment : ComponentBase
             Id = item.Id,
             EmployerName = item.EmployerName,
             GrossSalary = item.GrossSalary,
+            GrossSalaryFrequencyId = item.GrossSalaryFrequencyId,
             NetSalary = item.NetSalary,
+            NetSalaryFrequencyId = item.NetSalaryFrequencyId,
             GrossCommissions = item.GrossCommissions,
+            GrossCommissionsFrequencyId = item.GrossCommissionsFrequencyId,
             NetCommissions = item.NetCommissions,
+            NetCommissionsFrequencyId = item.NetCommissionsFrequencyId,
             GrossBonus = item.GrossBonus,
-            NetBonus = item.NetBonus
+            GrossBonusFrequencyId = item.GrossBonusFrequencyId,
+            NetBonus = item.NetBonus,
+            NetBonusFrequencyId = item.NetBonusFrequencyId
         });
     }
 
@@ -127,11 +140,12 @@ public partial class Employment : ComponentBase
             Id = other.Id,
             Name = other.Name,
             Gross = other.Gross,
-            Net = other.Net
+            GrossFrequencyId = other.GrossFrequencyId,
+            Net = other.Net,
+            NetFrequencyId = other.NetFrequencyId
         });
     }
 
     private void NavigateNext() => IncomeNavService.NavigateNext();
 
     }
-

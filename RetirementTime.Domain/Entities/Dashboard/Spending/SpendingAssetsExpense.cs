@@ -7,6 +7,7 @@ public class SpendingAssetsExpense
 {
     public long Id { get; set; }
     public long ScenarioId { get; set; }
+    public long? RetirementTimelineId { get; set; }
 
     public string Name { get; set; } = string.Empty;
 
@@ -28,4 +29,5 @@ public class SpendingAssetsExpense
     public AssetsInvestmentProperty? AssetsInvestmentProperty { get; set; }
     public AssetsInvestmentAccount? AssetsInvestmentAccount { get; set; }
     public AssetsPhysicalAsset? AssetsPhysicalAsset { get; set; }
+    public RetirementTimeline? RetirementTimeline { get; set; }
 }

@@ -21,7 +21,9 @@ public partial class UpdateOtherIncomeHandler(
                 Id = request.Id,
                 Name = request.Name,
                 Gross = request.Gross,
+                GrossFrequencyId = request.GrossFrequencyId,
                 Net = request.Net,
+                NetFrequencyId = request.NetFrequencyId,
                 EmploymentIncome = null!
             };
 

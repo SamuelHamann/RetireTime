@@ -6,10 +6,10 @@ namespace RetirementTime.Infrastructure.Repositories;
 
 public class SharePurchasePlanRepository(ApplicationDbContext context) : ISharePurchasePlanRepository
 {
-    public async Task<List<SharePurchasePlan>> GetByScenarioIdAsync(long scenarioId)
+    public async Task<List<SharePurchasePlan>> GetByScenarioIdAsync(long scenarioId, long timelineId)
     {
         return await context.SharePurchasePlans
-            .Where(e => e.ScenarioId == scenarioId)
+            .Where(e => e.ScenarioId == scenarioId && e.RetirementTimelineId == timelineId)
             .OrderBy(e => e.CreatedAt)
             .ToListAsync();
     }

@@ -22,6 +22,7 @@ public partial class DefinedContribution : ComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long TimelineId { get; set; }
 
     private bool _isLoading = true;
     private List<PensionDefinedContributionItemModel> _planItems = [];
@@ -37,7 +38,7 @@ public partial class DefinedContribution : ComponentBase
             return;
         }
 
-        var items = await Mediator.Send(new GetPensionDefinedContributionQuery(ScenarioId));
+        var items = await Mediator.Send(new GetPensionDefinedContributionQuery(ScenarioId, TimelineId));
 
         _planItems = items.Select(e => new PensionDefinedContributionItemModel
         {
@@ -53,7 +54,7 @@ public partial class DefinedContribution : ComponentBase
 
     private async Task AddPlan()
     {
-        var result = await Mediator.Send(new CreatePensionDefinedContributionCommand(ScenarioId));
+        var result = await Mediator.Send(new CreatePensionDefinedContributionCommand(ScenarioId, TimelineId));
         if (result.Success)
         {
             _planItems.Add(new PensionDefinedContributionItemModel { Id = result.PlanId });

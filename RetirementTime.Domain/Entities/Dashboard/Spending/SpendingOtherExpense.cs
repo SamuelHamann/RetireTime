@@ -6,6 +6,7 @@ public class SpendingOtherExpense
 {
     public long Id { get; set; }
     public long ScenarioId { get; set; }
+    public long? RetirementTimelineId { get; set; }
 
     public string Name { get; set; } = string.Empty;
 
@@ -18,4 +19,5 @@ public class SpendingOtherExpense
     // Navigation properties
     public DashboardScenario Scenario { get; set; } = null!;
     public Frequency Frequency { get; set; } = null!;
+    public RetirementTimeline? RetirementTimeline { get; set; }
 }

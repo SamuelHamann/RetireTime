@@ -132,30 +132,6 @@ else
             </div>
         </section>
 
-        @* ── Growth Projection (placeholder) ─────────────────── *@
-        <section class="nw-chart-section">
-            <div class="nw-chart-header">
-                <div>
-                    <h2 class="nw-chart-title">@Localizer["NetWorth_GrowthProjection_Title"]</h2>
-                    <p class="nw-chart-subtitle">@Localizer["NetWorth_GrowthProjection_Subtitle"]</p>
-                </div>
-                <div class="nw-chart-legend">
-                    <span class="nw-legend-dot nw-legend-dot--primary"></span>
-                    <span class="nw-legend-label">@Localizer["NetWorth_Legend_NetWorth"]</span>
-                    <span class="nw-legend-dot nw-legend-dot--debt"></span>
-                    <span class="nw-legend-label">@Localizer["NetWorth_Legend_Liabilities"]</span>
-                </div>
-            </div>
-            <div class="nw-chart-placeholder">
-                @foreach (var (month, pct) in _chartBars)
-                {
-                    <div class="nw-bar-col">
-                        <div class="nw-bar" style="height: @(pct)%;"></div>
-                        <span class="nw-bar-label">@month</span>
-                    </div>
-                }
-            </div>
-        </section>
 
         @* ── Balance Sheet ────────────────────────────────────── *@
         <section class="nw-sheet-section">
@@ -169,6 +145,7 @@ else
                             <th>@Localizer["NetWorth_Col_Name"]</th>
                             <th>@Localizer["NetWorth_Col_Value"]</th>
                             <th>@Localizer["NetWorth_Col_DebtAgainst"]</th>
+                            <th>@Localizer["NetWorth_Col_RealValue"]</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -177,6 +154,7 @@ else
                         {
                             var linkedDebt = GetDebtFor(asset.AssetId, asset.AssetType);
                             var (assetIcon, assetBadge) = GetAssetIconInfo(asset.AssetType);
+                            var realValue = asset.Value - (linkedDebt?.Balance ?? 0);
                             <tr>
                                 <td>
                                     <div class="nw-name-cell">
@@ -200,6 +178,7 @@ else
                                         <span class="nw-no-debt">—</span>
                                     }
                                 </td>
+                                <td class="nw-value-cell @(realValue < 0 ? "nw-value-cell--debt" : "")">@FormatCurrency(realValue)</td>
                             </tr>
                         }
                         @* Standalone debts (not linked to any asset) *@
@@ -220,6 +199,7 @@ else
                                 </td>
                                 <td class="nw-value-cell nw-value-cell--debt">−@FormatCurrency(debt.Balance)</td>
                                 <td class="nw-debt-cell"><span class="nw-no-debt">—</span></td>
+                                <td class="nw-value-cell nw-value-cell--debt">−@FormatCurrency(debt.Balance)</td>
                             </tr>
                         }
                     </tbody>

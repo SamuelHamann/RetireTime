@@ -6,10 +6,10 @@ namespace RetirementTime.Infrastructure.Repositories;
 
 public class GroupRrspRepository(ApplicationDbContext context) : IGroupRrspRepository
 {
-    public async Task<List<GroupRrsp>> GetByScenarioIdAsync(long scenarioId)
+    public async Task<List<GroupRrsp>> GetByScenarioIdAsync(long scenarioId, long timelineId)
     {
         return await context.GroupRrsps
-            .Where(e => e.ScenarioId == scenarioId)
+            .Where(e => e.ScenarioId == scenarioId && e.RetirementTimelineId == timelineId)
             .OrderBy(e => e.CreatedAt)
             .ToListAsync();
     }

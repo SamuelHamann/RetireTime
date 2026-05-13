@@ -1,4 +1,5 @@
 using RetirementTime.Domain.Entities.Common;
+using RetirementTime.Domain.Entities.Dashboard.Spending;
 
 namespace RetirementTime.Domain.Entities.Dashboard.Income;
 
@@ -6,6 +7,7 @@ public class PensionDefinedBenefits
 {
     public long Id { get; set; }
     public long ScenarioId { get; set; }
+    public long? RetirementTimelineId { get; set; }
     public string Name { get; set; } = string.Empty;
     public int StartAge { get; set; }
     public decimal? BenefitsPre65 { get; set; }
@@ -22,6 +24,7 @@ public class PensionDefinedBenefits
     
     // Navigation properties
     public DashboardScenario Scenario { get; set; } = null!;
+    public RetirementTimeline? RetirementTimeline { get; set; }
     public Frequency BenefitsPre65Frequency { get; set; } = null!;
     public Frequency BenefitsPost65Frequency { get; set; } = null!;
     public Frequency RrspAdjustmentFrequency { get; set; } = null!;

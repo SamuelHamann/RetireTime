@@ -16,6 +16,7 @@ public class AssetsInvestmentPropertyRepository(ApplicationDbContext context) : 
 
     public async Task<AssetsInvestmentProperty> CreateAsync(AssetsInvestmentProperty property)
     {
+        property.PurchaseDate = DateTime.SpecifyKind(property.PurchaseDate, DateTimeKind.Utc);
         property.CreatedAt = DateTime.UtcNow;
         property.UpdatedAt = DateTime.UtcNow;
         context.AssetsInvestmentProperties.Add(property);
@@ -29,7 +30,7 @@ public class AssetsInvestmentPropertyRepository(ApplicationDbContext context) : 
         if (existing == null) return false;
 
         existing.Name = property.Name;
-        existing.PurchaseDate = property.PurchaseDate;
+        existing.PurchaseDate = DateTime.SpecifyKind(property.PurchaseDate, DateTimeKind.Utc);
         existing.PropertyValue = property.PropertyValue;
         existing.PurchasePrice = property.PurchasePrice;
         existing.UpdatedAt = DateTime.UtcNow;

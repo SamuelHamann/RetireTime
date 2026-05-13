@@ -4,7 +4,7 @@ namespace RetirementTime.Domain.Interfaces.Repositories;
 
 public interface IEmploymentIncomeRepository
 {
-    Task<List<EmploymentIncome>> GetByScenarioIdAsync(long scenarioId);
+    Task<List<EmploymentIncome>> GetByScenarioIdAsync(long scenarioId, long timelineId);
     Task<EmploymentIncome> CreateAsync(EmploymentIncome employmentIncome);
     Task<bool> UpdateAsync(EmploymentIncome employmentIncome);
     Task<bool> DeleteAsync(long employmentIncomeId);

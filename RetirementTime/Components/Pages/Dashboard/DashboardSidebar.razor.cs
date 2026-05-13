@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using RetirementTime.Application.Features.Dashboard.CreateScenario;
 using RetirementTime.Application.Features.Dashboard.GetScenarios;
+using RetirementTime.Application.Features.Dashboard.RetirementSpending.CreateRetirementSpending;
+using RetirementTime.Application.Features.Dashboard.RetirementSpending.GetRetirementSpendings;
+using RetirementTime.Domain.Entities.Dashboard.Spending;
 using RetirementTime.Resources.Common;
 using RetirementTime.Resources.Dashboard;
 using RetirementTime.Services;
@@ -33,6 +36,14 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
     private HashSet<long> _expandedDebtSubMenu = [];
     private HashSet<long> _expandedSpendingSubMenu = [];
     private HashSet<long> _expandedScenarioOverview = [];
+    // key = scenarioId, value = list of retirement timelines
+    private Dictionary<long, List<RetirementSpendingDto>> _expenseTimelines = [];
+    private Dictionary<long, List<RetirementSpendingDto>> _incomeTimelines = [];
+    private HashSet<long> _expandedExpenseTimelinesSubMenu = [];
+    private Dictionary<long, HashSet<long>> _expandedExpenseTimelineItems = [];
+    private Dictionary<long, HashSet<long>> _expandedIncomeTimelineItems = [];
+    private bool _isCreatingExpenseTimeline;
+    private bool _isCreatingIncomeTimeline;
     private int _lastRefreshTrigger = -1;
     private bool _isCreatingScenario;
 
@@ -41,6 +52,7 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
     private long? _activeScenarioId;
     private string _activeView = "overview";
     private string _activeIncomeSubView = string.Empty;
+    private long? _activeIncomeTimelineId;
     private string _activeAssetsSubView = string.Empty;
     private string _activeDebtSubView = string.Empty;
     private string _activeSpendingSubView = string.Empty;
@@ -82,12 +94,12 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
         // If we were on a scenario page and now we're on /home, reload scenarios
         if (previousPath.Contains("scenario/") && !currentPath.Contains("scenario/"))
         {
-            _ = ReloadScenariosAsync();
+            _ = InvokeAsync(ReloadScenariosAsync);
         }
         // Reload when leaving settings so a newly fully-created scenario is reflected
         else if (previousPath.Contains("/settings") && currentPath.StartsWith("scenario/") && !currentPath.Contains("settings"))
         {
-            _ = ReloadScenariosAsync();
+            _ = InvokeAsync(ReloadScenariosAsync);
         }
 
         InvokeAsync(StateHasChanged);
@@ -98,6 +110,7 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
         await LoadScenarios();
         await InvokeAsync(StateHasChanged);
     }
+
 
     private void UpdateActiveStateFromUrl()
     {
@@ -124,21 +137,34 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
                 // Auto-expand Scenario Overview for net-worth or cashflow view
                 if (_activeView == "net-worth" || _activeView == "cashflow")
                     _expandedScenarioOverview.Add(scenarioId);
-                // Handle income sub-view: /scenario/{id}/income/{subview}
-                if (_activeView == "income" && parts.Length >= 4)
+
+                // Handle income sub-view: /scenario/{id}/income/timeline/{timelineId}/{subview}
+                if (_activeView == "income" && parts.Length >= 6 && parts[3] == "timeline" && long.TryParse(parts[4], out var incomeTimelineId))
                 {
+                    _activeIncomeTimelineId = incomeTimelineId;
+                    _activeIncomeSubView = parts[5];
+                    _expandedIncomeSubMenu.Add(scenarioId);
+                    // Auto-expand the timeline item
+                    if (!_expandedIncomeTimelineItems.ContainsKey(scenarioId))
+                        _expandedIncomeTimelineItems[scenarioId] = [];
+                    _expandedIncomeTimelineItems[scenarioId].Add(incomeTimelineId);
+                }
+                else if (_activeView == "income" && parts.Length >= 4)
+                {
+                    _activeIncomeTimelineId = null;
                     _activeIncomeSubView = parts[3];
                     _expandedIncomeSubMenu.Add(scenarioId);
                 }
-                else if (_activeView == "income" && parts.Length == 3)
+                else if (_activeView == "income")
                 {
-                    // Landing on /income with no sub-view — default to employment
-                    _activeIncomeSubView = "employment";
+                    _activeIncomeTimelineId = null;
+                    _activeIncomeSubView = string.Empty;
                     _expandedIncomeSubMenu.Add(scenarioId);
                 }
                 else
                 {
                     _activeIncomeSubView = string.Empty;
+                    _activeIncomeTimelineId = null;
                 }
 
                 // Handle assets sub-view: /scenario/{id}/assets/{subview}
@@ -174,6 +200,7 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
                 }
 
                 // Handle spending sub-view: /scenario/{id}/spending/{subview}
+                // Also handle /scenario/{id}/spending/timeline/{timelineId}/{subview}
                 if (_activeView == "spending" && parts.Length >= 4)
                 {
                     _activeSpendingSubView = parts[3];
@@ -207,6 +234,12 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
         if (result.Success)
         {
             _scenarios = result.Scenarios;
+            foreach (var scenario in _scenarios.Where(s => s.ScenarioFullyCreated))
+            {
+                var items = await Mediator.Send(new GetRetirementSpendingsQuery(scenario.ScenarioId));
+                _expenseTimelines[scenario.ScenarioId]    = items.Where(i => i.TimelineType == RetirementTimelineTypeEnum.Expenses).ToList();
+                _incomeTimelines[scenario.ScenarioId]     = items.Where(i => i.TimelineType == RetirementTimelineTypeEnum.Income).ToList();
+            }
         }
     }
 
@@ -304,13 +337,58 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
             _expandedIncomeSubMenu.Remove(scenarioId);
     }
 
-    private void NavigateToIncomeSubPage(long scenarioId, string subView)
+    private void NavigateToIncomeSubPage(long scenarioId, long timelineId, string subView)
     {
         _activeIncomeSubView = subView;
         _activeView = "income";
         _activeScenarioId = scenarioId;
-        Navigation.NavigateTo($"/scenario/{scenarioId}/income/{subView}", forceLoad: false);
+        Navigation.NavigateTo($"/scenario/{scenarioId}/income/timeline/{timelineId}/{subView}", forceLoad: false);
         InvokeAsync(StateHasChanged);
+    }
+
+    private void ToggleIncomeTimelineItem(long scenarioId, long timelineId)
+    {
+        if (!_expandedIncomeTimelineItems.TryGetValue(scenarioId, out var set))
+        {
+            set = [];
+            _expandedIncomeTimelineItems[scenarioId] = set;
+        }
+        if (!set.Add(timelineId))
+            set.Remove(timelineId);
+    }
+
+    private async Task OnNewIncomeTimelineClick(long scenarioId)
+    {
+        if (_isCreatingIncomeTimeline) return;
+        _isCreatingIncomeTimeline = true;
+        try
+        {
+            var result = await Mediator.Send(new CreateRetirementSpendingCommand(scenarioId, "New Income Timeline", RetirementTimelineTypeEnum.Income));
+            if (result.Success)
+            {
+                var items = await Mediator.Send(new GetRetirementSpendingsQuery(scenarioId));
+                _incomeTimelines[scenarioId]  = items.Where(i => i.TimelineType == RetirementTimelineTypeEnum.Income).ToList();
+                _expenseTimelines[scenarioId] = items.Where(i => i.TimelineType == RetirementTimelineTypeEnum.Expenses).ToList();
+                _expandedIncomeSubMenu.Add(scenarioId);
+                Navigation.NavigateTo($"/scenario/{scenarioId}/income/timeline/{result.RetirementSpendingId}/settings", forceLoad: false);
+            }
+        }
+        finally
+        {
+            _isCreatingIncomeTimeline = false;
+        }
+    }
+
+    private bool IsIncomeTimelineSettingsActive(long scenarioId, long timelineId)
+    {
+        var path = Navigation.ToBaseRelativePath(Navigation.Uri);
+        return path == $"scenario/{scenarioId}/income/timeline/{timelineId}/settings";
+    }
+
+    private bool IsIncomeTimelineSubActive(long scenarioId, long timelineId, string subView)
+    {
+        var path = Navigation.ToBaseRelativePath(Navigation.Uri);
+        return path.StartsWith($"scenario/{scenarioId}/income/timeline/{timelineId}/{subView}");
     }
 
     private void ToggleSpendingSubMenu(long scenarioId)
@@ -328,12 +406,6 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
         InvokeAsync(StateHasChanged);
     }
 
-    private string IsSpendingSubActive(long scenarioId, string subView)
-    {
-        if (_activeScenarioId == scenarioId && _activeView == "spending" && _activeSpendingSubView == subView)
-            return "active";
-        return string.Empty;
-    }
 
     private static readonly string[] SpendingSubViewOrder =
     [
@@ -349,20 +421,13 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
             NavigateToSpendingSubPage(_activeScenarioId.Value, SpendingSubViewOrder[idx + 1]);
     }
 
-    private static readonly string[] IncomeSubViewOrder =
-    [
-        "employment", "self-employment", "defined-benefits",
-        "defined-contribution", "group-rrsp", "defined-profit-sharing",
-        "share-purchase-plan", "oas-cpp", "other"
-    ];
-
     public void NavigateNextIncomeStep()
     {
-        if (_activeScenarioId is null) return;
+        if (_activeScenarioId is null || _activeIncomeTimelineId is null) return;
 
         var idx = Array.IndexOf(IncomeSubViewOrder, _activeIncomeSubView);
         if (idx >= 0 && idx < IncomeSubViewOrder.Length - 1)
-            NavigateToIncomeSubPage(_activeScenarioId.Value, IncomeSubViewOrder[idx + 1]);
+            NavigateToIncomeSubPage(_activeScenarioId.Value, _activeIncomeTimelineId.Value, IncomeSubViewOrder[idx + 1]);
     }    private async Task OnNewScenarioClick()
     {
         if (_isCreatingScenario) return;
@@ -438,18 +503,63 @@ public partial class DashboardSidebar : ComponentBase, IDisposable
         return string.Empty;
     }
 
-    private string IsIncomeSubActive(long scenarioId, string subView)
-    {
-        if (_activeScenarioId == scenarioId && _activeView == "income" && _activeIncomeSubView == subView)
-            return "active";
-
-        return string.Empty;
-    }
-
     private string IsDisabled(string item)
     {
         if (HasCompletedIntro) return string.Empty;
         return item != "introduction" ? "nav-item-disabled" : string.Empty;
+    }
+
+    private static readonly string[] IncomeSubViewOrder =
+    [
+        "employment", "self-employment", "defined-benefits",
+        "defined-contribution", "group-rrsp", "defined-profit-sharing",
+        "share-purchase-plan", "oas-cpp", "other",
+        "real-estate-income", "other-persisting-income"
+    ];
+
+    private void ToggleExpenseTimelineItem(long scenarioId, long timelineId)
+    {
+        if (!_expandedExpenseTimelineItems.TryGetValue(scenarioId, out var set))
+        {
+            set = [];
+            _expandedExpenseTimelineItems[scenarioId] = set;
+        }
+        if (!set.Add(timelineId))
+            set.Remove(timelineId);
+    }
+
+    private async Task OnNewExpenseTimelineClick(long scenarioId)
+    {
+        if (_isCreatingExpenseTimeline) return;
+        _isCreatingExpenseTimeline = true;
+        try
+        {
+            var result = await Mediator.Send(new CreateRetirementSpendingCommand(scenarioId, "New Expense Timeline", RetirementTimelineTypeEnum.Expenses));
+            if (result.Success)
+            {
+                var items = await Mediator.Send(new GetRetirementSpendingsQuery(scenarioId));
+                _incomeTimelines[scenarioId]  = items.Where(i => i.TimelineType == RetirementTimelineTypeEnum.Income).ToList();
+                _expenseTimelines[scenarioId] = items.Where(i => i.TimelineType == RetirementTimelineTypeEnum.Expenses).ToList();
+                _expandedExpenseTimelinesSubMenu.Add(scenarioId);
+                Navigation.NavigateTo($"/scenario/{scenarioId}/spending/timeline/{result.RetirementSpendingId}/settings", forceLoad: false);
+            }
+        }
+        finally
+        {
+            _isCreatingExpenseTimeline = false;
+        }
+    }
+
+    private bool IsExpenseTimelineSettingsActive(long scenarioId, long timelineId)
+    {
+        var path = Navigation.ToBaseRelativePath(Navigation.Uri);
+        return path == $"scenario/{scenarioId}/spending/timeline/{timelineId}/settings";
+    }
+
+    private bool IsExpenseTimelineSubActive(long scenarioId, long timelineId, string subView)
+    {
+        var path = Navigation.ToBaseRelativePath(Navigation.Uri);
+        return path.StartsWith($"scenario/{scenarioId}/spending/timeline/{timelineId}/{subView}");
     }
 
     public void Dispose()

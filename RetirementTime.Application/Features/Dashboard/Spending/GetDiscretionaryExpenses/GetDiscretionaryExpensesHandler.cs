@@ -14,7 +14,7 @@ public partial class GetDiscretionaryExpensesHandler(
 
         try
         {
-            var expenses    = await repository.GetDiscretionaryExpensesAsync(request.ScenarioId);
+            var expenses    = await repository.GetDiscretionaryExpensesAsync(request.ScenarioId, request.TimelineId);
             var frequencies = await repository.GetFrequenciesAsync();
 
             LogSuccessfullyCompleted(logger, request.ScenarioId);

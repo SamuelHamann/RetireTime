@@ -19,6 +19,7 @@ public partial class SaveDiscretionaryExpensesHandler(
             var entity = new SpendingDiscretionaryExpenses
             {
                 ScenarioId                         = request.ScenarioId,
+                RetirementTimelineId               = request.TimelineId,
                 GymMembership                      = request.GymMembership,
                 GymMembershipFrequencyId           = request.GymMembershipFrequencyId,
                 Subscriptions                      = request.Subscriptions,

@@ -21,6 +21,7 @@ public partial class DiscretionaryExpenses : ComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long TimelineId { get; set; }
 
     private bool _isLoading = true;
     private SpendingDiscretionaryExpensesModel _model = new();
@@ -33,7 +34,7 @@ public partial class DiscretionaryExpenses : ComponentBase
         var authenticatedUser = await AuthService.GetAuthenticatedUserAsync(AuthenticationState);
         if (authenticatedUser == null) { Navigation.NavigateTo("/"); return; }
 
-        var result = await Mediator.Send(new GetDiscretionaryExpensesQuery(ScenarioId));
+        var result = await Mediator.Send(new GetDiscretionaryExpensesQuery(ScenarioId, TimelineId));
         _frequencies = result.Frequencies;
 
         if (result.Expenses is { } e)
@@ -66,6 +67,7 @@ public partial class DiscretionaryExpenses : ComponentBase
         await Mediator.Send(new SaveDiscretionaryExpensesCommand
         {
             ScenarioId                         = ScenarioId,
+            TimelineId                         = TimelineId,
             GymMembership                      = _model.GymMembership,
             GymMembershipFrequencyId           = _model.GymMembershipFrequencyId,
             Subscriptions                      = _model.Subscriptions,

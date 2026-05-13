@@ -1,0 +1,13 @@
+@page "/scenario/{scenarioId:long}/retirement-spending/{retirementSpendingId:long}/settings"
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+
+@code {
+    [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long RetirementSpendingId { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Navigation.NavigateTo($"/scenario/{ScenarioId}/spending", replace: true);
+    }
+}

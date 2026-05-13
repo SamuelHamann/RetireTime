@@ -22,6 +22,7 @@ public partial class DefinedProfitSharing : ComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long TimelineId { get; set; }
 
     private bool _isLoading = true;
     private List<DefinedProfitSharingItemModel> _planItems = [];
@@ -37,7 +38,7 @@ public partial class DefinedProfitSharing : ComponentBase
             return;
         }
 
-        var items = await Mediator.Send(new GetDefinedProfitSharingQuery(ScenarioId));
+        var items = await Mediator.Send(new GetDefinedProfitSharingQuery(ScenarioId, TimelineId));
 
         _planItems = items.Select(e => new DefinedProfitSharingItemModel
         {
@@ -52,7 +53,7 @@ public partial class DefinedProfitSharing : ComponentBase
 
     private async Task AddPlan()
     {
-        var result = await Mediator.Send(new CreateDefinedProfitSharingCommand(ScenarioId));
+        var result = await Mediator.Send(new CreateDefinedProfitSharingCommand(ScenarioId, TimelineId));
         if (result.Success)
         {
             _planItems.Add(new DefinedProfitSharingItemModel { Id = result.PlanId });

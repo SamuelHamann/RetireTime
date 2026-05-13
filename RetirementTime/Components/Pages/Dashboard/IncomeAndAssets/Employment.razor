@@ -1,4 +1,4 @@
-﻿@page "/scenario/{scenarioId:long}/income/employment"
+﻿@page "/scenario/{scenarioId:long}/income/timeline/{timelineId:long}/employment"
 @layout DashboardLayout
 @rendermode InteractiveServer
 
@@ -65,12 +65,18 @@
                                         <div class="money-input-wrapper">
                                             <input type="number" class="field-input money-input" @bind="item.GrossSalary" @bind:after="async () => await SaveEmployment(item)" min="0" step="0.01" />
                                         </div>
+                                        <select class="field-select" @bind="item.GrossSalaryFrequencyId" @bind:after="async () => await SaveEmployment(item)">
+                                            @foreach (var f in _frequencies) { <option value="@f.Id">@f.Name</option> }
+                                        </select>
                                     </div>
                                     <div class="field-group">
                                         <label class="field-question">@Localizer["Income_Employment_NetSalary"]</label>
                                         <div class="money-input-wrapper">
                                             <input type="number" class="field-input money-input" @bind="item.NetSalary" @bind:after="async () => await SaveEmployment(item)" min="0" step="0.01" />
                                         </div>
+                                        <select class="field-select" @bind="item.NetSalaryFrequencyId" @bind:after="async () => await SaveEmployment(item)">
+                                            @foreach (var f in _frequencies) { <option value="@f.Id">@f.Name</option> }
+                                        </select>
                                     </div>
 
                                     <!-- Commissions & Tips -->
@@ -79,12 +85,18 @@
                                         <div class="money-input-wrapper">
                                             <input type="number" class="field-input money-input" @bind="item.GrossCommissions" @bind:after="async () => await SaveEmployment(item)" min="0" step="0.01" />
                                         </div>
+                                        <select class="field-select" @bind="item.GrossCommissionsFrequencyId" @bind:after="async () => await SaveEmployment(item)">
+                                            @foreach (var f in _frequencies) { <option value="@f.Id">@f.Name</option> }
+                                        </select>
                                     </div>
                                     <div class="field-group">
                                         <label class="field-question">@Localizer["Income_Employment_NetCommissions"]</label>
                                         <div class="money-input-wrapper">
                                             <input type="number" class="field-input money-input" @bind="item.NetCommissions" @bind:after="async () => await SaveEmployment(item)" min="0" step="0.01" />
                                         </div>
+                                        <select class="field-select" @bind="item.NetCommissionsFrequencyId" @bind:after="async () => await SaveEmployment(item)">
+                                            @foreach (var f in _frequencies) { <option value="@f.Id">@f.Name</option> }
+                                        </select>
                                     </div>
 
                                     <!-- Bonus -->
@@ -93,12 +105,18 @@
                                         <div class="money-input-wrapper">
                                             <input type="number" class="field-input money-input" @bind="item.GrossBonus" @bind:after="async () => await SaveEmployment(item)" min="0" step="0.01" />
                                         </div>
+                                        <select class="field-select" @bind="item.GrossBonusFrequencyId" @bind:after="async () => await SaveEmployment(item)">
+                                            @foreach (var f in _frequencies) { <option value="@f.Id">@f.Name</option> }
+                                        </select>
                                     </div>
                                     <div class="field-group">
                                         <label class="field-question">@Localizer["Income_Employment_NetBonus"]</label>
                                         <div class="money-input-wrapper">
                                             <input type="number" class="field-input money-input" @bind="item.NetBonus" @bind:after="async () => await SaveEmployment(item)" min="0" step="0.01" />
                                         </div>
+                                        <select class="field-select" @bind="item.NetBonusFrequencyId" @bind:after="async () => await SaveEmployment(item)">
+                                            @foreach (var f in _frequencies) { <option value="@f.Id">@f.Name</option> }
+                                        </select>
                                     </div>
 
                                     <!-- Other Income -->
@@ -120,12 +138,18 @@
                                                                 <div class="money-input-wrapper">
                                                                     <input type="number" class="field-input money-input" @bind="other.Gross" @bind:after="async () => await SaveOtherIncome(other)" min="0" step="0.01" />
                                                                 </div>
+                                                                <select class="field-select" @bind="other.GrossFrequencyId" @bind:after="async () => await SaveOtherIncome(other)">
+                                                                    @foreach (var f in _frequencies) { <option value="@f.Id">@f.Name</option> }
+                                                                </select>
                                                             </div>
                                                             <div class="field-group">
                                                                 <label class="field-question">@Localizer["Income_Employment_OtherIncomeNet"]</label>
                                                                 <div class="money-input-wrapper">
                                                                     <input type="number" class="field-input money-input" @bind="other.Net" @bind:after="async () => await SaveOtherIncome(other)" min="0" step="0.01" />
                                                                 </div>
+                                                                <select class="field-select" @bind="other.NetFrequencyId" @bind:after="async () => await SaveOtherIncome(other)">
+                                                                    @foreach (var f in _frequencies) { <option value="@f.Id">@f.Name</option> }
+                                                                </select>
                                                             </div>
                                                             <div class="income-remove-cell">
                                                                 <button type="button" class="income-remove-btn" @onclick="async () => await RemoveOtherIncome(item, other)">

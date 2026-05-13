@@ -6,10 +6,10 @@ namespace RetirementTime.Infrastructure.Repositories;
 
 public class SelfEmploymentIncomeRepository(ApplicationDbContext context) : ISelfEmploymentIncomeRepository
 {
-    public async Task<List<SelfEmploymentIncome>> GetByScenarioIdAsync(long scenarioId)
+    public async Task<List<SelfEmploymentIncome>> GetByScenarioIdAsync(long scenarioId, long timelineId)
     {
         return await context.SelfEmploymentIncomes
-            .Where(e => e.ScenarioId == scenarioId)
+            .Where(e => e.ScenarioId == scenarioId && e.RetirementTimelineId == timelineId)
             .OrderBy(e => e.CreatedAt)
             .ToListAsync();
     }
@@ -30,9 +30,13 @@ public class SelfEmploymentIncomeRepository(ApplicationDbContext context) : ISel
 
         existing.Name = selfEmploymentIncome.Name;
         existing.GrossSalary = selfEmploymentIncome.GrossSalary;
+        existing.GrossSalaryFrequencyId = selfEmploymentIncome.GrossSalaryFrequencyId;
         existing.NetSalary = selfEmploymentIncome.NetSalary;
+        existing.NetSalaryFrequencyId = selfEmploymentIncome.NetSalaryFrequencyId;
         existing.GrossDividends = selfEmploymentIncome.GrossDividends;
+        existing.GrossDividendsFrequencyId = selfEmploymentIncome.GrossDividendsFrequencyId;
         existing.NetDividends = selfEmploymentIncome.NetDividends;
+        existing.NetDividendsFrequencyId = selfEmploymentIncome.NetDividendsFrequencyId;
         existing.UpdatedAt = DateTime.UtcNow;
 
         return await context.SaveChangesAsync() > 0;

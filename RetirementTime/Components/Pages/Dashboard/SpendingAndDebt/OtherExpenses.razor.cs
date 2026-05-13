@@ -20,6 +20,7 @@ public partial class OtherExpenses : ComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long TimelineId { get; set; }
 
     private bool _isLoading = true;
     private List<SpendingOtherExpenseItemModel> _items = [];
@@ -32,7 +33,7 @@ public partial class OtherExpenses : ComponentBase
         var authenticatedUser = await AuthService.GetAuthenticatedUserAsync(AuthenticationState);
         if (authenticatedUser == null) { Navigation.NavigateTo("/"); return; }
 
-        var result = await Mediator.Send(new GetOtherExpensesQuery(ScenarioId));
+        var result = await Mediator.Send(new GetOtherExpensesQuery(ScenarioId, TimelineId));
         _frequencies = result.Frequencies;
         _items = result.Expenses.Select(e => new SpendingOtherExpenseItemModel
         {
@@ -48,7 +49,7 @@ public partial class OtherExpenses : ComponentBase
 
     private async Task AddItem()
     {
-        var result = await Mediator.Send(new CreateOtherExpenseCommand(ScenarioId));
+        var result = await Mediator.Send(new CreateOtherExpenseCommand(ScenarioId, TimelineId));
         if (result.Success)
             _items.Add(new SpendingOtherExpenseItemModel
             {

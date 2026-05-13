@@ -15,7 +15,7 @@ public partial class CreateGroupRrspHandler(
 
         try
         {
-            var plan = new GroupRrsp { ScenarioId = request.ScenarioId };
+            var plan = new GroupRrsp { ScenarioId = request.ScenarioId, RetirementTimelineId = request.TimelineId };
             var created = await repository.CreateAsync(plan);
 
             LogSuccessfullyCompleted(logger, created.Id, request.ScenarioId);

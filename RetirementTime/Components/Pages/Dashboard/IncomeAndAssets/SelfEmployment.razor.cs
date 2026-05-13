@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
+using RetirementTime.Application.Features.Common.GetFrequencies;
 using RetirementTime.Application.Features.Dashboard.Income.CreateSelfEmploymentIncome;
 using RetirementTime.Application.Features.Dashboard.Income.DeleteSelfEmploymentIncome;
 using RetirementTime.Application.Features.Dashboard.Income.GetSelfEmploymentIncomes;
@@ -22,9 +23,11 @@ public partial class SelfEmployment : ComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long TimelineId { get; set; }
 
     private bool _isLoading = true;
     private List<SelfEmploymentItemModel> _selfEmploymentItems = [];
+    private List<FrequencyDto> _frequencies = [];
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -37,16 +40,21 @@ public partial class SelfEmployment : ComponentBase
             return;
         }
 
-        var items = await Mediator.Send(new GetSelfEmploymentIncomesQuery(ScenarioId));
+        _frequencies = await Mediator.Send(new GetFrequenciesQuery());
+        var items = await Mediator.Send(new GetSelfEmploymentIncomesQuery(ScenarioId, TimelineId));
 
         _selfEmploymentItems = items.Select(e => new SelfEmploymentItemModel
         {
             Id = e.Id,
             Name = e.Name,
             GrossSalary = e.GrossSalary,
+            GrossSalaryFrequencyId = e.GrossSalaryFrequencyId,
             NetSalary = e.NetSalary,
+            NetSalaryFrequencyId = e.NetSalaryFrequencyId,
             GrossDividends = e.GrossDividends,
-            NetDividends = e.NetDividends
+            GrossDividendsFrequencyId = e.GrossDividendsFrequencyId,
+            NetDividends = e.NetDividends,
+            NetDividendsFrequencyId = e.NetDividendsFrequencyId
         }).ToList();
 
         _isLoading = false;
@@ -55,7 +63,7 @@ public partial class SelfEmployment : ComponentBase
 
     private async Task AddSelfEmployment()
     {
-        var result = await Mediator.Send(new CreateSelfEmploymentIncomeCommand(ScenarioId));
+        var result = await Mediator.Send(new CreateSelfEmploymentIncomeCommand(ScenarioId, TimelineId));
         if (result.Success)
         {
             _selfEmploymentItems.Add(new SelfEmploymentItemModel { Id = result.SelfEmploymentIncomeId });
@@ -77,9 +85,13 @@ public partial class SelfEmployment : ComponentBase
             Id = item.Id,
             Name = item.Name,
             GrossSalary = item.GrossSalary,
+            GrossSalaryFrequencyId = item.GrossSalaryFrequencyId,
             NetSalary = item.NetSalary,
+            NetSalaryFrequencyId = item.NetSalaryFrequencyId,
             GrossDividends = item.GrossDividends,
-            NetDividends = item.NetDividends
+            GrossDividendsFrequencyId = item.GrossDividendsFrequencyId,
+            NetDividends = item.NetDividends,
+            NetDividendsFrequencyId = item.NetDividendsFrequencyId
         });
     }
 

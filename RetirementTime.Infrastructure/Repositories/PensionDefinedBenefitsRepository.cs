@@ -6,10 +6,10 @@ namespace RetirementTime.Infrastructure.Repositories;
 
 public class PensionDefinedBenefitsRepository(ApplicationDbContext context) : IPensionDefinedBenefitsRepository
 {
-    public async Task<List<PensionDefinedBenefits>> GetByScenarioIdAsync(long scenarioId)
+    public async Task<List<PensionDefinedBenefits>> GetByScenarioIdAsync(long scenarioId, long timelineId)
     {
         return await context.PensionDefinedBenefits
-            .Where(e => e.ScenarioId == scenarioId)
+            .Where(e => e.ScenarioId == scenarioId && e.RetirementTimelineId == timelineId)
             .OrderBy(e => e.CreatedAt)
             .ToListAsync();
     }

@@ -20,6 +20,7 @@ public partial class OasCpp : ComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long TimelineId { get; set; }
 
     private bool _isLoading = true;
     private OasCppModel _model = new();
@@ -31,7 +32,7 @@ public partial class OasCpp : ComponentBase
         var authenticatedUser = await AuthService.GetAuthenticatedUserAsync(AuthenticationState);
         if (authenticatedUser == null) { Navigation.NavigateTo("/"); return; }
 
-        var existing = await Mediator.Send(new GetOasCppIncomeQuery(ScenarioId));
+        var existing = await Mediator.Send(new GetOasCppIncomeQuery(ScenarioId, TimelineId));
         if (existing != null)
         {
             _model = new OasCppModel
@@ -54,6 +55,7 @@ public partial class OasCpp : ComponentBase
         await Mediator.Send(new SaveOasCppIncomeCommand
         {
             ScenarioId = ScenarioId,
+            TimelineId = TimelineId,
             IncomeLastYear = _model.IncomeLastYear,
             Income2YearsAgo = _model.Income2YearsAgo,
             Income3YearsAgo = _model.Income3YearsAgo,

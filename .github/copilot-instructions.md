@@ -50,6 +50,118 @@ RetireTime is a retirement planning tool designed to be user-friendly with a sim
 
 ## Project Structure
 
+### Full Folder Structure
+
+```
+RetireTime/
+├── RetirementTime/                          # Presentation Layer (Blazor Web App)
+│   ├── Application/
+│   │   └── Features/
+│   ├── Components/
+│   │   ├── Layout/
+│   │   ├── Pages/
+│   │   │   ├── Auth/
+│   │   │   ├── Dashboard/
+│   │   │   │   ├── IncomeAndAssets/
+│   │   │   │   ├── Overview/
+│   │   │   │   └── SpendingAndDebt/
+│   │   │   ├── Introduction/
+│   │   │   │   └── Steps/
+│   │   │   └── Landing/
+│   │   └── Shared/
+│   ├── Controllers/
+│   ├── Middleware/
+│   ├── Models/
+│   │   ├── Asset/
+│   │   ├── Auth/
+│   │   ├── Dashboard/
+│   │   ├── Debt/
+│   │   ├── Income/
+│   │   ├── Introduction/
+│   │   └── Spending/
+│   ├── Properties/
+│   ├── Resources/
+│   │   ├── Auth/
+│   │   ├── Common/
+│   │   ├── Dashboard/
+│   │   ├── Introduction/
+│   │   └── Landing/
+│   ├── Services/
+│   ├── ThemesAndUI/
+│   └── wwwroot/
+│       ├── css/
+│       ├── js/
+│       └── lib/
+│
+├── RetirementTime.Application/              # Application Layer (CQRS / MediatR)
+│   ├── Common/
+│   ├── Exceptions/
+│   └── Features/
+│       ├── Common/
+│       ├── Dashboard/
+│       │   ├── Asset/
+│       │   ├── Cashflow/
+│       │   ├── Common/
+│       │   ├── CreateScenario/
+│       │   ├── Debt/
+│       │   ├── DeleteScenario/
+│       │   ├── GetAssumptions/
+│       │   ├── GetScenarios/
+│       │   ├── Income/
+│       │   ├── NetWorth/
+│       │   ├── RetirementSpending/
+│       │   ├── SaveAssumptions/
+│       │   ├── Spending/
+│       │   └── UpdateScenario/
+│       ├── Locations/
+│       ├── Onboarding/
+│       │   ├── GetAssets/
+│       │   ├── GetDebt/
+│       │   ├── GetEmployment/
+│       │   ├── GetPersonalInfo/
+│       │   ├── UpsertAssets/
+│       │   ├── UpsertDebt/
+│       │   ├── UpsertEmployment/
+│       │   └── UpsertPersonalInfo/
+│       ├── Subdivisions/
+│       └── Users/
+│           ├── CompleteIntro/
+│           ├── CreateUser/
+│           ├── DTOs/
+│           ├── GetIntroStatus/
+│           ├── GetUserById/
+│           ├── GetUsers/
+│           └── Login/
+│
+├── RetirementTime.Domain/                   # Domain Layer (Entities & Interfaces)
+│   ├── Entities/
+│   │   ├── Common/
+│   │   ├── Dashboard/
+│   │   │   ├── Asset/
+│   │   │   ├── Debt/
+│   │   │   ├── Income/
+│   │   │   └── Spending/
+│   │   ├── Location/
+│   │   ├── Onboarding/
+│   │   └── RealEstate/
+│   ├── Helpers/
+│   ├── Interfaces/
+│   │   ├── Math/
+│   │   ├── Repositories/
+│   │   └── Services/
+│   └── Services/
+│
+├── RetirementTime.Infrastructure/           # Infrastructure Layer (DB / Repositories)
+│   ├── Authentication/
+│   ├── Migrations/
+│   ├── Repositories/
+│   └── Services/
+│
+└── RetirementTime.Domain.Tests/             # Unit Tests
+```
+
+### Layers Overview
+
 The solution follows Clean Architecture principles and is divided into four distinct projects:
 
 ### 1. RetirementTime (Presentation Layer)

@@ -7,6 +7,7 @@ public class SpendingDebtRepayment
 {
     public long Id { get; set; }
     public long ScenarioId { get; set; }
+    public long? RetirementTimelineId { get; set; }
 
     public string Name { get; set; } = string.Empty;
 
@@ -22,4 +23,5 @@ public class SpendingDebtRepayment
     public DashboardScenario Scenario { get; set; } = null!;
     public Frequency Frequency { get; set; } = null!;
     public GenericDebt? GenericDebt { get; set; }
+    public RetirementTimeline? RetirementTimeline { get; set; }
 }

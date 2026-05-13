@@ -7,5 +7,5 @@ public class OasCppModel
     public decimal? Income3YearsAgo { get; set; }
     public decimal? Income4YearsAgo { get; set; }
     public decimal? Income5YearsAgo { get; set; }
-    public int YearsSpentInCanada { get; set; }
+    public int? YearsSpentInCanada { get; set; }
 }

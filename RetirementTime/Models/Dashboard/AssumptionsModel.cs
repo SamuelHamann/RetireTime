@@ -11,6 +11,15 @@ public class AssumptionsModel
     [Range(0, 100, ErrorMessage = "Must be between 0 and 100")]
     public decimal YearlyPropertyAppreciation { get; set; } = 3.0m;
 
+    [Range(0, 100, ErrorMessage = "Must be between 0 and 100")]
+    public decimal YearlyHouseMaintenance { get; set; } = 2.0m;
+
+    [Range(0, 100, ErrorMessage = "Must be between 0 and 100")]
+    public decimal AnnualSalaryRaise { get; set; } = 2.75m;
+
+    [Range(50, 120, ErrorMessage = "Must be between 50 and 120")]
+    public int LifeExpectancy { get; set; } = 90;
+
     // Stocks
     [Range(0, 100, ErrorMessage = "Must be between 0 and 100")]
     public decimal StockAllocation { get; set; } = 60.0m;

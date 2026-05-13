@@ -8,9 +8,9 @@ public class OtherEmploymentIncome
     public long EmploymentIncomeId { get; set; }
     public string Name { get; set; } = string.Empty;
     public decimal? Gross { get; set; }
-    public int GrossFrequencyId { get; set; } = (int)FrequencyEnum.Annually;
+    public int GrossFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
     public decimal? Net { get; set; }
-    public int NetFrequencyId { get; set; } = (int)FrequencyEnum.Annually;
+    public int NetFrequencyId { get; set; } = (int)FrequencyEnum.Monthly;
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 

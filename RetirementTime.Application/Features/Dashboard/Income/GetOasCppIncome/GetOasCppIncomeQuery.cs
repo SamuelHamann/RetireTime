@@ -3,4 +3,4 @@ using RetirementTime.Domain.Entities.Dashboard.Income;
 
 namespace RetirementTime.Application.Features.Dashboard.Income.GetOasCppIncome;
 
-public record GetOasCppIncomeQuery(long ScenarioId) : IRequest<OasCppIncome?>;
+public record GetOasCppIncomeQuery(long ScenarioId, long TimelineId) : IRequest<OasCppIncome?>;

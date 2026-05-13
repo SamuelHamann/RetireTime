@@ -21,6 +21,7 @@ public partial class LivingExpenses : ComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long TimelineId { get; set; }
 
     private bool _isLoading = true;
     private SpendingLivingExpensesModel _model = new();
@@ -33,13 +34,15 @@ public partial class LivingExpenses : ComponentBase
         var authenticatedUser = await AuthService.GetAuthenticatedUserAsync(AuthenticationState);
         if (authenticatedUser == null) { Navigation.NavigateTo("/"); return; }
 
-        var result = await Mediator.Send(new GetLivingExpensesQuery(ScenarioId));
+        var result = await Mediator.Send(new GetLivingExpensesQuery(ScenarioId, TimelineId));
         _frequencies = result.Frequencies;
 
         if (result.Expenses is { } e)
         {
-            _model.RentOrMortgage                 = e.RentOrMortgage;
-            _model.RentOrMortgageFrequencyId      = e.RentOrMortgageFrequencyId;
+            _model.Rent                           = e.Rent;
+            _model.RentFrequencyId                = e.RentFrequencyId;
+            _model.Mortgage                       = e.Mortgage;
+            _model.MortgageFrequencyId            = e.MortgageFrequencyId;
             _model.Food                           = e.Food;
             _model.FoodFrequencyId                = e.FoodFrequencyId;
             _model.Utilities                      = e.Utilities;
@@ -50,6 +53,8 @@ public partial class LivingExpenses : ComponentBase
             _model.GasFrequencyId                 = e.GasFrequencyId;
             _model.HomeMaintenance                = e.HomeMaintenance;
             _model.HomeMaintenanceFrequencyId     = e.HomeMaintenanceFrequencyId;
+            _model.PropertyTax                    = e.PropertyTax;
+            _model.PropertyTaxFrequencyId         = e.PropertyTaxFrequencyId;
             _model.Cellphone                      = e.Cellphone;
             _model.CellphoneFrequencyId           = e.CellphoneFrequencyId;
             _model.HealthSpendings                = e.HealthSpendings;
@@ -67,8 +72,11 @@ public partial class LivingExpenses : ComponentBase
         await Mediator.Send(new SaveLivingExpensesCommand
         {
             ScenarioId                     = ScenarioId,
-            RentOrMortgage                 = _model.RentOrMortgage,
-            RentOrMortgageFrequencyId      = _model.RentOrMortgageFrequencyId,
+            TimelineId                     = TimelineId,
+            Rent                           = _model.Rent,
+            RentFrequencyId                = _model.RentFrequencyId,
+            Mortgage                       = _model.Mortgage,
+            MortgageFrequencyId            = _model.MortgageFrequencyId,
             Food                           = _model.Food,
             FoodFrequencyId                = _model.FoodFrequencyId,
             Utilities                      = _model.Utilities,
@@ -79,6 +87,8 @@ public partial class LivingExpenses : ComponentBase
             GasFrequencyId                 = _model.GasFrequencyId,
             HomeMaintenance                = _model.HomeMaintenance,
             HomeMaintenanceFrequencyId     = _model.HomeMaintenanceFrequencyId,
+            PropertyTax                    = _model.PropertyTax,
+            PropertyTaxFrequencyId         = _model.PropertyTaxFrequencyId,
             Cellphone                      = _model.Cellphone,
             CellphoneFrequencyId           = _model.CellphoneFrequencyId,
             HealthSpendings                = _model.HealthSpendings,

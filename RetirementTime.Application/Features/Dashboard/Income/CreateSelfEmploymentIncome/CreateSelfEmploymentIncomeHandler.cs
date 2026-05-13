@@ -15,10 +15,7 @@ public partial class CreateSelfEmploymentIncomeHandler(
 
         try
         {
-            var selfEmployment = new SelfEmploymentIncome
-            {
-                ScenarioId = request.ScenarioId
-            };
+            var selfEmployment = new SelfEmploymentIncome { ScenarioId = request.ScenarioId, RetirementTimelineId = request.TimelineId };
 
             var created = await selfEmploymentIncomeRepository.CreateAsync(selfEmployment);
 

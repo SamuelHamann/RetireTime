@@ -6,6 +6,7 @@ namespace RetirementTime.Application.Features.Dashboard.Spending.SaveDiscretiona
 public record SaveDiscretionaryExpensesCommand : IRequest<BaseResult>
 {
     public long ScenarioId { get; init; }
+    public long TimelineId { get; init; }
 
     public decimal? GymMembership { get; init; }
     public int GymMembershipFrequencyId { get; init; }

@@ -6,8 +6,7 @@ using RetirementTime.Domain.Entities.Dashboard.Spending;
 
 namespace RetirementTime.Application.Features.Dashboard.Spending.GetDebtRepayments;
 
-public record GetDebtRepaymentsQuery(long ScenarioId) : IRequest<GetDebtRepaymentsResult>;
-
+public record GetDebtRepaymentsQuery(long ScenarioId, long TimelineId) : IRequest<GetDebtRepaymentsResult>;
 public record GetDebtRepaymentsResult
 {
     public List<SpendingDebtRepayment> Repayments { get; init; } = [];
@@ -15,7 +14,7 @@ public record GetDebtRepaymentsResult
     public List<Frequency> Frequencies { get; init; } = [];
 }
 
-public record CreateDebtRepaymentCommand(long ScenarioId, long? GenericDebtId = null) : IRequest<CreateSpendingItemResult>;
+public record CreateDebtRepaymentCommand(long ScenarioId, long TimelineId, long? GenericDebtId = null) : IRequest<CreateSpendingItemResult>;
 
 public record UpdateDebtRepaymentCommand : IRequest<BaseResult>
 {

@@ -22,6 +22,7 @@ public partial class DefinedBenefits : ComponentBase
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Parameter] public long ScenarioId { get; set; }
+    [Parameter] public long TimelineId { get; set; }
 
     private bool _isLoading = true;
     private List<PensionDefinedBenefitsItemModel> _pensionItems = [];
@@ -37,7 +38,7 @@ public partial class DefinedBenefits : ComponentBase
             return;
         }
 
-        var items = await Mediator.Send(new GetPensionDefinedBenefitsQuery(ScenarioId));
+        var items = await Mediator.Send(new GetPensionDefinedBenefitsQuery(ScenarioId, TimelineId));
 
         _pensionItems = items.Select(e => new PensionDefinedBenefitsItemModel
         {
@@ -57,7 +58,7 @@ public partial class DefinedBenefits : ComponentBase
 
     private async Task AddPension()
     {
-        var result = await Mediator.Send(new CreatePensionDefinedBenefitsCommand(ScenarioId));
+        var result = await Mediator.Send(new CreatePensionDefinedBenefitsCommand(ScenarioId, TimelineId));
         if (result.Success)
         {
             _pensionItems.Add(new PensionDefinedBenefitsItemModel { Id = result.PensionId });

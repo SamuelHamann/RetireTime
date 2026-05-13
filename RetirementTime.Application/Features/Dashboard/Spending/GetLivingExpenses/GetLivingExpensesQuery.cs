@@ -4,7 +4,7 @@ using RetirementTime.Domain.Entities.Dashboard.Spending;
 
 namespace RetirementTime.Application.Features.Dashboard.Spending.GetLivingExpenses;
 
-public record GetLivingExpensesQuery(long ScenarioId) : IRequest<GetLivingExpensesResult>;
+public record GetLivingExpensesQuery(long ScenarioId, long TimelineId) : IRequest<GetLivingExpensesResult>;
 
 public record GetLivingExpensesResult
 {

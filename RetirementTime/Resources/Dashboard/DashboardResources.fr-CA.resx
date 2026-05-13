@@ -186,6 +186,117 @@
   <data name="Sidebar_Income_Other" xml:space="preserve">
     <value>Autre</value>
   </data>
+  <data name="Sidebar_Income_NewTimeline" xml:space="preserve">
+    <value>+ Nouvelle période de revenus</value>
+  </data>
+  <data name="Sidebar_Income_TimelineLabel" xml:space="preserve">
+    <value>Âges {0} – {1}</value>
+  </data>
+  <data name="Sidebar_Income_Settings" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="IncomeTimeline_Title" xml:space="preserve">
+    <value>Période de revenus</value>
+  </data>
+  <data name="IncomeTimeline_Subtitle" xml:space="preserve">
+    <value>Définissez la plage d'âge pour cette période de revenus et copiez optionnellement les revenus d'une période existante.</value>
+  </data>
+  <data name="IncomeTimeline_AgeFrom" xml:space="preserve">
+    <value>Âge de début</value>
+  </data>
+  <data name="IncomeTimeline_AgeTo" xml:space="preserve">
+    <value>Âge de fin</value>
+  </data>
+  <data name="IncomeTimeline_CloneFrom" xml:space="preserve">
+    <value>Copier les revenus de</value>
+  </data>
+  <data name="IncomeTimeline_CloneFromNone" xml:space="preserve">
+    <value>— Aucun —</value>
+  </data>
+  <data name="IncomeTimeline_CloneFromLocked" xml:space="preserve">
+    <value>La source de copie ne peut pas être modifiée après l'enregistrement.</value>
+  </data>
+  <data name="IncomeTimeline_Save" xml:space="preserve">
+    <value>Enregistrer &amp; Continuer</value>
+  </data>
+  <data name="IncomeTimeline_Saving" xml:space="preserve">
+    <value>Enregistrement…</value>
+  </data>
+  <data name="IncomeTimeline_Delete" xml:space="preserve">
+    <value>Supprimer la période</value>
+  </data>
+  <data name="IncomeTimeline_Deleting" xml:space="preserve">
+    <value>Suppression…</value>
+  </data>
+  <data name="IncomeTimeline_SaveError" xml:space="preserve">
+    <value>Une erreur s'est produite lors de l'enregistrement. Veuillez réessayer.</value>
+  </data>
+  <data name="IncomeTimeline_DeleteError" xml:space="preserve">
+    <value>Une erreur s'est produite lors de la suppression. Veuillez réessayer.</value>
+  </data>
+  <data name="Sidebar_Income_PersistingIncome" xml:space="preserve">
+    <value>Revenus persistants</value>
+  </data>
+  <data name="Sidebar_Income_RealEstateIncome" xml:space="preserve">
+    <value>Revenus immobiliers</value>
+  </data>
+  <data name="Sidebar_Income_OtherPersistingIncome" xml:space="preserve">
+    <value>Autres revenus persistants</value>
+  </data>
+  <data name="Income_RealEstate_Title" xml:space="preserve">
+    <value>Revenus immobiliers</value>
+  </data>
+  <data name="Income_RealEstate_Subtitle" xml:space="preserve">
+    <value>Suivez les revenus locatifs de vos propriétés d'investissement.</value>
+  </data>
+  <data name="Income_RealEstate_SectionTitle" xml:space="preserve">
+    <value>Revenus des propriétés d'investissement</value>
+  </data>
+  <data name="Income_RealEstate_Hint" xml:space="preserve">
+    <value>Une entrée est créée pour chaque propriété d'investissement. Entrez le revenu locatif prévu pour chacune.</value>
+  </data>
+  <data name="Income_RealEstate_Item" xml:space="preserve">
+    <value>Propriété #{0}</value>
+  </data>
+  <data name="Income_RealEstate_PropertyName" xml:space="preserve">
+    <value>Nom de la propriété</value>
+  </data>
+  <data name="Income_RealEstate_Amount" xml:space="preserve">
+    <value>Revenu locatif annuel</value>
+  </data>
+  <data name="Income_RealEstate_NoProperties" xml:space="preserve">
+    <value>Aucune propriété d'investissement trouvée. Ajoutez des propriétés dans la section Actifs d'abord.</value>
+  </data>
+  <data name="Income_OtherPersisting_Title" xml:space="preserve">
+    <value>Autres revenus persistants</value>
+  </data>
+  <data name="Income_OtherPersisting_Subtitle" xml:space="preserve">
+    <value>Suivez tout autre revenu qui se poursuivra à la retraite, comme les redevances, les rentes ou autres revenus récurrents.</value>
+  </data>
+  <data name="Income_OtherPersisting_SectionTitle" xml:space="preserve">
+    <value>Autres revenus persistants</value>
+  </data>
+  <data name="Income_OtherPersisting_Hint" xml:space="preserve">
+    <value>Ajoutez les sources de revenus qui persisteront à la retraite.</value>
+  </data>
+  <data name="Income_OtherPersisting_Item" xml:space="preserve">
+    <value>Revenu #{0}</value>
+  </data>
+  <data name="Income_OtherPersisting_Name" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Income_OtherPersisting_Amount" xml:space="preserve">
+    <value>Montant</value>
+  </data>
+  <data name="Income_OtherPersisting_Frequency" xml:space="preserve">
+    <value>Fréquence</value>
+  </data>
+  <data name="Income_OtherPersisting_Taxable" xml:space="preserve">
+    <value>Imposable</value>
+  </data>
+  <data name="Income_OtherPersisting_AddIncome" xml:space="preserve">
+    <value>Ajouter un revenu persistant</value>
+  </data>
   <data name="Sidebar_Spending" xml:space="preserve">
     <value>Dépenses</value>
   </data>
@@ -204,6 +315,132 @@
   <data name="Sidebar_Spending_OtherExpenses" xml:space="preserve">
     <value>Autres dépenses</value>
   </data>
+  <data name="Sidebar_Spending_InvestmentExpenses" xml:space="preserve">
+    <value>Dépenses d'investissement</value>
+  </data>
+  <data name="Sidebar_Spending_NewTimeline" xml:space="preserve">
+    <value>+ Nouvelle période de dépenses</value>
+  </data>
+  <data name="Sidebar_Spending_TimelineLabel" xml:space="preserve">
+    <value>Âges {0} – {1}</value>
+  </data>
+  <data name="ExpenseTimeline_Title" xml:space="preserve">
+    <value>Période de dépenses</value>
+  </data>
+  <data name="ExpenseTimeline_Subtitle" xml:space="preserve">
+    <value>Définissez la tranche d'âge de cette période de dépenses et clonez éventuellement les dépenses d'une période existante.</value>
+  </data>
+  <data name="ExpenseTimeline_AgeFrom" xml:space="preserve">
+    <value>Âge de début</value>
+  </data>
+  <data name="ExpenseTimeline_AgeTo" xml:space="preserve">
+    <value>Âge de fin</value>
+  </data>
+  <data name="ExpenseTimeline_CloneFrom" xml:space="preserve">
+    <value>Cloner les dépenses depuis</value>
+  </data>
+  <data name="ExpenseTimeline_CloneFromNone" xml:space="preserve">
+    <value>— Aucun —</value>
+  </data>
+  <data name="ExpenseTimeline_CloneFromLocked" xml:space="preserve">
+    <value>La source de clonage ne peut pas être modifiée après la sauvegarde.</value>
+  </data>
+  <data name="ExpenseTimeline_Save" xml:space="preserve">
+    <value>Enregistrer et continuer</value>
+  </data>
+  <data name="ExpenseTimeline_Saving" xml:space="preserve">
+    <value>Enregistrement…</value>
+  </data>
+  <data name="ExpenseTimeline_Delete" xml:space="preserve">
+    <value>Supprimer la période</value>
+  </data>
+  <data name="ExpenseTimeline_SaveError" xml:space="preserve">
+    <value>Une erreur est survenue lors de la sauvegarde. Veuillez réessayer.</value>
+  </data>
+  <data name="ExpenseTimeline_DeleteError" xml:space="preserve">
+    <value>Une erreur est survenue lors de la suppression. Veuillez réessayer.</value>
+  </data>
+  <data name="Sidebar_RetirementSpending_Settings" xml:space="preserve">
+    <value>Paramètres de la période</value>
+  </data>
+  <data name="Spending_Investment_Title" xml:space="preserve">
+    <value>Dépenses d'investissement</value>
+  </data>
+  <data name="Spending_Investment_Subtitle" xml:space="preserve">
+    <value>Suivez les frais de gestion et autres coûts liés à vos comptes d'investissement.</value>
+  </data>
+  <data name="Spending_Investment_SectionTitle" xml:space="preserve">
+    <value>Dépenses d'investissement</value>
+  </data>
+  <data name="Spending_Investment_Hint" xml:space="preserve">
+    <value>Ajoutez toute dépense récurrente liée à vos comptes d'investissement, comme les frais de gestion.</value>
+  </data>
+  <data name="Spending_Investment_AddItem" xml:space="preserve">
+    <value>Ajouter une dépense d'investissement</value>
+  </data>
+  <data name="Spending_Investment_Item" xml:space="preserve">
+    <value>Dépense d'investissement {0}</value>
+  </data>
+  <data name="Spending_Investment_Account" xml:space="preserve">
+    <value>Compte</value>
+  </data>
+  <data name="Spending_Investment_AccountPlaceholder" xml:space="preserve">
+    <value>— Sélectionner un compte —</value>
+  </data>
+  <data name="Sidebar_RetirementSpending" xml:space="preserve">
+    <value>Dépenses à la retraite</value>
+  </data>
+  <data name="Sidebar_RetirementSpending_New" xml:space="preserve">
+    <value>+ Nouvelles dépenses de retraite</value>
+  </data>
+  <data name="Sidebar_RetirementSpending_AgeLabel" xml:space="preserve">
+    <value>Dépenses de {0} à {1} ans</value>
+  </data>
+  <data name="RetirementSpending_Title" xml:space="preserve">
+    <value>Dépenses à la retraite</value>
+  </data>
+  <data name="RetirementSpending_Subtitle" xml:space="preserve">
+    <value>Définissez un aperçu des dépenses pour une période spécifique de votre retraite.</value>
+  </data>
+  <data name="RetirementSpending_Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="RetirementSpending_AgeFrom" xml:space="preserve">
+    <value>Âge de début</value>
+  </data>
+  <data name="RetirementSpending_AgeTo" xml:space="preserve">
+    <value>Âge de fin</value>
+  </data>
+  <data name="RetirementSpending_CloneFrom" xml:space="preserve">
+    <value>Cloner depuis</value>
+  </data>
+  <data name="RetirementSpending_CloneFromNone" xml:space="preserve">
+    <value>— Aucun (commencer vide) —</value>
+  </data>
+  <data name="RetirementSpending_CloneFromCurrent" xml:space="preserve">
+    <value>Dépenses actuelles</value>
+  </data>
+  <data name="RetirementSpending_CloneFromLocked" xml:space="preserve">
+    <value>La source de clonage ne peut plus être modifiée après le premier enregistrement.</value>
+  </data>
+  <data name="RetirementSpending_Save" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="RetirementSpending_Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="RetirementSpending_SavedSuccess" xml:space="preserve">
+    <value>Enregistré avec succès.</value>
+  </data>
+  <data name="RetirementSpending_SaveError" xml:space="preserve">
+    <value>Une erreur est survenue lors de l'enregistrement. Veuillez réessayer.</value>
+  </data>
+  <data name="RetirementSpending_DeleteError" xml:space="preserve">
+    <value>Une erreur est survenue lors de la suppression. Veuillez réessayer.</value>
+  </data>
+  <data name="Sidebar_Spending" xml:space="preserve">
+    <value>Dépenses</value>
+  </data>
   <data name="Sidebar_NewScenario" xml:space="preserve">
     <value>Nouveau scénario</value>
   </data>
@@ -215,6 +452,63 @@
   </data>
   <data name="Sidebar_Cashflow" xml:space="preserve">
     <value>Flux de trésorerie</value>
+  </data>
+  <data name="Cashflow_Label_Employment" xml:space="preserve">
+    <value>Emploi</value>
+  </data>
+  <data name="Cashflow_Label_SelfEmployment" xml:space="preserve">
+    <value>Travail autonome</value>
+  </data>
+  <data name="Cashflow_Label_DefinedBenefits" xml:space="preserve">
+    <value>Retraite</value>
+  </data>
+  <data name="Cashflow_Label_OasCpp" xml:space="preserve">
+    <value>SV / RPC</value>
+  </data>
+  <data name="Cashflow_Label_OtherIncome" xml:space="preserve">
+    <value>Autres revenus</value>
+  </data>
+  <data name="Cashflow_Label_RealEstateIncome" xml:space="preserve">
+    <value>Revenus immobiliers</value>
+  </data>
+  <data name="Cashflow_Label_OtherPersistingIncome" xml:space="preserve">
+    <value>Autres revenus persistants</value>
+  </data>
+  <data name="Cashflow_Label_TotalIncome" xml:space="preserve">
+    <value>Revenu total</value>
+  </data>
+  <data name="Cashflow_Label_LivingExpenses" xml:space="preserve">
+    <value>Dépenses courantes</value>
+  </data>
+  <data name="Cashflow_Label_DiscretionaryExpenses" xml:space="preserve">
+    <value>Dépenses discrétionnaires</value>
+  </data>
+  <data name="Cashflow_Label_DebtRepayments" xml:space="preserve">
+    <value>Remboursements de dettes</value>
+  </data>
+  <data name="Cashflow_Label_AssetsExpenses" xml:space="preserve">
+    <value>Dépenses d'actifs</value>
+  </data>
+  <data name="Cashflow_Label_OtherExpenses" xml:space="preserve">
+    <value>Autres dépenses</value>
+  </data>
+  <data name="Cashflow_Label_TotalExpenses" xml:space="preserve">
+    <value>Dépenses totales</value>
+  </data>
+  <data name="Cashflow_Label_Savings" xml:space="preserve">
+    <value>Épargne</value>
+  </data>
+  <data name="Cashflow_Toggle_Yearly" xml:space="preserve">
+    <value>Annuel</value>
+  </data>
+  <data name="Cashflow_Toggle_Monthly" xml:space="preserve">
+    <value>Mensuel</value>
+  </data>
+  <data name="Cashflow_Title_Current" xml:space="preserve">
+    <value>Flux de trésorerie actuel</value>
+  </data>
+  <data name="Cashflow_Title_OverTime" xml:space="preserve">
+    <value>Flux de trésorerie dans le temps</value>
   </data>
   <data name="NetWorth_Title" xml:space="preserve">
     <value>Valeur nette</value>
@@ -263,6 +557,9 @@
   </data>
   <data name="NetWorth_Col_DebtAgainst" xml:space="preserve">
     <value>Dette liée</value>
+  </data>
+  <data name="NetWorth_Col_RealValue" xml:space="preserve">
+    <value>Valeur nette</value>
   </data>
   <data name="NetWorth_Type_Home" xml:space="preserve">
     <value>Immobilier</value>
@@ -578,6 +875,36 @@
   </data>
   <data name="Income_Other_AddIncome" xml:space="preserve">
     <value>Ajouter un revenu / prestation</value>
+  </data>
+  <data name="Sidebar_Income_PropertyIncome" xml:space="preserve">
+    <value>Revenus locatifs</value>
+  </data>
+  <data name="Income_PropertyIncome_Title" xml:space="preserve">
+    <value>Revenus locatifs</value>
+  </data>
+  <data name="Income_PropertyIncome_Subtitle" xml:space="preserve">
+    <value>Entrez les revenus de location que vous percevez de vos propriétés d'investissement.</value>
+  </data>
+  <data name="Income_PropertyIncome_SectionTitle" xml:space="preserve">
+    <value>Revenus locatifs</value>
+  </data>
+  <data name="Income_PropertyIncome_Hint" xml:space="preserve">
+    <value>Vos propriétés d'investissement sont préremplies ci-dessous. Vous pouvez également ajouter des revenus supplémentaires manuellement.</value>
+  </data>
+  <data name="Income_PropertyIncome_Item" xml:space="preserve">
+    <value>Propriété {0}</value>
+  </data>
+  <data name="Income_PropertyIncome_Name" xml:space="preserve">
+    <value>Nom de la propriété</value>
+  </data>
+  <data name="Income_PropertyIncome_Amount" xml:space="preserve">
+    <value>Montant du revenu</value>
+  </data>
+  <data name="Income_PropertyIncome_Frequency" xml:space="preserve">
+    <value>Fréquence</value>
+  </data>
+  <data name="Income_PropertyIncome_AddIncome" xml:space="preserve">
+    <value>Ajouter un revenu locatif</value>
   </data>
   <data name="Sidebar_Assets" xml:space="preserve">
     <value>Actifs</value>
@@ -966,8 +1293,11 @@
   <data name="Spending_Living_SectionTitle" xml:space="preserve">
     <value>Dépenses courantes</value>
   </data>
-  <data name="Spending_Living_RentOrMortgage" xml:space="preserve">
-    <value>Loyer ou hypothèque</value>
+  <data name="Spending_Living_Rent" xml:space="preserve">
+    <value>Loyer</value>
+  </data>
+  <data name="Spending_Living_Mortgage" xml:space="preserve">
+    <value>Hypothèque</value>
   </data>
   <data name="Spending_Living_Food" xml:space="preserve">
     <value>Alimentation et épicerie</value>
@@ -983,6 +1313,9 @@
   </data>
   <data name="Spending_Living_HomeMaintenance" xml:space="preserve">
     <value>Entretien domicile</value>
+  </data>
+  <data name="Spending_Living_PropertyTax" xml:space="preserve">
+    <value>Taxe foncière</value>
   </data>
   <data name="Spending_Living_Cellphone" xml:space="preserve">
     <value>Téléphone cellulaire</value>

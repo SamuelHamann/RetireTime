@@ -15,7 +15,7 @@ public partial class CreateSharePurchasePlanHandler(
 
         try
         {
-            var plan = new SharePurchasePlan { ScenarioId = request.ScenarioId };
+            var plan = new SharePurchasePlan { ScenarioId = request.ScenarioId, RetirementTimelineId = request.TimelineId };
             var created = await repository.CreateAsync(plan);
 
             LogSuccessfullyCompleted(logger, created.Id, request.ScenarioId);

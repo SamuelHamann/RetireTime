@@ -112,6 +112,27 @@
                             <ValidationMessage For="@(() => _assumptionsModel.YearlyPropertyAppreciation)" class="field-error" />
                         </div>
                     </div>
+                    <div class="field-row">
+                        <div class="field-row-item">
+                            <label class="field-question">Yearly House Maintenance</label>
+                            <div class="percent-input-wrapper">
+                                <input type="number" class="field-input percent-input" @bind="_assumptionsModel.YearlyHouseMaintenance" @bind:after="HandleSaveAssumptions" min="0" max="100" step="0.01" />
+                            </div>
+                            <ValidationMessage For="@(() => _assumptionsModel.YearlyHouseMaintenance)" class="field-error" />
+                        </div>
+                        <div class="field-row-item">
+                            <label class="field-question">Annual Salary Raise</label>
+                            <div class="percent-input-wrapper">
+                                <input type="number" class="field-input percent-input" @bind="_assumptionsModel.AnnualSalaryRaise" @bind:after="HandleSaveAssumptions" min="0" max="100" step="0.01" />
+                            </div>
+                            <ValidationMessage For="@(() => _assumptionsModel.AnnualSalaryRaise)" class="field-error" />
+                        </div>
+                        <div class="field-row-item">
+                            <label class="field-question">Life Expectancy</label>
+                            <input type="number" class="field-input" @bind="_assumptionsModel.LifeExpectancy" @bind:after="HandleSaveAssumptions" min="50" max="120" step="1" />
+                            <ValidationMessage For="@(() => _assumptionsModel.LifeExpectancy)" class="field-error" />
+                        </div>
+                    </div>
 
                     <!-- Stocks -->
                     <h3 class="assumptions-section-title mt-6">Stocks</h3>

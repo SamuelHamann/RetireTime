@@ -18,7 +18,8 @@ public partial class CreateEmploymentIncomeHandler(
             var employment = new EmploymentIncome
             {
                 ScenarioId = request.ScenarioId,
-                UserId = request.UserId
+                UserId = request.UserId,
+                RetirementTimelineId = request.TimelineId
             };
 
             var created = await employmentIncomeRepository.CreateAsync(employment);

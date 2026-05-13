@@ -6,16 +6,16 @@ namespace RetirementTime.Infrastructure.Repositories;
 
 public class OasCppIncomeRepository(ApplicationDbContext context) : IOasCppIncomeRepository
 {
-    public async Task<OasCppIncome?> GetByScenarioIdAsync(long scenarioId)
+    public async Task<OasCppIncome?> GetByScenarioIdAsync(long scenarioId, long timelineId)
     {
         return await context.OasCppIncomes
-            .FirstOrDefaultAsync(e => e.ScenarioId == scenarioId);
+            .FirstOrDefaultAsync(e => e.ScenarioId == scenarioId && e.RetirementTimelineId == timelineId);
     }
 
     public async Task<OasCppIncome> UpsertAsync(OasCppIncome income)
     {
         var existing = await context.OasCppIncomes
-            .FirstOrDefaultAsync(e => e.ScenarioId == income.ScenarioId);
+            .FirstOrDefaultAsync(e => e.ScenarioId == income.ScenarioId && e.RetirementTimelineId == income.RetirementTimelineId);
 
         if (existing == null)
         {

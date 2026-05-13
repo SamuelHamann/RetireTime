@@ -19,7 +19,7 @@ public partial class GetOtherExpensesHandler(
         LogStartingGet(logger, request.ScenarioId);
         try
         {
-            var expenses    = await repository.GetOtherExpensesAsync(request.ScenarioId);
+            var expenses    = await repository.GetOtherExpensesAsync(request.ScenarioId, request.TimelineId);
             var frequencies = await repository.GetFrequenciesAsync();
             LogSuccessGet(logger, request.ScenarioId);
             return new GetOtherExpensesResult { Expenses = expenses, Frequencies = frequencies };
@@ -37,9 +37,10 @@ public partial class GetOtherExpensesHandler(
         {
             var item = new SpendingOtherExpense
             {
-                ScenarioId  = request.ScenarioId,
-                Name        = string.Empty,
-                FrequencyId = (int)FrequencyEnum.Monthly,
+                ScenarioId           = request.ScenarioId,
+                RetirementTimelineId = request.TimelineId,
+                Name                 = string.Empty,
+                FrequencyId          = (int)FrequencyEnum.Monthly,
             };
             var created = await repository.CreateOtherExpenseAsync(item);
             return new CreateSpendingItemResult { Success = true, ItemId = created.Id };

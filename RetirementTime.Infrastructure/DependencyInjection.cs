@@ -20,6 +20,7 @@ public static class DependencyInjection
         services.AddRepositories();
         services.AddScoped<INetWorthSnapshotService, NetWorthSnapshotService>();
         services.AddScoped<INetWorthCalculationService, NetWorthCalculationService>();
+        services.AddScoped<ICashflowCalculationService, CashflowCalculationService>();
 
         return services;
     }
@@ -45,6 +46,7 @@ public static class DependencyInjection
         services.AddScoped<ISharePurchasePlanRepository, SharePurchasePlanRepository>();
         services.AddScoped<IOasCppIncomeRepository, OasCppIncomeRepository>();
         services.AddScoped<IOtherIncomeOrBenefitsRepository, OtherIncomeOrBenefitsRepository>();
+        services.AddScoped<IPropertyIncomeRepository, PropertyIncomeRepository>();
         services.AddScoped<IAssetsHomeRepository, AssetsHomeRepository>();
         services.AddScoped<IAssetsInvestmentPropertyRepository, AssetsInvestmentPropertyRepository>();
         services.AddScoped<IAssetsInvestmentAccountRepository, AssetsInvestmentAccountRepository>();
@@ -52,6 +54,8 @@ public static class DependencyInjection
         services.AddScoped<IGenericDebtRepository, GenericDebtRepository>();
         services.AddScoped<INetWorthHistoryRepository, NetWorthHistoryRepository>();
         services.AddScoped<ISpendingRepository, SpendingRepository>();
+        services.AddScoped<IRetirementTimelineRepository, RetirementTimelineRepository>();
+        services.AddScoped<IOasConstantsRepository, OasConstantsRepository>();
 
         return services;
     }

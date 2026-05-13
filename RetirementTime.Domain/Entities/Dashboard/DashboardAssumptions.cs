@@ -9,6 +9,9 @@ public class DashboardAssumptions
     // General
     public decimal YearlyInflationRate { get; set; }
     public decimal YearlyPropertyAppreciation { get; set; }
+    public decimal YearlyHouseMaintenance { get; set; }
+    public decimal AnnualSalaryRaise { get; set; }
+    public int LifeExpectancy { get; set; }
 
     // Stocks
     public decimal StockAllocation { get; set; }
