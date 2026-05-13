@@ -8,7 +8,7 @@ namespace RetirementTime.Domain.Services;
 /// <param name="AnnualPayment">The total amount paid toward the debt per year in this segment.</param>
 public record DebtPaymentSegment(int AgeFrom, int AgeTo, decimal AnnualPayment);
 
-/// <summary>The remaining debt balance at the start of a given age year.</summary>
-/// <param name="Age">The age of the user at the start of the year.</param>
+/// <summary>The remaining debt balance at the end of a given age year.</summary>
+/// <param name="Age">The age year that has just completed.</param>
 /// <param name="RemainingBalance">Remaining balance after interest and payment for that year (floored at zero).</param>
 public record DebtYearlyBalance(int Age, decimal RemainingBalance);
